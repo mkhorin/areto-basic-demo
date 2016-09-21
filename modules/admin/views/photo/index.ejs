@@ -1,0 +1,9 @@
+<% layout(view.get('_layouts/content')) -%>
+
+<% block('title', 'Photos') -%>
+
+<% view.setData('breadcrumbs', [{title: 'Photos'}]) %>
+
+<%- partial(view.get('_parts/list'), {
+    itemTemplate: 'photo/list-item'
+}) %>

@@ -1,0 +1,15 @@
+<p>
+    <%- model.get('createdAt').toLocaleString() %>
+    &nbsp;
+    <span class="badge badge-<%- model.get('status') %>">
+        <%- model.get('status') %>
+    </span>
+</p>
+
+<p>
+    <%= model.get('content') %>
+</p>
+
+<p>
+    <b><%= model.get('name') %></b>, <%- model.get('email') %>
+</p>

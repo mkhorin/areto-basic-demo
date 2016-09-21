@@ -1,0 +1,9 @@
+<% layout(view.get('_layouts/content')) -%>
+
+<% block('title', 'Comments') -%>
+
+<% view.setData('breadcrumbs', [{title: 'Comments'}]) %>
+
+<%- partial(view.get('_parts/list'), {
+    itemTemplate: 'comment/list-item'
+}) %>

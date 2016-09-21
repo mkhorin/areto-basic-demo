@@ -1,0 +1,14 @@
+<!-- _parts/auth/captcha -->
+<%
+    let name = model.getFormAttributeName(attr);
+    let holder = typeof placeholder === 'undefined' ? model.getLabel(attr) : placeholder;
+    let error = t(model.getFirstError(attr));
+%>
+<div class="captcha mb10" data-url="<%- url %>">
+    <img src="<%- `${url}?_=${controller.timestamp}` %>" class="captcha-image">
+</div>
+<div class="form-group has-feedback <%- error ? 'has-error' : '' %>">
+    <input name="<%- name %>" type="text" class="form-control" placeholder="<%- holder %>"/>
+    <span class="form-control-feedback <%- iconClass %>"></span>
+    <div class="hint-block"><%- error %></div>
+</div>

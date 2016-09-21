@@ -1,0 +1,20 @@
+<% layout(view.get('_layouts/view')) -%>
+
+<% block('title', 'Photo') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Photos', url: '/admin/photo'},
+    {title: model.getId()}
+]) %>
+
+<% let stat = view.get('_parts/fields/static'); %>
+
+<%- partial(stat, {attr: 'originalName'}) %>
+<%- partial(stat, {attr: 'filename'}) %>
+<%- partial(stat, {attr: 'size'}) %>
+<%- partial(stat, {attr: 'mime'}) %>
+<%- partial(stat, {attr: 'ip'}) %>
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: model.get('createdAt').toLocaleString()
+}) %>

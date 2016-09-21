@@ -1,0 +1,35 @@
+
+<%- partial(view.get('_parts/fields/radiolist'), {
+    attr: 'status',
+    items: model.getStatusSelect()
+}) %>
+
+<%- partial(view.get('_parts/fields/datepicker'), {
+    attr: 'date'
+}) %>
+
+<%- partial(view.get('_parts/fields/input'), {
+    attr: 'title'
+}) %>
+
+<%- partial(view.get('_parts/fields/text'), {
+    attr: 'content',
+    rows: 8
+}) %>
+
+<% let tags = model.get('tags'); %>
+<%- partial(view.get('_parts/fields/input'), {
+    attr: 'tags',
+    value: tags instanceof Array ? tags.map(function (tag) { return tag.getTitle(); }).join(', ') : tags
+}) %>
+
+<%- partial(view.get('_parts/fields/uploader'), {
+    attr: 'files',
+    url: 'photo/upload',
+    options: {
+        maxFiles: 3,
+        maxSize: 2000000,
+        onlyImage: true
+    },
+    files: model.get('files')
+}) %>

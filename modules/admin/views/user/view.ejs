@@ -1,0 +1,28 @@
+<% layout(view.get('_layouts/view')) -%>
+
+<% block('title', 'User') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Users', url: '/admin/user'},
+    {title: model.getId()}
+]) %>
+
+<% let stat = view.get('_parts/fields/static'); %>
+
+<%- partial(stat, {attr: 'status'}) %>
+
+<%- partial(stat, {attr: 'name'}) %>
+
+<%- partial(stat, {attr: 'email'}) %>
+
+<%- partial(stat, {attr: 'role'}) %>
+
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: model.get('createdAt').toLocaleString()
+}) %>
+
+<%- partial(stat, {
+    attr: 'updatedAt',
+    value: model.get('updatedAt').toLocaleString()
+}) %>

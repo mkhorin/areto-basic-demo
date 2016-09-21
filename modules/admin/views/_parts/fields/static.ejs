@@ -1,0 +1,22 @@
+<!-- _parts/fields/static -->
+<%
+    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
+    let _value = typeof value === 'undefined' ? model.get(attr) : value;
+    let _escaping = typeof escaping === 'undefined' ? true : escaping;
+%>
+<div class="form-group">
+    <label class="col-sm-2 control-label"><%- _label %></label>
+    <div class="col-sm-10">
+        <div class="form-control-static">
+            <% if (_value === undefined) { %>
+            <span class="text-danger">[undefined]</span>
+            <% } else if (_value === null) { %>
+            <span class="text-danger">[null]</span>
+            <% } else if (_escaping) { %>
+            <%= _value %>
+            <% } else { %>
+            <%- _value %>
+            <% } %>
+        </div>
+    </div>
+</div>

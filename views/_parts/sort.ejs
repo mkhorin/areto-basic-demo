@@ -1,0 +1,16 @@
+
+Sort by
+<div class="dropdown inline-block">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <% let link = sort.getLink(Object.keys(sort.getOrders())[0]) %>
+        <span class="glyphicon glyphicon-arrow-<%- link.options.class === 'asc' ? 'up' : 'down' %>"></span>
+        <%- link.label %>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <% for (let attr in sort.attributes) { %>
+        <% let link = sort.getLink(attr); %>
+        <li><a href="<%- link.url %>"><%- link.label %></a></li>
+        <% } %>
+    </ul>
+</div>

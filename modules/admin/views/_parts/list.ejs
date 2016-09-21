@@ -1,0 +1,71 @@
+
+<% let _routePrefix = typeof routePrefix === 'undefined' ? '' : routePrefix; %>
+
+<div class="list-controls clearfix">
+    <% if (typeof search === 'undefined') { %>
+    Search
+    <div class="input-group">
+        <input class="form-control" value="<%- controller.getQueryParam('search') %>">
+        <span class="input-group-btn">
+           <button type="button" class="btn btn-default list-search">
+               <span class="glyphicon glyphicon-search"></span>
+           </button>
+        </span>
+    </div>
+    &nbsp; &nbsp;
+    <% } %>
+
+    <% if (provider.sort) { %>
+    <%- partial(view.get('_parts/sort'), {
+        sort: provider.sort
+    }) %>
+    <% } %>
+
+    <div class="pull-right">
+        <% if (typeof create === 'undefined') { %>
+        <a href="<%- u(`${_routePrefix}create`) %>" class="btn btn-success">Create</a>
+        <% } else if (create) { %>
+        <a href="<%- create %>" class="btn btn-success">Create</a>
+        <% } %>
+    </div>
+</div>
+
+
+<% if (provider.models.length) { %>
+
+<% let _itemTemplate = typeof itemTemplate === 'undefined' ? null : view.get(itemTemplate); %>
+
+<% for (let model of provider.models ) { %>
+<div class="list-item clearfix">
+    <div class="list-item-controls">
+        <a href="<%- u([`${_routePrefix}view`, model]) %>" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
+        <a href="<%- u([`${_routePrefix}update`, model]) %>" class="btn btn-info btn-xs">
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
+        <button class="btn btn-danger btn-xs delete-object-ajax" type="button"
+                data-url="<%- u([`${_routePrefix}delete`, model]) %>"
+                data-confirm="Remove this object?">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>
+    <% if (_itemTemplate) { %>
+    <%- partial(_itemTemplate, {model}) %>
+    <% } else { %>
+    <%= model.getTitle() %>
+    <% } %>
+</div>
+<% } %>
+
+<% if (provider.pagination) { %>
+<%- partial(view.get('_parts/pagination'), {
+    pager: provider.pagination
+}) %>
+<% } %>
+
+<% } else { %>
+<div class="alert alert-warning">
+    Items not found
+</div>
+<% } %>

@@ -1,0 +1,15 @@
+<% layout(view.get('_layouts/main')) -%>
+
+<% block('title', '403') -%>
+<% view.setData('breadcrumbs', [{title: 403}]) %>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="error-page">
+            <div class="text-center">
+                <h1 class="text-danger">Access denied</h1>
+                <p>Access is restricted to authorized users.</p>
+            </div>
+        </div>
+    </div>
+</div>

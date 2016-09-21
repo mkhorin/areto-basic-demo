@@ -1,0 +1,19 @@
+<%
+    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
+    let _rel = model.get(attr);
+%>
+<div class="form-group">
+    <label class="col-sm-2 control-label"><%- _label %></label>
+    <div class="col-sm-10">
+        <p class="form-control-static">
+            <% if (_rel) { %>
+            <% let _controller = _rel.createDefaultController(); %>
+            <a href="<%- _controller.createUrl(['view', _rel]) %>">
+                <%- _rel.getTitle() %>
+            </a>
+            <% } else { %>
+            <i class="text-danger">[not set]</i>
+            <% } %>
+        </p>
+    </div>
+</div>

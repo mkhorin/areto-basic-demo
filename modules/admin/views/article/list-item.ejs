@@ -1,0 +1,16 @@
+
+<% let photo = model.get('mainPhoto'); %>
+<% if (photo) { %>
+    <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive pull-left">
+<% } %>
+
+<h3><%= model.getTitle() %></h3>
+<p>
+    <%- model.get('date').toLocaleDateString() %>
+    &nbsp;
+    <span class="badge badge-<%- model.get('status') %>">
+        <%- model.get('status') %>
+    </span>
+    &nbsp;
+    <%- model.get('author').getTitle() %>
+</p>

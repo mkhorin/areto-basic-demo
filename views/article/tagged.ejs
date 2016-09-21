@@ -1,0 +1,22 @@
+<% layout(view.get('_layouts/content')) -%>
+
+<% block('title', 'Articles') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Articles', url: '/article'},
+    {title: 'Tagged'}
+]) %>
+
+<h3 class="mt0 mb30">
+    Tag: <span class="text-danger"><%= tagName %></span>
+</h3>
+
+<% if (typeof provider !== 'undefined') { %>
+<%- partial(view.get('_parts/list'), {
+    itemTemplate: 'article/list-item'
+}) %>
+<% } else { %>
+<div class="alert alert-danger">
+    Tagged articles not found
+</div>
+<% } %>

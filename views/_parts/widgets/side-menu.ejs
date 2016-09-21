@@ -1,0 +1,8 @@
+
+<% if (widget.items) { %>
+<ul class="nav nav-pills nav-stacked nav-side">
+    <% for (let item of widget.items) { %>
+    <li class="<%- item.active ? 'active' : ''%>"><a href="<%- item.url %>"><%- item.title %></a></li>
+    <% } %>
+</ul>
+<% } %>

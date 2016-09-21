@@ -1,0 +1,10 @@
+<% layout(view.get('_layouts/form')) -%>
+
+<% block('title', 'Create article') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Articles', url: '/admin/article'},
+    {title: 'Create'}
+]) %>
+
+<% include form %>

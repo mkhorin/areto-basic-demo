@@ -1,0 +1,27 @@
+<!-- _parts/fields/select -->
+<%
+    let _id = typeof id === 'undefined' ? model.getFormAttributeId(attr) : id;
+    let _name = typeof name === 'undefined' ?  model.getFormAttributeName(attr) : name;
+    let _value = typeof value === 'undefined' ? model.get(attr) : value;
+    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
+    let _required = model.isAttributeRequired(attr) ? ' required' : '';
+    let _error = t(model.getFirstError(attr));
+    let _itemValueKey = typeof itemValueKey === 'undefined' ? model.PK : itemValueKey;
+    let _itemLabelKey = typeof itemLabelKey === 'undefined' ? 'name' : itemLabelKey;
+%>
+<div class="form-group<%- _required %> <%- _error ? 'has-error' : '' %>">
+    <label for="<%- _id %>" class="col-sm-2 control-label"><%- _label %></label>
+    <div class="col-sm-10">
+        <select id="<%- _id %>" name="<%- _name %>" class="form-control">
+        <% if (typeof empty !== 'undefined') { %>
+            <option value=""><%- empty %></option>
+        <% } %>
+        <% for (let item of items) { %>
+            <option <%- item[_itemValueKey].toString() == _value ? 'selected' : '' %> value="<%- item[_itemValueKey] %>">
+                <%= item[_itemLabelKey] %>
+            </option>
+        <% } %>
+        </select>
+        <div class="hint-block"><%- _error %></div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<% layout(view.get('_layouts/form')) -%>
+
+<% block('title', 'Update user') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Users', url: '/admin/user'},
+    {title: model.getId()}
+]) %>
+
+<% include form %>

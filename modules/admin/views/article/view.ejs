@@ -1,0 +1,65 @@
+<% layout(view.get('_layouts/view')) -%>
+
+<% block('title', 'Article') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Articles', url: '/admin/article'},
+    {title: model.getId()}
+]) %>
+
+<% let stat = view.get('_parts/fields/static'); %>
+
+<%- partial(stat, {attr: 'title'}) %>
+
+<%- partial(stat, {
+    attr: 'date',
+    value: model.get('date').toLocaleDateString()
+}) %>
+
+<%- partial(stat, {attr: 'status'}) %>
+
+<%- partial(stat, {
+    attr: 'author',
+    value: model.get('author').getTitle()
+}) %>
+
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: model.get('createdAt').toLocaleString()
+}) %>
+
+<%- partial(stat, {
+    attr: 'updatedAt',
+    value: model.get('updatedAt').toLocaleString()
+}) %>
+
+<%- partial(view.get('_parts/fields/relation'), {
+    attr: 'tags',
+    viewRoute: 'tag/view'
+}) %>
+
+<%- partial(stat, {
+    attr: 'content',
+    escaping: false
+}) %>
+
+<%- partial(view.get('_parts/fields/relation'), {
+    attr: 'mainPhoto',
+    itemTemplate: view.get('article/thumb-item'),
+    viewRoute: 'photo/view'
+}) %>
+
+<%- partial(view.get('_parts/fields/relation'), {
+    attr: 'photos',
+    itemTemplate: view.get('article/thumb-item'),
+    viewRoute: 'photo/view'
+}) %>
+
+<%- partial(view.get('_parts/fields/list'), {
+    attr: 'comments',
+    provider: comments,
+    itemTemplate: 'article/comment-item',
+    create: u(['comment/create', model]),
+    search: null,
+    routePrefix: 'comment/'
+}) %>

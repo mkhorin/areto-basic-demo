@@ -1,0 +1,18 @@
+<% layout(view.get('_layouts/view')) -%>
+
+<% block('title', 'Tag') -%>
+
+<% view.setData('breadcrumbs', [
+    {title: 'Tags', url: '/admin/tag'},
+    {title: model.getId()}
+]) %>
+
+<%- partial(view.get('_parts/fields/static'), {attr: 'name'}) %>
+
+<%- partial(view.get('_parts/fields/list'), {
+    attr: 'articles',
+    provider: articles,
+    create: null,
+    search: null,
+    routePrefix: 'article/'
+}) %>

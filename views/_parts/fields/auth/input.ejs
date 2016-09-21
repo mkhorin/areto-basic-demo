@@ -1,0 +1,12 @@
+<!-- _parts/auth/input -->
+<%
+    let name = model.getFormAttributeName(attr);
+    let value = model.get(attr);
+    let error = t(model.getFirstError(attr));
+    let holder = typeof placeholder === 'undefined' ? model.getLabel(attr) : placeholder;
+%>
+<div class="form-group has-feedback <%- error ? 'has-error' : '' %>">
+    <input name="<%- name %>" type="text" class="form-control" placeholder="<%- holder %>" value="<%- value %>"/>
+    <span class="form-control-feedback <%- iconClass %>"></span>
+    <div class="hint-block"><%- error %></div>
+</div>

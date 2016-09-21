@@ -1,0 +1,18 @@
+<%
+    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
+    let _items = model.get(attr);
+    let _thumbSize = typeof thumbSize === 'undefined' ? undefined : thumbSize;
+%>
+<div class="form-group">
+    <label class="col-sm-2 control-label"><%- _label %></label>
+    <div class="col-sm-10">
+        <div class="form-control-static thumb-list clearfix">
+        <% if (_items instanceof Array) { %>
+            <% for (let item of _items) { %>
+            <a href="<%- u([viewRoute, item]) %>" class="thumb-item">
+                <img src="<%- item.getThumb(_thumbSize) %>" class="thumbnail img-responsive">
+            </a>
+        <% }} %>
+        </div>
+    </div>
+</div>

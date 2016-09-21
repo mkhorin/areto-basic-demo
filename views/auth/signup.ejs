@@ -1,0 +1,39 @@
+<% let title = t('app', 'Sign up'); %>
+
+<% layout(view.get('_layouts/main')) -%>
+<% block('title', title) -%>
+<% view.setData('breadcrumbs', [{label: title}]) %>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+
+        <h3 class="login-box-msg"><%- t('app', 'Sign up new user') %></h3>
+
+        <form action="<%- controller.createUrl('signup') %>" method="post">
+            <%- partial(view.get('_parts/fields/auth/input'), {
+                attr: 'name',
+                iconClass: 'glyphicon glyphicon-user'
+            }) %>
+            <%- partial(view.get('_parts/fields/auth/input'), {
+                attr: 'email',
+                iconClass: 'glyphicon glyphicon-envelope'
+            }) %>
+            <%- partial(view.get('_parts/fields/auth/password'), {
+                attr: 'password',
+                iconClass: 'glyphicon glyphicon-lock'
+            }) %>
+            <%- partial(view.get('_parts/fields/auth/password'), {
+                attr: 'passwordRepeat',
+                iconClass: 'glyphicon glyphicon-lock'
+            }) %>
+            <%- partial(view.get('_parts/fields/auth/captcha'), {
+                attr: 'captchaCode',
+                iconClass: 'glyphicon glyphicon-check',
+                url: controller.createUrl('captcha')
+            }) %>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary"><%- title %></button>
+            </div>
+        </form>
+    </div>
+</div>

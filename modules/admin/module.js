@@ -1,0 +1,23 @@
+'use strict';
+
+let Base = require('areto/base/Module');
+
+class Admin extends Base {
+
+    static getConstants ()  {
+        return {
+            BEHAVIORS: {
+                access: {
+                    Class: require('areto/filters/AccessControl'),
+                    rules: [{
+                        allow: true,
+                        roles: ['reader'],
+                        //controllers: []
+                    }]
+                }
+            }
+        };
+    }
+}
+
+module.exports = new (Admin.init(module));

@@ -1,0 +1,23 @@
+
+<%- partial(view.get('_parts/fields/select'), {
+    attr: 'articleId',
+    label: 'Article',
+    items: articles,
+    empty: '-',
+    itemLabelKey: 'title'
+}) %>
+
+<%- partial(view.get('_parts/fields/input'), {
+    attr: 'title'
+}) %>
+
+<% let file = model.get('file'); %>
+<%- partial(view.get('_parts/fields/uploader'), {
+    attr: 'file',
+    url: 'file/upload',
+    options: {
+        maxSize: 2000000,
+        onlyImage: true
+    },
+    files: file ? [file.model] : null
+}) %>

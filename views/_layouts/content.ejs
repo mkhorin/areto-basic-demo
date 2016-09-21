@@ -1,0 +1,36 @@
+<% layout(view.get('_layouts/main')) -%>
+
+<div class="row">
+    <div class="col-sm-8">
+        <%- body -%>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/article/search" method="get">
+                    <div class="input-group">
+                        <input type="text" name="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <%- view.createWidget('recentComments', {
+            id: 'recentComments'
+        }) %>
+
+        <%- view.createWidget('tagList', {
+            id: 'tagList'
+        }) %>
+    </div>
+
+</div>
