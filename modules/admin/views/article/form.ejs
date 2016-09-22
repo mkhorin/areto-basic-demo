@@ -17,11 +17,14 @@
     rows: 8
 }) %>
 
+<% if (!model.isNewRecord) { %>
 <% let tags = model.get('tags'); %>
 <%- partial(view.get('_parts/fields/input'), {
     attr: 'tags',
-    value: tags instanceof Array ? tags.map(function (tag) { return tag.getTitle(); }).join(', ') : tags
+    value: tags instanceof Array ? tags.map(function (tag) { return tag.getTitle(); }).join(', ') : tags,
+    hint: 'Split by comma'
 }) %>
+<% } %>
 
 <%- partial(view.get('_parts/fields/uploader'), {
     attr: 'files',

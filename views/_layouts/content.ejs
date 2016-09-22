@@ -6,7 +6,7 @@
     </div>
 
     <div class="col-sm-4">
-        <div class="panel panel-warning">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">Search</h3>
             </div>
@@ -24,12 +24,12 @@
             </div>
         </div>
 
-        <%- view.createWidget('recentComments', {
-            id: 'recentComments'
-        }) %>
-
         <%- view.createWidget('tagList', {
             id: 'tagList'
+        }) %>
+
+        <%- view.createWidget('recentComments', {
+            id: 'recentComments'
         }) %>
     </div>
 

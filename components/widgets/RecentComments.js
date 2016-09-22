@@ -9,7 +9,7 @@ module.exports = class RecentComments extends Base {
             status: Comment.STATUS_APPROVED
         }).orderBy({
             createdAt: 'DESC'
-        }).limit(5).all((err, models)=> {
+        }).limit(3).all((err, models)=> {
             if (err) {
                 cb(err);
             } else {

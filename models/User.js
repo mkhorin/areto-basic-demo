@@ -30,7 +30,7 @@ module.exports = class User extends Base {
 
     init () {
         super.init();
-        this.set('role', 'reader');
+        this.set('role', 'author');
         this.set('status', 'active');
     }
 

@@ -6,40 +6,71 @@
     <div class="col-sm-6">
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title">Articles</h3>
+                <h3 class="panel-title">
+                    <a href="/admin/article">Articles</a>
+                </h3>
             </div>
             <div class="panel-body">
-                Published: <b>44</b>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <span class="text-succes">Published - <b><%- published %></b></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <span class="text-gray">Drafts - <b><%- drafts %></b></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <span class="text-warning">Archived - <b><%- archived %></b></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <span class="text-danger">Blocked - <b><%- blocked %></b></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                <h3 class="panel-title">Photos</h3>
+                <h3 class="panel-title">
+                    <a href="/admin/photo">Photos</a>
+                </h3>
             </div>
             <div class="panel-body">
-                Published: <b>44</b>
+                Total - <b><%- photos %></b>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="panel panel-danger">
+        <div class="panel panel-warning">
             <div class="panel-heading">
-                <h3 class="panel-title">Tags</h3>
+                <h3 class="panel-title">
+                    <a href="/admin/tag">Tags</a>
+                </h3>
             </div>
             <div class="panel-body">
-                Total: <b>44</b>
+                Total - <b><%- tags %></b>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">Comments</h3>
+                <h3 class="panel-title">
+                    <a href="/admin/comment">Comments</a>
+                </h3>
             </div>
             <div class="panel-body">
-                Approved: <b>414</b>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <span class="text-gray">Pending - <b><%- pending %></b></span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="text-success">Approved - <b><%- approved %></b></span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="text-danger">Rejected - <b><%- rejected %></b></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

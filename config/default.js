@@ -30,7 +30,7 @@ module.exports = {
             }
         },
         'cache': {            
-            // Class: require('areto/caching/MemoryCache')
+             Class: require('areto/caching/MemoryCache')
         },
         'cookie': {},
         'session': {
@@ -41,7 +41,7 @@ module.exports = {
             }
         },
         'bodyParser': {
-            limit: '12mb'
+            limit: '10mb'
         },
         'viewEngine': {
             engine: require('ejs-locals'), 

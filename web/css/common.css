@@ -83,7 +83,9 @@ table.detail-view tr th { width:300px; text-align:right; }
 .breadcrumb-wrapper { margin-bottom: 30px; padding-top:54px; font-size:90%; background:#eee; }
 .breadcrumb-wrapper .breadcrumb { margin-bottom:0; padding: 8px 0; background:none; }
  
-.captcha img { height:36px; } 
+.captcha img { height:36px; }
+.captcha-refresh { font-size: 16px; margin-left:10px; opacity: 0.5; vertical-align: sub; }
+.captcha-refresh:hover { opacity:1.0; }
 
 /***/
 

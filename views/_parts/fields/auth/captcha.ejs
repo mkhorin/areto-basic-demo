@@ -6,6 +6,9 @@
 %>
 <div class="captcha mb10" data-url="<%- url %>">
     <img src="<%- `${url}?_=${controller.timestamp}` %>" class="captcha-image">
+    <a class="captcha-refresh" href="<%- `${url}?_=` %>" >
+        <span class="glyphicon glyphicon-refresh"></span>
+    </a>
 </div>
 <div class="form-group has-feedback <%- error ? 'has-error' : '' %>">
     <input name="<%- name %>" type="text" class="form-control" placeholder="<%- holder %>"/>

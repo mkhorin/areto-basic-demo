@@ -9,7 +9,9 @@ module.exports = class AuthController extends Base {
             ACTIONS: {
                 'captcha': {
                     Class: require('areto/captcha/CaptchaAction'),
-                    fixedVerifyCode: '123'
+                    minLength: 3,
+                    maxLength: 4,
+                    // fixedVerifyCode: '123'
                 }
             }
         };
