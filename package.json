@@ -9,7 +9,7 @@
     "url": "https://github.com/mkhorin/areto-basic-demo.git"
   },
   "dependencies": {
-    "areto": "^0.5.3",
+    "areto": "^0.5.4",
     "ejs-locals": "^1.0.2",
     "multer": "^1.2.0"
   }

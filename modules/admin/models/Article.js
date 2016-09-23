@@ -83,8 +83,9 @@ module.exports = class Article extends Base {
 
     validateTags (cb, attr, params) {
         try {
+            let helper = require('areto/helpers/array');
             let items = this.get(attr).split(',');
-            items = items.map(item => item.trim()).filter(item => item).unique();
+            items = helper.unique(items.map(item => item.trim()).filter(item => item)); 
             this.unlinkAll('tags', err => {
                 async.eachSeries(items, this.resolveTag.bind(this), cb);
             });
