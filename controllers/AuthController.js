@@ -66,5 +66,4 @@ module.exports = class AuthController extends Base {
 };
 module.exports.init(module);
 
-let event = require('areto/base/ExtEvent');
 let RateLimit = require('../models/RateLimit');

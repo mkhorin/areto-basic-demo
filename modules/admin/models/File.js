@@ -1,7 +1,7 @@
 'use strict';
 
 let Base = require('areto/db/ActiveRecord');
-let helper = require('areto/helpers/main');
+let helper = require('areto/helpers/MainHelper');
 let path = require('path');
 let fs = require('fs');
 let multer = require('multer');

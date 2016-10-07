@@ -5,9 +5,7 @@ let Base = require('../components/Controller');
 module.exports = class DefaultController extends Base {
 
     actionIndex () {
-        this.render('index', {
-            title: 'Main'
-        });
+        this.send('Hello blog');
     }
 
     actionError () {
@@ -31,5 +29,3 @@ module.exports = class DefaultController extends Base {
     }
 };
 module.exports.init(module);
-
-let BadRequestHttpException = require('areto/errors/BadRequestHttpException');
