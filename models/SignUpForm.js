@@ -31,11 +31,6 @@ module.exports = class SignUpForm extends Base {
         };
     }
 
-    init () {
-        super.init();        
-        this._user = false;
-    }
-
     signUp (webuser, cb) {
         this.validate(err => {
             if (err || this.hasError()) {

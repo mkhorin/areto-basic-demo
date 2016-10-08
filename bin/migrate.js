@@ -1,9 +1,7 @@
 'use strict';
 
-require('areto/helpers/init');
-
 let app = require('../module');
-let helper = require('areto/helpers/Main');
+let helper = require('areto/helpers/MainHelper');
 
 app.configure('development', err => {
     err || app.migrate(helper.getScriptArgs(), err => {
