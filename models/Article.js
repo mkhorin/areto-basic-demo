@@ -53,7 +53,7 @@ module.exports = class Article extends Base {
     }
 
     relPhotos () {
-        return this.hasMany(Photo, ['articleId', this.PK], true);
+        return this.hasMany(Photo, ['articleId', this.PK]);
     }
     
     relMainPhoto () {
@@ -61,7 +61,7 @@ module.exports = class Article extends Base {
     }
 
     relComments () {
-        return this.hasMany(Comment, ['articleId', this.PK], true)
+        return this.hasMany(Comment, ['articleId', this.PK])
             .where({status: Comment.STATUS_APPROVED});
     }
 

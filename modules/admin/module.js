@@ -11,8 +11,7 @@ class Admin extends Base {
                     Class: require('areto/filters/AccessControl'),
                     rules: [{
                         allow: true,
-                        roles: ['reader'],
-                        //controllers: []
+                        roles: ['reader']
                     }]
                 }
             }

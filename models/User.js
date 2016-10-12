@@ -45,7 +45,11 @@ module.exports = class User extends Base {
     isBanned () {
         return this.get('status') === 'banned';
     }
-   
+
+    getAssignments (cb) {
+        cb(null, [this.get('role')]);
+    }
+
     // EVENTS
 
     beforeSave (cb, insert) {

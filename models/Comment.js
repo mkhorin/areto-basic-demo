@@ -55,13 +55,5 @@ module.exports = class Comment extends Base {
     isRejected () {
         return this.get('status') === this.STATUS_REJECTED;
     }
-
-    getStatusSelect () {
-        return [
-            { value: this.STATUS_PENDING, label: 'Pending' },
-            { value: this.STATUS_APPROVED, label: 'Approved' },
-            { value: this.STATUS_REJECTED, label: 'Rejected' }
-        ];
-    }
 };
 module.exports.init(module);

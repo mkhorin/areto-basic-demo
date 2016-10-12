@@ -2,6 +2,18 @@
 
 module.exports = {
 
+    // PERMISSIONS
+
+    'updateArticle': {
+        type: 'permission'
+    },
+
+    'updateOwnArticle': {
+        type: 'permission',
+        children: ['updateArticle'],
+        rule: 'author'
+    },
+    
     // ROLES
 
     'admin': {
@@ -34,17 +46,5 @@ module.exports = {
 
     'reader': {
         type: 'role'
-    },
-
-    // PERMISSIONS
-
-    'updateArticle': {
-        type: 'permission'
-    },
-
-    'updateOwnArticle': {
-        type: 'permission',
-        children: ['updateArticle'],
-        rule: 'author'
     }
 };

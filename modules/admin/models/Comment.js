@@ -20,6 +20,14 @@ module.exports = class Comment extends Base {
         return query;
     }
 
+    getStatusSelect () {
+        return [
+            { value: this.STATUS_PENDING, label: 'Pending' },
+            { value: this.STATUS_APPROVED, label: 'Approved' },
+            { value: this.STATUS_REJECTED, label: 'Rejected' }
+        ];
+    }
+
     relArticle () {
         return this.hasOne(Article, [Article.PK, 'articleId']);
     }
