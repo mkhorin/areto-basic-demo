@@ -1,11 +1,7 @@
 'use strict';
 
 let Base = require('areto/db/ActiveRecord');
-let helper = require('areto/helpers/MainHelper');
 let path = require('path');
-let fs = require('fs');
-let multer = require('multer');
-let mkdirp = require('mkdirp');
 
 module.exports = class File extends Base {
 
@@ -109,14 +105,10 @@ module.exports = class File extends Base {
             err ? cb(err) : fs.unlink(this.getPath(), cb);
         });
     }
-
-    // RELATIONS
-
-    relArticle () {
-        return this.hasOne(Article, [Article.PK, 'articleId']);
-    }
-    
 };
 module.exports.init(module);
 
-let Article = require('./Article');
+let helper = require('areto/helpers/MainHelper');
+let fs = require('fs');
+let multer = require('multer');
+let mkdirp = require('mkdirp');

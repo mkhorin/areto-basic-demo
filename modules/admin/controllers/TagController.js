@@ -10,8 +10,6 @@ module.exports = class TagController extends Base {
                 access: {
                     Class: require('areto/filters/AccessControl'),
                     rules: [{
-                        //actions: ['update'],
-                        //roles: ['updateTag']
                         actions: ['create'],
                         roles: ['editor']
                     },{
@@ -30,7 +28,7 @@ module.exports = class TagController extends Base {
         let Class = this.getModelClass();
         let provider = new ActiveDataProvider({
             controller: this,
-            query: Class.findBySearch(this.getQueryParam('search')).with('author', 'mainPhoto'),
+            query: Class.findBySearch(this.getQueryParam('search')),
             sort: {
                 attributes: {
                     [Class.PK]: true,

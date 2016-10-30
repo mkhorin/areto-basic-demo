@@ -57,5 +57,4 @@ module.exports = class CrudController extends Base {
         });
     }
 };
-module.exports.init(module);
 

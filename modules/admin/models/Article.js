@@ -1,7 +1,6 @@
 'use strict';
 
 let Base = require('../../../models/Article');
-let async = require('async');
 
 module.exports = class Article extends Base {
 
@@ -26,7 +25,6 @@ module.exports = class Article extends Base {
                 ['status', 'range', {range: ['draft','published','archived','blocked']}],
                 ['files', 'safe'],
                 ['tags', 'validateTags', {skipOnAnyError: true}]
-                
             ],
             BEHAVIORS: {
                 timestamp: require('areto/behaviors/Timestamp')
@@ -44,14 +42,12 @@ module.exports = class Article extends Base {
     }
     
     static findToSelect () {
-        return this.find().select(['title']).asArray(true);
+        return this.find().select(['title']).asArray();
     }
 
     init () {
         super.init();
         this.set('status', this.STATUS_DRAFT);
-        this.set('nComments', 0);
-        this.set('rating', 0);
     }
 
     getStatusSelect () {
@@ -72,11 +68,11 @@ module.exports = class Article extends Base {
         });                
     }
 
-    afterSave (cb) {
+    afterSave (cb, insert) {
         super.afterSave(err => {
             if (err) return cb(err);
             this.createPhotos(this.get('files'), cb);
-        });
+        }, insert);
     }
 
     // TAGS
@@ -94,15 +90,15 @@ module.exports = class Article extends Base {
         }
     }
 
-    resolveTag (item, cb) {
-        Tag.findByName(item).one((err, model)=> {
+    resolveTag (name, cb) {
+        Tag.findByName(name).one((err, model)=> {
             if (err) {
                 cb(err);
             } else if (model) {
                 this.link('tags', model, cb);
             } else {
                 model = new Tag;
-                model.set('name', item);
+                model.set('name', name);
                 model.save(err => {
                     model.isNewRecord ? cb(err) : this.link('tags', model, cb);
                 });
@@ -153,7 +149,7 @@ module.exports = class Article extends Base {
     }
 
     relPhotos () {
-        return this.hasMany(Photo, ['articleId', this.PK], true);
+        return this.hasMany(Photo, ['articleId', this.PK]);
     }
     
     relMainPhoto () {
@@ -171,6 +167,7 @@ module.exports = class Article extends Base {
 };
 module.exports.init(module);
 
+let async = require('async');
 let Comment = require('./Comment');
 let Tag = require('./Tag');
 let File = require('./File');

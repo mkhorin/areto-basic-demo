@@ -1,12 +1,7 @@
 'use strict';
 
 let Base = require('areto/base/Behavior');
-let helper = require('areto/helpers/MainHelper');
 let path = require('path');
-let fs = require('fs');
-let gm = require('gm');
-let mkdirp = require('mkdirp');
-let async = require('async');
 
 module.exports = class File extends Base {
 
@@ -199,4 +194,9 @@ module.exports = class File extends Base {
     }
 };
 
+let helper = require('areto/helpers/MainHelper');
+let fs = require('fs');
+let gm = require('gm');
+let mkdirp = require('mkdirp');
+let async = require('async');
 let ActiveRecord = require('areto/db/ActiveRecord');

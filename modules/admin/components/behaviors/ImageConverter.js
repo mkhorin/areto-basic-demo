@@ -1,9 +1,6 @@
 'use strict';
 
 let Base = require('./File');
-let path = require('path');
-let gm = require('gm');
-let mkdirp = require('mkdirp');
 
 module.exports = class ImageConverter extends Base {
 
@@ -40,3 +37,7 @@ module.exports = class ImageConverter extends Base {
         });
     }
 };
+
+let path = require('path');
+let gm = require('gm');
+let mkdirp = require('mkdirp');
