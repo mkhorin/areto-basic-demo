@@ -24,3 +24,7 @@ node bin/server
 
 ### Go!
 http://localhost:3000
+
+### Tutorial
+- [Build a blog with Areto framework](http://nervebit.com/areto/blog/)
+
