@@ -25,7 +25,7 @@ module.exports = class PhotoController extends Base {
             query: Class.find().with(['article']), //BySearch(this.getQueryParam('search')),
             pagination: {},
             sort: {
-                attributes: {
+                attrs: {
                     [Class.PK]: true,
                     title: true
                 },

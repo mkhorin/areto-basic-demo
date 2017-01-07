@@ -4,7 +4,7 @@ module.exports = {
     port: 8888,
     components: {
         'logger': {
-            level: 'info'
+            level: 'trace'
         }
     }
 };

@@ -22,7 +22,7 @@ module.exports = class DefaultController extends Base {
                 approved: cb => Comment.find().where({status: Comment.STATUS_APPROVED}).count(cb),
                 rejected: cb => Comment.find().where({status: Comment.STATUS_REJECTED}).count(cb)
             }, (err, result)=> {
-                this.render('index', result, cb);
+                err ? cb(err) : this.render('index', result, cb);
             });
         }, (err, content)=> {
             err ? this.throwError(err) : this.send(content);

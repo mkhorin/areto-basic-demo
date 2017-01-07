@@ -26,7 +26,7 @@ module.exports = class FileController extends Base {
             query: Class.find(),
             pagination: {},
             sort: {
-                attributes: {
+                attrs: {
                     [Class.PK]: true,
                     originalName: true,
                     size: true

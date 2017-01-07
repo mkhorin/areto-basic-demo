@@ -30,7 +30,7 @@ module.exports = class TagController extends Base {
             controller: this,
             query: Class.findBySearch(this.getQueryParam('search')),
             sort: {
-                attributes: {
+                attrs: {
                     [Class.PK]: true,
                     name: true
                 },
@@ -50,7 +50,7 @@ module.exports = class TagController extends Base {
                 controller: this,
                 query: model.relArticles(),
                 sort: {
-                    attributes: {
+                    attrs: {
                         [model.PK]: true
                     },
                     defaultOrder: {

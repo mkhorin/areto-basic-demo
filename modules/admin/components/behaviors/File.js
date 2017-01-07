@@ -8,8 +8,8 @@ module.exports = class File extends Base {
     constructor (config) {
         super(Object.assign({
             // FileClass: require('../models/File'),
-            fileAttr: 'file', // owner attribute with uploaded file
-            // filenameAttr: 'filename', // owner attribute with filename
+            fileAttr: 'file', // owner attr with uploaded file
+            // filenameAttr: 'filename', // owner attr with filename
             // dirs can be public or private
             // storeDir: path.join(__dirname, '../uploads/files'),
             // thumbDir: path.join(__dirname, '../web/thumbs'),

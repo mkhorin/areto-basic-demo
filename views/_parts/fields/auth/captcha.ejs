@@ -1,6 +1,6 @@
 <!-- _parts/auth/captcha -->
 <%
-    let name = model.getFormAttributeName(attr);
+    let name = model.getFormAttrName(attr);
     let holder = typeof placeholder === 'undefined' ? model.getLabel(attr) : placeholder;
     let error = t(model.getFirstError(attr));
 %>

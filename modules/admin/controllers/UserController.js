@@ -28,7 +28,7 @@ module.exports = class UserController extends Base {
             controller: this,
             query: Class.findBySearch(this.getQueryParam('search')),
             sort: {
-                attributes: {
+                attrs: {
                     [Class.PK]: true,
                     name: true,
                     email: true,

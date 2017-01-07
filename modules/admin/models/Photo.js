@@ -20,7 +20,7 @@ module.exports = class Photo extends Base {
                 ['articleId', 'filter', {filter: 'ObjectId'}],
                 ['articleId', 'exist', {
                     targetClass: require('./Article'),
-                    targetAttribute: this.PK
+                    targetAttr: this.PK
                 }]
             ],
             BEHAVIORS: {

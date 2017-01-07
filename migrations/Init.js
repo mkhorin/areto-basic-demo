@@ -10,7 +10,7 @@ module.exports = class Init extends Base {
             cb => this.db.createIndex('user', [{email: 1}, {unique: true}], cb),
             cb => {
                 let user = new User;
-                user.setAttributes({
+                user.setAttrs({
                     name: 'Administrator',
                     email: 'a@a.a',
                     role: 'admin',

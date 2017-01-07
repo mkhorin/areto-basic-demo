@@ -13,7 +13,7 @@ module.exports = class ArticleController extends Base {
             controller: this,
             query: this.getModelClass().findPublished(),
             sort: {
-                attributes: {
+                attrs: {
                     date: true,
                     title: true
                 },
@@ -47,7 +47,7 @@ module.exports = class ArticleController extends Base {
                     controller: this,
                     query: tag.relArticles(),
                     sort: {
-                        attributes: {
+                        attrs: {
                             date: true,
                             title: true
                         },
@@ -66,7 +66,7 @@ module.exports = class ArticleController extends Base {
             controller: this,
             query: this.getModelClass().findBySearch(this.getQueryParam('text')),
             sort: {
-                attributes: {
+                attrs: {
                     date: true,
                     title: true
                 },

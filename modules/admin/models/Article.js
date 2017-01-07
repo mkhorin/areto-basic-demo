@@ -79,12 +79,16 @@ module.exports = class Article extends Base {
 
     validateTags (cb, attr, params) {
         try {
-            let helper = require('areto/helpers/ArrayHelper');
-            let items = this.get(attr).split(',');
-            items = helper.unique(items.map(item => item.trim()).filter(item => item)); 
-            this.unlinkAll('tags', err => {
-                async.eachSeries(items, this.resolveTag.bind(this), cb);
-            });
+            let items = this.get(attr);
+            if (typeof items === 'string') {
+                let helper = require('areto/helpers/ArrayHelper');
+                items = helper.unique(items.map(item => item.trim()).filter(item => item));
+                this.unlinkAll('tags', err => {
+                    async.eachSeries(items, this.resolveTag.bind(this), cb);
+                });
+            } else {
+                cb();
+            }
         } catch (err) {
             cb(err);
         }

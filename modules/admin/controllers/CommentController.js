@@ -15,7 +15,7 @@ module.exports = class CommentController extends Base {
             query: this.getModelClass().findBySearch(this.getQueryParam('search')),
             pagination: {},
             sort: {
-                attributes: {
+                attrs: {
                     _id: true,
                     status: true
                 },

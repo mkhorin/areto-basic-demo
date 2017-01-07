@@ -15,7 +15,7 @@ module.exports = class ArticleController extends Base {
             query: Class.findBySearch(this.getQueryParam('search')).with('author', 'mainPhoto'),
             pagination: {},
             sort: {
-                attributes: {
+                attrs: {
                     [Class.PK]: true,
                     status: true,
                     title: true
@@ -36,7 +36,7 @@ module.exports = class ArticleController extends Base {
                 controller: this,
                 query: model.relComments(),
                 sort: {
-                    attributes: {
+                    attrs: {
                         [model.PK]: true
                     },
                     defaultOrder: {

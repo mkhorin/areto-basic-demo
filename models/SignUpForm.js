@@ -18,7 +18,7 @@ module.exports = class SignUpForm extends Base {
                     CaptchaController: require('../controllers/AuthController')
                 }],
                 ['password', 'string', {min: 6, max: 24}],
-                ['passwordRepeat', 'compare', {compareAttribute: 'password'}],
+                ['passwordRepeat', 'compare', {compareAttr: 'password'}],
                 [['name', 'email'], 'unique', {
                     skipOnAnyError: true, 
                     targetClass: User, 
@@ -37,7 +37,7 @@ module.exports = class SignUpForm extends Base {
                 cb(err);
             } else {
                 let model = new User;
-                model.assignAttributes(this);
+                model.assignAttrs(this);
                 model.save(err => {
                     if (model.hasError()) {
                         this.addError('name', model.getFirstError());

@@ -1,7 +1,7 @@
 <!-- _parts/fields/checkbox -->
 <%
-    let _id = typeof id === 'undefined' ? model.getFormAttributeId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttributeName(attr) : name;
+    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
+    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
     let _value = typeof value === 'undefined' ?  (model.get(attr) ? true : false) : value;
     let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
 %>
