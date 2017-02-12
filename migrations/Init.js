@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/db/Migration');
-let User = require('../models/User');
+const Base = require('areto/db/Migration');
+const User = require('../models/User');
 
 module.exports = class Init extends Base {
    

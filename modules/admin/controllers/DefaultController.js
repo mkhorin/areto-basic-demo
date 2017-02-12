@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('../components/Controller');
-let async = require('async');
+const Base = require('../components/Controller');
+const async = require('async');
 
 module.exports = class DefaultController extends Base {
 

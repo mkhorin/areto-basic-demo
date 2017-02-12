@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/base/Widget');
+const Base = require('areto/base/Widget');
 
 module.exports = class RecentComments extends Base {
 
@@ -20,4 +20,4 @@ module.exports = class RecentComments extends Base {
     }
 };
 
-let Comment = require('../../models/Comment');
+const Comment = require('../../models/Comment');

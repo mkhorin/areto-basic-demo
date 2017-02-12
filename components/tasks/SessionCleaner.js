@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/base/Task');
+const Base = require('areto/base/Task');
 
 module.exports = class SessionCleaner extends Base {
 

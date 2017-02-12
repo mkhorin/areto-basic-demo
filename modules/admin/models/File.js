@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/db/ActiveRecord');
-let path = require('path');
+const Base = require('areto/db/ActiveRecord');
+const path = require('path');
 
 module.exports = class File extends Base {
 
@@ -75,7 +75,7 @@ module.exports = class File extends Base {
     }
 
     generateFilename (req, file, cb) {
-        cb(null, Date.now().toString() + helper.getRandom(11, 99));
+        cb(null, Date.now().toString() + MainHelper.getRandom(11, 99));
     }
 
     populateFileStats (file, controller) {
@@ -108,7 +108,7 @@ module.exports = class File extends Base {
 };
 module.exports.init(module);
 
-let helper = require('areto/helpers/MainHelper');
-let fs = require('fs');
-let multer = require('multer');
-let mkdirp = require('mkdirp');
+const MainHelper = require('areto/helpers/MainHelper');
+const fs = require('fs');
+const multer = require('multer');
+const mkdirp = require('mkdirp');

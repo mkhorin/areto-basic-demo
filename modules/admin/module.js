@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/base/Module');
+const Base = require('areto/base/Module');
 
 class Admin extends Base {
 

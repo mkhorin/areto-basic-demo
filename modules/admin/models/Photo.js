@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('../../../models/Photo');
-let path = require('path');
+const Base = require('../../../models/Photo');
+const path = require('path');
 
 module.exports = class Photo extends Base {
 
@@ -46,4 +46,4 @@ module.exports = class Photo extends Base {
 };
 module.exports.init(module);
 
-let Article = require('./Article');
+const Article = require('./Article');

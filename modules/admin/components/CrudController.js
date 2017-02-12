@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('./Controller');
+const Base = require('./Controller');
 
 module.exports = class CrudController extends Base {
 

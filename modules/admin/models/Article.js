@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../../../models/Article');
+const Base = require('../../../models/Article');
 
 module.exports = class Article extends Base {
 
@@ -81,8 +81,8 @@ module.exports = class Article extends Base {
         try {
             let items = this.get(attr);
             if (typeof items === 'string') {
-                let helper = require('areto/helpers/ArrayHelper');
-                items = helper.unique(items.split(',').map(item => item.trim()).filter(item => item));
+                let ArrayHelper = require('areto/helpers/ArrayHelper');
+                items = ArrayHelper.unique(items.split(',').map(item => item.trim()).filter(item => item));
                 this.unlinkAll('tags', err => {
                     async.eachSeries(items, this.resolveTag.bind(this), cb);
                 });
@@ -171,9 +171,9 @@ module.exports = class Article extends Base {
 };
 module.exports.init(module);
 
-let async = require('async');
-let Comment = require('./Comment');
-let Tag = require('./Tag');
-let File = require('./File');
-let Photo = require('./Photo');
-let User = require('./User');
+const async = require('async');
+const Comment = require('./Comment');
+const Tag = require('./Tag');
+const File = require('./File');
+const Photo = require('./Photo');
+const User = require('./User');

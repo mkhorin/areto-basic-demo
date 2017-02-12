@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/base/Model');
-let User = require('./User');
+const Base = require('areto/base/Model');
+const User = require('./User');
 
 const CAPTCHA_SCENARIO = 'captcha';
 const REMEMBER_PERIOD = 3600 * 24 * 7;

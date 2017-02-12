@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../../../components/Controller');
+const Base = require('../../../components/Controller');
 
 module.exports = class Controller extends Base {
 

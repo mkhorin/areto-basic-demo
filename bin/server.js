@@ -1,8 +1,11 @@
 'use strict';
 
-let app = require('../module');
+const app = require('../module');
 
 app.configure(process.env.NODE_ENV, err => {
-    err || app.start(err => {});
+    if (err) {
+        return console.error(err);
+    }  
+    app.start(err => {});
 });
 

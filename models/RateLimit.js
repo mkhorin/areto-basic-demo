@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/db/ActiveRecord');
+const Base = require('areto/db/ActiveRecord');
 
 module.exports = class RateLimit extends Base {
 

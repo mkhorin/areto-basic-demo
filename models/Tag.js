@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/db/ActiveRecord');
+const Base = require('areto/db/ActiveRecord');
 
 module.exports = class Tag extends Base {
 
@@ -30,4 +30,4 @@ module.exports = class Tag extends Base {
 };
 module.exports.init(module);
 
-let Article = require('./Article');
+const Article = require('./Article');

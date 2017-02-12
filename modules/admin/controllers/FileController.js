@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../components/CrudController');
+const Base = require('../components/CrudController');
 
 module.exports = class FileController extends Base {
 

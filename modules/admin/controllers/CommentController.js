@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../components/CrudController');
+const Base = require('../components/CrudController');
 
 module.exports = class CommentController extends Base {
 
@@ -59,4 +59,4 @@ module.exports = class CommentController extends Base {
 };
 module.exports.init(module);
 
-let Article = require('../models/Article');
+const Article = require('../models/Article');

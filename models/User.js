@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/web/UserIdentity');
-let security = require('areto/helpers/SecurityHelper');
+const Base = require('areto/web/UserIdentity');
+const security = require('areto/helpers/SecurityHelper');
 
 module.exports = class User extends Base {
 

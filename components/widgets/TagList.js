@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/base/Widget');
-let async = require('async');
+const Base = require('areto/base/Widget');
+const async = require('async');
 
 module.exports = class TagList extends Base {
 

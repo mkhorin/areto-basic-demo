@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../components/CrudController');
+const Base = require('../components/CrudController');
 
 module.exports = class TagController extends Base {
 
@@ -67,4 +67,4 @@ module.exports = class TagController extends Base {
 };
 module.exports.init(module);
 
-let ActiveDataProvider = require('areto/data/ActiveDataProvider');
+const ActiveDataProvider = require('areto/data/ActiveDataProvider');

@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/base/Controller');
+const Base = require('areto/base/Controller');
 
 module.exports = class BaseController extends Base {
 

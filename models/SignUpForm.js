@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/base/Model');
-let User = require('./User');
+const Base = require('areto/base/Model');
+const User = require('./User');
 
 module.exports = class SignUpForm extends Base {
 

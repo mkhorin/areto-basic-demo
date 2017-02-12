@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('../../../models/Comment');
+const Base = require('../../../models/Comment');
 
 module.exports = class Comment extends Base {
 
@@ -34,4 +34,4 @@ module.exports = class Comment extends Base {
 };
 module.exports.init(module);
 
-let Article = require('./Article');
+const Article = require('./Article');

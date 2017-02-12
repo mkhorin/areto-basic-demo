@@ -1,6 +1,6 @@
 'use strict';
 
-let Base = require('areto/base/Widget');
+const Base = require('areto/base/Widget');
 
 module.exports = class SideMenu extends Base {
 

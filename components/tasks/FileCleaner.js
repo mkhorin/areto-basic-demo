@@ -1,7 +1,7 @@
 'use strict';
 
-let Base = require('areto/base/Task');
-let async = require('async');
+const Base = require('areto/base/Task');
+const async = require('async');
 
 module.exports = class FileCleaner extends Base {
 
