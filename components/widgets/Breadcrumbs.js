@@ -15,4 +15,3 @@ module.exports = class Breadcrumbs extends Base {
         this.render('_parts/widgets/breadcrumbs', cb, this.params);
     }
 };
-module.exports.init(module);

@@ -7,7 +7,7 @@ module.exports = class Tag extends Base {
     static getConstants () {
         return {
             TABLE: 'tag',
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'name'
             ],
             RULES: [

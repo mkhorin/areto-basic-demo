@@ -7,7 +7,7 @@ module.exports = class RateLimit extends Base {
     static getConstants () {
         return {
             TABLE: 'rate_limit',
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'ip',
                 'type',
                 'counter'

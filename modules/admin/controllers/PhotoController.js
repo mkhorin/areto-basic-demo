@@ -53,7 +53,7 @@ module.exports = class PhotoController extends Base {
             if (this.isPost()) {
                 model.load(this.getBodyParams()).save(err => {
                     err ? this.throwError(err)
-                        : model.isNewRecord ? this.render('create', params) :  this.backToRef();
+                        : model.isNewRecord() ? this.render('create', params) :  this.backToRef();
                 });
             } else this.render('create', params);
         });

@@ -19,6 +19,5 @@ module.exports = class RecentComments extends Base {
         });
     }
 };
-module.exports.init(module);
 
 let Comment = require('../../models/Comment');

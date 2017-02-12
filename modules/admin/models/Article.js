@@ -6,7 +6,7 @@ module.exports = class Article extends Base {
 
     static getConstants () {
         return {
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'status',
                 'authorId',
                 'date',
@@ -82,7 +82,7 @@ module.exports = class Article extends Base {
             let items = this.get(attr);
             if (typeof items === 'string') {
                 let helper = require('areto/helpers/ArrayHelper');
-                items = helper.unique(items.map(item => item.trim()).filter(item => item));
+                items = helper.unique(items.split(',').map(item => item.trim()).filter(item => item));
                 this.unlinkAll('tags', err => {
                     async.eachSeries(items, this.resolveTag.bind(this), cb);
                 });
@@ -104,7 +104,7 @@ module.exports = class Article extends Base {
                 model = new Tag;
                 model.set('name', name);
                 model.save(err => {
-                    model.isNewRecord ? cb(err) : this.link('tags', model, cb);
+                    model.isNewRecord() ? cb(err) : this.link('tags', model, cb);
                 });
             }
         });

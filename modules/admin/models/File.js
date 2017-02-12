@@ -8,7 +8,7 @@ module.exports = class File extends Base {
     static getConstants () {
         return {
             TABLE: 'file',
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'userId',
                 'originalName',
                 'filename',

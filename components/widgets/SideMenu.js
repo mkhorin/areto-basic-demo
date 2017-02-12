@@ -19,4 +19,3 @@ module.exports = class SideMenu extends Base {
         }
     }
 };
-module.exports.init(module);

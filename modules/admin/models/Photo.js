@@ -8,7 +8,7 @@ module.exports = class Photo extends Base {
     static getConstants () {
         return {
             TABLE: 'photo',
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'title',
                 'filename',
                 'articleId'

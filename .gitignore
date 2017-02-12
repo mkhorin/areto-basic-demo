@@ -1,11 +1,11 @@
 /.hg/*
 /.idea/*
 
-# uploads
+config/*-local.js
 
-modules/admin/uploads
-web/photos
-
+/uploads
+/web/photos
+/modules/admin/uploads
 
 # Logs
 logs

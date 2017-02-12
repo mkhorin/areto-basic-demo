@@ -26,4 +26,3 @@ module.exports = class TagList extends Base {
         });
     }
 };
-module.exports.init(module);

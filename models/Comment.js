@@ -7,7 +7,7 @@ module.exports = class Comment extends Base {
     static getConstants () {
         return {
             TABLE: 'comment',
-            STORED_ATTRIBUTES: [                 
+            STORED_ATTRS: [                 
                 'articleId', 
                 'name',
                 'email',

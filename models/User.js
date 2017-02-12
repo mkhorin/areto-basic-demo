@@ -8,7 +8,7 @@ module.exports = class User extends Base {
     static getConstants () {
         return {
             TABLE: 'user',
-            STORED_ATTRIBUTES: [
+            STORED_ATTRS: [
                 'name', 
                 'email', 
                 'role', 

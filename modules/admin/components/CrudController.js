@@ -11,7 +11,7 @@ module.exports = class CrudController extends Base {
             model.load(this.getBodyParams()).save(err => {
                 if (err) {
                     this.throwError(err);
-                } else if (model.isNewRecord) {
+                } else if (model.isNewRecord()) {
                     this.render('create', {model});
                 } else {
                     this.backToRef();
