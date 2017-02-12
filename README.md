@@ -6,24 +6,32 @@
 - [Graphics Magick](http://www.graphicsmagick.org)
 
 ### Linux
-Copy application to /areto-basic-demo
+Clone application to /areto-basic-demo
 ```sh
 cd /areto-basic-demo
 npm install
+node bin/migrate apply migrations/Init
 NODE_ENV=development node bin/server
 ```
 
 ### Windows
-Copy application to c:/areto-basic-demo
+Clone application to c:/areto-basic-demo
 ```sh
 cd /d c:/areto-basic-demo
 npm install
+node bin/migrate apply migrations/Init
 set NODE_ENV=development
 node bin/server
 ```
 
 ### Go!
 http://localhost:3000
+
+Admin module
+```sh
+Email: a@a.a
+Password: 123456
+```   
 
 ### Tutorial
 - [Build a blog with Areto framework](http://nervebit.com/areto/blog/)
