@@ -30,7 +30,7 @@ module.exports = class Tag extends Base {
     }
 
     relArticles () {
-        return this.hasMany(Article, [Article.PK, 'articleId'], true)
+        return this.hasMany(Article, [Article.PK, 'articleId']).removeOnUnlink()
             .viaTable('rel_article_tag', ['tagId', this.PK]);
     }
 };

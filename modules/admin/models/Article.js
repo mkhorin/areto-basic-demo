@@ -29,7 +29,7 @@ module.exports = class Article extends Base {
             BEHAVIORS: {
                 timestamp: require('areto/behaviors/Timestamp')
             },
-            UNLINK_ON_REMOVE: ['photos']
+            UNLINK_ON_REMOVE: ['photos','comments']
         };
     }
 
@@ -161,11 +161,11 @@ module.exports = class Article extends Base {
     }
 
     relComments () {
-        return this.hasMany(Comment, ['articleId', this.PK], true);
+        return this.hasMany(Comment, ['articleId', this.PK]).removeOnUnlink();
     }
 
     relTags () {
-        return this.hasMany(Tag, [Tag.PK, 'tagId'], true)
+        return this.hasMany(Tag, [Tag.PK, 'tagId']).removeOnUnlink()
             .viaTable('rel_article_tag', ['articleId', this.PK]);
     }
 };
