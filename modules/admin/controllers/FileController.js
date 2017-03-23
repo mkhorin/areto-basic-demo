@@ -32,7 +32,7 @@ module.exports = class FileController extends Base {
                     size: true
                 },
                 defaultOrder: {
-                    [Class.PK]: 'DESC'
+                    [Class.PK]: -1
                 }
             }
         });

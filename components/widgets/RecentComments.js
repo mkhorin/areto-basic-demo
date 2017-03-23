@@ -8,7 +8,7 @@ module.exports = class RecentComments extends Base {
         Comment.find({
             status: Comment.STATUS_APPROVED
         }).orderBy({
-            createdAt: 'DESC'
+            createdAt: -1
         }).limit(3).all((err, models)=> {
             if (err) {
                 cb(err);

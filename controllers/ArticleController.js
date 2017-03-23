@@ -17,7 +17,7 @@ module.exports = class ArticleController extends Base {
                     date: true,
                     title: true
                 },
-                defaultOrder: {date: 'DESC'}
+                defaultOrder: {date: -1}
             }
         });
         provider.prepare(err => {
@@ -51,7 +51,7 @@ module.exports = class ArticleController extends Base {
                             date: true,
                             title: true
                         },
-                        defaultOrder: {date: 'DESC'}
+                        defaultOrder: {date: -1}
                     }
                 });
                 provider.prepare(err => {
@@ -70,7 +70,7 @@ module.exports = class ArticleController extends Base {
                     date: true,
                     title: true
                 },
-                defaultOrder: {date: 'DESC'}
+                defaultOrder: {date: -1}
             }
         });
         provider.prepare(err => {

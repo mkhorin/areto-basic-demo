@@ -30,7 +30,7 @@ module.exports = class PhotoController extends Base {
                     title: true
                 },
                 defaultOrder: {
-                    [Class.PK]: 'DESC'
+                    [Class.PK]: -1
                 }
             }
         });

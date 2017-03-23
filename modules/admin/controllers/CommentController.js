@@ -20,7 +20,7 @@ module.exports = class CommentController extends Base {
                     status: true
                 },
                 defaultOrder: {
-                    _id: 'DESC'
+                    _id: -1
                 }
             }
         });

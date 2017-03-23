@@ -21,7 +21,7 @@ module.exports = class ArticleController extends Base {
                     title: true
                 },
                 defaultOrder: {
-                    [Class.PK]: 'DESC'
+                    [Class.PK]: -1
                 }
             }
         });
@@ -40,7 +40,7 @@ module.exports = class ArticleController extends Base {
                         [model.PK]: true
                     },
                     defaultOrder: {
-                        [model.PK]: 'DESC'
+                        [model.PK]: -1
                     }
                 }
             });

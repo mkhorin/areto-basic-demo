@@ -35,7 +35,7 @@ module.exports = class UserController extends Base {
                     role: true
                 },
                 defaultOrder: {
-                    [Class.PK]: 'DESC'
+                    [Class.PK]: -1
                 }
             }
         });

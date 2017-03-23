@@ -35,7 +35,7 @@ module.exports = class TagController extends Base {
                     name: true
                 },
                 defaultOrder: {
-                    [Class.PK]: 'DESC'
+                    [Class.PK]: -1
                 }
             }
         });
@@ -54,7 +54,7 @@ module.exports = class TagController extends Base {
                         [model.PK]: true
                     },
                     defaultOrder: {
-                        [model.PK]: 'DESC'
+                        [model.PK]: -1
                     }
                 }
             });
