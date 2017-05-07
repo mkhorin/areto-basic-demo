@@ -32,7 +32,7 @@ module.exports = class File extends Base {
         this._events[ActiveRecord.EVENT_BEFORE_VALIDATE] = 'beforeValidate';
         this._events[ActiveRecord.EVENT_BEFORE_INSERT] = 'beforeInsert';
         this._events[ActiveRecord.EVENT_BEFORE_UPDATE] = 'beforeUpdate';
-        this._events[ActiveRecord.EVENT_AFTER_DELETE] = 'afterDelete';
+        this._events[ActiveRecord.EVENT_AFTER_REMOVE] = 'afterRemove';
     }
   
     getPath () {
@@ -58,34 +58,37 @@ module.exports = class File extends Base {
         if (file instanceof this.FileClass) {
             this.fileModel = file;
             this.owner.set(this.fileAttr, file.getFileStats());
+            return cb();
+        }
+        if (!file) {
+            return cb();
+        }
+        this.FileClass.findById(file).one((err, model)=> {
+            if (err || !model) {
+                return cb(err);
+            }
+            this.fileModel = model;
+            this.owner.set(this.fileAttr, model.getFileStats());
             cb();
-        } else if (file) {
-            this.FileClass.findById(file).one((err, model)=> {
-                if (model) {
-                    this.fileModel = model;
-                    this.owner.set(this.fileAttr, model.getFileStats());
-                    cb();
-                } else cb(err);
-            });
-        } else cb();
+        });
     }
 
     beforeInsert (event, cb) {
-        this.fileModel ? this.checkFile(err => {
-            err ? cb(err) : this.processFile(cb);
-        }) : cb();
+        this.fileModel ? async.series([
+            this.checkFile.bind(this),
+            this.processFile.bind(this)
+        ], cb) : cb();
     }
 
     beforeUpdate (event, cb) {
-        this.fileModel ? this.checkFile(err => {
-            // remove old files before save new
-            err ? cb(err) : this.removeFiles(()=> {
-                this.processFile(cb);
-            });
-        }) : cb();
+        this.fileModel ? async.series([
+            this.checkFile.bind(this),
+            cb => this.removeFiles(()=> cb()),
+            this.processFile.bind(this)
+        ], cb) : cb();
     }
 
-    afterDelete (event, cb) {
+    afterRemove (event, cb) {
         this.removeFiles(cb);
     }
 
@@ -97,23 +100,23 @@ module.exports = class File extends Base {
             fs.stat(filePath, (err, stats)=> {
                 err ? cb(err) : stats.isFile() ? cb() : cb(`This is not file: ${filePath}`);
             });
-        } else cb(`File model is not set`);
+        } else {
+            cb(`File model is not set`);
+        }    
     }
 
     processFile (cb) {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        mkdirp(path.dirname(destPath), err => {
-            err ? cb(err) : fs.rename(this.fileModel.getPath(), destPath, err => {
-                if (err) {
-                    return cb(err);
-                }
+        async.series([
+            cb => mkdirp(path.dirname(destPath), cb),
+            cb => fs.rename(this.fileModel.getPath(), destPath, cb),
+            cb => {
                 this.owner.set(this.filenameAttr, filename);
-                this.generateThumbs(err => {
-                    err ? cb(err) : this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb();
-                });
-            });
-        });
+                this.generateThumbs(cb);
+            },
+            cb => this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb()
+        ], cb);
     }
 
     createFilename (file) {
@@ -190,7 +193,9 @@ module.exports = class File extends Base {
             } catch (err) {
                 cb(err);
             }
-        } else cb(null, image);
+        } else {
+            cb(null, image);
+        }
     }
 };
 

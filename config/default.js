@@ -16,14 +16,8 @@ module.exports = {
                 user: '',
                 password: '',
                 options: {
-                    db: {
-                        bufferMaxEntries: 0
-                    },
-                    server: {
-                        socketOptions: {
-                            keepAlive: 1
-                        }
-                    }
+                    bufferMaxEntries: 0,
+                    keepAlive: 1
                 }
             }
         },

@@ -100,8 +100,8 @@ module.exports = class File extends Base {
 
     // EVENTS
 
-    afterDelete (cb) {
-        super.afterDelete(err => {
+    afterRemove (cb) {
+        super.afterRemove(err => {
             err ? cb(err) : fs.unlink(this.getPath(), cb);
         });
     }
