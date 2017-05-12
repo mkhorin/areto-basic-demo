@@ -17,15 +17,12 @@ module.exports = class RateLimit extends Base {
     }
 
     static findByIp (type, ip, cb) {
-        this.find({ip, type}).one((err, model)=> {
-            if (!model) {
-                model = new this;
-                model.set('type', type);
-                model.set('ip', ip);
-                model.set('counter', 0);
+        async.waterfall([
+            cb => this.find({ip, type}).one(cb),
+            (model, cb)=> {
+                cb(null, model ? model : new this({type, ip, counter: 0}));
             }
-            cb(err, model);
-        });
+        ], cb);
     }
 
     isExceeded () {
@@ -43,3 +40,5 @@ module.exports = class RateLimit extends Base {
     }
 };
 module.exports.init(module);
+
+const async = require('async');

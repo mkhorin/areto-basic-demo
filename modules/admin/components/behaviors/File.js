@@ -95,14 +95,13 @@ module.exports = class File extends Base {
     // PROCESS
 
     checkFile (cb) {
-        if (this.fileModel) {
-            let filePath = this.fileModel.getPath();
-            fs.stat(filePath, (err, stats)=> {
-                err ? cb(err) : stats.isFile() ? cb() : cb(`This is not file: ${filePath}`);
-            });
-        } else {
-            cb(`File model is not set`);
-        }    
+        if (!this.fileModel) {
+            return cb(`File model is not set`);
+        }
+        let filePath = this.fileModel.getPath();
+        fs.stat(filePath, (err, stats)=> {
+            err ? cb(err) : stats.isFile() ? cb() : cb(`This is not file: ${filePath}`);
+        });
     }
 
     processFile (cb) {
@@ -146,14 +145,13 @@ module.exports = class File extends Base {
     // THUMBS
 
     generateThumbs (cb) {
-        if (this.neededThumbs instanceof Array && this.fileModel.isImage()) {
-            let image = gm(this.getPath());
-            async.eachSeries(this.neededThumbs, (width, cb)=> {
-                this.createThumb(image, width, cb);
-            }, cb);
-        } else {
-            cb();
+        if (!(this.neededThumbs instanceof Array) || !this.fileModel.isImage()) {
+            return cb();
         }
+        let image = gm(this.getPath());
+        async.eachSeries(this.neededThumbs, (width, cb)=> {
+            this.createThumb(image, width, cb);
+        }, cb);
     }
 
     createThumb (image, width, cb) {
@@ -199,8 +197,8 @@ module.exports = class File extends Base {
     }
 };
 
+const async = require('async');
 const fs = require('fs');
 const gm = require('gm');
 const mkdirp = require('mkdirp');
-const async = require('async');
 const ActiveRecord = require('areto/db/ActiveRecord');

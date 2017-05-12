@@ -52,26 +52,23 @@ module.exports = class File extends Base {
 
     upload (controller, cb) {
         let req = controller.req;
-        multer({
-            storage: multer.diskStorage({
-                destination: this.generateStoreDir.bind(this),
-                filename: this.generateFilename.bind(this)
-            })
-        }).single('file')(req, controller.res, err => {
-            if (err) {
-                cb(err);
-            } else {
+        async.series([
+            cb => multer({
+                storage: multer.diskStorage({
+                    destination: this.generateStoreDir.bind(this),
+                    filename: this.generateFilename.bind(this)
+                })
+            }).single('file')(req, controller.res, cb),
+            cb => {
                 this.populateFileStats(req.file, controller);
                 this.set('file', this.getFileStats());
                 this.save(cb);
             }
-        });
+        ], cb);
     }
 
     generateStoreDir (req, file, cb) {
-        mkdirp(this.STORE_DIR, err => {
-            cb(err, this.STORE_DIR);
-        });
+        mkdirp(this.STORE_DIR, err => cb(err, this.STORE_DIR));
     }
 
     generateFilename (req, file, cb) {
@@ -79,13 +76,15 @@ module.exports = class File extends Base {
     }
 
     populateFileStats (file, controller) {
-        this.set('userId', controller.user.getId());
-        this.set('originalName', file.originalname);
-        this.set('filename', file.filename);
-        this.set('mime', file.mimetype);
-        this.set('extension', path.extname(file.originalname).substring(1).toLowerCase());
-        this.set('size', file.size);
-        this.set('ip', controller.req.ip);
+        this.setAttrs({
+            userId: controller.user.getId(),
+            originalName: file.originalname,
+            filename: file.filename,
+            mime: file.mimetype,
+            extension: path.extname(file.originalname).substring(1).toLowerCase(),
+            size: file.size,
+            ip: controller.req.ip
+        });
     }
 
     getFileStats () {
@@ -101,14 +100,16 @@ module.exports = class File extends Base {
     // EVENTS
 
     afterRemove (cb) {
-        super.afterRemove(err => {
-            err ? cb(err) : fs.unlink(this.getPath(), cb);
-        });
+        async.series([
+            cb => super.afterRemove(cb),
+            cb => fs.unlink(this.getPath(), cb)
+        ], cb);
     }
 };
 module.exports.init(module);
 
-const MainHelper = require('areto/helpers/MainHelper');
+const async = require('async');
 const fs = require('fs');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
+const MainHelper = require('areto/helpers/MainHelper');

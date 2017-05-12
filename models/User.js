@@ -1,7 +1,6 @@
 'use strict';
 
 const Base = require('areto/web/UserIdentity');
-const security = require('areto/helpers/SecurityHelper');
 
 module.exports = class User extends Base {
 
@@ -53,17 +52,13 @@ module.exports = class User extends Base {
     // EVENTS
 
     beforeSave (cb, insert) {
-        super.beforeSave(err => {
-            if (err) {
-                return cb(err);
+        async.series([
+            cb => super.beforeSave(cb, insert),
+            cb => {
+                this.setPasswordHash();
+                insert ? this.setAuthKey(cb) : cb();
             }
-            this.setPasswordHash();
-            if (insert) {
-                this.setAuthKey(cb)
-            } else {
-                cb();    
-            }   
-        }, insert);
+        ], cb);
     }
    
     // PASSWORD
@@ -79,3 +74,6 @@ module.exports = class User extends Base {
     }
 };
 module.exports.init(module);
+
+const async = require('async');
+const security = require('areto/helpers/SecurityHelper');

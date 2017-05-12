@@ -15,29 +15,27 @@ module.exports = class ImageConverter extends Base {
     processFile (cb) {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        mkdirp(path.dirname(destPath), err => {
-            if (err) {
-                return cb(err);
-            }
-            try {
-                let image = gm(this.fileModel.getPath());
-                image.resize(this.size, this.getThumbHeight(this.size));
-                image.write(destPath, err => {
-                    if (err) {
-                        return cb(err);
-                    }                    
-                    this.owner.set(this.filenameAttr, filename);
-                    this.generateThumbs(err => {
-                        err ? cb(err) : this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb();
-                    });
-                });
-            } catch (err) {
-                cb(err);
-            }
-        });
+        async.series([
+            cb => mkdirp(path.dirname(destPath), cb),
+            cb => {
+                try {
+                    let image = gm(this.fileModel.getPath());
+                    image.resize(this.size, this.getThumbHeight(this.size));
+                    image.write(destPath, cb);
+                } catch (err) {
+                    cb(err);
+                }
+            },
+            cb => {
+                this.owner.set(this.filenameAttr, filename);
+                this.generateThumbs(cb);
+            },
+            cb => this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb()
+        ], cb);
     }
 };
 
+const async = require('async');
 const path = require('path');
 const gm = require('gm');
 const mkdirp = require('mkdirp');
