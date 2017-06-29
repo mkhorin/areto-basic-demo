@@ -1,45 +1,56 @@
-<% let title = t('app', 'Sign in'); %>
+<% let title = 'Sign in'; %>
 
-<% layout(view.get('_layouts/main')) -%>
+<% layout(_view.get('_layouts/main')) -%>
 
 <% block('title', title) -%>
-<% view.setData('breadcrumbs', [{label: title}]) %>
+<% _view.setData('breadcrumbs', [{label: title}]) %>
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
 
-        <h3 class="login-box-msg"><%- title %></h3>
+        <h3 class="login-box-msg">
+            <%- title %>
+        </h3>
 
-        <form action="<%- controller.createUrl('signin') %>" method="post">
-            <%- partial(view.get('_parts/fields/auth/input'), {
+        <form action="<%- _url('signin') %>" method="post">
+            <%- partial(_view.get('_parts/fields/auth/input'), {
                 attr: 'email',
                 iconClass: 'glyphicon glyphicon-envelope'
             }) %>
-            <%- partial(view.get('_parts/fields/auth/password'), {
+
+            <%- partial(_view.get('_parts/fields/auth/password'), {
                 attr: 'password',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
+
             <% if (model.isCaptchaRequired()) { %>
-            <%- partial(view.get('_parts/fields/auth/captcha'), {
+            <%- partial(_view.get('_parts/fields/auth/captcha'), {
                 attr: 'captchaCode',
                 iconClass: 'glyphicon glyphicon-check',
-                url: controller.createUrl('captcha')
+                url: _url('captcha')
             }) %>
             <% } %>
+
             <div class="row">
                 <div class="col-xs-8">
                     <% if (user.opts.enableAutoLogin) { %>
-                    <%- partial(view.get('_parts/fields/checkbox'), { attr: 'rememberMe' }) %>
+                    <%- partial(_view.get('_parts/fields/checkbox'), {
+                        attr: 'rememberMe'
+                    }) %>
                     <% } %>
                 </div>
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat"><%- title %></button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">
+                        <%- title %>
+                    </button>
                 </div>
             </div>
         </form>
         <br>
         <p class="text-center">
-            <a href="/auth/signup"><%- t('app', 'Sign up new user') %></a>
+            <a href="/auth/signup">
+                Sign up new user
+            </a>
         </p>
     </div>
 </div>

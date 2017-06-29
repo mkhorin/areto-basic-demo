@@ -1,9 +1,9 @@
-<% layout(view.get('_layouts/content')) -%>
+<% layout(_view.get('_layouts/content')) -%>
 
 <% block('title', 'Users') -%>
 
-<% view.setData('breadcrumbs', [{title: 'Users'}]) %>
+<% _view.setData('breadcrumbs', [{title: 'Users'}]) %>
 
-<%- partial(view.get('_parts/list'), {
+<%- partial(_view.get('_parts/list'), {
     itemTemplate: 'user/list-item'
 }) %>

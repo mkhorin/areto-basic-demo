@@ -13,7 +13,7 @@ h1, .h1 { margin-top:20px; font-size: 32px; }
 .has-error .hint-block{margin-top:5px;color:#c00;}
 .inline-block { display:inline-block; }
 .full-width { width:100%; }
-.not-set{color:#c55;font-style:italic;}
+.not-set{color:#c55;}
 .width-auto { width: auto; }
 
 .label-list label { display:block; font-weight:normal; }

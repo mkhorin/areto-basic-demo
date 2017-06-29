@@ -159,21 +159,17 @@ module.exports = class File extends Base {
             let height = this.getThumbHeight(width);
             image.resize(width, height);
             // image.resize(width, height, '!'); // to override the image's proportions
-            this.setWatermark(image, width, (err, image)=> {
-                if (err) {
-                    return cb(err);
-                }
-                let thumbPath = this.getThumbPath(width);
-                mkdirp(path.dirname(thumbPath), err => {
-                    // let start = (new Date).getTime();
+            async.waterfall([
+                cb => this.setWatermark(image, width, cb),
+                (result, cb)=> {
+                    image = result;
+                    mkdirp(path.dirname(this.getThumbPath(width)), cb);
+                },
+                (dir, cb)=> {
                     image.quality(this.quality);
-                    err ? cb(err) : image.write(thumbPath, err => {
-                        // console.error('behaviors/File: createThumb: ' + ((new Date).getTime() - start));
-                        err && this.owner.module.log('error', `File: createThumb: ${thumbPath}`, err);
-                        cb(err);
-                    });
-                });
-            });
+                    image.write(this.getThumbPath(width), cb);
+                }
+            ], cb);
         } catch (err) {
             cb(err);
         }
@@ -184,15 +180,14 @@ module.exports = class File extends Base {
     }
 
     setWatermark (image, width, cb) {
-        if (this.watermark && this.watermark[width]) {
-            try {
-                image.draw([`image Over 0,0 0,0 ${this.watermark[width]}`]);
-                cb(null, image);
-            } catch (err) {
-                cb(err);
-            }
-        } else {
+        if (!this.watermark || !this.watermark[width]) {
+            return cb(null, image);
+        }
+        try {
+            image.draw([`image Over 0,0 0,0 ${this.watermark[width]}`]);
             cb(null, image);
+        } catch (err) {
+            cb(err);
         }
     }
 };

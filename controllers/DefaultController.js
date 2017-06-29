@@ -5,11 +5,11 @@ const Base = require('../components/Controller');
 module.exports = class DefaultController extends Base {
 
     actionIndex () {
-        this.send('Hello blog');
+        this.render('index');
     }
 
     actionError () {
-        this.setStatus(this.err.status);
+        this.setHttpStatus(this.err.status);
         if (this.isAjax()) {
             this.sendText(this.err, this.err.status);
         } else {           

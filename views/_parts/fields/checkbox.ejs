@@ -1,17 +1,15 @@
 <!-- _parts/fields/checkbox -->
-<%
-    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
-    let _value = typeof value === 'undefined' ?  (model.get(attr) ? true : false) : value;
-    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
-%>
+
+<% let params = {}; %>
+<%- partial('_set-params', {params}) %>
+
 <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
         <div class="checkbox">
             <label>
-                <input id="<%- _id %>" name="<%- _name %>" type="hidden">
-                <input type="checkbox" class="checkbox-control" <%- _value ? 'checked' : '' %>>
-                <%- _label %>
+                <input id="<%- params.id %>" name="<%- params.name %>" type="hidden">
+                <input type="checkbox" class="checkbox-control" <%- params.value ? 'checked' : '' %>>
+                <%- params.label %>
             </label>
         </div>
     </div>

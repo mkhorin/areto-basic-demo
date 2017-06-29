@@ -7,7 +7,7 @@ module.exports = class TagController extends Base {
     static getConstants ()  {
         return {
             BEHAVIORS: {
-                access: {
+                'access': {
                     Class: require('areto/filters/AccessControl'),
                     rules: [{
                         actions: ['create'],
@@ -18,10 +18,6 @@ module.exports = class TagController extends Base {
                 }
             }
         };
-    }
-    
-    getModelClass () {
-        return require('../models/Tag');
     }
 
     actionIndex () {

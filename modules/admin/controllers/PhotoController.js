@@ -1,20 +1,15 @@
 'use strict';
 
 const Base = require('../components/CrudController');
-const async = require('async');
 
 module.exports = class PhotoController extends Base {
 
     static getConstants () {
         return {
             METHODS: {
-                'assign-main': ['post']
+                'assign-main': 'post'
             }
         };
-    }
-
-    getModelClass () {
-        return require('../models/Photo');
     }
 
     actionIndex () {
@@ -124,4 +119,5 @@ module.exports = class PhotoController extends Base {
 };
 module.exports.init(module);
 
+const async = require('async');
 const Article = require('../models/Article');

@@ -1,16 +1,14 @@
 <!-- _parts/fields/input -->
-<%
-    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
-    let _value = typeof value === 'undefined' ? model.get(attr) : value;
-    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
-    let _required = model.isAttrRequired(attr) ? ' required' : '';
-    let _error = t(model.getFirstError(attr));
-%>
-<div class="form-group<%- _required %> <%- _error ? 'has-error' : '' %>">
-    <label for="<%- _id %>" class="col-sm-3 control-label"><%- _label %></label>
+
+<% let params = {}; %>
+<%- partial('_set-params', {params}) %>
+
+<div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
+    <label for="<%- params.id %>" class="col-sm-3 control-label">
+        <%- params.label %>
+    </label>
     <div class="col-sm-9">
-        <input id="<%- _id %>" name="<%- _name %>" type="text" value="<%- _value %>" class="form-control"/>
-        <div class="hint-block"><%- _error %></div>
+        <input id="<%- params.id %>" name="<%- params.name %>" type="text" value="<%- params.value %>" class="form-control"/>
+        <div class="hint-block"><%- params.error %></div>
     </div>
 </div>

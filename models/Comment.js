@@ -27,7 +27,7 @@ module.exports = class Comment extends Base {
                 ['content', 'string', {min: 3, max: 512}]
             ],
             BEHAVIORS: {
-                timestamp: require('areto/behaviors/Timestamp')
+                'timestamp': require('areto/behaviors/TimestampBehavior')
             },
             STATUS_PENDING: 'pending',
             STATUS_APPROVED: 'approved',

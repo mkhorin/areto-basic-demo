@@ -24,7 +24,7 @@ module.exports = class Photo extends Base {
                 }]
             ],
             BEHAVIORS: {
-                photo: {
+                'photo': {
                     Class: require('../components/behaviors/ImageConverter'),
                     FileClass: require('./File'),
                     filenameAttr: 'filename',

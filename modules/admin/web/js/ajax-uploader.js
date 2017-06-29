@@ -12,7 +12,7 @@
         tooBig: 'File size cannot exceed {limit} B',
         wrongExtension: 'Only these extensions are allowed: {extensions}',
         wrongMimeType: 'Only these MIME types are allowed: {mimeTypes}',
-        onlyImage: false,
+        imageOnly: false,
         maxHeight: null,
         maxWidth: null,
         minHeight: 1,
@@ -309,13 +309,13 @@
             if (options.minSize && options.minSize > file.size) {
                 return options.tooSmall.replace(/\{limit\}/g, options.minSize);
             }
-            if (options.onlyImage) {
+            if (options.imageOnly) {
                 return this.image ? this.validateImage() : options.notImage;
             }
             if (this.image) {
                 return this.validateImage();
             }
-            if (options.onlyImage) {
+            if (options.imageOnly) {
                 return options.notImage;
             }
             return false;

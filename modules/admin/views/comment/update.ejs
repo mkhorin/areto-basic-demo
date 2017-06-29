@@ -1,13 +1,13 @@
-<% layout(view.get('_layouts/form')) -%>
+<% layout(_view.get('_layouts/form')) -%>
 
 <% block('title', 'Update comment') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Comments', url: '/admin/comment'},
     {title: model.getId()}
 ]) %>
 
-<% include form %>
+<%- partial('./form') %>
 
 <% let photos = model.get('photos'); %>
 <% if (photos instanceof Array) { %>

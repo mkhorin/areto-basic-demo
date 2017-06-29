@@ -1,13 +1,13 @@
-<% layout(view.get('_layouts/form')) -%>
+<% layout(_view.get('_layouts/form')) -%>
 
 <% block('title', 'Update photo') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Photos', url: '/admin/photo'},
     {title: model.getId()}
 ]) %>
 
-<% include form %>
+<%- partial('./form') %>
 
 <div class="form-group">
     <label class="col-sm-2 control-label"></label>

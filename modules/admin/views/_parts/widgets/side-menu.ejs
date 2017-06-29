@@ -1,0 +1,12 @@
+
+<% if (_widget.items) { %>
+<ul class="nav nav-pills nav-stacked nav-side">
+    <% for (let item of _widget.items) { %>
+    <li class="<%- item.active ? 'active' : ''%>">
+        <a href="<%- item.url %>">
+            <%- _t('admin', item.title) %>
+        </a>
+    </li>
+    <% } %>
+</ul>
+<% } %>

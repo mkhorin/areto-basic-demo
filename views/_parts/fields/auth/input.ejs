@@ -1,12 +1,11 @@
-<!-- _parts/auth/input -->
-<%
-    let name = model.getFormAttrName(attr);
-    let value = model.get(attr);
-    let error = t(model.getFirstError(attr));
-    let holder = typeof placeholder === 'undefined' ? model.getLabel(attr) : placeholder;
-%>
-<div class="form-group has-feedback <%- error ? 'has-error' : '' %>">
-    <input name="<%- name %>" type="text" class="form-control" placeholder="<%- holder %>" value="<%- value %>"/>
+<!-- _parts/fields/auth/input -->
+
+<% let params = {}; %>
+<%- partial('../_set-params', {params}) %>
+
+<div class="form-group has-feedback <%- params.error ? 'has-error' : '' %>">
+    <input name="<%- params.name %>" type="text" class="form-control"
+           placeholder="<%- params.placeholder %>" value="<%- params.value %>"/>
     <span class="form-control-feedback <%- iconClass %>"></span>
-    <div class="hint-block"><%- error %></div>
+    <div class="hint-block"><%- params.error %></div>
 </div>

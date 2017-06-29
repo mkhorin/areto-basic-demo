@@ -1,5 +1,5 @@
 <p>
-    <%- model.get('createdAt').toLocaleString() %>
+    <%- _format(model.get('createdAt'), 'datetime') %>
     &nbsp;
     <span class="badge badge-<%- model.get('status') %>">
         <%- model.get('status') %>

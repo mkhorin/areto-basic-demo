@@ -1,23 +1,23 @@
 
-<%- partial(view.get('_parts/fields/radiolist'), {
+<%- partial(_view.get('_parts/fields/radiolist'), {
     attr: 'status',
     items: model.getStatusSelect()
 }) %>
 
-<%- partial(view.get('_parts/fields/input'), {
+<%- partial(_view.get('_parts/fields/input'), {
     attr: 'name'
 }) %>
 
-<%- partial(view.get('_parts/fields/input'), {
+<%- partial(_view.get('_parts/fields/input'), {
     attr: 'email'
 }) %>
 
-<%- partial(view.get('_parts/fields/radiolist'), {
+<%- partial(_view.get('_parts/fields/radiolist'), {
     attr: 'role',
     items: model.getRoleSelect()
 }) %>
 
-<%- partial(view.get('_parts/fields/input'), {
+<%- partial(_view.get('_parts/fields/input'), {
     attr: 'password'
 }) %>
 

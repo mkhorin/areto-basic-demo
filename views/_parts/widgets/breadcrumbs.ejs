@@ -1,11 +1,17 @@
 
-<% if (widget.links) { %>
+<% if (_widget.links) { %>
 <ol class="breadcrumb">
-    <% for (let i = 0; i < widget.links.length; ++i) { %>
-    <% if (i < widget.links.length - 1) { %>
-    <li><a href="<%- widget.links[i].url %>"><%- widget.links[i].title %></a></li>
+    <% for (let i = 0; i < _widget.links.length; ++i) { %>
+    <% if (i < _widget.links.length - 1) { %>
+        <li>
+            <a href="<%- _widget.links[i].url %>">
+                <%- _widget.links[i].title %>
+            </a>
+        </li>
     <% } else { %>
-    <li><%- widget.links[i].title %></li>
+        <li>
+            <%- _widget.links[i].title %>
+        </li>
     <% }} %>
 </ol>
 <% } %>

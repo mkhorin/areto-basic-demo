@@ -8,14 +8,13 @@ module.exports = class RecentComments extends Base {
         Comment.find({
             status: Comment.STATUS_APPROVED
         }).orderBy({
-            createdAt: -1
+            [Comment.PK]: -1
         }).limit(3).all((err, models)=> {
             if (err) {
-                cb(err);
-            } else {
-                this.comments = models;
-                this.render('_parts/widgets/recent-comments', cb);
+                return cb(err);
             }
+            this.comments = models;
+            this.render('_parts/widgets/recent-comments', cb);
         });
     }
 };

@@ -1,4 +1,4 @@
-<% layout(view.get('_layouts/main')) -%>
+<% layout(_view.get('_layouts/main')) -%>
 
 <div class="row">
     <div class="col-sm-8">
@@ -8,7 +8,9 @@
     <div class="col-sm-4">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">Search</h3>
+                <h3 class="panel-title">
+                    <%- _t('app', 'Search') %>
+                </h3>
             </div>
             <div class="panel-body">
                 <form action="/article/search" method="get">
@@ -24,11 +26,11 @@
             </div>
         </div>
 
-        <%- view.createWidget({
+        <%- _view.createWidget({
             id: 'tagList'
         }) %>
 
-        <%- view.createWidget({
+        <%- _view.createWidget({
             id: 'recentComments'
         }) %>
     </div>

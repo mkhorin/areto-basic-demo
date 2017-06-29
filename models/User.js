@@ -18,7 +18,7 @@ module.exports = class User extends Base {
                 'authKey'
             ],
             BEHAVIORS: {
-                timestamp: require('areto/behaviors/Timestamp')
+                'timestamp': require('areto/behaviors/TimestampBehavior')
             }
         };
     }
@@ -51,9 +51,9 @@ module.exports = class User extends Base {
 
     // EVENTS
 
-    beforeSave (cb, insert) {
+    beforeSave (insert, cb) {
         async.series([
-            cb => super.beforeSave(cb, insert),
+            cb => super.beforeSave(insert, cb),
             cb => {
                 this.setPasswordHash();
                 insert ? this.setAuthKey(cb) : cb();

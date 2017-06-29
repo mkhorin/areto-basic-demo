@@ -1,13 +1,14 @@
 <%
-    let flashes = controller.getFlash();
+    let flashes = _controller.getFlash();
     if (flashes) {
-        for (let key in flashes) {
-            let flash = flashes[key];
+        for (let key of Object.keys(flashes)) {
             if (key === 'danger' || key === 'warning' ||  key === 'success') {
 %>
     <div class="alert alert-<%- key %> flash-alert">
-    <% for (let item of flash) { %>
-        <p><%= item %></p>
-    <% } %>
+        <% let flash = flashes[key]; %>
+        <% for (let item of flash) { %>
+            <p><%= item %></p>
+        <% } %>
     </div>
+
 <% }}} %>

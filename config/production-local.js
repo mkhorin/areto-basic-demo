@@ -3,8 +3,7 @@
 module.exports = {
     components: {
         'connection': {
-            schema: 'mongodb',
-            settings: {                
+            settings: {
                 user: '',
                 password: ''
             }

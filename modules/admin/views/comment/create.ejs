@@ -1,10 +1,10 @@
-<% layout(view.get('_layouts/form')) -%>
+<% layout(_view.get('_layouts/form')) -%>
 
 <% block('title', 'Create comment') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Comments', url: '/admin/comment'},
     {title: 'Create'}
 ]) %>
 
-<% include form %>
+<%- partial('./form') %>

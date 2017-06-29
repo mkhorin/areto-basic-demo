@@ -4,10 +4,6 @@ const Base = require('../components/Controller');
 
 module.exports = class ArticleController extends Base {
 
-    getModelClass () {
-        return require('../models/Article');
-    }
-
     actionIndex () {
         let provider = new ActiveDataProvider({
             controller: this,

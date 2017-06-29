@@ -1,39 +1,44 @@
-<% layout(view.get('_layouts/view')) -%>
+<% layout(_view.get('_layouts/view')) -%>
 
 <% block('title', 'Article') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Articles', url: '/admin/article'},
     {title: model.getId()}
 ]) %>
 
-<% let stat = view.get('_parts/fields/static'); %>
+<% let stat = _view.get('_parts/fields/static'); %>
 
-<%- partial(stat, {attr: 'title'}) %>
+<%- partial(stat, {
+    attr: 'title'
+}) %>
 
 <%- partial(stat, {
     attr: 'date',
-    value: model.get('date').toLocaleDateString()
+    value: _format(model.get('date'), 'date')
 }) %>
 
-<%- partial(stat, {attr: 'status'}) %>
+<%- partial(stat, {
+    attr: 'status'
+}) %>
 
 <%- partial(stat, {
     attr: 'author',
-    value: model.get('author').getTitle()
-}) %>
-
-<%- partial(stat, {
-    attr: 'createdAt',
-    value: model.get('createdAt').toLocaleString()
+    value: model.get('author.name'),
+    escaping: false
 }) %>
 
 <%- partial(stat, {
     attr: 'updatedAt',
-    value: model.get('updatedAt').toLocaleString()
+    value: _format(model.get('updatedAt'), 'datetime')
 }) %>
 
-<%- partial(view.get('_parts/fields/relation'), {
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: _format(model.get('createdAt'), 'datetime')
+}) %>
+
+<%- partial(_view.get('_parts/fields/relation'), {
     attr: 'tags',
     viewRoute: 'tag/view'
 }) %>
@@ -43,23 +48,23 @@
     escaping: false
 }) %>
 
-<%- partial(view.get('_parts/fields/relation'), {
+<%- partial(_view.get('_parts/fields/relation'), {
     attr: 'mainPhoto',
-    itemTemplate: view.get('article/thumb-item'),
+    itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(view.get('_parts/fields/relation'), {
+<%- partial(_view.get('_parts/fields/relation'), {
     attr: 'photos',
-    itemTemplate: view.get('article/thumb-item'),
+    itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(view.get('_parts/fields/list'), {
+<%- partial(_view.get('_parts/fields/list'), {
     attr: 'comments',
     provider: comments,
     itemTemplate: 'article/comment-item',
-    create: u(['comment/create', model]),
+    create: _url(['comment/create', model]),
     search: null,
     routePrefix: 'comment/'
 }) %>

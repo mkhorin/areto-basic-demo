@@ -1,17 +1,16 @@
-<!-- _parts/auth/captcha -->
-<%
-    let name = model.getFormAttrName(attr);
-    let holder = typeof placeholder === 'undefined' ? model.getLabel(attr) : placeholder;
-    let error = t(model.getFirstError(attr));
-%>
+<!-- _parts/fields/auth/captcha -->
+
+<% let params = {}; %>
+<%- partial('../_set-params', {params}) %>
+
 <div class="captcha mb10" data-url="<%- url %>">
-    <img src="<%- `${url}?_=${controller.timestamp}` %>" class="captcha-image">
+    <img src="<%- `${url}?_=${_controller.timestamp}` %>" class="captcha-image">
     <a class="captcha-refresh" href="<%- `${url}?_=` %>" >
         <span class="glyphicon glyphicon-refresh"></span>
     </a>
 </div>
-<div class="form-group has-feedback <%- error ? 'has-error' : '' %>">
-    <input name="<%- name %>" type="text" class="form-control" placeholder="<%- holder %>"/>
+<div class="form-group has-feedback <%- params.error ? 'has-error' : '' %>">
+    <input name="<%- params.name %>" type="text" class="form-control" placeholder="<%- params.placeholder %>"/>
     <span class="form-control-feedback <%- iconClass %>"></span>
-    <div class="hint-block"><%- error %></div>
+    <div class="hint-block"><%- params.error %></div>
 </div>

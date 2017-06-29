@@ -1,10 +1,12 @@
-<% layout(view.get('_layouts/content')) -%>
+<% layout(_view.get('_layouts/content')) -%>
 
 <% block('title', 'Uploaded files') -%>
 
-<% view.setData('breadcrumbs', [{title: 'Uploaded files'}]) %>
+<% _view.setData('breadcrumbs', [
+    {title: 'Uploaded files'}
+]) %>
 
-<%- partial(view.get('_parts/list'), {
+<%- partial(_view.get('_parts/list'), {
     search: null,
     create: null,
     itemTemplate: 'file/list-item'

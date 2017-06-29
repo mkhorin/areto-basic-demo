@@ -23,8 +23,8 @@ module.exports = class File extends Base {
                 ['file', 'file']
             ],
             BEHAVIORS: {
-                timestamp: {
-                    Class: require('areto/behaviors/Timestamp'),
+                'timestamp': {
+                    Class: require('areto/behaviors/TimestampBehavior'),
                     updatedAttr: false
                 }
             },
@@ -32,10 +32,9 @@ module.exports = class File extends Base {
         };
     }
 
-    static findExpired (elapsedSeconds = 3600) {
-        let expired = new Date;
-        expired.setSeconds(expired.getSeconds() - elapsedSeconds);
-        return this.find(['<', 'createdAt', expired]);
+    static findExpired (timeout = 3600) {
+        let expired = new Date((new Date).getTime() - timeout * 1000);
+        return this.find().where(['<', 'updatedAt', expired]);
     }
 
     getTitle () {

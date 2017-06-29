@@ -7,7 +7,7 @@ class Admin extends Base {
     static getConstants ()  {
         return {
             BEHAVIORS: {
-                access: {
+                'access': {
                     Class: require('areto/filters/AccessControl'),
                     rules: [{
                         allow: true,
@@ -17,6 +17,7 @@ class Admin extends Base {
             }
         };
     }
-}
 
+
+}
 module.exports = new (Admin.init(module));

@@ -1,13 +1,15 @@
-<% layout(view.get('_layouts/content')) -%>
+<% layout(_view.get('_layouts/content')) -%>
 
-<% block('title', 'Dashboard') -%>
+<% block('title', _t('admin', 'Dashboard')) -%>
 
 <div class="row">
     <div class="col-sm-6">
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a href="/admin/article">Articles</a>
+                    <a href="/admin/article">
+                        <%- _t('admin', 'Articles') %>
+                    </a>
                 </h3>
             </div>
             <div class="panel-body">
@@ -32,7 +34,9 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a href="/admin/photo">Photos</a>
+                    <a href="/admin/photo">
+                        <%- _t('admin', 'Photos') %>
+                    </a>
                 </h3>
             </div>
             <div class="panel-body">
@@ -44,7 +48,9 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a href="/admin/tag">Tags</a>
+                    <a href="/admin/tag">
+                        <%- _t('admin', 'Tags') %>
+                    </a>
                 </h3>
             </div>
             <div class="panel-body">
@@ -56,7 +62,9 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a href="/admin/comment">Comments</a>
+                    <a href="/admin/comment">
+                        <%- _t('admin', 'Comments') %>
+                    </a>
                 </h3>
             </div>
             <div class="panel-body">

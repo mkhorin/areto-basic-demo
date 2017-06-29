@@ -1,31 +1,32 @@
 <!-- _parts/fields/uploader -->
-<%
-    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
-    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
-    let _required = model.isAttrRequired(attr) ? ' required' : '';
-    let _error = t(model.getFirstError(attr));
-    let _options = typeof options === 'undefined' ? {} : options;
-    let _files = typeof files === 'undefined' ? null : files;
 
-    if (_files instanceof Array) {
-        _options.items = [];
-        for (let file of _files) {
-            _options.items.push({
-                id: file.getId(),
-                name: file.get('originalName'),
-                size: file.get('size')
-            });
-        }
+<% let params = {
+    options: typeof options === 'undefined' ? {} : options,
+    files: typeof files === 'undefined' ? null : files
+}; %>
+<%- partial('_set-params', {params}) %>
+
+<%
+if (params.files instanceof Array) {
+    params.options.items = [];
+    for (let file of params.files) {
+        params.options.items.push({
+            id: file.getId(),
+            name: file.get('originalName'),
+            size: file.get('size')
+        });
     }
+}
 %>
-<div class="form-group<%- _required %> <%- _error ? 'has-error' : '' %>">
-    <label for="<%- _id %>" class="col-sm-2 control-label"><%- _label %></label>
+<div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
+    <label for="<%- params.id %>" class="col-sm-2 control-label">
+        <%- params.label %>
+    </label>
     <div class="col-sm-10">
-        <input type="hidden" id="<%- _id %>" name="<%- _name %>">
-        <div class="uploader" data-id="#<%- _id %>"
-             data-url="<%- controller.createUrl(url) %>"
-             data-options="<%= JSON.stringify(_options)%>">
+        <input type="hidden" id="<%- params.id %>" name="<%- params.name %>">
+        <div class="uploader" data-id="#<%- params.id %>"
+             data-url="<%- _url(url) %>"
+             data-options="<%= JSON.stringify(params.options)%>">
             <div class="uploader-input">
                 <input type="file" class="uploader-input-file">
                 <div class="uploader-dropzone">
@@ -51,6 +52,6 @@
                 </div>
             </div>
         </div>
-        <div class="hint-block"><%- _error %></div>
+        <div class="hint-block"><%- params.error %></div>
     </div>
 </div>

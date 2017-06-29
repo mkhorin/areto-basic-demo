@@ -4,10 +4,6 @@ const Base = require('../components/CrudController');
 
 module.exports = class ArticleController extends Base {
 
-    getModelClass () {
-        return require('../models/Article');
-    }
-
     actionIndex () {
         let Class = this.getModelClass();
         let provider = new ActiveDataProvider({

@@ -1,0 +1,61 @@
+<% let title = 'Вход в систему'; %>
+
+<% layout(_view.get('_layouts/main')) -%>
+
+<% block('title', title) -%>
+
+<% _view.setData('breadcrumbs', [{label: title}]) %>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+
+        <h3 class="login-box-msg">
+            <%- title %>
+        </h3>
+
+        <form action="<%- _url('signin') %>" method="post">
+            <%- partial(_view.get('_parts/fields/auth/input'), {
+                attr: 'email',
+                iconClass: 'glyphicon glyphicon-envelope',
+                placeholder: 'Электронный адрес'
+            }) %>
+
+            <%- partial(_view.get('_parts/fields/auth/password'), {
+                attr: 'password',
+                iconClass: 'glyphicon glyphicon-lock',
+                placeholder: 'Пароль'
+            }) %>
+
+            <% if (model.isCaptchaRequired()) { %>
+            <%- partial(_view.get('_parts/fields/auth/captcha'), {
+                attr: 'captchaCode',
+                iconClass: 'glyphicon glyphicon-check',
+                url: _url('captcha'),
+                placeholder: 'Проверочный код'
+            }) %>
+            <% } %>
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <% if (user.opts.enableAutoLogin) { %>
+                    <%- partial(_view.get('_parts/fields/checkbox'), {
+                        attr: 'rememberMe',
+                        label: 'Запомнить меня'
+                    }) %>
+                    <% } %>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">
+                        Войти
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br>
+        <p class="text-center">
+            <a href="/auth/signup">
+                Регистрация нового пользователя
+            </a>
+        </p>
+    </div>
+</div>

@@ -14,10 +14,6 @@ module.exports = class FileController extends Base {
         };
     }
 
-    getModelClass () {
-        return require('../models/File');
-    }
-
     actionIndex () {
         let ActiveDataProvider = require('areto/data/ActiveDataProvider');
         let Class = this.getModelClass();

@@ -1,38 +1,39 @@
 
-<%- partial(view.get('_parts/fields/radiolist'), {
+<%- partial(_view.get('_parts/fields/radiolist'), {
     attr: 'status',
     items: model.getStatusSelect()
 }) %>
 
-<%- partial(view.get('_parts/fields/datepicker'), {
-    attr: 'date'
+<%- partial(_view.get('_parts/fields/datepicker'), {
+    attr: 'date',
+    value: _format(model.get('date'), 'date', {format: 'YYYY-MM-DD'})
 }) %>
 
-<%- partial(view.get('_parts/fields/input'), {
+<%- partial(_view.get('_parts/fields/input'), {
     attr: 'title'
 }) %>
 
-<%- partial(view.get('_parts/fields/text'), {
+<%- partial(_view.get('_parts/fields/text'), {
     attr: 'content',
     rows: 8
 }) %>
 
 <% if (!model.isNewRecord()) { %>
 <% let tags = model.get('tags'); %>
-<%- partial(view.get('_parts/fields/input'), {
+<%- partial(_view.get('_parts/fields/input'), {
     attr: 'tags',
     value: tags instanceof Array ? tags.map(function (tag) { return tag.getTitle(); }).join(', ') : tags,
     hint: 'Split by comma'
 }) %>
 <% } %>
 
-<%- partial(view.get('_parts/fields/uploader'), {
+<%- partial(_view.get('_parts/fields/uploader'), {
     attr: 'files',
     url: 'photo/upload',
     options: {
         maxFiles: 3,
         maxSize: 2000000,
-        onlyImage: true
+        imageOnly: true
     },
     files: model.get('files')
 }) %>

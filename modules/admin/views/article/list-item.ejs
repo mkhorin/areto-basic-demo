@@ -6,11 +6,11 @@
 
 <h3><%= model.getTitle() %></h3>
 <p>
-    <%- model.get('date').toLocaleDateString() %>
+    <%- _format(model.get('date'), 'date') %>
     &nbsp;
     <span class="badge badge-<%- model.get('status') %>">
         <%- model.get('status') %>
     </span>
     &nbsp;
-    <%- model.get('author').getTitle() %>
+    <%- model.get('author.name') %>
 </p>

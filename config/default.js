@@ -4,17 +4,22 @@ module.exports = {
     port: 3000,
     components: {        
         'logger': {
-            level: 'info'
+            level: 'info',
+            types: { // optional: separate storage of error logs
+                'error': {
+                    Class: require('areto/log/LogType'),
+                    store: require('areto/log/FileLogStore')
+                }
+            }
         },
-        'static': {},
+        'static': {
+        },
         'connection': {
             schema: 'mongodb',
             settings: {
                 host: 'localhost',
                 port: 27017,
-                database: 'areto-basic',
-                user: '',
-                password: '',
+                database: 'areto-basic-2',
                 options: {
                     bufferMaxEntries: 0,
                     keepAlive: 1
@@ -24,11 +29,14 @@ module.exports = {
         'cache': {            
              Class: require('areto/caching/MemoryCache')
         },
-        'cookie': {},
+        'cookie': {
+            secret: 'basic.app'
+        },
         'session': {
             secret: 'basic.app',
+            lifetime: 1800, // seconds
             store: {
-                Class: require('areto/web/MongoSessionStore'), 
+                Class: require('areto/web/session/DbSessionStore'),
                 table: 'session'
             }
         },
@@ -39,23 +47,27 @@ module.exports = {
             engine: require('ejs-locals'), 
             extension: 'ejs'
         },
-        'i18n': {           
+        'i18n': {
+            language: 'en' // ru
         },
         'rbac': {            
         },
+        'rateLimit': {
+            attempts: 2
+        },
         'scheduler': {
-            tasks: { 
-                'sessionCleaner': {
-                    Class: require('../components/tasks/SessionCleaner'),
-                    period: 3600
-                },
+            tasks: {
                 'fileCleaner': {
                     Class: require('../components/tasks/FileCleaner'),
-                    period: 3600
+                    interval: 3600 // seconds
+                },
+                'sessionCleaner': {
+                    Class: require('../components/tasks/SessionCleaner'),
+                    interval: 3600 // seconds
                 }
             }            
         },
-        'userConfig': {
+        'user': {
             Identity: require('../models/User'),
             loginUrl: '/auth/signin',
             returnUrl: '/',
@@ -67,7 +79,6 @@ module.exports = {
             defaultAssignments: ['reader']
         }        
     },
-    defaultController: 'article',
     modules: {
         'admin': {}
     },
@@ -86,13 +97,14 @@ module.exports = {
         },
         'recentComments': {
             Class: require('../components/widgets/RecentComments'),
-            caching: true
+            caching: false,
             // disabled: true
         },
         'tagList': {
             Class: require('../components/widgets/TagList'),
-           // disabled: true,
-            caching: true
+            caching: false,
+           // disabled: true
         }
-    }
+    },
+    defaultController: 'article'
 };

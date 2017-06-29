@@ -1,17 +1,15 @@
 <!-- _parts/fields/input -->
-<%
-    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
-    let _value = typeof value === 'undefined' ? model.get(attr) : value;
-    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
-    let _required = model.isAttrRequired(attr) ? ' required' : '';
-    let _error = t(model.getFirstError(attr));
-    let _hint = !_error && typeof hint !== 'undefined' ? hint : '';
-%>
-<div class="form-group<%- _required %> <%- _error ? 'has-error' : '' %>">
-    <label for="<%- _id %>" class="col-sm-2 control-label"><%- _label %></label>
+
+<% let params = {}; %>
+<%- partial('_set-params', {params}) %>
+
+<div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
+    <label for="<%- params.id %>" class="col-sm-2 control-label">
+        <%- params.label %>
+    </label>
     <div class="col-sm-10">
-        <input id="<%- _id %>" name="<%- _name %>" type="text" value="<%- _value %>" class="form-control"/>
-        <div class="hint-block"><%- _error %><%- _hint %></div>
+        <input id="<%- params.id %>" name="<%- params.name %>" value="<%- params.value %>"
+               type="text" class="form-control"/>
+        <div class="hint-block"><%- params.error %><%- params.hint %></div>
     </div>
 </div>

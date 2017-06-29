@@ -1,15 +1,19 @@
 'use strict';
 
+const async = require('async');
 const app = require('../module');
 const MainHelper = require('areto/helpers/MainHelper');
 
-// node bin/migrate.js apply migrations/Init
+// cd /areto-basic-demo
+// node bin/migrate --action apply --classes migrations/Init
 
-app.configure('development', err => {
-    if (err) {
-        return console.error(err);
+async.series([
+    cb => app.configure('development', cb),
+    cb => {
+        let data = MainHelper.parseArguments(process.argv);
+        app.migrate(data.action, data.classes, cb);
     }
-    app.migrate(MainHelper.getScriptArgs(), err => {
-        process.exit();
-    });
+], err => {
+    err && console.error(err);
+    process.exit();
 });

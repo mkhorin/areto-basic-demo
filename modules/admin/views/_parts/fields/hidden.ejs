@@ -1,7 +1,6 @@
 <!-- _parts/fields/hidden -->
-<%
-    let _id = typeof id === 'undefined' ? model.getFormAttrId(attr) : id;
-    let _name = typeof name === 'undefined' ?  model.getFormAttrName(attr) : name;
-    let _value = typeof value === 'undefined' ?  model.get(attr) : value;
-%>
-<input id="<%- _id %>" name="<%- _name %>" type="hidden" value="<%- _value %>"/>
+
+<% let params = {}; %>
+<%- partial('_set-params', {params}) %>
+
+<input id="<%- params.id %>" name="<%- params.name %>" type="hidden" value="<%- params.value %>"/>

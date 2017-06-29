@@ -20,7 +20,8 @@ module.exports = {
         type: 'role',
         children: [
             'moderator',
-            'editor'
+            'editor',
+            'updateArticle'
         ]
     },
 
@@ -31,9 +32,7 @@ module.exports = {
 
     'editor': {
         type: 'role',
-        children: [
-            'author'
-        ]
+        children: ['author']
     },
 
     'author': {

@@ -1,7 +1,6 @@
 'use strict';
 
 const Base = require('../components/Controller');
-const async = require('async');
 
 module.exports = class DefaultController extends Base {
 
@@ -30,3 +29,5 @@ module.exports = class DefaultController extends Base {
     }
 };
 module.exports.init(module);
+
+const async = require('async');

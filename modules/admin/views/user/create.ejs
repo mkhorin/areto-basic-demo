@@ -1,10 +1,10 @@
-<% layout(view.get('_layouts/form')) -%>
+<% layout(_view.get('_layouts/form')) -%>
 
 <% block('title', 'Create user') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Users', url: '/admin/user'},
     {title: 'Create'}
 ]) %>
 
-<% include form %>
+<%- partial('./form') %>

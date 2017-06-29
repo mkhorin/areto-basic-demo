@@ -7,7 +7,7 @@ module.exports = class UserController extends Base {
     static getConstants ()  {
         return {
             BEHAVIORS: {
-                access: {
+                'access': {
                     Class: require('areto/filters/AccessControl'),
                     rules: [{
                         allow: true,
@@ -16,10 +16,6 @@ module.exports = class UserController extends Base {
                 }
             }
         };
-    }
-
-    getModelClass () {
-        return require('../models/User');
     }
 
     actionIndex () {

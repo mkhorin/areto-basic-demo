@@ -7,7 +7,7 @@
         <p><b>Article:</b>
             <% let article = model.get('article') %>
             <% if (article) { %>
-            <a href="<%- controller.createUrl(['article/view', article]) %>">
+            <a href="<%- _url(['article/view', article]) %>">
                 <%= article.getTitle() %>
             </a>
             <% } else { %>

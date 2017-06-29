@@ -27,7 +27,7 @@ module.exports = class Article extends Base {
                 ['tags', 'validateTags', {skipOnAnyError: true}]
             ],
             BEHAVIORS: {
-                timestamp: require('areto/behaviors/Timestamp')
+                'timestamp': require('areto/behaviors/TimestampBehavior')
             },
             UNLINK_ON_REMOVE: ['photos','comments']
         };
@@ -68,11 +68,13 @@ module.exports = class Article extends Base {
         });                
     }
 
-    afterSave (cb, insert) {
-        super.afterSave(err => {
-            if (err) return cb(err);
+    afterSave (insert, cb) {
+        super.afterSave(insert, err => {
+            if (err) {
+                return cb(err);
+            }
             this.createPhotos(this.get('files'), cb);
-        }, insert);
+        });
     }
 
     // TAGS

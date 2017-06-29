@@ -12,7 +12,7 @@ module.exports = class Photo extends Base {
     }
 
     getTitle () {
-        return this.get('title');
+        return this.get('title') || '';
     }
 
     getLarge () {

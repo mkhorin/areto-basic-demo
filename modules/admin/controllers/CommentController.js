@@ -4,10 +4,6 @@ const Base = require('../components/CrudController');
 
 module.exports = class CommentController extends Base {
 
-    getModelClass () {
-        return require('../models/Comment');
-    }
-
     actionIndex () {
         let ActiveDataProvider = require('areto/data/ActiveDataProvider');        
         let provider = new ActiveDataProvider({

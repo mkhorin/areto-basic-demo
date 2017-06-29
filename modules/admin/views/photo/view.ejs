@@ -1,22 +1,23 @@
-<% layout(view.get('_layouts/view')) -%>
+<% layout(_view.get('_layouts/view')) -%>
 
 <% block('title', 'Photo') -%>
 
-<% view.setData('breadcrumbs', [
+<% _view.setData('breadcrumbs', [
     {title: 'Photos', url: '/admin/photo'},
     {title: model.getId()}
 ]) %>
 
 <% block('customControls', `<button class="btn btn-warning action-submit" type="button"
-    data-url="${controller.createUrl(['assign-main', model])}">Assign the main</button>`) -%>
+    data-url="${_url(['assign-main', model])}">Assign the main</button>`) -%>
 
-<%- partial(view.get('_parts/fields/relation'), {
+<%- partial(_view.get('_parts/fields/relation'), {
     attr: 'article',
     viewRoute: 'article/view'
 }) %>
 
-<%- partial(view.get('_parts/fields/static'), {
-    attr: 'title'
+<%- partial(_view.get('_parts/fields/static'), {
+    attr: 'title',
+    escaping: false
 }) %>
 
 <div class="form-group">

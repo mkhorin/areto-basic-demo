@@ -1,21 +1,25 @@
-<% let title = t('app', 'Signed in'); %>
+<% let title = 'Signed in'; %>
 
-<% layout(view.get('_layouts/main')) -%>
+<% layout(_view.get('_layouts/main')) -%>
 
 <% block('title', title) -%>
-<% view.setData('breadcrumbs', [{label: title}]) %>
+
+<% _view.setData('breadcrumbs', [{label: title}]) %>
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
-        <h3 class="login-box-msg"><%- t('app', 'Signed in as') %></h3>
+        <h3 class="login-box-msg">
+            Signed in as
+        </h3>
         <form action="/auth/logout" method="post">
             <p class="text-center">
-                <b><%= model.get('name') %></b> (<%= model.get('role') %>)
+                <b><%= model.get('name') %></b>
+                (<%= model.get('role') %>)
             </p>
             <p class="mt20">
                 <button type="submit" class="btn btn-danger btn-block">
                     <span class="glyphicon glyphicon-log-out"></span>
-                    <%- t('app', 'Sign out') %>
+                    Sign out
                 </button>
             </p>
         </form>

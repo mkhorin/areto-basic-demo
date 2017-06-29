@@ -1,9 +1,13 @@
-<%
-    let _label = typeof label === 'undefined' ? model.getLabel(attr) : label;
-%>
+
+<% let params = {
+    label: typeof label === 'undefined' ? model.getLabel(attr) : label
+}; %>
+
 <div class="form-group">
-    <label class="col-sm-2 control-label"><%- _label %></label>
+    <label class="col-sm-2 control-label">
+        <%- params.label %>
+    </label>
     <div class="col-sm-10">
-        <%- partial(view.get('_parts/list')) %>
+        <%- partial(_view.get('_parts/list')) %>
     </div>
 </div>

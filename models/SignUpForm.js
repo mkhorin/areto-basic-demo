@@ -37,7 +37,7 @@ module.exports = class SignUpForm extends Base {
                 cb(err);
             } else {
                 let model = new User;
-                model.assignAttrs(this);
+                model.setAttrs(this);
                 model.save(err => {
                     if (model.hasError()) {
                         this.addError('name', model.getFirstError());

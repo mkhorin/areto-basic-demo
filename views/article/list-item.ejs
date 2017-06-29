@@ -1,25 +1,31 @@
 
-<% let url = u(['view', model]); %>
+<% let url = _url(['view', model]); %>
 <% let photo = model.get('mainPhoto'); %>
+<% let tags = model.get('tags'); %>
 
-<h3><a href="<%- url %>"><%= model.getTitle() %></a></a></h3>
+<h3>
+    <a href="<%- url %>"><%= model.getTitle() %></a>
+</h3>
 
 <p>
     <span class="badge badge-info mr10">
-        <%- model.get('date').toLocaleDateString() %>
+        <%- _format(model.get('date'), 'dateLong') %>
     </span>
 
-    <span class="mr10">Tags:</span>
+    <% if (tags.length) { %>
+    <span class="mr10">
+        <%- _t('app', 'Tags')%>
+    </span>
     <% for (let tag of model.get('tags')) { %>
-        <a href="/article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
-            <%= tag.get('name') %>
-        </a>
-    <% } %>
+    <a href="/article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
+        <%= tag.get('name') %>
+    </a>
+    <% }} %>
 </p>
 
 <% if (photo) { %>
 <div class="mt20">
-    <a href="<%- url%>" class="">
+    <a href="<%- url%>">
         <img src="<%- photo.getMedium() %>" class="center-block thumbnail img-responsive">
     </a>
 </div>

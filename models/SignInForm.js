@@ -1,7 +1,6 @@
 'use strict';
 
 const Base = require('areto/base/Model');
-const User = require('./User');
 
 const CAPTCHA_SCENARIO = 'captcha';
 const REMEMBER_PERIOD = 3600 * 24 * 7;
@@ -19,7 +18,8 @@ module.exports = class SignInForm extends Base {
                     CaptchaController: require('../controllers/AuthController'),
                     on: [CAPTCHA_SCENARIO]
                 }],
-                ['password', 'string', {min: 6, max:24}]
+                ['password', 'string', {min: 6, max:24}],
+                ['email', 'validateUser', {skipOnAnyError: true}]
             ],
             LABELS: {
                 rememberMe: 'Remember me',
@@ -30,7 +30,11 @@ module.exports = class SignInForm extends Base {
 
     init () {
         super.init();
-        if (!this.rateLimit || this.rateLimit.isExceeded()) {
+        this.setCaptchaScenario();
+    }
+
+    setCaptchaScenario () {
+        if (!this.rateLimitModel || this.rateLimitModel.isLimited()) {
             this.scenario = CAPTCHA_SCENARIO;
         }
     }
@@ -39,35 +43,50 @@ module.exports = class SignInForm extends Base {
         return this.scenario === CAPTCHA_SCENARIO;
     }
 
-    login (webuser, cb) {
-        this.validate(err => {
-            err || this.hasError() ? cb(err) : this.checkUser(webuser, cb)
-        });
+    validateUser (cb, attrName) {
+        async.waterfall([
+            cb => {
+                User.find({
+                    email: this.get('email')
+                }).one(cb);
+            },
+            (model, cb)=> {
+                if (!model || !model.validatePassword(this.get('password'))) {
+                    this.addError(attrName, 'Invalid authentication');
+                } else if (model.isBanned()) {
+                    this.addError(attrName, 'This account is banned');
+                }
+                this.identity = model;
+                cb();
+            }
+        ], cb);
     }
 
-    checkUser (webuser, cb) {
-        User.find({email: this.get('email')}).one((err, model)=> {
-            if (model) {
-                if (model.validatePassword(this.get('password'))) {
-                    if (model.isBanned()) {
-                        this.addError('email', 'This account banned');
-                    }
-                } else {
-                    this.addError('password', 'Invalid authentication');
-                }
-            } else {
-                this.addError('password', 'Invalid authentication');
+    login (user, cb) {
+        async.series([
+            cb => this.validate(cb),
+            cb => this.identity === undefined ? cb() : this.updateRateLimit(cb),
+            cb => {
+                this.setCaptchaScenario();
+                this.hasError() ? cb()
+                    : user.login(this.identity, this.get('rememberMe') ? REMEMBER_PERIOD : 0, cb);
             }
-            if (this.rateLimit) {
-                if (this.hasError()) {
-                    this.rateLimit.increment();
-                } else if (this.isCaptchaRequired()) {
-                    this.rateLimit.reset();
-                }
+        ], cb);
+    }
+
+    updateRateLimit (cb) {
+        if (this.rateLimitModel) {
+            if (this.hasError()) {
+                return this.rateLimitModel.increment(cb);
             }
-            this.hasError() ? cb()
-                : webuser.login(model, this.get('rememberMe') ? REMEMBER_PERIOD : 0, cb);
-        });
+            if (this.isCaptchaRequired()) {
+                return this.rateLimitModel.reset(cb);
+            }
+        }
+        cb();
     }
 };
 module.exports.init(module);
+
+const async = require('async');
+const User = require('./User');
