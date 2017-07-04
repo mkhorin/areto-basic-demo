@@ -6,7 +6,7 @@
 
 <%- partial(_view.get('_parts/fields/datepicker'), {
     attr: 'date',
-    value: _format(model.get('date'), 'date', {format: 'YYYY-MM-DD'})
+    value: model.get('date') ? _format(model.get('date'), 'date', {format: 'YYYY-MM-DD'}) : ''
 }) %>
 
 <%- partial(_view.get('_parts/fields/input'), {
