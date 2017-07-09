@@ -1,0 +1,23 @@
+<% layout(_view.get('_layouts/content')) -%>
+
+<% block('title', 'Articles by category') -%>
+
+<% _view.setData('breadcrumbs', [
+    {title: 'Articles', url: '/article'},
+    {title: 'By category'}
+]) %>
+
+<h3 class="mt0 mb30">
+    <span class="color-gray"><%- _t('app', 'Category') %>:</span>
+    <span class="text-primary"><%= category.getTitle() %></span>
+</h3>
+
+<% if (typeof provider !== 'undefined') { %>
+<%- partial(_view.get('_parts/list'), {
+    itemTemplate: 'article/list-item'
+}) %>
+<% } else { %>
+<div class="alert alert-warning">
+    <%- _t('app', 'Articles not found') %>
+</div>
+<% } %>

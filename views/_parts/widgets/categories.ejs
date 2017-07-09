@@ -1,0 +1,18 @@
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <%- _t('app', 'Categories') %>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="category-nav" class="list-group mb0">
+        <% for (let item of _widget.items) { %>
+        <a href="/article/category?category=<%- item.getId() %>" class="list-group-item">
+            <span class="badge"><%- item.get('articleCount') %></span>
+            <%= item.getTitle() %>
+        </a>
+        <% } %>
+        </div>
+    </div>
+</div>
