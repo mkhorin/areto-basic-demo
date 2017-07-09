@@ -7,7 +7,9 @@
     {title: model.getId()}
 ]) %>
 
-<%- partial(_view.get('_parts/fields/static'), {attr: 'name'}) %>
+<%- partial(_view.get('_parts/fields/static'), {
+    attr: 'name'
+}) %>
 
 <%- partial(_view.get('_parts/fields/list'), {
     attr: 'articles',

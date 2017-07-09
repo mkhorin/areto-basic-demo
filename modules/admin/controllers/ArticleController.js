@@ -5,6 +5,7 @@ const Base = require('../components/CrudController');
 module.exports = class ArticleController extends Base {
 
     actionIndex () {
+        let searchText = this.getQueryParam('search');
         let Class = this.getModelClass();
         let provider = new ActiveDataProvider({
             controller: this,
@@ -22,7 +23,7 @@ module.exports = class ArticleController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {provider});
+           err ? this.throwError(err) : this.render('index', {provider, searchText});
         });
     }
 
@@ -44,7 +45,7 @@ module.exports = class ArticleController extends Base {
                 err ? this.throwError(err)
                     : this.render('view', {model, comments});
             });
-        }, ['author', 'photos', 'mainPhoto', 'tags']);
+        }, ['author', 'category', 'photos', 'mainPhoto', 'tags']);
     }
 
     actionCreate () {        
@@ -66,33 +67,44 @@ module.exports = class ArticleController extends Base {
         }
     }
 
-    actionUpdate () {        
+    actionUpdate () {
         this.getModel(model => {
-            this.user.can('updateArticle', (err, access)=>{
+            let renderData = {model};
+            async.waterfall([
+                cb => {
+                    this.user.can('updateArticle', cb,  {
+                        authorId: model.get('authorId')
+                    });
+                },
+                (access, cb)=> {
+                    access ? cb() : this.throwForbidden();
+                },
+                cb => this.prepareFormData(cb),
+                (data, cb)=> {
+                    Object.assign(renderData, data);
+                    this.isGet() ? this.render('update', renderData)
+                        : model.load(this.getBodyParams()).save(cb);
+                }
+            ], err => {
                 if (err) {
-                    return this.throwError(err);
+                    this.throwError(err);
+                } else if (model.hasError()) {
+                    this.render('update', renderData);
+                } else {
+                    this.backToRef();
                 }
-                if (!access) {
-                    return this.throwForbidden();
-                }
-                if (this.isGet()) {
-                    return this.render('update', {model});
-                }
-                model.load(this.getBodyParams()).save(err => {
-                    if (err) {
-                        this.throwError(err);
-                    } else if (model.hasError()) {
-                        this.render('update', {model});
-                    } else {
-                        this.backToRef();
-                    }
-                });
-            }, {
-                authorId: model.get('authorId')
             });
         }, 'photos', 'tags');
+    }
+
+    prepareFormData (cb) {
+        async.series({
+            categories: cb => Category.find().select({name: 1}).orderBy({name:1}).asArray().all(cb)
+        }, cb);
     }
 };
 module.exports.init(module);
 
+const async = require('async');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');
+const Category = require('../models/Category');

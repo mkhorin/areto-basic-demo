@@ -5,62 +5,94 @@ const Base = require('../components/Controller');
 module.exports = class ArticleController extends Base {
 
     actionIndex () {
-        let provider = new ActiveDataProvider({
-            controller: this,
-            query: this.getModelClass().findPublished(),
-            sort: {
-                attrs: {
-                    date: true,
-                    title: true
-                },
-                defaultOrder: {date: -1}
-            }
+        let provider = this.createDataProvider({
+            query: Article.findPublished()
         });
         provider.prepare(err => {
-            err ? this.throwError(err) : this.render('index', {provider});
+            err ? this.throwError(err)
+                : this.render('index', {provider});
+        });
+    }
+
+    actionCategory () {
+        let category = null;
+        let provider = null;
+        async.waterfall([
+            cb => Category.findById(this.getQueryParam('category')).one(cb),
+            (model, cb)=> {
+                category = model;
+                category ? cb() : this.throwNotFound();
+            },
+            cb => {
+                provider = this.createDataProvider({
+                    query: Article.findPublished().andWhere({category: category.getId()})
+                });
+                provider.prepare(cb);
+            }
+        ], err => {
+            err ? this.throwError(err)
+                : this.render('category', {provider, category});
         });
     }
 
     actionTagged () {
         let tagName = this.getQueryParam('tag');
+        let provider = null;
         let tag = new Tag;
         tag.set('name', tagName);
-        tag.validate(err => {
-            if (err) {
-                return this.throwError(err);
-            }
-            if (tag.hasError()) {
-                return this.render('tagged', {tagName});
-            }
-            Tag.find({name: tagName}).one((err, tag)=> {
-                if (err) {
-                    return this.throwError(err);
+        async.series([
+            cb => tag.validate(cb),
+            cb => tag.hasError() ? this.render('tagged', {tagName}) : cb(),
+            cb => async.waterfall([
+                cb => Tag.find({name: tagName}).one(cb),
+                (tag, cb)=> tag ? cb() : this.render('tagged', {tagName}),
+                cb => {
+                    provider = this.createDataProvider({
+                        query: tag.relArticles()
+                    }).prepare(cb);
                 }
-                if (!tag) {
-                    return this.render('tagged', {tagName});
-                }
-                let provider = new ActiveDataProvider({
-                    controller: this,
-                    query: tag.relArticles(),
-                    sort: {
-                        attrs: {
-                            date: true,
-                            title: true
-                        },
-                        defaultOrder: {date: -1}
-                    }
-                });
-                provider.prepare(err => {
-                    err ? this.throwError(err) : this.render('tagged', {provider, tagName});
-                });
-            });
+            ], cb)
+        ], err => {
+            err ? this.throwError(err)
+                : this.render('tagged', {provider, tagName});
         });
     }
 
     actionSearch () {
-        let provider = new ActiveDataProvider({
+        let provider = this.createDataProvider({
+            query: this.getModelClass().findBySearch(this.getQueryParam('text'))
+        });
+        provider.prepare(err => {
+            err ? this.throwError(err)
+                : this.render('index', {provider});
+        });
+    }
+
+    actionView () {
+        this.getModel(model => {
+            let comment = new Comment;
+            if (this.isGet()) {
+                return this.view(model, comment);
+            }
+            comment.load(this.getBodyParams());
+            comment.set('articleId', model.getId());
+            comment.set('ip', this.req.ip);
+            comment.save(err => {
+                if (err) {
+                    return this.throwError(err);
+                }
+                if (comment.hasError()) {
+                    return this.view(model, comment);
+                }
+                this.setFlash('comment-done', 'You message has been sent successfully!');
+                this.redirect(['view', model]);
+            });
+        }, 'category', 'mainPhoto', 'photos', 'tags');
+    }
+
+    createDataProvider (params) {
+        return new ActiveDataProvider(Object.assign({
             controller: this,
-            query: this.getModelClass().findBySearch(this.getQueryParam('text')),
             sort: {
                 attrs: {
                     date: true,
@@ -68,34 +100,7 @@ module.exports = class ArticleController extends Base {
                 },
                 defaultOrder: {date: -1}
             }
-        });
-        provider.prepare(err => {
-            err ? this.throwError(err) : this.render('index', {provider});
-        });
-    }
-
-    actionView () {
-        this.getModel(model => {
-            let comment = new (require('../models/Comment'));
-            if (this.isPost()) {
-                comment.load(this.getBodyParams());
-                comment.set('articleId', model.getId());
-                comment.set('ip', this.req.ip);
-                comment.save(err => {
-                    if (err) {
-                        return this.throwError(err);
-                    }
-                    if (comment.hasError()) {                        
-                        this.view(model, comment);
-                    } else {
-                        this.setFlash('comment-done', 'You message has been sent successfully!');
-                        this.redirect(['view', model]);
-                    }
-                });
-            } else {
-                this.view(model, comment);
-            }
-        }, 'mainPhoto', 'photos', 'tags');
+        }, params));
     }
 
     view (model, comment) {
@@ -108,9 +113,12 @@ module.exports = class ArticleController extends Base {
                 : this.render('view', {model, comments, comment});
         });
     }
-
 };
 module.exports.init(module);
 
+const async = require('async');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');
+const Article = require('../models/Article');
+const Category = require('../models/Category');
+const Comment = require('../models/Comment');
 const Tag = require('../models/Tag');

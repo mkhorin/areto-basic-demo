@@ -5,18 +5,15 @@ const Base = require('areto/base/Widget');
 module.exports = class RecentComments extends Base {
 
     run (cb) {
-        Comment.find({
-            status: Comment.STATUS_APPROVED
-        }).orderBy({
-            [Comment.PK]: -1
-        }).limit(3).all((err, models)=> {
-            if (err) {
-                return cb(err);
+        async.waterfall([
+            cb => Comment.findApproved().orderBy({[Comment.PK]: - 1}).limit(3).all(cb),
+            (models, cb) => {
+                this.comments = models;
+                this.render('_parts/widgets/recent-comments', cb);
             }
-            this.comments = models;
-            this.render('_parts/widgets/recent-comments', cb);
-        });
+        ], cb);
     }
 };
 
+const async = require('async');
 const Comment = require('../../models/Comment');

@@ -4,6 +4,12 @@
     items: model.getStatusSelect()
 }) %>
 
+<%- partial(_view.get('_parts/fields/select'), {
+    attr: 'category',
+    items: categories,
+    empty: ''
+}) %>
+
 <%- partial(_view.get('_parts/fields/datepicker'), {
     attr: 'date',
     value: model.get('date') ? _format(model.get('date'), 'date', {format: 'YYYY-MM-DD'}) : ''

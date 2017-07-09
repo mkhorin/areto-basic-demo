@@ -34,6 +34,10 @@ module.exports = class Comment extends Base {
             STATUS_REJECTED: 'rejected'
         };
     }
+
+    static findApproved () {
+        return this.find({status: this.STATUS_APPROVED});
+    }
     
     init () {
         super.init();

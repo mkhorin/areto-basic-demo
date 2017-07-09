@@ -8,6 +8,7 @@ module.exports = {
                 'admin': require('areto/i18n/JsMessageSource')
             }
         },
+
     },
     widgets: {
         'breadcrumbs': {

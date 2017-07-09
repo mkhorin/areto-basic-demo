@@ -2,7 +2,7 @@
     let params = {
         label: typeof label === 'undefined' ? model.getLabel(attr) : label
     };
-    let items = model.get(attr);
+    let items = model.rel(attr);
     items = items instanceof Array ? items : items ? [items] : null;
 %>
 <div class="form-group">
@@ -25,7 +25,7 @@
                 </span>
             <% } %>
         <% }} else { %>
-            <i class="text-danger">[not set]</i>
+            <span class="not-set">[not set]</span>
         <% } %>
         </div>
     </div>

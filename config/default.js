@@ -19,7 +19,7 @@ module.exports = {
             settings: {
                 host: 'localhost',
                 port: 27017,
-                database: 'areto-basic-2',
+                database: 'areto-basic',
                 options: {
                     bufferMaxEntries: 0,
                     keepAlive: 1
@@ -27,7 +27,8 @@ module.exports = {
             }
         },
         'cache': {            
-             Class: require('areto/caching/MemoryCache')
+            Class: require('areto/caching/MemoryCache'),
+            duration: 100, // seconds
         },
         'cookie': {
             secret: 'basic.app'
@@ -94,6 +95,11 @@ module.exports = {
         'breadcrumbs': {
             Class: require('../components/widgets/Breadcrumbs'),
             baseLinks: [{title: 'Main', url: '/'}]
+        },
+        'categories': {
+            Class: require('../components/widgets/Categories'),
+            caching: false,
+            // disabled: true
         },
         'recentComments': {
             Class: require('../components/widgets/RecentComments'),

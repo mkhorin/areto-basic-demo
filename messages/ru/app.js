@@ -5,6 +5,8 @@ module.exports = {
     'Add comment': 'Добавьте комментарий',
     'Admin panel': 'Панель администрирования',
     'Articles not found': 'Статьи не найдены',
+    'Categories': 'Категории',
+    'Category': 'Категория',
     'Comments': 'Комментарии',
     'Date': 'Дата',
     'Email (not shown)': 'E-Mail (не будет показан)',

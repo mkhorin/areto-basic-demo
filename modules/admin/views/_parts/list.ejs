@@ -1,11 +1,14 @@
 
-<% let _routePrefix = typeof routePrefix === 'undefined' ? '' : routePrefix; %>
+<% let params = {
+    routePrefix: typeof routePrefix === 'undefined' ? '' : routePrefix,
+    searchText: typeof searchText === 'string' ? searchText : ''
+}; %>
 
 <div class="list-controls clearfix">
     <% if (typeof search === 'undefined') { %>
     Search
     <div class="input-group">
-        <input class="form-control" value="">
+        <input class="form-control" value="<%= params.searchText %>">
         <span class="input-group-btn">
            <button type="button" class="btn btn-default list-search">
                <span class="glyphicon glyphicon-search"></span>
@@ -23,7 +26,7 @@
 
     <div class="pull-right">
         <% if (typeof create === 'undefined') { %>
-        <a href="<%- _url(`${_routePrefix}create`) %>" class="btn btn-success">Create</a>
+        <a href="<%- _url(`${params.routePrefix}create`) %>" class="btn btn-success">Create</a>
         <% } else if (create) { %>
         <a href="<%- create %>" class="btn btn-success">Create</a>
         <% } %>
@@ -33,25 +36,25 @@
 
 <% if (provider.models.length) { %>
 
-<% let _itemTemplate = typeof itemTemplate === 'undefined' ? null : _view.get(itemTemplate); %>
+<% params.itemTemplate = typeof itemTemplate === 'undefined' ? null : _view.get(itemTemplate); %>
 
 <% for (let model of provider.models ) { %>
 <div class="list-item clearfix">
     <div class="list-item-controls">
-        <a href="<%- _url([`${_routePrefix}view`, model]) %>" class="btn btn-success btn-xs">
+        <a href="<%- _url([`${params.routePrefix}view`, model]) %>" class="btn btn-success btn-xs">
             <span class="glyphicon glyphicon-eye-open"></span>
         </a>
-        <a href="<%- _url([`${_routePrefix}update`, model]) %>" class="btn btn-info btn-xs">
+        <a href="<%- _url([`${params.routePrefix}update`, model]) %>" class="btn btn-info btn-xs">
             <span class="glyphicon glyphicon-edit"></span>
         </a>
         <button class="btn btn-danger btn-xs delete-object-ajax" type="button"
-                data-url="<%- _url([`${_routePrefix}delete`, model]) %>"
+                data-url="<%- _url([`${params.routePrefix}delete`, model]) %>"
                 data-confirm="Remove this object?">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
     </div>
-    <% if (_itemTemplate) { %>
-    <%- partial(_itemTemplate, {model}) %>
+    <% if (params.itemTemplate) { %>
+    <%- partial(params.itemTemplate, {model}) %>
     <% } else { %>
     <%= model.getTitle() %>
     <% } %>

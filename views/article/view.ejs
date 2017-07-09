@@ -45,13 +45,19 @@
     <%= model.get('content') %>
 </div>
 
+<% let category = model.rel('category'); %>
+<% if (category) { %>
+<b class="mr10"><%- _t('app', 'Category')%>:</b>
+<a href="<%- _url(['category', {category: category.getId()}]) %>"
+   class="tag-item"><%= category.getTitle() %></a>&nbsp;
+<% } %>
+
 <% let tags = model.get('tags'); %>
 <% if (tags.length) { %>
 <b class="mr10"><%- _t('app', 'Tags')%>:</b>
 <% for (let tag of tags) { %>
-<a href="<%= _url(['tagged', {tag: tag.getTitle()}]) %>" class="tag-item">
-    <%= tag.getTitle() %>
-</a>
+<a href="<%= _url(['tagged', {tag: tag.getTitle()}]) %>"
+   class="tag-item"><%= tag.getTitle() %></a>
 <% }} %>
 
 <hr>
@@ -61,6 +67,7 @@
 </h4>
 
 <% if (comments.models.length) { %>
+<a name="comments">
 <div class="comment-list">
     <% for (let comment of comments.models) { %>
     <div class="comment-item clearfix">

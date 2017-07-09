@@ -9,6 +9,7 @@ module.exports = class Article extends Base {
             STORED_ATTRS: [
                 'status',
                 'authorId',
+                'category',
                 'date',
                 'title',
                 'content',
@@ -22,6 +23,7 @@ module.exports = class Article extends Base {
                 ['title', 'unique'],
                 ['content', 'string', {min: 10, max: 16128}],
                 ['date', 'date'],
+                ['category', 'mongoId'],
                 ['status', 'range', {range: ['draft','published','archived','blocked']}],
                 ['files', 'safe'],
                 ['tags', 'validateTags', {skipOnAnyError: true}]
@@ -80,78 +82,82 @@ module.exports = class Article extends Base {
     // TAGS
 
     validateTags (cb, attr, params) {
-        try {
-            let items = this.get(attr);
-            if (typeof items === 'string') {
-                let ArrayHelper = require('areto/helpers/ArrayHelper');
-                items = ArrayHelper.unique(items.split(',').map(item => item.trim()).filter(item => item));
-                this.unlinkAll('tags', err => {
-                    async.eachSeries(items, this.resolveTag.bind(this), cb);
-                });
-            } else {
-                cb();
-            }
-        } catch (err) {
-            cb(err);
+        let items = this.get(attr);
+        if (typeof items !== 'string') {
+            return cb();
         }
+        items = items.split(',').map(item => item.trim()).filter(item => item);
+        items = ArrayHelper.unique(items);
+        async.series([
+            cb => this.unlinkAll('tags', cb),
+            cb => async.eachSeries(items, this.resolveTag.bind(this), cb)
+        ], cb);
     }
 
     resolveTag (name, cb) {
-        Tag.findByName(name).one((err, model)=> {
-            if (err) {
-                cb(err);
-            } else if (model) {
-                this.link('tags', model, cb);
-            } else {
+        async.waterfall([
+            cb => Tag.findByName(name).one(cb),
+            (model, cb)=> {
+                if (model) {
+                    return this.link('tags', model, cb);
+                }
                 model = new Tag;
                 model.set('name', name);
                 model.save(err => {
-                    model.isNewRecord() ? cb(err) : this.link('tags', model, cb);
+                    err || model.isNewRecord() ? cb(err) : this.link('tags', model, cb);
                 });
             }
-        });
+        ], cb);
     }
 
     // PHOTOS
 
     resolveFiles (files, cb) {
-        if (files && typeof files === 'string') {
-            File.findById(files.split(',')).all((err, models)=> {
-                if (err) {
-                    return cb(err);
-                }
+        if (!files || typeof files !== 'string') {
+            return cb();
+        }
+        async.waterfall([
+            cb => File.findById(files.split(',')).all(cb),
+            (models, cb)=> {
                 this.set('files', models);
                 cb();
-            });
-        } else cb();
+            }
+        ], cb);
     }
 
     createPhotos (files, cb) {
-        if (files instanceof Array) {
-            let photos = [];
-            async.each(files, (file, cb)=> {
-                let photo = new Photo;
-                photo.set('articleId', this.getId());
-                photo.set('file', file);
-                photo.save(err => {
-                    err ? this.module.log('error', err) : photos.push(photo);
-                    cb();
-                });
-            }, ()=> {
-                // set first photo as main
-                if (photos.length && !this.get('mainPhotoId')) {
-                    this.set('files', null);
-                    this.set('mainPhotoId', photos[0].getId());
-                    this.forceSave(cb);
-                } else cb();
+        if (!(files instanceof Array)) {
+            return cb();
+        }
+        let photos = [];
+        async.each(files, (file, cb)=> {
+            let photo = new Photo;
+            photo.set('articleId', this.getId());
+            photo.set('file', file);
+            photo.save(err => {
+                err ? this.module.log('error', err) : photos.push(photo);
+                cb();
             });
-        } else cb();
+        }, ()=> {
+            // set first photo as main
+            if (photos.length && !this.get('mainPhotoId')) {
+                this.set('files', null);
+                this.set('mainPhotoId', photos[0].getId());
+                this.forceSave(cb);
+            } else {
+                cb();
+            }
+        });
     }
 
     // RELATIONS
 
     relAuthor () {
         return this.hasOne(User, [User.PK, 'authorId']);
+    }
+
+    relCategory () {
+        return this.hasOne(Category, [Category.PK, 'category']);
     }
 
     relPhotos () {
@@ -174,6 +180,8 @@ module.exports = class Article extends Base {
 module.exports.init(module);
 
 const async = require('async');
+const ArrayHelper = require('areto/helpers/ArrayHelper');
+const Category = require('./Category');
 const Comment = require('./Comment');
 const Tag = require('./Tag');
 const File = require('./File');

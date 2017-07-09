@@ -52,6 +52,10 @@ module.exports = class Article extends Base {
         return this.hasOne(User, [User.PK, 'authorId']);
     }
 
+    relCategory () {
+        return this.hasOne(Category, [Category.PK, 'category']);
+    }
+
     relPhotos () {
         return this.hasMany(Photo, ['articleId', this.PK]);
     }
@@ -72,6 +76,7 @@ module.exports = class Article extends Base {
 };
 module.exports.init(module);
 
+const Category = require('./Category');
 const Comment = require('./Comment');
 const Photo = require('./Photo');
 const User = require('./User');

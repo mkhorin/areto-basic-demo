@@ -8,6 +8,12 @@
 ]) %>
 
 <% let stat = _view.get('_parts/fields/static'); %>
+<% let relation = _view.get('_parts/fields/relation'); %>
+
+<%- partial(relation, {
+    attr: 'category',
+    viewRoute: 'category/view'
+}) %>
 
 <%- partial(stat, {
     attr: 'title'
@@ -38,7 +44,7 @@
     value: _format(model.get('createdAt'), 'datetime')
 }) %>
 
-<%- partial(_view.get('_parts/fields/relation'), {
+<%- partial(relation, {
     attr: 'tags',
     viewRoute: 'tag/view'
 }) %>
@@ -48,13 +54,13 @@
     escaping: false
 }) %>
 
-<%- partial(_view.get('_parts/fields/relation'), {
+<%- partial(relation, {
     attr: 'mainPhoto',
     itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(_view.get('_parts/fields/relation'), {
+<%- partial(relation, {
     attr: 'photos',
     itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
