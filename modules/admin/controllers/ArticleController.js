@@ -10,7 +10,9 @@ module.exports = class ArticleController extends Base {
         let provider = new ActiveDataProvider({
             controller: this,
             query: Class.findBySearch(this.getQueryParam('search')).with('author', 'mainPhoto'),
-            pagination: {},
+            pagination: {
+                pageSize: 10
+            },
             sort: {
                 attrs: {
                     [Class.PK]: true,
@@ -48,28 +50,26 @@ module.exports = class ArticleController extends Base {
         }, ['author', 'category', 'photos', 'mainPhoto', 'tags']);
     }
 
-    actionCreate () {        
+    actionCreate () {
         let model = new (this.getModelClass());
-        if (this.isPost()) {
-            model.load(this.getBodyParams());
-            model.set('authorId', this.user.getId());
-            model.save(err => {
-                if (err) {
-                    this.throwError(err);
-                } else if (model.isNewRecord()) {
-                    this.render('create', {model});
-                } else {
-                    this.backToRef();
-                }
-            });            
-        } else {
-            this.render('create', {model});
+        if (this.isGet()) {
+            return this.renderForm('create', {model});
         }
+        model.load(this.getBodyParams());
+        model.set('authorId', this.user.getId());
+        model.save(err => {
+            if (err) {
+                this.throwError(err);
+            } else if (model.hasError()) {
+                this.renderForm('create', {model});
+            } else {
+                this.backToRef();
+            }
+        });
     }
 
     actionUpdate () {
         this.getModel(model => {
-            let renderData = {model};
             async.waterfall([
                 cb => {
                     this.user.can('updateArticle', cb,  {
@@ -79,17 +79,16 @@ module.exports = class ArticleController extends Base {
                 (access, cb)=> {
                     access ? cb() : this.throwForbidden();
                 },
-                cb => this.prepareFormData(cb),
-                (data, cb)=> {
-                    Object.assign(renderData, data);
-                    this.isGet() ? this.render('update', renderData)
+                cb => {
+                    this.isGet()
+                        ? this.renderForm('update', {model})
                         : model.load(this.getBodyParams()).save(cb);
                 }
             ], err => {
                 if (err) {
                     this.throwError(err);
                 } else if (model.hasError()) {
-                    this.render('update', renderData);
+                    this.renderForm('update', {model})
                 } else {
                     this.backToRef();
                 }
@@ -97,10 +96,13 @@ module.exports = class ArticleController extends Base {
         }, 'photos', 'tags');
     }
 
-    prepareFormData (cb) {
+    renderForm (template, params) {
         async.series({
             categories: cb => Category.find().select({name: 1}).orderBy({name:1}).asArray().all(cb)
-        }, cb);
+        }, (err, data)=> {
+            err ? this.throwError(err)
+                : this.render(template, Object.assign(data, params));
+        });
     }
 };
 module.exports.init(module);

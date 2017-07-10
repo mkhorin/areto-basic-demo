@@ -93,6 +93,9 @@ module.exports = class ArticleController extends Base {
     createDataProvider (params) {
         return new ActiveDataProvider(Object.assign({
             controller: this,
+            pagination: {
+                pageSize: 10
+            },
             sort: {
                 attrs: {
                     date: true,
