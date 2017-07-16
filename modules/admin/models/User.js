@@ -23,7 +23,7 @@ module.exports = class User extends Base {
     static findBySearch (text) {
         let query = this.find();
         if (text) {
-            query.andWhere(['OR', ['LIKE','name',`%${text}%`], ['LIKE','email',`%${text}%`]]);
+            query.and(['OR', ['LIKE','name',`%${text}%`], ['LIKE','email',`%${text}%`]]);
         }
         return query;
     }

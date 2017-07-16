@@ -40,7 +40,7 @@ module.exports = class CommentController extends Base {
                     model.set('articleId', article.getId());
                     model.save(err => {
                         err ? this.throwError(err)
-                            : model.isNewRecord() ? this.render('create', {model}) : this.backToRef();
+                            : model.isNew() ? this.render('create', {model}) : this.backToRef();
                     });
                 } else this.render('create', {model});
             });

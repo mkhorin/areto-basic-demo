@@ -34,19 +34,17 @@ module.exports = class SignUpForm extends Base {
     signUp (webuser, cb) {
         this.validate(err => {
             if (err || this.hasError()) {
-                cb(err);
-            } else {
-                let model = new User;
-                model.setAttrs(this);
-                model.save(err => {
-                    if (model.hasError()) {
-                        this.addError('name', model.getFirstError());
-                        cb(err);
-                    } else {
-                        webuser.login(model, 0, cb);
-                    }
-                });
+                return cb(err);
             }
+            let model = new User;
+            model.setAttrs(this);
+            model.save(err => {
+                if (model.hasError()) {
+                    this.addError('name', model.getFirstError());
+                    return cb(err);
+                }
+                webuser.login(model, 0, cb);
+            });
         })
     }
 };

@@ -25,7 +25,7 @@ module.exports = class ArticleController extends Base {
             },
             cb => {
                 provider = this.createDataProvider({
-                    query: Article.findPublished().andWhere({category: category.getId()})
+                    query: Article.findPublished().and({category: category.getId()})
                 });
                 provider.prepare(cb);
             }

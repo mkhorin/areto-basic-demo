@@ -18,7 +18,9 @@ module.exports = class PhotoController extends Base {
         let provider = new ActiveDataProvider({
             controller: this,
             query: Class.find().with(['article']), //BySearch(this.getQueryParam('search')),
-            pagination: {},
+            pagination: {
+                pageSize: 10
+            },
             sort: {
                 attrs: {
                     [Class.PK]: true,
@@ -37,39 +39,39 @@ module.exports = class PhotoController extends Base {
     actionCreate () {
         let model = new (this.getModelClass());
         model.scenario = 'create';
-        let params = {model};
-        async.series([
-            cb => Article.findToSelect().all(cb)
-        ], (err, result)=> {
+        async.series({
+            articles: cb => Article.findToSelect().all(cb)
+        }, (err, params)=> {
             if (err) {
-                return cb(err);
+                return this.throwError(err);
             }
-            params.articles = result[0];
-            if (this.isPost()) {
-                model.load(this.getBodyParams()).save(err => {
-                    err ? this.throwError(err)
-                        : model.isNewRecord() ? this.render('create', params) :  this.backToRef();
-                });
-            } else this.render('create', params);
+            params.model = model;
+            if (this.isGet()) {
+                return this.render('create', params);
+            }
+            model.load(this.getBodyParams()).save(err => {
+                err ? this.throwError(err)
+                    : model.isNew() ? this.render('create', params) :  this.backToRef();
+            });
         });
     }
     
     actionUpdate () {
         this.getModel(model => {
-            let params = {model};
-            async.series([
-                cb => Article.findToSelect().all(cb)
-            ], (err, result)=> {
+            async.series({
+                articles: cb => Article.findToSelect().all(cb)
+            }, (err, params)=> {
                 if (err) {
-                    return cb(err);
+                    return this.throwError(err);
                 }
-                params.articles = result[0];
-                if (this.isPost()) {
-                    model.load(this.getBodyParams()).save(err => {
-                        err ? this.throwError(err)
-                            : model.hasError() ? this.render('update', params) : this.backToRef();
-                    });
-                } else this.render('update', params);
+                params.model = model;
+                if (this.isGet()) {
+                    return this.render('update', params);
+                }
+                model.load(this.getBodyParams()).save(err => {
+                    err ? this.throwError(err)
+                        : model.hasError() ? this.render('update', params) : this.backToRef();
+                });
             });
         });
     }
@@ -83,22 +85,21 @@ module.exports = class PhotoController extends Base {
         let file = new File;
         file.upload(this, err => {
             if (err) {
-                this.throwError(err);
+                return this.throwError(err);
             } else if (file.hasError()) {
-                this.sendText(this.translate(file.getFirstError()), 400);
-            } else {
-                let photo = new (this.getModelClass());
-                photo.set('file', file.getId());
-                photo.validate(err => {
-                    if (err) {
-                        this.throwError(err);
-                    } else if (photo.hasError()) {
-                        this.sendText(this.translate(photo.getFirstError()), 400);
-                    } else {
-                        this.sendText(file.getId());
-                    }
-                }, ['file']);
-            }            
+                return this.sendText(this.translate(file.getFirstError()), 400);
+            }
+            let photo = new (this.getModelClass());
+            photo.set('file', file.getId());
+            photo.validate(err => {
+                if (err) {
+                    this.throwError(err);
+                } else if (photo.hasError()) {
+                    this.sendText(this.translate(photo.getFirstError()), 400);
+                } else {
+                    this.sendText(file.getId());
+                }
+            }, ['file']);
         });
     }
 

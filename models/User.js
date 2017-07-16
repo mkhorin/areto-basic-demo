@@ -24,7 +24,7 @@ module.exports = class User extends Base {
     }
 
     static findIdentity (id) {
-        return this.findById(id).andWhere({status: 'active'});
+        return this.findById(id).and({status: 'active'});
     }
 
     init () {

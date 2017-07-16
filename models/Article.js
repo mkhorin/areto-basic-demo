@@ -21,7 +21,7 @@ module.exports = class Article extends Base {
     static findBySearch (text) {
         let query = this.findPublished();
         if (typeof text === 'string' && /[a-z0-9\-\s]{1,32}/i.test(text)) {
-            query.andWhere(['LIKE', 'title', `%${text}%`]);
+            query.and(['LIKE', 'title', `%${text}%`]);
         }
         return query;
     }

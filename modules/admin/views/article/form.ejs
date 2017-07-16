@@ -24,7 +24,7 @@
     rows: 8
 }) %>
 
-<% if (!model.isNewRecord()) { %>
+<% if (!model.isNew()) { %>
 <% let tags = model.get('tags'); %>
 <%- partial(_view.get('_parts/fields/input'), {
     attr: 'tags',

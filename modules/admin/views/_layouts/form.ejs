@@ -28,7 +28,7 @@
     <div class="object-controls">
         <button class="btn btn-primary" type="submit">Save</button>
 
-        <% if (!model.isNewRecord()) { %>
+        <% if (!model.isNew()) { %>
 
         <a href="<%- _url(['view', model]) %>" class="btn btn-success">View</a>
 

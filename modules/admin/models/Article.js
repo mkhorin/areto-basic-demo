@@ -38,7 +38,7 @@ module.exports = class Article extends Base {
     static findBySearch (text) {
         let query = this.find();
         if (typeof text === 'string' && /[a-z0-9\-\s]{1,32}/i.test(text)) {
-            query.andWhere(['LIKE','title', `%${text}%`]);
+            query.and(['LIKE','title', `%${text}%`]);
         }
         return query;
     }
@@ -64,19 +64,17 @@ module.exports = class Article extends Base {
     // EVENTS
     
     beforeValidate (cb) {
-        super.beforeValidate(err => {
-            if (err) return cb(err);            
-            this.resolveFiles(this.get('files'), cb);
-        });                
+        async.series([
+            cb => super.beforeValidate(cb),
+            cb => this.resolveFiles(this.get('files'), cb)
+        ], cb);
     }
 
     afterSave (insert, cb) {
-        super.afterSave(insert, err => {
-            if (err) {
-                return cb(err);
-            }
-            this.createPhotos(this.get('files'), cb);
-        });
+        async.series([
+            cb => super.afterSave(insert, cb),
+            cb => this.createPhotos(this.get('files'), cb)
+        ], cb);
     }
 
     // TAGS
@@ -104,7 +102,7 @@ module.exports = class Article extends Base {
                 model = new Tag;
                 model.set('name', name);
                 model.save(err => {
-                    err || model.isNewRecord() ? cb(err) : this.link('tags', model, cb);
+                    err || model.isNew() ? cb(err) : this.link('tags', model, cb);
                 });
             }
         ], cb);
