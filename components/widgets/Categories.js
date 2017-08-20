@@ -6,7 +6,7 @@ module.exports = class Categories extends Base {
 
     run (cb) {
         async.waterfall([
-            cb => Category.find().orderBy({name: 1}).all(cb),
+            cb => Category.find().order({name: 1}).all(cb),
             (models, cb)=> {
                 this.items = models;
                 async.eachSeries(models, this.countArticlesByCategory.bind(this), cb);

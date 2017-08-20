@@ -6,7 +6,7 @@ module.exports = class RecentComments extends Base {
 
     run (cb) {
         async.waterfall([
-            cb => Comment.findApproved().orderBy({[Comment.PK]: - 1}).limit(3).all(cb),
+            cb => Comment.findApproved().order({[Comment.PK]: - 1}).limit(3).all(cb),
             (models, cb) => {
                 this.comments = models;
                 this.render('_parts/widgets/recent-comments', cb);
