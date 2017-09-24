@@ -17,7 +17,7 @@ module.exports = class Photo extends Base {
                 ['title', 'string', {min: 3, max: 255}],
                 ['file', 'required', {on: ['create']}],
                 ['file', 'image'],
-                ['articleId', 'mongoId'],
+                ['articleId', 'id'],
                 ['articleId', 'exist', {
                     targetClass: require('./Article'),
                     targetAttr: this.PK

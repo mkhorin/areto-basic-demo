@@ -23,7 +23,7 @@ module.exports = class Article extends Base {
                 ['title', 'unique'],
                 ['content', 'string', {min: 10, max: 16128}],
                 ['date', 'date'],
-                ['category', 'mongoId'],
+                ['category', 'id'],
                 ['status', 'range', {range: ['draft','published','archived','blocked']}],
                 ['files', 'safe'],
                 ['tags', 'validateTags', {skipOnAnyError: true}]

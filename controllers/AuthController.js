@@ -18,7 +18,7 @@ module.exports = class AuthController extends Base {
     }
 
     actionSignin () {
-        if (!this.user.isGuest()) {
+        if (!this.user.isAnonymous()) {
             return this.render('signed', {
                 model: this.user.identity
             });
@@ -59,7 +59,7 @@ module.exports = class AuthController extends Base {
     }
 
     actionSignup () {
-        if (!this.user.isGuest()) {
+        if (!this.user.isAnonymous()) {
             return this.render('signed', {
                 model: this.user.identity
             });

@@ -45,11 +45,12 @@ module.exports = class ArticleController extends Base {
             cb => tag.hasError() ? this.render('tagged', {tagName}) : cb(),
             cb => async.waterfall([
                 cb => Tag.find({name: tagName}).one(cb),
-                (tag, cb)=> tag ? cb() : this.render('tagged', {tagName}),
-                cb => {
+                (model, cb)=> model ? cb(null, model) : this.render('tagged', {tagName}),
+                (model, cb)=> {
                     provider = this.createDataProvider({
-                        query: tag.relArticles()
-                    }).prepare(cb);
+                        query: model.relArticles()
+                    });
+                    provider.prepare(cb);
                 }
             ], cb)
         ], err => {

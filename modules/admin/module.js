@@ -17,7 +17,5 @@ class Admin extends Base {
             }
         };
     }
-
-
 }
 module.exports = new (Admin.init(module));
