@@ -44,7 +44,7 @@ module.exports = class Article extends Base {
     }
     
     static findToSelect () {
-        return this.find().select(['title']).asArray();
+        return this.find().select(['title']).asRaw();
     }
 
     init () {

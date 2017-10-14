@@ -1,7 +1,6 @@
 'use strict';
 
 const Base = require('areto/base/Behavior');
-const path = require('path');
 
 module.exports = class File extends Base {
 
@@ -29,10 +28,10 @@ module.exports = class File extends Base {
         if (!this.defaultThumbSize && this.neededThumbs) {
             this.defaultThumbSize = this.neededThumbs[this.neededThumbs.length - 1];
         }
-        this._events[ActiveRecord.EVENT_BEFORE_VALIDATE] = 'beforeValidate';
-        this._events[ActiveRecord.EVENT_BEFORE_INSERT] = 'beforeInsert';
-        this._events[ActiveRecord.EVENT_BEFORE_UPDATE] = 'beforeUpdate';
-        this._events[ActiveRecord.EVENT_AFTER_REMOVE] = 'afterRemove';
+        this.assign(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
+        this.assign(ActiveRecord.EVENT_BEFORE_INSERT, this.beforeInsert);
+        this.assign(ActiveRecord.EVENT_BEFORE_UPDATE, this.beforeUpdate);
+        this.assign(ActiveRecord.EVENT_AFTER_REMOVE, this.afterRemove);
     }
   
     getPath () {
@@ -196,4 +195,5 @@ const async = require('async');
 const fs = require('fs');
 const gm = require('gm');
 const mkdirp = require('mkdirp');
+const path = require('path');
 const ActiveRecord = require('areto/db/ActiveRecord');

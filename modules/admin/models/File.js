@@ -71,7 +71,7 @@ module.exports = class File extends Base {
     }
 
     generateFilename (req, file, cb) {
-        cb(null, Date.now().toString() + MainHelper.getRandom(11, 99));
+        cb(null, Date.now().toString() + MiscHelper.getRandom(11, 99));
     }
 
     populateFileStats (file, controller) {
@@ -111,4 +111,4 @@ const async = require('async');
 const fs = require('fs');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
-const MainHelper = require('areto/helpers/MainHelper');
+const MiscHelper = require('areto/helpers/MiscHelper');

@@ -98,7 +98,7 @@ module.exports = class ArticleController extends Base {
 
     renderForm (template, params) {
         async.series({
-            categories: cb => Category.find().select({name: 1}).order({name:1}).asArray().all(cb)
+            categories: cb => Category.find().select({name: 1}).order({name:1}).asRaw().all(cb)
         }, (err, data)=> {
             err ? this.throwError(err)
                 : this.render(template, Object.assign(data, params));

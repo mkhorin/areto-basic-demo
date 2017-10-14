@@ -2,7 +2,7 @@
 
 const Base = require('areto/base/App');
 
-class Basic extends Base {
+module.exports = class Basic extends Base {
     
-}
-module.exports = new (Basic.init(module));
+};
+module.exports = new (module.exports.init(module));
