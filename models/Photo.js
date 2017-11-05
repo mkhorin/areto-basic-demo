@@ -28,7 +28,7 @@ module.exports = class Photo extends Base {
     }
 
     getThumb (size) {
-        return `/photos/${size}/${this.get('filename')}`;
+        return `photos/${size}/${this.get('filename')}`;
     }
 
 };

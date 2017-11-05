@@ -13,7 +13,7 @@ module.exports = {
     widgets: {
         'breadcrumbs': {
             baseLinks: [
-                {title: 'Main', url: '/admin'}
+                {title: 'Main', url: 'admin'}
             ]
         },
         'sideMenu': {

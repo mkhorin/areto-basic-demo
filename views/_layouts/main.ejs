@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="<%- _baseUrl %>">
     <title><%- blocks.title %> - Areto Basic Demo</title>
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
 
@@ -21,12 +22,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">ARETO Basic Demo</a>
+                <a class="navbar-brand" href="">ARETO Basic Demo</a>
             </div>
             <div id="topnav-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav navbar-right nav">
                     <li>
-                        <a href="/admin">
+                        <a href="admin">
                             <%- _t('app', 'Admin panel')%>
                         </a>
                     </li>
@@ -57,8 +58,8 @@
     </div>
 </footer>
 
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/common.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
 </body>
 </html>

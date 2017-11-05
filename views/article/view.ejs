@@ -3,7 +3,7 @@
 <% block('title', 'Article') -%>
 
 <% _view.setData('breadcrumbs', [
-    {title: 'Articles',url: '/article'},
+    {title: 'Articles', url: 'article'},
     {title: model.getTitle()}
 ]) %>
 
@@ -103,7 +103,7 @@
 <% if (done.length) { %>
 <div class="alert alert-success"><%= done[0] %></div>
 <% } else { %>
-<form action="#comment-form" method="post" class="comment-form form form-horizontal mt30">
+<form action="<%= _controller.getOriginalUrl() %>#comment-form" method="post" class="comment-form form form-horizontal mt30">
     <h4 class="mb30">
         <%- _t('app', 'Add comment') %>
     </h4>

@@ -8,7 +8,7 @@
     <div class="panel-body">
         <% for (let tag of _widget.tags) { %>
         <span class="mr10">
-            <a href="/article/tagged?tag=<%= tag.get('name') %>">
+            <a href="article/tagged?tag=<%= tag.get('name') %>">
                 <%= tag.get('name') %>
             </a>
             (<%- tag.get('articleCount') %>)

@@ -1,7 +1,10 @@
 'use strict';
 
 module.exports = {
+
+    //mountPath: "/test",
     port: 3000,
+
     components: {        
         'logger': {
             level: 'info',
@@ -94,7 +97,7 @@ module.exports = {
     widgets: {
         'breadcrumbs': {
             Class: require('../components/widgets/Breadcrumbs'),
-            baseLinks: [{title: 'Main', url: '/'}]
+            baseLinks: [{title: 'Main', url: ''}]
         },
         'categories': {
             Class: require('../components/widgets/Categories'),

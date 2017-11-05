@@ -17,6 +17,12 @@ module.exports = class AuthController extends Base {
         };
     }
 
+    actionLogout () {
+        this.user.logout(err => {
+            err ? this.throwError(err) : this.goHome();
+        });
+    }
+
     actionSignin () {
         if (!this.user.isAnonymous()) {
             return this.render('signed', {
@@ -49,12 +55,6 @@ module.exports = class AuthController extends Base {
                     this.goBack();
                 }
             });
-        });
-    }
-
-    actionLogout () {
-        this.user.logout(err => {
-            err ? this.throwError(err) : this.goLogin();
         });
     }
 

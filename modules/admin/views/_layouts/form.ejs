@@ -21,7 +21,7 @@
 </div>
 <% } %>
 
-<form action="<%= _controller.req.originalUrl %>" method="post" class="form-horizontal form" autocomplete="off">
+<form action="<%= _controller.getOriginalUrl() %>" method="post" class="form-horizontal form" autocomplete="off">
 
     <input type="hidden" name="referrer" value="<%= _controller.getRefUrl() %>">
 
