@@ -15,16 +15,20 @@ module.exports = class Comment extends Base {
     static findBySearch (text) {
         let query = this.find();
         if (text) {
-            query.where(['OR', ['LIKE', 'content', `%${text}%`], {'name': text}, {'email': text}]);
+            query.where(['OR',
+                ['LIKE', 'content', `%${text}%`],
+                {name: text},
+                {email: text}
+            ]);
         }
         return query;
     }
 
     getStatusSelect () {
         return [
-            { value: this.STATUS_PENDING, label: 'Pending' },
-            { value: this.STATUS_APPROVED, label: 'Approved' },
-            { value: this.STATUS_REJECTED, label: 'Rejected' }
+            {value: this.STATUS_PENDING, label: 'Pending'},
+            {value: this.STATUS_APPROVED, label: 'Approved'},
+            {value: this.STATUS_REJECTED, label: 'Rejected'}
         ];
     }
 

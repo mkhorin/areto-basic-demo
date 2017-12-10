@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/view')) -%>
+<% layout(_view.get('_layout/view')) -%>
 
 <% block('title', 'Article') -%>
 
@@ -7,8 +7,8 @@
     {title: model.getId()}
 ]) %>
 
-<% let stat = _view.get('_parts/fields/static'); %>
-<% let relation = _view.get('_parts/fields/relation'); %>
+<% let stat = _view.get('_part/fields/static'); %>
+<% let relation = _view.get('_part/fields/relation'); %>
 
 <%- partial(relation, {
     attr: 'category',
@@ -66,7 +66,7 @@
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(_view.get('_parts/fields/list'), {
+<%- partial(_view.get('_part/fields/list'), {
     attr: 'comments',
     provider: comments,
     itemTemplate: 'article/comment-item',

@@ -14,7 +14,7 @@ module.exports = class Categories extends Base {
             cb => {
                 //this.items = this.items.filter(item => item.get('articleCount') > 0);
                 this.items.sort((a, b)=> b.get('articleCount') - a.get('articleCount'));
-                this.render('_parts/widgets/categories', cb);
+                this.render('_part/widgets/categories', cb);
             }
         ], cb);
     }

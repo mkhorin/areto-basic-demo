@@ -23,25 +23,28 @@ module.exports = class User extends Base {
     static findBySearch (text) {
         let query = this.find();
         if (text) {
-            query.and(['OR', ['LIKE','name',`%${text}%`], ['LIKE','email',`%${text}%`]]);
+            query.and(['OR',
+                ['LIKE','name',`%${text}%`],
+                ['LIKE','email',`%${text}%`]
+            ]);
         }
         return query;
     }
 
     getStatusSelect () {
         return [
-            { value: 'active', label: 'Active' },
-            { value: 'banned', label: 'Banned' }
+            {value: 'active', label: 'Active'},
+            {value: 'banned', label: 'Banned'}
         ];
     }
 
     getRoleSelect () {
         return [
-            { value: 'reader', label: 'Reader' },
-            { value: 'author', label: 'Author' },
-            { value: 'editor', label: 'Editor' },
-            { value: 'moderator', label: 'Moderator' },
-            { value: 'admin', label: 'Administrator' }
+            {value: 'reader', label: 'Reader'},
+            {value: 'author', label: 'Author'},
+            {value: 'editor', label: 'Editor'},
+            {value: 'moderator', label: 'Moderator'},
+            {value: 'admin', label: 'Administrator'}
         ];
     }
 

@@ -12,6 +12,6 @@ module.exports = class Breadcrumbs extends Base {
         } else if (this.baseLinks) {
             this.links = this.baseLinks;
         }        
-        this.render('_parts/widgets/breadcrumbs', cb, this.params);
+        this.render('_part/widgets/breadcrumbs', cb, this.params);
     }
 };

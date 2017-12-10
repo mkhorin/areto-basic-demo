@@ -32,7 +32,8 @@ module.exports = class PhotoController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {provider});
+           err ? this.throwError(err)
+               : this.render('index', {provider});
         });
     }
 
@@ -51,7 +52,9 @@ module.exports = class PhotoController extends Base {
             }
             model.load(this.getBodyParams()).save(err => {
                 err ? this.throwError(err)
-                    : model.isNew() ? this.render('create', params) :  this.backToRef();
+                    : model.isNew()
+                        ? this.render('create', params)
+                        : this.backToRef();
             });
         });
     }
@@ -70,7 +73,9 @@ module.exports = class PhotoController extends Base {
                 }
                 model.load(this.getBodyParams()).save(err => {
                     err ? this.throwError(err)
-                        : model.hasError() ? this.render('update', params) : this.backToRef();
+                        : model.hasError()
+                            ? this.render('update', params)
+                            : this.backToRef();
                 });
             });
         });
@@ -86,7 +91,8 @@ module.exports = class PhotoController extends Base {
         file.upload(this, err => {
             if (err) {
                 return this.throwError(err);
-            } else if (file.hasError()) {
+            }
+            if (file.hasError()) {
                 return this.sendText(this.translate(file.getFirstError()), 400);
             }
             let photo = new (this.getModelClass());
@@ -106,15 +112,15 @@ module.exports = class PhotoController extends Base {
     actionAssignMain () {
         this.getModel(model => {
             let article = model.get('article');
-            if (article) {
-                article.set('mainPhotoId', model.getId());
-                article.forceSave(err => {
-                    err ? this.throwError(err) : this.redirect(['article/view', article]);
-                });
-            } else {
+            if (!article) {
                 this.setFlash('danger', 'Article not found');
-                this.redirect(['view', model]);
+                return this.redirect(['view', model]);
             }
+            article.set('mainPhotoId', model.getId());
+            article.forceSave(err => {
+                err ? this.throwError(err)
+                    : this.redirect(['article/view', article]);
+            });
         }, 'article');
     }
 };

@@ -1,6 +1,6 @@
 <% let title = 'Sign up'; %>
 
-<% layout(_view.get('_layouts/main')) -%>
+<% layout(_view.get('_layout/main')) -%>
 
 <% block('title', title) -%>
 
@@ -14,27 +14,27 @@
         </h3>
 
         <form action="<%- _url('signup') %>" method="post">
-            <%- partial(_view.get('_parts/fields/auth/input'), {
+            <%- partial(_view.get('_part/fields/auth/input'), {
                 attr: 'name',
                 iconClass: 'glyphicon glyphicon-user'
             }) %>
 
-            <%- partial(_view.get('_parts/fields/auth/input'), {
+            <%- partial(_view.get('_part/fields/auth/input'), {
                 attr: 'email',
                 iconClass: 'glyphicon glyphicon-envelope'
             }) %>
 
-            <%- partial(_view.get('_parts/fields/auth/password'), {
+            <%- partial(_view.get('_part/fields/auth/password'), {
                 attr: 'password',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
 
-            <%- partial(_view.get('_parts/fields/auth/password'), {
+            <%- partial(_view.get('_part/fields/auth/password'), {
                 attr: 'passwordRepeat',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
 
-            <%- partial(_view.get('_parts/fields/auth/captcha'), {
+            <%- partial(_view.get('_part/fields/auth/captcha'), {
                 attr: 'captchaCode',
                 iconClass: 'glyphicon glyphicon-check',
                 url: _url('captcha')

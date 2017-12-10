@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {    
-    var defaultSettings = {
+    let defaultSettings = {
         fileAttrName: 'file',
         maxFiles: 1,
         minSize: 1,
@@ -27,7 +27,7 @@
         confirmRemoveStatus: [ 'done', 'uploading' ]
     };
     
-    var methods = {
+    let methods = {
         settings: function (options) {
             // override default settings for new uploaders
             return $.extend(defaultSettings, options);
@@ -43,7 +43,7 @@
             $.error('Not found uploader method:' +  method);
         }
         return this.each(function () {
-            var $uploader = $(this);
+            let $uploader = $(this);
             if (!$uploader.data('uploader')) {
                 new Uploader($uploader);
             }
@@ -67,7 +67,7 @@
     // UPLOADER
 
     function Uploader ($uploader) {
-        var self = this;
+        let self = this;
         this.$uploader = $uploader;
         this.options = $.extend({}, defaultSettings, $uploader.data('options'));
         this.url = $uploader.data('url');
@@ -91,7 +91,7 @@
         constructor: Uploader,
 
         isFinished: function () {
-            for (var i = 0; i < this.files.length; ++i) {
+            for (let i = 0; i < this.files.length; ++i) {
                 if (this.files[i].isProcessing()) {
                     return false;
                 }
@@ -104,9 +104,9 @@
         },
 
         initDropZone: function () {
-            var self = this;
+            let self = this;
             this.$dropzone = this.$uploader.find(".uploader-dropzone");
-            var dropzone = this.$dropzone.get(0);
+            let dropzone = this.$dropzone.get(0);
             dropzone.ondragover = function () {
                 //$dropZone.addClass('drag');
                 return false;
@@ -126,10 +126,10 @@
         },
 
         initItems: function () {
-            var items = this.options.items;
+            let items = this.options.items;
             if (items instanceof  Array) {
-                for (var i = 0; i < items.length; ++i) {
-                    var file = new UFile(null, this);
+                for (let i = 0; i < items.length; ++i) {
+                    let file = new UFile(null, this);
                     this.files.push(file);
                     file.setFromData(items[i]);
                 }
@@ -140,12 +140,12 @@
         },
 
         setFiles: function (files) {
-            var counter = this.count();
+            let counter = this.count();
             counter.total += files.length;
             if (counter.total > this.options.maxFiles) {
                 this.fireEvent('overflow', this.options.tooMany);
             } else if (files.length) {
-                for (var i = 0; i < files.length; ++i) {
+                for (let i = 0; i < files.length; ++i) {
                     this.files.push(new UFile(files[i], this));
                 }
                 if (counter.total == this.options.maxFiles) {
@@ -158,8 +158,8 @@
         },
 
         count: function () {
-            var counter = {total: 0, failed: 0, done: 0};
-            for (var i = 0; i < this.files.length; ++i) {
+            let counter = {total: 0, failed: 0, done: 0};
+            for (let i = 0; i < this.files.length; ++i) {
                 if (!this.files[i].removed) {
                     if (this.files[i].failed) {
                         ++counter.failed;
@@ -174,9 +174,9 @@
         },
 
         processNext: function () {
-            var self = this;
+            let self = this;
             setTimeout(function () {
-                var map = self.getFirstFilesByStatus();
+                let map = self.getFirstFilesByStatus();
                 if (UFile.STATUS_PENDING in map) {
                     map[UFile.STATUS_PENDING].append();
                 } else if (UFile.STATUS_APPENDED in map) {
@@ -188,9 +188,9 @@
         },
 
         getFirstFilesByStatus: function () {
-            var map = {};
-            for (var i = 0; i < this.files.length; ++i) {
-                var file = this.files[i];
+            let map = {};
+            for (let i = 0; i < this.files.length; ++i) {
+                let file = this.files[i];
                 if (!file.removed && !file.failed && !(file.status in map)) {
                     map[file.status] = file;    
                 } 
@@ -231,7 +231,7 @@
         },
 
         isProcessing: function () {
-            return !this.removed && !this.failed && this.status != UFile.STATUS_DONE;
+            return !this.removed && !this.failed && this.status !== UFile.STATUS_DONE;
         },
 
         setError: function (error) {
@@ -280,7 +280,7 @@
         },
 
         startValidate: function () {
-            var error = this.validateFile();
+            let error = this.validateFile();
             this.status = UFile.STATUS_VALIDATED;
             this.fireEvent('validated');
             error && this.setError(error);
@@ -288,14 +288,14 @@
         },
 
         validateFile: function () {
-            var options = this.uploader.options;
-            var file = this.file;
+            let options = this.uploader.options;
+            let file = this.file;
             if (this.isMatchFile()) {
                 return options.alreadyExists;
             }
             if (options.extensions) {
-                var index = file.name.lastIndexOf('.');
-                var ext = index > -1 ? file.name.substr(index + 1, file.name.length).toLowerCase() : '';
+                let index = file.name.lastIndexOf('.');
+                let ext = index > -1 ? file.name.substr(index + 1, file.name.length).toLowerCase() : '';
                 if (options.extensions.indexOf(ext) < 0) {
                     return options.wrongExtension.replace(/\{extensions\}/g, options.extensions.join(', '));
                 }
@@ -322,8 +322,8 @@
         },
 
         isMatchFile: function () {
-            var files = this.uploader.files;
-            for (var i = 0; i < files.length; ++i) {
+            let files = this.uploader.files;
+            for (let i = 0; i < files.length; ++i) {
                 if (!files[i].removed) {
                     // проверять на совпадение только с предыдущими файлами
                     if (files[i] === this) {
@@ -338,7 +338,7 @@
         },
 
         validateImage: function () {
-            var options = this.uploader.options;
+            let options = this.uploader.options;
             if (options.maxHeight && options.maxHeight < this.image.height) {
                 return options.overHeight.replace(/\{limit\}/g, options.maxHeight);
             }
@@ -365,7 +365,7 @@
             }
             this.xhr.onreadystatechange = this.changeReadyState.bind(this);
             // создать данные формы для выгрузки на сервер
-            var data = new FormData;
+            let data = new FormData;
             data.append(this.uploader.options.fileAttrName, this.file.name);
             data.append(this.uploader.options.fileAttrName, this.file);
             this.status = UFile.STATUS_UPLOADING;

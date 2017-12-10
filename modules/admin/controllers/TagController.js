@@ -36,7 +36,8 @@ module.exports = class TagController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {provider});
+           err ? this.throwError(err)
+               : this.render('index', {provider});
         });
     }
 

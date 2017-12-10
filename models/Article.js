@@ -15,7 +15,9 @@ module.exports = class Article extends Base {
     }
 
     static findPublished () {
-        return this.find().where({status: this.STATUS_PUBLISHED}).with('mainPhoto','tags');
+        return this.find().where({
+            status: this.STATUS_PUBLISHED
+        }).with('mainPhoto','tags');
     }
 
     static findBySearch (text) {

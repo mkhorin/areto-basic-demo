@@ -1,0 +1,31 @@
+
+<% if (provider.models.length) { %>
+
+<div class="list-controls clearfix">
+    <% if (provider.sort) { %>
+    <%- partial(_view.get('_part/sort'), {
+        sort: provider.sort
+    }) %>
+    <% } %>
+</div>
+
+<% itemTemplate = _view.get(itemTemplate) %>
+<% for (let model of provider.models) { %>
+    <div class="list-item clearfix">
+        <%- partial(itemTemplate, {model}) %>
+    </div>
+<% } %>
+
+<% if (provider.pagination) { %>
+    <%- partial(_view.get('_part/pagination'), {
+        pager: provider.pagination
+    }) %>
+<% } %>
+
+<% } else { %>
+
+<div class="alert alert-warning">
+    <p><%- _t('app', 'Articles not found')%></p>
+</div>
+
+<% } %>

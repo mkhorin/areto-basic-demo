@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/content')) -%>
+<% layout(_view.get('_layout/content')) -%>
 
 <% block('title', 'Articles by category') -%>
 
@@ -13,7 +13,7 @@
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>
-<%- partial(_view.get('_parts/list'), {
+<%- partial(_view.get('_part/list'), {
     itemTemplate: 'article/list-item'
 }) %>
 <% } else { %>

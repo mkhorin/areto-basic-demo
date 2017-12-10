@@ -11,7 +11,7 @@ module.exports = class SideMenu extends Base {
         for (let item of this.items) {
             this.prepareItem(item);
         }
-        this.render('_parts/widgets/side-menu', cb, this.params);
+        this.render('_part/widgets/side-menu', cb, this.params);
     }
 
     prepareItem (item) {

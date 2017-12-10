@@ -5,24 +5,24 @@ $('.datepicker').datepicker({
 });
 
 $('.list-search').click(function () {
-    var $btn = $(this).attr('disabled', true);
-    var $input = $btn.closest('.input-group').find('input');
+    let $btn = $(this).attr('disabled', true);
+    let $input = $btn.closest('.input-group').find('input');
     window.location = location.pathname + '?search=' + encodeURIComponent($.trim($input.val()));
 });
 
 $('.action-submit').click(function () {
-    var $btn = $(this);
+    let $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
-        var $form = $btn.closest('form');
+        let $form = $btn.closest('form');
         $btn.parent().find('button').attr('disabled', true);
         $form.attr('action', $btn.data('url')).submit();
     }    
 });
 
 $('.delete-object-ajax').click(function () {
-    var $btn = $(this);
+    let $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
-        var $btns = $btn.parent().find('button').attr('disabled', true);
+        let $btns = $btn.parent().find('button').attr('disabled', true);
         $.post($btn.data('url')).done(function () {
             location.reload();
         }).fail(function (xhr) {
@@ -33,8 +33,8 @@ $('.delete-object-ajax').click(function () {
 });
 
 $('.uploader').each(function () {
-    var $uploader = $(this);
-    var $field = $($uploader.data('id'));
+    let $uploader = $(this);
+    let $field = $($uploader.data('id'));
     $uploader.ajaxUploader()
         .on('uploader.selected', function (event, data) {
             $uploader.find('.uploader-overflow').hide();
@@ -85,8 +85,8 @@ function addValueToString (value, str) {
 }
 
 function removeValueFromString (value, str) {
-    var array = str ? str.split(',') : [];
-    var index = array.indexOf(value);
+    let array = str ? str.split(',') : [];
+    let index = array.indexOf(value);
     index > -1 && array.splice(index, 1);
     return array.join(',');
 }

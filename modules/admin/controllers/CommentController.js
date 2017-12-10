@@ -5,7 +5,6 @@ const Base = require('../components/CrudController');
 module.exports = class CommentController extends Base {
 
     actionIndex () {
-        let ActiveDataProvider = require('areto/data/ActiveDataProvider');        
         let provider = new ActiveDataProvider({
             controller: this,
             query: this.getModelClass().findBySearch(this.getQueryParam('search')),
@@ -21,32 +20,36 @@ module.exports = class CommentController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {provider});
+           err ? this.throwError(err)
+               : this.render('index', {provider});
         });
     }
 
     actionCreate () {
         let id = this.getQueryParam('id');
-        if (this.constructor.isValidId(id)) {
-            Article.findById(id).one((err, article)=> {
-                if (err) {
-                    return this.throwError(err);
-                } else if (!article) {
-                    return this.throwNotFound();
-                }
-                let model = new (this.getModelClass());
-                if (this.isPost()) {
-                    model.load(this.getBodyParams());
-                    model.set('articleId', article.getId());
-                    model.save(err => {
-                        err ? this.throwError(err)
-                            : model.isNew() ? this.render('create', {model}) : this.backToRef();
-                    });
-                } else this.render('create', {model});
-            });
-        } else {
-            this.throwBadRequest('Invalid article param in the query string');
+        if (!this.constructor.isValidId(id)) {
+            return this.throwBadRequest('Invalid article param in the query string');
         }
+        Article.findById(id).one((err, article)=> {
+            if (err) {
+                return this.throwError(err);
+            }
+            if (!article) {
+                return this.throwNotFound();
+            }
+            let model = new (this.getModelClass());
+            if (this.isGet()) {
+                return this.render('create', {model});
+            }
+            model.load(this.getBodyParams());
+            model.set('articleId', article.getId());
+            model.save(err => {
+                err ? this.throwError(err)
+                    : model.isNew()
+                        ? this.render('create', {model})
+                        : this.backToRef();
+            });
+        });
     }
 
     actionView () {
@@ -55,4 +58,5 @@ module.exports = class CommentController extends Base {
 };
 module.exports.init(module);
 
+const ActiveDataProvider = require('areto/data/ActiveDataProvider');
 const Article = require('../models/Article');

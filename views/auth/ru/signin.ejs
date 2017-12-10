@@ -1,6 +1,6 @@
 <% let title = 'Вход в систему'; %>
 
-<% layout(_view.get('_layouts/main')) -%>
+<% layout(_view.get('_layout/main')) -%>
 
 <% block('title', title) -%>
 
@@ -14,20 +14,20 @@
         </h3>
 
         <form action="<%- _url('signin') %>" method="post">
-            <%- partial(_view.get('_parts/fields/auth/input'), {
+            <%- partial(_view.get('_part/fields/auth/input'), {
                 attr: 'email',
                 iconClass: 'glyphicon glyphicon-envelope',
                 placeholder: 'Электронный адрес'
             }) %>
 
-            <%- partial(_view.get('_parts/fields/auth/password'), {
+            <%- partial(_view.get('_part/fields/auth/password'), {
                 attr: 'password',
                 iconClass: 'glyphicon glyphicon-lock',
                 placeholder: 'Пароль'
             }) %>
 
             <% if (model.isCaptchaRequired()) { %>
-            <%- partial(_view.get('_parts/fields/auth/captcha'), {
+            <%- partial(_view.get('_part/fields/auth/captcha'), {
                 attr: 'captchaCode',
                 iconClass: 'glyphicon glyphicon-check',
                 url: _url('captcha'),
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-xs-8">
                     <% if (user.params.enableAutoLogin) { %>
-                    <%- partial(_view.get('_parts/fields/checkbox'), {
+                    <%- partial(_view.get('_part/fields/checkbox'), {
                         attr: 'rememberMe',
                         label: 'Запомнить меня'
                     }) %>

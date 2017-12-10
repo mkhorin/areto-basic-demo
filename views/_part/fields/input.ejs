@@ -1,0 +1,14 @@
+<!-- _part/fields/input -->
+
+<% let params = {}; %>
+<%- partial('_set-params', {params}) %>
+
+<div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
+    <label for="<%- params.id %>" class="col-sm-3 control-label">
+        <%- params.label %>
+    </label>
+    <div class="col-sm-9">
+        <input id="<%- params.id %>" name="<%- params.name %>" type="text" value="<%- params.value %>" class="form-control">
+        <div class="hint-block"><%- params.error %></div>
+    </div>
+</div>

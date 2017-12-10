@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/view')) -%>
+<% layout(_view.get('_layout/view')) -%>
 
 <% block('title', 'User') -%>
 
@@ -7,7 +7,7 @@
     {title: model.getId()}
 ]) %>
 
-<% let stat = _view.get('_parts/fields/static'); %>
+<% let stat = _view.get('_part/fields/static'); %>
 
 <%- partial(stat, {attr: 'status'}) %>
 

@@ -54,10 +54,10 @@ module.exports = class Article extends Base {
 
     getStatusSelect () {
         return [
-            { value: this.STATUS_DRAFT, label: 'Draft' },
-            { value: this.STATUS_PUBLISHED, label: 'Published' },
-            { value: this.STATUS_ARCHIVED, label: 'Archived' },
-            { value: this.STATUS_BLOCKED, label: 'Blocked' }
+            {value: this.STATUS_DRAFT, label: 'Draft'},
+            {value: this.STATUS_PUBLISHED, label: 'Published'},
+            {value: this.STATUS_ARCHIVED, label: 'Archived'},
+            {value: this.STATUS_BLOCKED, label: 'Blocked'}
         ];
     }
 
@@ -102,7 +102,9 @@ module.exports = class Article extends Base {
                 model = new Tag;
                 model.set('name', name);
                 model.save(err => {
-                    err || model.isNew() ? cb(err) : this.link('tags', model, cb);
+                    err || model.isNew()
+                        ? cb(err)
+                        : this.link('tags', model, cb);
                 });
             }
         ], cb);
@@ -133,18 +135,18 @@ module.exports = class Article extends Base {
             photo.set('articleId', this.getId());
             photo.set('file', file);
             photo.save(err => {
-                err ? this.module.log('error', err) : photos.push(photo);
+                err ? this.module.log('error', err)
+                    : photos.push(photo);
                 cb();
             });
         }, ()=> {
-            // set first photo as main
-            if (photos.length && !this.get('mainPhotoId')) {
-                this.set('files', null);
-                this.set('mainPhotoId', photos[0].getId());
-                this.forceSave(cb);
-            } else {
-                cb();
+            if (!photos.length || this.get('mainPhotoId')) {
+                return cb();
             }
+            // set first photo as main
+            this.set('files', null);
+            this.set('mainPhotoId', photos[0].getId());
+            this.forceSave(cb);
         });
     }
 
@@ -171,8 +173,9 @@ module.exports = class Article extends Base {
     }
 
     relTags () {
-        return this.hasMany(Tag, [Tag.PK, 'tagId']).removeOnUnlink()
-            .viaTable('rel_article_tag', ['articleId', this.PK]);
+        return this.hasMany(Tag, [Tag.PK, 'tagId'])
+            .viaTable('rel_article_tag', ['articleId', this.PK])
+            .removeOnUnlink();
     }
 };
 module.exports.init(module);

@@ -9,7 +9,7 @@ module.exports = class RecentComments extends Base {
             cb => Comment.findApproved().order({[Comment.PK]: - 1}).limit(3).all(cb),
             (models, cb) => {
                 this.comments = models;
-                this.render('_parts/widgets/recent-comments', cb);
+                this.render('_part/widgets/recent-comments', cb);
             }
         ], cb);
     }

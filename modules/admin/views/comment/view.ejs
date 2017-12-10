@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/view')) -%>
+<% layout(_view.get('_layout/view')) -%>
 
 <% block('title', 'Comment') -%>
 
@@ -7,12 +7,12 @@
     {title: model.getId()}
 ]) %>
 
-<%- partial(_view.get('_parts/fields/relation'), {
+<%- partial(_view.get('_part/fields/relation'), {
     attr: 'article',
     viewRoute: 'article/view'
 }) %>
 
-<% let stat = _view.get('_parts/fields/static'); %>
+<% let stat = _view.get('_part/fields/static'); %>
 
 <%- partial(stat, {attr: 'name'}) %>
 

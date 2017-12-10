@@ -25,7 +25,8 @@ module.exports = class ArticleController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {provider, searchText});
+           err ? this.throwError(err)
+               : this.render('index', {provider, searchText});
         });
     }
 

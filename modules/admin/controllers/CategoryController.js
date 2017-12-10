@@ -21,9 +21,8 @@ module.exports = class CategoryController extends Base {
             }
         });
         provider.prepare(err => {
-           err ? this.throwError(err) : this.render('index', {
-               provider, searchText
-           });
+           err ? this.throwError(err)
+               : this.render('index', {provider, searchText});
         });
     }
 

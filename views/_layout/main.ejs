@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="<%- _baseUrl %>">
+    <title><%- blocks.title %> - Areto Basic Demo</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <nav class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topnav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">ARETO Basic Demo</a>
+            </div>
+            <div id="topnav-collapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav navbar-right nav">
+                    <li>
+                        <a href="admin">
+                            <%- _t('app', 'Admin panel')%>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <%- _view.createWidget({
+                id: 'breadcrumbs',
+                links: _view.getData('breadcrumbs')
+            }) %>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <%- partial('../_part/flash-alert') %>
+        <%- body -%>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-center">© ARETO Basic Demo</p>
+    </div>
+</footer>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

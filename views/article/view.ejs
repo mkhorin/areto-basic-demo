@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/content')) -%>
+<% layout(_view.get('_layout/content')) -%>
 
 <% block('title', 'Article') -%>
 
@@ -86,7 +86,7 @@
 </div>
 
 <% if (comments.pagination) { %>
-<%- partial(_view.get('_parts/pagination'), {
+<%- partial(_view.get('_part/pagination'), {
     pager: comments.pagination
 }) %>
 <% } %>
@@ -108,19 +108,19 @@
         <%- _t('app', 'Add comment') %>
     </h4>
 
-    <%- partial(_view.get('_parts/fields/input'), {
+    <%- partial(_view.get('_part/fields/input'), {
         attr: 'name',
         model: comment,
         label: _t('app', 'Your name')
     }) %>
 
-    <%- partial(_view.get('_parts/fields/input'), {
+    <%- partial(_view.get('_part/fields/input'), {
         attr: 'email',
         model: comment,
         label: _t('app', 'Email (not shown)')
     }) %>
 
-    <%- partial(_view.get('_parts/fields/text'), {
+    <%- partial(_view.get('_part/fields/text'), {
         attr: 'content',
         model: comment,
         label: _t('app', 'Message')

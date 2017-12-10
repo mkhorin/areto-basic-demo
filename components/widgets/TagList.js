@@ -14,7 +14,7 @@ module.exports = class TagList extends Base {
             cb => {
                 this.tags = this.tags.filter(tag => tag.get('articleCount') > 0);
                 this.tags.sort((a, b)=> b.get('articleCount') - a.get('articleCount'));
-                this.render('_parts/widgets/tag-list', cb);
+                this.render('_part/widgets/tag-list', cb);
             }
         ], cb);
     }

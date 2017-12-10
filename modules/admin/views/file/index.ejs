@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/content')) -%>
+<% layout(_view.get('_layout/content')) -%>
 
 <% block('title', 'Uploaded files') -%>
 
@@ -6,7 +6,7 @@
     {title: 'Uploaded files'}
 ]) %>
 
-<%- partial(_view.get('_parts/list'), {
+<%- partial(_view.get('_part/list'), {
     search: null,
     create: null,
     itemTemplate: 'file/list-item'

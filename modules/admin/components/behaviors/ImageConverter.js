@@ -18,19 +18,22 @@ module.exports = class ImageConverter extends Base {
         async.series([
             cb => mkdirp(path.dirname(destPath), cb),
             cb => {
+                let image;
                 try {
-                    let image = gm(this.fileModel.getPath());
+                    image = gm(this.fileModel.getPath());
                     image.resize(this.size, this.getThumbHeight(this.size));
-                    image.write(destPath, cb);
                 } catch (err) {
-                    cb(err);
+                    return cb(err);
                 }
+                image.write(destPath, cb);
             },
             cb => {
                 this.owner.set(this.filenameAttr, filename);
                 this.generateThumbs(cb);
             },
-            cb => this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb()
+            cb => this.afterProcessFile
+                ? this.afterProcessFile(this.fileModel, cb)
+                : cb()
         ], cb);
     }
 };

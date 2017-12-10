@@ -52,7 +52,7 @@ module.exports = class File extends Base {
 
     // EVENTS
 
-    beforeValidate (event, cb) {
+    beforeValidate (cb) {
         let file = this.owner.get(this.fileAttr);
         if (file instanceof this.FileClass) {
             this.fileModel = file;
@@ -72,22 +72,28 @@ module.exports = class File extends Base {
         });
     }
 
-    beforeInsert (event, cb) {
-        this.fileModel ? async.series([
+    beforeInsert (cb) {
+        if (!this.fileModel) {
+            return cb();
+        }
+        async.series([
             this.checkFile.bind(this),
             this.processFile.bind(this)
-        ], cb) : cb();
+        ], cb);
     }
 
-    beforeUpdate (event, cb) {
-        this.fileModel ? async.series([
+    beforeUpdate (cb) {
+        if (!this.fileModel) {
+            return cb();
+        }
+        async.series([
             this.checkFile.bind(this),
             cb => this.removeFiles(()=> cb()),
             this.processFile.bind(this)
-        ], cb) : cb();
+        ], cb);
     }
 
-    afterRemove (event, cb) {
+    afterRemove (cb) {
         this.removeFiles(cb);
     }
 
@@ -99,7 +105,8 @@ module.exports = class File extends Base {
         }
         let filePath = this.fileModel.getPath();
         fs.stat(filePath, (err, stats)=> {
-            err ? cb(err) : stats.isFile() ? cb() : cb(`This is not file: ${filePath}`);
+            err ? cb(err)
+                : stats.isFile() ? cb() : cb(`This is not file: ${filePath}`);
         });
     }
 
@@ -113,7 +120,9 @@ module.exports = class File extends Base {
                 this.owner.set(this.filenameAttr, filename);
                 this.generateThumbs(cb);
             },
-            cb => this.afterProcessFile ? this.afterProcessFile(this.fileModel, cb) : cb()
+            cb => this.afterProcessFile
+                ? this.afterProcessFile(this.fileModel, cb)
+                : cb()
         ], cb);
     }
 
@@ -158,20 +167,20 @@ module.exports = class File extends Base {
             let height = this.getThumbHeight(width);
             image.resize(width, height);
             // image.resize(width, height, '!'); // to override the image's proportions
-            async.waterfall([
-                cb => this.setWatermark(image, width, cb),
-                (result, cb)=> {
-                    image = result;
-                    mkdirp(path.dirname(this.getThumbPath(width)), cb);
-                },
-                (dir, cb)=> {
-                    image.quality(this.quality);
-                    image.write(this.getThumbPath(width), cb);
-                }
-            ], cb);
         } catch (err) {
-            cb(err);
+            return cb(err);
         }
+        async.waterfall([
+            cb => this.setWatermark(image, width, cb),
+            (result, cb)=> {
+                image = result;
+                mkdirp(path.dirname(this.getThumbPath(width)), cb);
+            },
+            (dir, cb)=> {
+                image.quality(this.quality);
+                image.write(this.getThumbPath(width), cb);
+            }
+        ], cb);
     }
 
     getThumbHeight (width) {
@@ -184,10 +193,10 @@ module.exports = class File extends Base {
         }
         try {
             image.draw([`image Over 0,0 0,0 ${this.watermark[width]}`]);
-            cb(null, image);
         } catch (err) {
-            cb(err);
+            return cb(err);
         }
+        cb(null, image);
     }
 };
 

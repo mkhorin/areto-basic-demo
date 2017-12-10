@@ -1,4 +1,4 @@
-<% layout(_view.get('_layouts/view')) -%>
+<% layout(_view.get('_layout/view')) -%>
 
 <% block('title', 'Category') -%>
 
@@ -7,11 +7,11 @@
     {title: model.getId()}
 ]) %>
 
-<%- partial(_view.get('_parts/fields/static'), {
+<%- partial(_view.get('_part/fields/static'), {
     attr: 'name'
 }) %>
 
-<%- partial(_view.get('_parts/fields/list'), {
+<%- partial(_view.get('_part/fields/list'), {
     attr: 'articles',
     provider: articles,
     create: null,
