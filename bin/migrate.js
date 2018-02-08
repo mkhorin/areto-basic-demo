@@ -2,7 +2,7 @@
 
 const async = require('async');
 const app = require('../module');
-const MiscHelper = require('areto/helpers/MiscHelper');
+const CommonHelper = require('areto/helpers/CommonHelper');
 
 // cd /areto-basic-demo
 // node bin/migrate --action apply --classes migrations/Init
@@ -10,7 +10,7 @@ const MiscHelper = require('areto/helpers/MiscHelper');
 async.series([
     cb => app.configure('development', cb),
     cb => {
-        let data = MiscHelper.parseArguments(process.argv);
+        let data = CommonHelper.parseArguments(process.argv);
         app.migrate(data.action, data.classes, cb);
     }
 ], err => {

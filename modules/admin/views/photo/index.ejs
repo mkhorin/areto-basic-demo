@@ -2,7 +2,7 @@
 
 <% block('title', 'Photos') -%>
 
-<% _view.setData('breadcrumbs', [{title: 'Photos'}]) %>
+<% _data.set('breadcrumbs', [{title: 'Photos'}]) %>
 
 <%- partial(_view.get('_part/list'), {
     itemTemplate: 'photo/list-item'

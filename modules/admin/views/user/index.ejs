@@ -2,7 +2,7 @@
 
 <% block('title', 'Users') -%>
 
-<% _view.setData('breadcrumbs', [{title: 'Users'}]) %>
+<% _data.set('breadcrumbs', [{title: 'Users'}]) %>
 
 <%- partial(_view.get('_part/list'), {
     itemTemplate: 'user/list-item'

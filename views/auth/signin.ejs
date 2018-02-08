@@ -3,7 +3,7 @@
 <% layout(_view.get('_layout/main')) -%>
 
 <% block('title', title) -%>
-<% _view.setData('breadcrumbs', [{label: title}]) %>
+<% _data.set('breadcrumbs', [{label: title}]) %>
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">

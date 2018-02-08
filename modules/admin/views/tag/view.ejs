@@ -2,7 +2,7 @@
 
 <% block('title', 'Tag') -%>
 
-<% _view.setData('breadcrumbs', [
+<% _data.set('breadcrumbs', [
     {title: 'Tags', url: 'admin/tag'},
     {title: model.getId()}
 ]) %>
