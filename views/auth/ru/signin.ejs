@@ -37,7 +37,7 @@
 
             <div class="row">
                 <div class="col-xs-8">
-                    <% if (user.params.enableAutoLogin) { %>
+                    <% if (user.owner.enableAutoLogin) { %>
                     <%- partial(_view.get('_part/fields/checkbox'), {
                         attr: 'rememberMe',
                         label: 'Запомнить меня'

@@ -22,16 +22,12 @@ module.exports = class Tag extends Base {
     }
 
     static findBySearch (text) {
-        let query = this.find();
-        if (text) {
-            query.where(['LIKE', 'name', `%${text}%`]);
-        }
-        return query;
+        return text ? this.find(['LIKE', 'name', `%${text}%`]) : this.find();
     }
 
     relArticles () {
-        return this.hasMany(Article, [Article.PK, 'articleId'])
-            .viaTable('rel_article_tag', ['tagId', this.PK])
+        return this.hasMany(Article, Article.PK, 'articleId')
+            .viaTable('rel_article_tag', 'tagId', this.PK)
             .removeOnUnlink();
     }
 };

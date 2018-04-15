@@ -34,7 +34,7 @@ module.exports = class File extends Base {
 
     static findExpired (timeout = 3600) {
         let expired = new Date((new Date).getTime() - timeout * 1000);
-        return this.find().where(['<', 'updatedAt', expired]);
+        return this.find(['<', 'updatedAt', expired]);
     }
 
     getTitle () {

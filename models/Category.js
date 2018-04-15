@@ -18,8 +18,8 @@ module.exports = class Categoryy extends Base {
     }
     
     relArticles () {
-        return this.hasMany(Article, ['category', this.PK])
-            .where({status: Article.STATUS_PUBLISHED})
+        return this.hasMany(Article, 'category', this.PK)
+            .and({status: Article.STATUS_PUBLISHED})
             .with('mainPhoto', 'tags');
     }
 };

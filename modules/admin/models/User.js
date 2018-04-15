@@ -49,7 +49,7 @@ module.exports = class User extends Base {
     }
 
     relArticles () {
-        return this.hasMany(Article, ['authorId', this.PK]);
+        return this.hasMany(Article, 'authorId', this.PK);
     }
 };
 module.exports.init(module);

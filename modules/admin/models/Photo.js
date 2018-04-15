@@ -41,7 +41,7 @@ module.exports = class Photo extends Base {
     }
     
     relArticle () {
-        return this.hasOne(Article, [Article.PK, 'articleId']);
+        return this.hasOne(Article, Article.PK, 'articleId');
     }
 };
 module.exports.init(module);

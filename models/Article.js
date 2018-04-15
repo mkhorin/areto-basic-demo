@@ -15,7 +15,7 @@ module.exports = class Article extends Base {
     }
 
     static findPublished () {
-        return this.find().where({
+        return this.find({
             status: this.STATUS_PUBLISHED
         }).with('mainPhoto','tags');
     }
@@ -51,29 +51,28 @@ module.exports = class Article extends Base {
     // RELATIONS
 
     relAuthor () {
-        return this.hasOne(User, [User.PK, 'authorId']);
+        return this.hasOne(User, User.PK, 'authorId');
     }
 
     relCategory () {
-        return this.hasOne(Category, [Category.PK, 'category']);
+        return this.hasOne(Category, Category.PK, 'category');
     }
 
     relPhotos () {
-        return this.hasMany(Photo, ['articleId', this.PK]);
+        return this.hasMany(Photo, 'articleId', this.PK);
     }
     
     relMainPhoto () {
-        return this.hasOne(Photo, [Photo.PK, 'mainPhotoId']);
+        return this.hasOne(Photo, Photo.PK, 'mainPhotoId');
     }
 
     relComments () {
-        return this.hasMany(Comment, ['articleId', this.PK])
-            .where({status: Comment.STATUS_APPROVED});
+        return this.hasMany(Comment, 'articleId', this.PK).and({status: Comment.STATUS_APPROVED});
     }
 
     relTags () {
-        return this.hasMany(Tag, [Tag.PK, 'tagId'])
-            .viaTable('rel_article_tag', ['articleId', this.PK]);
+        return this.hasMany(Tag, Tag.PK, 'tagId')
+            .viaTable('rel_article_tag', 'articleId', this.PK);
     }
 };
 module.exports.init(module);

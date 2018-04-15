@@ -22,9 +22,9 @@ module.exports = class Tag extends Base {
     }
     
     relArticles () {
-        return this.hasMany(Article, [Article.PK, 'articleId'])
-            .viaTable('rel_article_tag', ['tagId', this.PK])
-            .where({status: Article.STATUS_PUBLISHED})
+        return this.hasMany(Article, Article.PK, 'articleId')
+            .viaTable('rel_article_tag', 'tagId', this.PK)
+            .and({status: Article.STATUS_PUBLISHED})
             .with('mainPhoto', 'tags');
     }
 };

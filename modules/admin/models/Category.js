@@ -17,15 +17,11 @@ module.exports = class Category extends Base {
     }
 
     static findBySearch (text) {
-        let query = this.find();
-        if (text) {
-            query.where(['LIKE', 'name', `%${text}%`]);
-        }
-        return query;
+        return text ? this.find(['LIKE', 'name', `%${text}%`]) : this.find();
     }
 
     relArticles () {
-        return this.hasMany(Article, ['category', this.PK]);
+        return this.hasMany(Article, 'category', this.PK);
     }
 };
 module.exports.init(module);

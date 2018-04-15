@@ -15,7 +15,7 @@ module.exports = class Comment extends Base {
     static findBySearch (text) {
         let query = this.find();
         if (text) {
-            query.where(['OR',
+            query.and(['OR',
                 ['LIKE', 'content', `%${text}%`],
                 {name: text},
                 {email: text}
@@ -33,7 +33,7 @@ module.exports = class Comment extends Base {
     }
 
     relArticle () {
-        return this.hasOne(Article, [Article.PK, 'articleId']);
+        return this.hasOne(Article, Article.PK, 'articleId');
     }
 };
 module.exports.init(module);

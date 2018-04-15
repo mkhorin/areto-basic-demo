@@ -44,7 +44,7 @@ module.exports = class Article extends Base {
     }
     
     static findToSelect () {
-        return this.find().select(['title']).asRaw();
+        return this.find().select({title: 1}).asRaw();
     }
 
     init () {
@@ -153,28 +153,28 @@ module.exports = class Article extends Base {
     // RELATIONS
 
     relAuthor () {
-        return this.hasOne(User, [User.PK, 'authorId']);
+        return this.hasOne(User, User.PK, 'authorId');
     }
 
     relCategory () {
-        return this.hasOne(Category, [Category.PK, 'category']);
+        return this.hasOne(Category, Category.PK, 'category');
     }
 
     relPhotos () {
-        return this.hasMany(Photo, ['articleId', this.PK]);
+        return this.hasMany(Photo, 'articleId', this.PK);
     }
     
     relMainPhoto () {
-        return this.hasOne(Photo, [Photo.PK, 'mainPhotoId']);
+        return this.hasOne(Photo, Photo.PK, 'mainPhotoId');
     }
 
     relComments () {
-        return this.hasMany(Comment, ['articleId', this.PK]).removeOnUnlink();
+        return this.hasMany(Comment, 'articleId', this.PK).removeOnUnlink();
     }
 
     relTags () {
-        return this.hasMany(Tag, [Tag.PK, 'tagId'])
-            .viaTable('rel_article_tag', ['articleId', this.PK])
+        return this.hasMany(Tag, Tag.PK, 'tagId')
+            .viaTable('rel_article_tag', 'articleId', this.PK)
             .removeOnUnlink();
     }
 };
