@@ -24,48 +24,37 @@ module.exports = class AuthController extends Base {
     }
 
     actionSignin () {
-        if (!this.user.isAnonymous()) {
-            return this.render('signed', {
-                model: this.user.identity
-            });
+        if (this.rejectSignedUser()) {
+            return;
         }
-        this.module.components.rateLimit.find('signin', this.user, (err, rateLimitModel)=> {
-            if (err) {
-                return this.throwError(err);
-            }
-            let Form = require('../models/SignInForm');
-            let model = new Form({
-                controller: this,
-                rateLimitModel
-            });
-            let params = {
-                model,
-                user: this.user
-            };
-            if (this.isGet()) {
-                return this.render('signin', params);
-            }
-            model.load(this.getBodyParams());
-            model.login(this.user, err => {
-                if (err) {
-                    this.throwError(err);
-                } else if (model.hasError()) {
-                    this.render('signin', params);
-                } else {
-                    this.goBack();
+        async.waterfall([
+            cb => this.module.components.rateLimit.find('signin', this.user, cb),
+            (rateLimitModel, cb)=> {
+                let model = new SignInForm({
+                    controller: this,
+                    rateLimitModel
+                });
+                let params = {
+                    model,
+                    user: this.user
+                };
+                if (this.isGet()) {
+                    return this.render('signin', params);
                 }
-            });
-        });
+                model.load(this.getBodyParams());
+                model.login(this.user, err => cb(err, params));
+            },
+            (params, cb)=> {
+                params.model.hasError() ? this.render('signin', params) : this.goBack();
+            }
+        ], err => this.throwError(err));
     }
 
     actionSignup () {
-        if (!this.user.isAnonymous()) {
-            return this.render('signed', {
-                model: this.user.identity
-            });
+        if (this.rejectSignedUser()) {
+            return;
         }
-        let Form = require('../models/SignUpForm');
-        let model = new Form({
+        let model = new SignUpForm({
             controller: this
         });
         let params = {
@@ -86,5 +75,18 @@ module.exports = class AuthController extends Base {
             }
         });
     }
+
+    rejectSignedUser () {
+        if (!this.user.isAnonymous()) {
+            this.render('signed', {
+                model: this.user.model
+            });
+            return true;
+        }
+    }
 };
 module.exports.init(module);
+
+const async = require('areto/helpers/AsyncHelper');
+const SignInForm = require('../models/SignInForm');
+const SignUpForm = require('../models/SignUpForm');

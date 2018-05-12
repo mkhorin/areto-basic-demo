@@ -23,4 +23,4 @@ module.exports = class FileCleaner extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');

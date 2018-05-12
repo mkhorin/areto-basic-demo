@@ -1,8 +1,8 @@
 'use strict';
 
-const async = require('async');
-const app = require('../module');
+const async = require('areto/helpers/AsyncHelper');
 const CommonHelper = require('areto/helpers/CommonHelper');
+const app = require('../module');
 
 // cd /areto-basic-demo
 // node bin/migrate --action apply --classes migrations/Init

@@ -30,5 +30,5 @@ module.exports = class Categories extends Base {
     }
 };
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const Category = require('../../models/Category');

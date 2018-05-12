@@ -32,4 +32,4 @@ module.exports = class DefaultController extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');

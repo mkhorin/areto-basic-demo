@@ -45,11 +45,9 @@ module.exports = class SignInForm extends Base {
 
     validateUser (cb, attrName) {
         async.waterfall([
-            cb => {
-                User.find({
-                    email: this.get('email')
-                }).one(cb);
-            },
+            cb => User.find({
+                email: this.get('email')
+            }).one(cb),
             (model, cb)=> {
                 if (!model || !model.validatePassword(this.get('password'))) {
                     this.addError(attrName, 'Invalid authentication');
@@ -62,14 +60,14 @@ module.exports = class SignInForm extends Base {
         ], cb);
     }
 
-    login (user, cb) {
+    login (webUser, cb) {
         async.series([
             cb => this.validate(cb),
             cb => this.identity === undefined ? cb() : this.updateRateLimit(cb),
             cb => {
                 this.setCaptchaScenario();
                 this.hasError() ? cb()
-                    : user.login(this.identity, this.get('rememberMe') ? REMEMBER_PERIOD : 0, cb);
+                    : webUser.login(this.identity, this.get('rememberMe') ? REMEMBER_PERIOD : 0, cb);
             }
         ], cb);
     }
@@ -88,5 +86,5 @@ module.exports = class SignInForm extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const User = require('./User');

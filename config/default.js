@@ -72,7 +72,7 @@ module.exports = {
             }            
         },
         'user': {
-            Identity: require('../models/User'),
+            UserModel: require('../models/User'),
             loginUrl: '/auth/signin',
             returnUrl: '/',
             enableAutoLogin: true,

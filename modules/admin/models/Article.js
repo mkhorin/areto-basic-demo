@@ -180,7 +180,7 @@ module.exports = class Article extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const ArrayHelper = require('areto/helpers/ArrayHelper');
 const Category = require('./Category');
 const Comment = require('./Comment');

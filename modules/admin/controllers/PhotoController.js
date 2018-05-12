@@ -126,5 +126,5 @@ module.exports = class PhotoController extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const Article = require('../models/Article');

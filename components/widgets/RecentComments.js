@@ -15,5 +15,5 @@ module.exports = class RecentComments extends Base {
     }
 };
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const Comment = require('../../models/Comment');

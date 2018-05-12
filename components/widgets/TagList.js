@@ -30,5 +30,5 @@ module.exports = class TagList extends Base {
     }
 };
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const Tag = require('../../models/Tag');

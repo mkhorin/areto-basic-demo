@@ -1,7 +1,7 @@
 'use strict';
 
 const app = require('../module');
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 
 // cd /areto-basic-demo
 // node bin/server

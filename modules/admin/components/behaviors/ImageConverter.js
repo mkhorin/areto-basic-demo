@@ -38,7 +38,7 @@ module.exports = class ImageConverter extends Base {
     }
 };
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const path = require('path');
 const gm = require('gm');
 const mkdirp = require('mkdirp');

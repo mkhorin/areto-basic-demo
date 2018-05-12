@@ -75,7 +75,7 @@ module.exports = class ArticleController extends Base {
         this.getModel(model => {
             let comment = new Comment;
             if (this.isGet()) {
-                return this.view(model, comment);
+                return this.renderView(model, comment);
             }
             comment.load(this.getBodyParams());
             comment.set('articleId', model.getId());
@@ -85,7 +85,7 @@ module.exports = class ArticleController extends Base {
                     return this.throwError(err);
                 }
                 if (comment.hasError()) {
-                    return this.view(model, comment);
+                    return this.renderView(model, comment);
                 }
                 this.setFlash('comment-done', 'You message has been sent successfully!');
                 this.redirect(['view', model]);
@@ -109,7 +109,7 @@ module.exports = class ArticleController extends Base {
         }, params));
     }
 
-    view (model, comment) {
+    renderView (model, comment) {
         let comments = new ActiveDataProvider({
             controller: this,
             query: model.relComments()
@@ -122,7 +122,7 @@ module.exports = class ArticleController extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');
 const Article = require('../models/Article');
 const Category = require('../models/Category');

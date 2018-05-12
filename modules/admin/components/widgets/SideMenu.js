@@ -15,7 +15,7 @@ module.exports = class SideMenu extends Base {
     }
 
     prepareItem (item) {
-        if (this.view.controller.getOriginalUrl().indexOf(item.url) === 0) {
+        if (this.controller.getOriginalUrl().indexOf(item.url) === 0) {
             item.active = true;
         }
     }

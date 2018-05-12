@@ -107,7 +107,7 @@ module.exports = class File extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const fs = require('fs');
 const multer = require('multer');
 const mkdirp = require('mkdirp');

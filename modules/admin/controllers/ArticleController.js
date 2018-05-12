@@ -108,6 +108,6 @@ module.exports = class ArticleController extends Base {
 };
 module.exports.init(module);
 
-const async = require('async');
+const async = require('areto/helpers/AsyncHelper');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');
 const Category = require('../models/Category');

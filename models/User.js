@@ -1,6 +1,6 @@
 'use strict';
 
-const Base = require('areto/web/UserIdentity');
+const Base = require('areto/db/ActiveRecord');
 
 module.exports = class User extends Base {
 
@@ -19,7 +19,8 @@ module.exports = class User extends Base {
             ],
             BEHAVIORS: {
                 'timestamp': require('areto/behaviors/TimestampBehavior')
-            }
+            },
+            AUTH_KEY_LENGTH: 16
         };
     }
 
@@ -66,16 +67,36 @@ module.exports = class User extends Base {
     // PASSWORD
 
     validatePassword (password) {
-        return security.validatePassword(password, this.get('passwordHash'));
+        return SecurityHelper.validatePassword(password, this.get('passwordHash'));
     }
 
     setPasswordHash () {
         if (this.get('password')) {
-            this.set('passwordHash', security.encryptPassword(this.get('password')));    
+            this.set('passwordHash', SecurityHelper.encryptPassword(this.get('password')));
         }
+    }
+
+    // AUTH key to remember me cookies
+
+    validateAuthKey (key) {
+        return this.getAuthKey() === key;
+    }
+
+    getAuthKey () {
+        return this.get('authKey');
+    }
+
+    setAuthKey (cb) {
+        async.waterfall([
+            cb => SecurityHelper.generateRandomString(this.AUTH_KEY_LENGTH, cb),
+            (result, cb)=> {
+                this.set('authKey', result);
+                cb();
+            }
+        ], cb);
     }
 };
 module.exports.init(module);
 
-const async = require('async');
-const security = require('areto/helpers/SecurityHelper');
+const async = require('areto/helpers/AsyncHelper');
+const SecurityHelper = require('areto/helpers/SecurityHelper');

@@ -1,7 +1,6 @@
 'use strict';
 
 const Base = require('areto/db/ActiveRecord');
-const path = require('path');
 
 module.exports = class Photo extends Base {
 
