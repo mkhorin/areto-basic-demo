@@ -8,7 +8,7 @@ module.exports = {
     components: {        
         'logger': {
             level: 'info',
-            types: { // optional: separate storage of error logs
+            types: { // optional: separate storage for error logs
                 'error': {
                     Class: require('areto/log/LogType'),
                     store: require('areto/log/FileLogStore')
@@ -16,6 +16,9 @@ module.exports = {
             }
         },
         'static': {
+        },
+        'view': {
+            // theme: 'sample'
         },
         'connection': {
             schema: 'mongodb',
@@ -25,12 +28,13 @@ module.exports = {
                 database: 'areto-basic',
                 options: {
                     bufferMaxEntries: 0,
-                    keepAlive: 1
+                    keepAlive: true,
+                    useNewUrlParser: true
                 }
             }
         },
         'cache': {            
-            Class: require('areto/caching/MemoryCache'),
+            Class: require('areto/cache/MemoryCache'),
             duration: 100, // seconds
         },
         'cookie': {
@@ -38,7 +42,7 @@ module.exports = {
         },
         'session': {
             secret: 'basic.app',
-            lifetime: 1800, // seconds
+            lifetime: 30 * 60, // seconds
             store: {
                 Class: require('areto/web/session/DbSessionStore'),
                 table: 'session'
@@ -52,28 +56,18 @@ module.exports = {
             extension: 'ejs'
         },
         'i18n': {
-            language: 'en' // ru
+            // language: 'ru'
         },
         'rbac': {            
         },
         'rateLimit': {
-            attempts: 2
+            attempts: 3
         },
         'scheduler': {
-            tasks: {
-                'fileCleaner': {
-                    Class: require('../components/tasks/FileCleaner'),
-                    interval: 3600 // seconds
-                },
-                'sessionCleaner': {
-                    Class: require('../components/tasks/SessionCleaner'),
-                    interval: 3600 // seconds
-                }
-            }            
         },
         'user': {
-            UserModel: require('../models/User'),
-            loginUrl: '/auth/signin',
+            UserModel: require('../model/User'),
+            loginUrl: '/auth/sign-in',
             returnUrl: '/',
             enableAutoLogin: true,
             identityCookie: {
@@ -88,7 +82,7 @@ module.exports = {
     },
     router: {
         'errors': {
-            Controller: require('../controllers/DefaultController')
+            Controller: require('../controller/DefaultController')
         }
     },
     params: {
@@ -96,23 +90,24 @@ module.exports = {
     },
     widgets: {
         'breadcrumbs': {
-            Class: require('../components/widgets/Breadcrumbs'),
-            baseLinks: [{title: 'Main', url: ''}]
+            Class: require('../component/widget/Breadcrumbs'),
+            baseLinks: [{
+                title: 'Main',
+                url: ''
+            }]
         },
         'categories': {
-            Class: require('../components/widgets/Categories'),
+            Class: require('../component/widget/Categories'),
             caching: false,
-            // disabled: true
+            disabled: false
         },
         'recentComments': {
-            Class: require('../components/widgets/RecentComments'),
-            caching: false,
-            // disabled: true
+            Class: require('../component/widget/RecentComments'),
+            caching: false
         },
         'tagList': {
-            Class: require('../components/widgets/TagList'),
-            caching: false,
-           // disabled: true
+            Class: require('../component/widget/TagList'),
+            caching: false
         }
     },
     defaultController: 'article'

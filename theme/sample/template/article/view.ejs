@@ -1,0 +1,18 @@
+<% layout(_view.get('_layout/content')) -%>
+
+<% block('title', 'Статья') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Статья',
+    url: 'article'
+},{
+    title: model.getTitle()
+}]) %>
+
+<h1 class="mt0">
+    <%- model.getTitle() %>
+</h1>
+
+<div class="alert alert-info">
+    SAMPLE theme
+</div>

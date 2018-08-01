@@ -1,9 +1,0 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', 'Categories') -%>
-
-<% _data.set('breadcrumbs', [{title: 'Categories'}]) %>
-
-<%- partial(_view.get('_part/list'), {
-    itemTemplate: 'tag/list-item'
-}) %>

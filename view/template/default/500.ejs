@@ -1,0 +1,19 @@
+<% layout(_view.get('_layout/main')) -%>
+
+<% block('title', 'Server error') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 500
+}]) %>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="error-page">
+            <div class="text-center">
+                <h1 class="text-danger">Server error</h1>
+                <p>Right now we are working to resolve this problem.</p>
+            </div>
+        </div>
+    </div>
+</div>
+

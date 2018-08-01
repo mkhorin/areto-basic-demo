@@ -1,0 +1,43 @@
+<% layout(_view.get('_layout/view')) -%>
+
+<% block('title', 'Comment') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Comments',
+    url: 'admin/comment'
+},{
+    title: model.getId()
+}]) %>
+
+<%- partial(_view.get('_part/field/relation'), {
+    attr: 'article',
+    viewRoute: 'article/view'
+}) %>
+
+<% let stat = _view.get('_part/field/static'); %>
+
+<%- partial(stat, {
+    attr: 'name'
+}) %>
+
+<%- partial(stat, {
+    attr: 'email'
+}) %>
+
+<%- partial(stat, {
+    attr: 'status'
+}) %>
+
+<%- partial(stat, {
+    attr: 'content'
+}) %>
+
+<%- partial(stat, {
+    attr: 'updatedAt',
+    value: _format(model.get('updatedAt'), 'timestamp')
+}) %>
+
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: _format(model.get('createdAt'), 'timestamp')
+}) %>

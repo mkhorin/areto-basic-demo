@@ -5,6 +5,9 @@ module.exports = {
     components: {
         'logger': {
             level: 'trace'
-        }
+        },
+        'scheduler': {
+            refreshInterval: 10
+        },
     }
 };

@@ -1,0 +1,18 @@
+<% layout(_view.get('_layout/main')) -%>
+
+<% block('title', '404') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 404
+}]) %>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="error-page">
+            <div class="text-center">
+                <h1 class="text-danger">Page not found</h1>
+                <p>We could not find the page you are looking for.</p>
+            </div>
+        </div>
+    </div>
+</div>

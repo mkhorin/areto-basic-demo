@@ -1,0 +1,15 @@
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <%- _t('Recent comments') %>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <% for (let comment of _widget.comments) { %>
+        <p>
+            <a href="article/view?id=<%- comment.get('articleId') %>#comments"><%= comment.getTitle() %></a>
+        </p>
+        <% } %>
+    </div>
+</div>

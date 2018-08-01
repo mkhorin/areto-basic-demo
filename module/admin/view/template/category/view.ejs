@@ -1,0 +1,22 @@
+<% layout(_view.get('_layout/view')) -%>
+
+<% block('title', 'Category') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Categories',
+    url: 'admin/category'
+},{
+    title: model.getId()
+}]) %>
+
+<%- partial(_view.get('_part/field/static'), {
+    attr: 'name'
+}) %>
+
+<%- partial(_view.get('_part/field/list'), {
+    attr: 'articles',
+    provider: articles,
+    create: null,
+    search: null,
+    routePrefix: 'article/'
+}) %>

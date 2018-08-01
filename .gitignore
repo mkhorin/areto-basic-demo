@@ -3,12 +3,12 @@
 
 config/*-local.js
 
-/uploads
-/web/photos
-/modules/admin/uploads
+/upload
+/web/photo
+/module/admin/upload
 
 # Logs
-logs
+log
 *.log
 npm-debug.log*
 

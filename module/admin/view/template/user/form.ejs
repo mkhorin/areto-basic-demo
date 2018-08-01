@@ -1,0 +1,24 @@
+
+<%- partial(_view.get('_part/field/radiolist'), {
+    attr: 'status',
+    items: _controller.getLabelSelectItems('status', model)
+}) %>
+
+<%- partial(_view.get('_part/field/input'), {
+    attr: 'name'
+}) %>
+
+<%- partial(_view.get('_part/field/input'), {
+    attr: 'email'
+}) %>
+
+<%- partial(_view.get('_part/field/radiolist'), {
+    attr: 'role',
+    items: _controller.getLabelSelectItems('role', model)
+}) %>
+
+<%- partial(_view.get('_part/field/input'), {
+    attr: 'password',
+    placeholder: 'Input new password to change current'
+}) %>
+

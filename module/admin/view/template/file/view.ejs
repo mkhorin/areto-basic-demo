@@ -1,0 +1,37 @@
+<% layout(_view.get('_layout/view')) -%>
+
+<% block('title', 'Photo') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Photos',
+    url: 'admin/photo'
+},{
+    title: model.getId()
+}]) %>
+
+<% let stat = _view.get('_part/field/static'); %>
+
+<%- partial(stat, {
+    attr: 'originalName'
+}) %>
+
+<%- partial(stat, {
+    attr: 'filename'
+}) %>
+
+<%- partial(stat, {
+    attr: 'size'
+}) %>
+
+<%- partial(stat, {
+    attr: 'mime'
+}) %>
+
+<%- partial(stat, {
+    attr: 'ip'
+}) %>
+
+<%- partial(stat, {
+    attr: 'createdAt',
+    value: _format(model.get('createdAt'), 'timestamp')
+}) %>

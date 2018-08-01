@@ -1,0 +1,12 @@
+<% layout(_view.get('_layout/form')) -%>
+
+<% block('title', 'Update user') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Users',
+    url: 'admin/user'
+},{
+    title: model.getId()
+}]) %>
+
+<%- partial('./form') %>

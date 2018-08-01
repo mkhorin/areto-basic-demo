@@ -1,0 +1,12 @@
+<% layout(_view.get('_layout/form')) -%>
+
+<% block('title', 'Create tag') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Tags',
+    url: 'admin/tag'
+},{
+    title: 'Create'
+}]) %>
+
+<%- partial('./form') %>

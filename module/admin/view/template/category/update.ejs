@@ -1,0 +1,12 @@
+<% layout(_view.get('_layout/form')) -%>
+
+<% block('title', 'Update category') -%>
+
+<% _data.set('breadcrumbs', [{
+    title: 'Categories',
+    url: 'admin/category'
+},{
+    title: model.getId()
+}]) %>
+
+<%- partial('./form') %>
