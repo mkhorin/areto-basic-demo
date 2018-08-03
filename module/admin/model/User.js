@@ -9,25 +9,35 @@ module.exports = class User extends Base {
             RULES: [
                 [['name', 'email', 'role', 'status'], 'required'],
                 ['password', 'required', {on: ['create']}],
-                ['status', 'range', {range: ['pending', 'active', 'banned']}],
-                ['role', 'range', {range: ['reader', 'author', 'editor', 'moderator', 'admin']}],
+                ['status', 'range', {range: [
+                    this.STATUS_PENDING,
+                    this.STATUS_ACTIVE,
+                    this.STATUS_BANNED
+                ]}],
+                ['role', 'range', {range: [
+                    this.ROLE_READER,
+                    this.ROLE_AUTHOR,
+                    this.ROLE_EDITOR,
+                    this.ROLE_MODERATOR,
+                    this.ROLE_ADMIN
+                ]}],
                 ['name', 'string', {min: 3, max: 24}],
                 ['name', 'regexp', {pattern: /^[а-яa-z\s-]+$/i}],
                 ['email', 'email'],
                 ['password', 'string', {min: 6, max: 32}],
-                [['email', 'name'], 'unique', { ignoreCase: true }]
+                [['email', 'name'], 'unique', {ignoreCase: true}]
             ],
             ATTR_VALUE_LABELS: {
                 'status': {
-                    active: 'Active',
-                    banned: 'Banned'
+                    [this.STATUS_ACTIVE]: 'Active',
+                    [this.STATUS_BANNED]: 'Banned'
                 },
                 'role': {
-                    reader: 'Reader',
-                    author: 'Author',
-                    editor: 'Editor',
-                    moderator: 'Moderator',
-                    admin: 'Administrator'
+                    [this.ROLE_READER]: 'Reader',
+                    [this.ROLE_AUTHOR]: 'Author',
+                    [this.ROLE_EDITOR]: 'Editor',
+                    [this.ROLE_MODERATOR]: 'Moderator',
+                    [this.ROLE_ADMIN]: 'Administrator'
                 }
             }
         };

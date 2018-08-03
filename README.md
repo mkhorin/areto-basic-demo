@@ -1,8 +1,8 @@
 # Areto Basic Demo App 
 
 ### Install the  environment
-- [Node.js](https://nodejs.org) (8.9.3)
-- [MongoDB](https://www.mongodb.com) (3.4)
+- [Node.js](https://nodejs.org)
+- [MongoDB](https://www.mongodb.com)
 - [Graphics Magick](http://www.graphicsmagick.org)
 
 ### Linux

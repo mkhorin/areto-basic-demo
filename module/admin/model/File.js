@@ -33,7 +33,7 @@ module.exports = class File extends Base {
     }
 
     static findExpired (timeout = 3600) {
-        let expired = new Date((new Date).getTime() - parseInt(timeout) * 1000);
+        let expired = new Date(Date.now() - parseInt(timeout) * 1000);
         return this.find(['<', 'updatedAt', expired]);
     }
 

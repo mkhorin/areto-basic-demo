@@ -126,7 +126,6 @@ module.exports = class Article extends Base {
     }
 
     resolveTag (name, cb) {
-        let tag;
         async.waterfall([
             cb => Tag.findByName(name).one(cb),
             (model, cb)=> {
@@ -163,7 +162,7 @@ module.exports = class Article extends Base {
             return cb();
         }
         let photos = [];
-        async.each(files, (file, cb)=> {
+        async.eachSeries(files, (file, cb)=> {
             let photo = new Photo;
             photo.set('articleId', this.getId());
             photo.set('file', file);

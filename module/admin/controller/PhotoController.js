@@ -34,25 +34,23 @@ module.exports = class PhotoController extends Base {
     actionCreate () {
         let model = new Photo;
         model.scenario = 'create';
-        
-        
-        async.series({
-            articles: cb => Article.findToSelect().all(cb)
-        }, (err, params)=> {
-            if (err) {
-                return this.throwError(err);
-            }
-            params.model = model;
-            if (this.isGet()) {
-                return this.render('create', params);
-            }
-            model.load(this.getBodyParams()).save(err => {
-                err ? this.throwError(err)
-                    : model.isNew()
+        async.waterfall([
+            cb => async.series({
+                articles: cb => Article.findToSelect().all(cb)
+            }, cb),
+            (params, cb)=> {
+                params.model = model;
+                if (this.isGet()) {
+                    return this.render('create', params);
+                }
+                async.series([
+                    cb => model.load(this.getBodyParams()).save(cb),
+                    cb => model.isNew()
                         ? this.render('create', params)
-                        : this.backToRef();
-            });
-        });
+                        : this.backToRef()
+                ], cb);
+            }
+        ], err => this.throwError(err));
     }
     
     actionUpdate () {

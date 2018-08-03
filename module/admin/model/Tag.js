@@ -22,7 +22,9 @@ module.exports = class Tag extends Base {
     }
 
     static findBySearch (text) {
-        return text ? this.find(['LIKE', 'name', `%${text}%`]) : this.find();
+        return text
+            ? this.find(['LIKE', 'name', `%${text}%`])
+            : this.find();
     }
 
     relArticles () {

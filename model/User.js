@@ -20,13 +20,21 @@ module.exports = class User extends Base {
             BEHAVIORS: {
                 'timestamp': require('areto/behavior/TimestampBehavior')
             },
+            STATUS_PENDING: 'penging',
+            STATUS_ACTIVE: 'active',
+            STATUS_BANNED: 'banned',
+            ROLE_READER: 'reader',
+            ROLE_AUTHOR: 'author',
+            ROLE_EDITOR: 'editor',
+            ROLE_MODERATOR: 'moderator',
+            ROLE_ADMIN: 'admin',
             AUTH_KEY_LENGTH: 16
         };
     }
 
     static findIdentity (id) {
         return this.findById(id).and({
-            status: 'active'
+            status: this.STATUS_ACTIVE
         });
     }
 
@@ -36,8 +44,8 @@ module.exports = class User extends Base {
 
     init () {
         super.init();
-        this.set('role', 'author');
-        this.set('status', 'active');
+        this.set('role', this.ROLE_AUTHOR);
+        this.set('status', this.STATUS_ACTIVE);
     }
 
     getTitle () {
@@ -45,11 +53,11 @@ module.exports = class User extends Base {
     }
     
     isActive () {
-        return this.get('status') === 'active';
+        return this.get('status') === this.STATUS_ACTIVE;
     }
 
     isBanned () {
-        return this.get('status') === 'banned';
+        return this.get('status') === this.STATUS_BANNED;
     }
 
     getAssignments (cb) {
