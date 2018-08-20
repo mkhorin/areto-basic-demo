@@ -38,7 +38,7 @@ module.exports = class SelectHelper {
 
     static queryCaptionNames (query, cb) {
         this.queryItems(query, cb, {
-            getItemText: this.getCaptionNameText
+            getItemText: this.getCaptionText
         });
     }
 
@@ -53,7 +53,7 @@ module.exports = class SelectHelper {
 
     static getModelCaptionNames (models) {
         return this.getModelItems(models, {
-            getItemText: this.getCaptionNameText
+            getItemText: this.getCaptionText
         });
     }
 
@@ -66,7 +66,7 @@ module.exports = class SelectHelper {
 
     static getCaptionNames (docs) {
         return this.getItems(docs, {
-            getItemText: this.getCaptionNameText
+            getItemText: this.getCaptionText
         });
     }
 
@@ -92,7 +92,7 @@ module.exports = class SelectHelper {
         return items;
     }
 
-    static getCaptionNameText (doc, data) {
+    static getCaptionText (doc, data) {
         return doc.caption ? `${doc.name} - ${doc.caption}` : doc.name;
     }
 

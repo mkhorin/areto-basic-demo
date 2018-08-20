@@ -21,10 +21,7 @@ module.exports = class File extends Base {
             // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
             // afterProcessFile: (fileModel, cb)=> {}
         }, config));
-    }
-
-    init () {
-        super.init();
+        
         if (!this.defaultThumbSize && this.neededThumbs) {
             this.defaultThumbSize = this.neededThumbs[this.neededThumbs.length - 1];
         }

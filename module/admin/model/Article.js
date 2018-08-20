@@ -60,8 +60,8 @@ module.exports = class Article extends Base {
         return this.find().select({title: 1}).asRaw();
     }
 
-    init () {
-        super.init();
+    constructor (config) {
+        super(config);
         this.set('status', this.STATUS_DRAFT);
     }
 

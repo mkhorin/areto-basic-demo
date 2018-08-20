@@ -42,8 +42,8 @@ module.exports = class User extends Base {
         return this.find({email});
     }
 
-    init () {
-        super.init();
+    constructor (config) {
+        super(config);
         this.set('role', this.ROLE_AUTHOR);
         this.set('status', this.STATUS_ACTIVE);
     }

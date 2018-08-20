@@ -42,9 +42,9 @@ module.exports = class Comment extends Base {
     static findApproved () {
         return this.find({status: this.STATUS_APPROVED});
     }
-    
-    init () {
-        super.init();
+
+    constructor (config) {
+        super(config);
         this.set('status', this.STATUS_PENDING);
     }
 
