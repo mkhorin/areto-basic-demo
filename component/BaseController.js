@@ -12,19 +12,15 @@ module.exports = class BaseController extends Base {
         };
     }
 
-    getModel (params, cb) {
-        params = params = Object.assign({
+    getModel (params) {
+        params = Object.assign({
             'ModelClass': this.getModelClass(),
             'id': this.getQueryParam('id')
         }, params);
-        if (!MongoHelper.isValidId(params.id)) {
-            return this.throwNotFound();
+        if (MongoHelper.isValidId(params.id)) {
+            return params.ModelClass.findById(params.id).with(params.with).one();
         }
-        let query = params.ModelClass.findById(params.id).with(params.with);
-        async.waterfall([
-            cb => query.one(cb),
-            model => model ? cb(model) : this.throwNotFound()
-        ], err => this.throwError(err));
+        throw new NotFoundHttpException;
     }
 
     createDataProvider (config) {
@@ -33,11 +29,9 @@ module.exports = class BaseController extends Base {
         }, config));
     }
 
-    renderDataProvider (provider, template, data) {
-        async.series([
-            cb => provider.prepare(cb),
-            cb => this.render(template, data)
-        ], err => this.throwError(err));
+    async renderDataProvider (provider, template, data) {
+        await provider.prepare();
+        await this.render(template, data);
     }
 
     getLabelSelectItems (attrName, model) {
@@ -47,7 +41,7 @@ module.exports = class BaseController extends Base {
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
+const NotFoundHttpException = require('areto/error/NotFoundHttpException');
 const MongoHelper = require('areto/helper/MongoHelper');
 const SelectHelper = require('./helper/SelectHelper');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');

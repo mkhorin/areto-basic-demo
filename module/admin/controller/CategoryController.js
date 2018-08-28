@@ -4,7 +4,7 @@ const Base = require('../component/CrudController');
 
 module.exports = class CategoryController extends Base {
 
-    actionIndex () {
+    async actionIndex () {
         let searchText = this.getQueryParam('search');
         let provider = this.createDataProvider({            
             query: Category.findBySearch(searchText),
@@ -18,24 +18,23 @@ module.exports = class CategoryController extends Base {
                 }
             }
         });
-        this.renderDataProvider(provider, 'index', {provider, searchText});
+        await this.renderDataProvider(provider, 'index', {provider, searchText});
     }
 
-    actionView () {
-        this.getModel(null, model => {
-            let articles = this.createDataProvider({                
-                query: model.relArticles(),
-                sort: {
-                    attrs: {
-                        [model.PK]: true
-                    },
-                    defaultOrder: {
-                        [model.PK]: -1
-                    }
+    async actionView () {
+        let model = await this.getModel();
+        let articles = this.createDataProvider({
+            query: model.relArticles(),
+            sort: {
+                attrs: {
+                    [model.PK]: true
+                },
+                defaultOrder: {
+                    [model.PK]: -1
                 }
-            });
-            this.renderDataProvider(articles, 'view', {model, articles});
+            }
         });
+        await this.renderDataProvider(articles, 'view', {model, articles});
     }
 };
 module.exports.init(module);

@@ -3,6 +3,8 @@
 
 <form action="#" method="post" class="form-horizontal form object-view">
 
+    <input type="hidden" name="referrer" value="<%= _controller.getRefUrl() %>">
+
     <div class="object-controls">
         <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
         <a href="<%- _url(['update', model]) %>" class="btn btn-info">Update</a>

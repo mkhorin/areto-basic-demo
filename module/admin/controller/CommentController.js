@@ -4,7 +4,7 @@ const Base = require('../component/CrudController');
 
 module.exports = class CommentController extends Base {
 
-    actionIndex () {
+    async actionIndex () {
         let provider = this.createDataProvider({
             query: Comment.findBySearch(this.getQueryParam('search')),
             pagination: {},
@@ -18,36 +18,31 @@ module.exports = class CommentController extends Base {
                 }
             }
         });
-        this.renderDataProvider(provider, 'index', {provider});
+        await this.renderDataProvider(provider, 'index', {provider});
     }
 
-    actionCreate () {
-        this.getModel({
+    async actionCreate () {
+        let article = await this.getModel({
             ModelClass: Article
-        }, article => {
-            let model = new Comment;
-            if (this.isGet()) {
-                return this.render('create', {model});
-            }
-            model.load(this.getBodyParams());
-            model.set('articleId', article.getId());
-            async.series([
-                cb =>  model.save(cb),
-                cb =>  model.hasError()
-                    ? this.render('create', {model})
-                    : this.backToRef()
-            ], err => this.throwError(err));
         });
+        let model = new Comment;
+        if (this.isGet()) {
+            return this.render('create', {model});
+        }
+        model.load(this.getBodyParams());
+        model.set('articleId', article.getId());
+        await model.save()
+            ? this.backToRef()
+            : await this.render('create', {model});
     }
 
-    actionView () {
-        super.actionView({
+    async actionView () {
+        await super.actionView({
             with: 'article'
         });
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const Article = require('../model/Article');
 const Comment = require('../model/Comment');

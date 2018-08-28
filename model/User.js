@@ -60,20 +60,18 @@ module.exports = class User extends Base {
         return this.get('status') === this.STATUS_BANNED;
     }
 
-    getAssignments (cb) {
-        cb(null, [this.get('role')]);
+    getAssignments () {
+        return [this.get('role')];
     }
 
     // EVENTS
 
-    beforeSave (insert, cb) {
-        async.series([
-            cb => super.beforeSave(insert, cb),
-            cb => {
-                this.setPasswordHash();
-                insert ? this.setAuthKey(cb) : cb();
-            }
-        ], cb);
+    async beforeSave (insert) {
+        await super.beforeSave(insert);
+        this.setPasswordHash();
+        if (insert) {
+            this.setAuthKey();
+        }
     }
    
     // PASSWORD
@@ -99,17 +97,10 @@ module.exports = class User extends Base {
         return this.get('authKey');
     }
 
-    setAuthKey (cb) {
-        async.waterfall([
-            cb => SecurityHelper.generateRandomString(this.AUTH_KEY_LENGTH, cb),
-            (result, cb)=> {
-                this.set('authKey', result);
-                cb();
-            }
-        ], cb);
+    setAuthKey () {
+        this.set('authKey', SecurityHelper.generateRandomString(this.AUTH_KEY_LENGTH));
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const SecurityHelper = require('areto/helper/SecurityHelper');

@@ -18,18 +18,13 @@ module.exports = class Admin extends Base {
         };
     }
 
-    afterComponentInit (cb) {
-        async.series([
-            cb => this.addSchedulerTasks(cb),
-            cb => super.afterComponentInit(cb)
-        ], cb);
+    async afterComponentInit () {
+        await this.addSchedulerTasks();
+        await super.afterComponentInit();
     }
 
-    addSchedulerTasks (cb) {
+    addSchedulerTasks () {
         this.components.scheduler.addTasks(this.config.tasks);
-        setImmediate(cb);
     }
 };
 module.exports = new (module.exports.init(module));
-
-const async = require('areto/helper/AsyncHelper');

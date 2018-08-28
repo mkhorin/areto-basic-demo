@@ -28,97 +28,66 @@ module.exports = class PhotoController extends Base {
                 }
             }
         });
-        this.renderDataProvider(provider, 'index', {provider});
+        return this.renderDataProvider(provider, 'index', {provider});
     }
 
-    actionCreate () {
+    async actionCreate () {
         let model = new Photo;
         model.scenario = 'create';
-        async.waterfall([
-            cb => async.series({
-                articles: cb => Article.findToSelect().all(cb)
-            }, cb),
-            (params, cb)=> {
-                params.model = model;
-                if (this.isGet()) {
-                    return this.render('create', params);
-                }
-                async.series([
-                    cb => model.load(this.getBodyParams()).save(cb),
-                    cb => model.isNew()
-                        ? this.render('create', params)
-                        : this.backToRef()
-                ], cb);
-            }
-        ], err => this.throwError(err));
+        if (this.isPost() && model.load(this.getBodyParams()).save()) {
+            return this.backToRef();
+        }
+        await this.render('create', {
+            articles: await Article.findToSelect().all(),
+            model
+        });
     }
     
-    actionUpdate () {
-        let data;
-        this.getModel(null, model => {
-            async.waterfall([
-                cb => async.series({
-                    articles: cb => Article.findToSelect().all(cb)
-                }, cb),
-                (result, cb)=> {
-                    data = result;
-                    data.model = model;
-                    if (this.isGet()) {
-                        return this.render('update', data);
-                    }
-                    model.load(this.getBodyParams()).save(cb);
-                },
-                (model, cb)=> model.hasError()
-                    ? this.render('update', data)
-                    : this.backToRef()
-            ], err =>  this.throwError(err));
+    async actionUpdate () {
+        let model = await this.getModel();
+        if (this.isPost() && model.load(this.getBodyParams()).save()) {
+            return this.backToRef();
+        }
+        await this.render('update', {
+            articles: await Article.findToSelect().all(),
+            model
         });
     }
 
-    actionView () {
-        super.actionView({
+    async actionView () {
+        await super.actionView({
             with: ['article']
         });
     }
 
-    actionUpload () {
-        let file = new File, photo;
-        async.series([
-            cb => file.upload(this, cb),
-            cb => file.hasError()
-                ? this.sendText(this.translate(file.getFirstError()), 400)
-                : cb(),
-            cb => {
-                photo = new Photo;
-                photo.set('file', file.getId());
-                photo.validate(cb, ['file']);
-            },
-            cb => photo.hasError()
-                ? this.sendText(this.translate(photo.getFirstError()), 400)
-                : this.sendText(file.getId())
-        ], err => this.throwError(err));
+    async actionUpload () {
+        let file = new File;
+        if (!await file.upload(this.req, this.res, this.user)) {
+            return this.sendText(this.translate(file.getFirstError()), 400);
+        }
+        let photo = new Photo;
+        photo.set('file', file.getId());
+        await photo.validate(['file'])
+            ? this.sendText(file.getId())
+            : this.sendText(this.translate(photo.getFirstError()), 400);
     }
 
-    actionAssignMain () {
-        this.getModel({
+    async actionAssignMain () {
+        let model = await this.getModel({
             with: ['article']
-        }, model => {
-            let article = model.get('article');
-            if (!article) {
-                this.setFlash('danger', 'Article not found');
-                return this.redirect(['view', model]);
-            }
-            article.set('mainPhotoId', model.getId());
-            async.series([
-                cb => article.forceSave(cb),
-                cb => this.redirect(['article/view', article])
-            ], err => this.throwError(err));
         });
+        let article = model.get('article');
+        if (!article) {
+            this.setFlash('danger', 'Article not found');
+            return this.redirect(['view', model]);
+        }
+        article.set('mainPhotoId', model.getId());
+        await article.forceSave();
+        this.redirect(['article/view', article]);
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const Article = require('../model/Article');
 const File = require('../model/File');
 const Photo = require('../model/Photo');

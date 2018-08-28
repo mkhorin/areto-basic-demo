@@ -18,7 +18,7 @@ module.exports = class UserController extends Base {
         };
     }
 
-    actionIndex () {
+    async actionIndex () {
         let provider = this.createDataProvider({
             query: User.findBySearch(this.getQueryParam('search')),
             sort: {
@@ -33,7 +33,7 @@ module.exports = class UserController extends Base {
                 }
             }
         });
-        this.renderDataProvider(provider, 'index', {provider});
+        await this.renderDataProvider(provider, 'index', {provider});
     }
 };
 module.exports.init(module);

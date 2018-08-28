@@ -12,7 +12,6 @@ module.exports = class BaseController extends Base {
     }
 
     backToRef (url = 'index') {
-        let ref = this.getBodyParam('referrer');
-        this.redirect(ref || url);
+        this.redirect(this.getBodyParam('referrer') || url);
     }
 };

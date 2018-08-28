@@ -27,26 +27,16 @@ module.exports = class SignUpForm extends Base {
         };
     }
 
-    register (complete) {
-        let model = null;
-        async.series([
-            cb => this.validate(cb),
-            cb => this.hasError() ? complete() : cb(),
-            cb => {
-                model = new User;
-                model.setAttrs(this);
-                model.save(cb);
-            },
-            cb => {
-                if (model.hasError()) {
-                    this.addError('name', model.getFirstError());
-                    return cb();
-                }
-                this.user.login(model, 0, cb);
+    async register () {
+        if (await this.validate()) {
+            let model = new User;
+            model.setAttrs(this);
+            if (await model.save()) {
+                await this.user.login(model, 0);
+            } else {
+                this.addError('name', model.getFirstError());
             }
-        ], complete);
+        }
     }
 };
 module.exports.init(module);
-
-const async = require('areto/helper/AsyncHelper');

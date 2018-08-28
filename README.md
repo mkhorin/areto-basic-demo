@@ -10,7 +10,7 @@ Clone application to /areto-basic-demo
 ```sh
 cd /areto-basic-demo
 npm install
-NODE_ENV=development node bin/migrate --action apply --classes migrations/Init
+NODE_ENV=development node bin/migrate --action apply --file migrations/Init
 NODE_ENV=development node bin/server
 ```
 
@@ -20,7 +20,7 @@ Clone application to c:/areto-basic-demo
 cd /d c:/areto-basic-demo
 npm install
 set NODE_ENV=development
-node bin/migrate --action apply --classes migrations/Init
+node bin/migrate --action apply --file migrations/Init
 node bin/server
 ```
 

@@ -44,38 +44,23 @@ module.exports = class SignInForm extends Base {
             ? this.CAPTCHA_SCENARIO : null;
     }
 
-    resolveCaptchaScenario (cb) {
-        if (!(this.rateLimit instanceof RateLimit)) {
-            return cb();
+    async resolveCaptchaScenario () {
+        if (this.rateLimit instanceof RateLimit) {
+            this._rateLimitModel = await this.rateLimit.find(this.rateLimitType, this.user);
+            this.toggleCaptchaScenario();
         }
-        async.waterfall([
-            cb => this.rateLimit.find(this.rateLimitType, this.user, cb),
-            (model, cb)=> {
-                this._rateLimitModel = model;
-                this.toggleCaptchaScenario();
-                cb();
-            }
-        ], cb);
     }
 
-    login (complete) {
-        async.series([
-            cb => this.validate(cb),
-            cb => this.hasError() ? complete() : cb(),
-            cb => async.waterfall([
-                cb => this.createLoginByEmail().login(cb),
-                (result, cb)=> {
-                    if (result.error) {
-                        this.addError('email', result.error);
-                    }
-                    this.updateRateLimit(cb);
-                },
-                cb => {
-                    this.toggleCaptchaScenario();
-                    cb();
-                }
-            ], cb)
-        ], complete);
+    async login () {
+        await this.validate();
+        if (!this.hasError()) {
+            let result = await this.createLoginByEmail().login();
+            if (result.error) {
+                this.addError('email', result.error);
+            }
+            await this.updateRateLimit();
+            this.toggleCaptchaScenario();
+        }
     }
 
     createLoginByEmail () {
@@ -87,20 +72,18 @@ module.exports = class SignInForm extends Base {
         });
     }
 
-    updateRateLimit (cb) {
-        if (!this._rateLimitModel) {
-            return cb();
+    async updateRateLimit () {
+        if (this._rateLimitModel) {
+            if (this.hasError()) {
+                await this._rateLimitModel.increment();
+            }
+            if (this.isCaptchaRequired()) { // captcha has been validated
+                await this._rateLimitModel.reset();
+            }
         }
-        if (this.hasError()) {
-            return this._rateLimitModel.increment(cb);
-        }
-        this.isCaptchaRequired() // captcha has been validated
-            ? this._rateLimitModel.reset(cb)
-            : cb();        
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const RateLimit = require('areto/web/rate-limit/RateLimit');
 const LoginByEmail = require('../component/auth/LoginByEmail');

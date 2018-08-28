@@ -19,7 +19,7 @@ module.exports = class File extends Base {
             // thumbHeights: { 128: 164, 200: 300 },
             // thumbResizeMethod: 'cropResizeImage',
             // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
-            // afterProcessFile: (fileModel, cb)=> {}
+            // afterProcessFile: async (fileModel)
         }, config));
         
         if (!this.defaultThumbSize && this.neededThumbs) {
@@ -49,82 +49,61 @@ module.exports = class File extends Base {
 
     // EVENTS
 
-    beforeValidate (cb) {
+    async beforeValidate () {
         let file = this.owner.get(this.fileAttr);
         if (file instanceof this.FileClass) {
             this.fileModel = file;
             this.owner.set(this.fileAttr, file.getFileStats());
-            return cb();
-        }
-        if (!file) {
-            return cb();
-        }
-        async.waterfall([
-            cb => this.FileClass.findById(file).one(cb),
-            (model, cb)=> {
-                if (model) {
-                    this.owner.set(this.fileAttr, model.getFileStats());
-                }
-                this.fileModel = model;
-                cb();
+        } else if (file) {
+            this.fileModel = await this.FileClass.findById(file).one();
+            if (this.fileModel) {
+                this.owner.set(this.fileAttr, this.fileModel.getFileStats());
             }
-        ], cb);
-    }
-
-    beforeInsert (cb) {
-        if (!this.fileModel) {
-            return cb();
         }
-        async.series([
-            cb => this.checkFile(cb),
-            cb => this.processFile(cb)
-        ], cb);
     }
 
-    beforeUpdate (cb) {
-        if (!this.fileModel) {
-            return cb();
+    async beforeInsert () {
+        if (this.fileModel) {
+            this.checkFile();
+            await this.processFile();
         }
-        async.series([
-            cb => this.checkFile(cb),
-            cb => this.removeFiles(()=> cb()), // skip error
-            cb => this.processFile(cb)
-        ], cb);
     }
 
-    afterRemove (cb) {
-        this.removeFiles(cb);
+    async beforeUpdate () {
+        if (this.fileModel) {
+            this.checkFile();
+            this.removeFiles();
+            await this.processFile();
+        }
+    }
+
+    afterRemove () {
+        this.removeFiles();
     }
 
     // PROCESS
 
-    checkFile (cb) {
+    checkFile () {
         if (!this.fileModel) {
-            return cb(`File model is not set`);
+            throw new Error(`File model is not set`);
         }
         let filePath = this.fileModel.getPath();
-        async.waterfall([
-            cb => fs.stat(filePath, cb),
-            (stat, cb)=> stat.isFile()
-                ? cb()
-                : cb(`This is not file: ${filePath}`)
-        ], cb);
+        let stat = fs.statSync(filePath);
+        if (!stat.isFile()) {
+            throw new Error(`This is not file: ${filePath}`);
+        }
     }
 
-    processFile (cb) {
+    async processFile () {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        async.series([
-            cb => mkdirp(path.dirname(destPath), cb),
-            cb => fs.rename(this.fileModel.getPath(), destPath, cb),
-            cb => {
-                this.owner.set(this.filenameAttr, filename);
-                this.generateThumbs(cb);
-            },
-            cb => this.afterProcessFile
-                ? this.afterProcessFile(this.fileModel, cb)
-                : cb()
-        ], cb);
+        mkdirp.sync(path.dirname(destPath));
+        fs.renameSync(this.fileModel.getPath(), destPath);
+        this.owner.set(this.filenameAttr, filename);
+        await this.generateThumbs();
+        if (this.afterProcessFile) {
+            await this.afterProcessFile(this.fileModel);
+        }
     }
 
     createFilename (file) {
@@ -136,54 +115,46 @@ module.exports = class File extends Base {
         return now.getFullYear() +'-'+ ('0' + (now.getMonth() + 1)).slice(-2);
     }
 
-    removeFiles (cb) {
+    removeFiles () {
+        for (let thumbPath of this.getThumbPaths()) {
+            try {
+                fs.unlinkSync(thumbPath);
+            } catch (err) {
+                this.owner.log('error', `File remove failed: ${thumbPath}`, err);
+            }
+        }
+    }
+
+    // THUMBS
+
+    getThumbPaths () {
         let paths = [this.getPath()];
         if (this.neededThumbs) {
             for (let thumb of this.neededThumbs)  {
                 paths.push(this.getThumbPath(thumb));
             }
-        }        
-        async.eachSeries(paths, (path, cb)=> {
-            fs.unlink(path, err => {
-                if (err) {
-                    this.owner.module.log('error', `File remove failed: ${path}`, err);
-                }
-                cb(); // clear error
-            });
-        }, cb);
+        }
+        return paths;
     }
 
-    // THUMBS
-
-    generateThumbs (cb) {
-        if (!(this.neededThumbs instanceof Array) || !this.fileModel.isImage()) {
-            return cb();
-        }
-        let image = gm(this.getPath());
-        async.eachSeries(this.neededThumbs, (width, cb)=> {
-            this.createThumb(image, width, cb);
-        }, cb);
-    }
-
-    createThumb (image, width, cb) {
-        try {
-            let height = this.getThumbHeight(width);
-            image.resize(width, height);
-            // image.resize(width, height, '!'); // to override the image's proportions
-        } catch (err) {
-            return cb(err);
-        }
-        async.waterfall([
-            cb => this.setWatermark(image, width, cb),
-            (result, cb)=> {
-                image = result;
-                mkdirp(path.dirname(this.getThumbPath(width)), cb);
-            },
-            (dir, cb)=> {
-                image.quality(this.quality);
-                image.write(this.getThumbPath(width), cb);
+    async generateThumbs () {
+        if (this.neededThumbs instanceof Array && this.fileModel.isImage()) {
+            let image = gm(this.getPath());
+            for (let width of this.neededThumbs) {
+                await this.createThumb(image, width);
             }
-        ], cb);
+        }
+    }
+
+    createThumb (image, width) {
+        let height = this.getThumbHeight(width);
+        image.resize(width, height);
+        // image.resize(width, height, '!'); // to override the image's proportions
+        this.setWatermark(image, width);
+        mkdirp.sync(path.dirname(this.getThumbPath(width)));
+        image.quality(this.quality);
+        let thumbPath = this.getThumbPath(width);
+        return PromiseHelper.promise(image.write.bind(image, thumbPath));
     }
 
     getThumbHeight (width) {
@@ -192,22 +163,16 @@ module.exports = class File extends Base {
             : width;
     }
 
-    setWatermark (image, width, cb) {
-        if (!this.watermark || !this.watermark[width]) {
-            return cb(null, image);
-        }
-        try {
+    setWatermark (image, width) {
+        if (this.watermark && this.watermark[width]) {
             image.draw([`image Over 0,0 0,0 ${this.watermark[width]}`]);
-        } catch (err) {
-            return cb(err);
         }
-        cb(null, image);
     }
 };
 
-const async = require('areto/helper/AsyncHelper');
 const fs = require('fs');
 const gm = require('gm');
 const mkdirp = require('mkdirp');
 const path = require('path');
 const ActiveRecord = require('areto/db/ActiveRecord');
+const PromiseHelper = require('areto/helper/PromiseHelper');

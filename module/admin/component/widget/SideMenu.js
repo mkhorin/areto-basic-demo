@@ -4,14 +4,13 @@ const Base = require('areto/view/Widget');
 
 module.exports = class SideMenu extends Base {
 
-    run (cb) {
-        if (!(this.items instanceof Array)) {
-            return cb();
+    run () {
+        if (this.items instanceof Array) {
+            for (let item of this.items) {
+                this.prepareItem(item);
+            }
+            return this.render('_part/widget/side-menu', this.params);
         }
-        for (let item of this.items) {
-            this.prepareItem(item);
-        }
-        this.render('_part/widget/side-menu', cb, this.params);
     }
 
     prepareItem (item) {

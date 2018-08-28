@@ -13,35 +13,26 @@ module.exports = class ImageConverter extends Base {
         return `${size}/${this.getFilename()}`;
     }
 
-    processFile (cb) {
+    async processFile () {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        async.series([
-            cb => mkdirp(path.dirname(destPath), cb),
-            cb => this.createThumbImage(destPath, cb),
-            cb => {
-                this.owner.set(this.filenameAttr, filename);
-                this.generateThumbs(cb);
-            },
-            cb => this.afterProcessFile
-                ? this.afterProcessFile(this.fileModel, cb)
-                : cb()
-        ], cb);
+        mkdirp.sync(path.dirname(destPath));
+        await this.createThumbImage(destPath);
+        this.owner.set(this.filenameAttr, filename);
+        await this.generateThumbs();
+        if (this.afterProcessFile) {
+            await this.afterProcessFile(this.fileModel);
+        }
     }
     
-    createThumbImage (destPath, cb) {
-        let image;
-        try {
-            image = gm(this.fileModel.getPath());
-            image.resize(this.size, this.getThumbHeight(this.size));
-        } catch (err) {
-            return cb(err);
-        }
-        image.write(destPath, cb);
+    createThumbImage (destPath) {
+        let image = gm(this.fileModel.getPath());
+        image.resize(this.size, this.getThumbHeight(this.size));
+        return PromiseHelper.promise(image.write.bind(image, destPath));
     }
 };
 
-const async = require('areto/helper/AsyncHelper');
 const path = require('path');
 const gm = require('gm');
 const mkdirp = require('mkdirp');
+const PromiseHelper = require('areto/helper/PromiseHelper');

@@ -4,51 +4,32 @@ const Base = require('./BaseController');
 
 module.exports = class CrudController extends Base {
 
-    actionCreate () {
+    async actionCreate () {
         let model = new (this.getModelClass());
         model.scenario = 'create';
-        if (this.isGet()) {
-            return this.render('create', {model});
-        }
-        async.series([
-            cb => model.load(this.getBodyParams()).save(cb),
-            cb => model.hasError()
-                ? this.render('create', {model})
-                : this.backToRef()
-        ], err => this.throwError(err));
+        this.isPost() && await model.load(this.getBodyParams()).save()
+            ? this.backToRef()
+            : await this.render('create', {model});
     }
     
-    actionView (params) {
-        this.getModel(params, model => {
-            this.render('view', {model});
-        });
+    async actionView (params) {
+        let model = await this.getModel(params);
+        await this.render('view', {model});
     }
 
-    actionUpdate (params) {
-        this.getModel(params, model => {
-            model.scenario = 'update';
-            if (this.isGet()) {
-                return this.render('update', {model});
-            }
-            async.series([
-                cb => model.load(this.getBodyParams()).save(cb),
-                cb => model.hasError()
-                    ? this.render('update', {model})
-                    : this.backToRef()
-            ], err => this.throwError(err));
-        });
+    async actionUpdate (params) {
+        let model = await this.getModel(params);
+        model.scenario = 'update';
+        this.isPost() && await model.load(this.getBodyParams()).save()
+            ? this.backToRef()
+            : await this.render('update', {model});
     }
 
-    actionDelete (params) {
-        this.getModel(params, model => {
-            async.series([
-                cb => model.remove(cb),
-                cb => this.isAjax()
-                    ? this.send(model.getId())
-                    : this.backToRef()
-            ], err => this.throwError(err));
-        });
+    async actionDelete (params) {
+        let model = await this.getModel(params);
+        await model.remove();
+        this.isAjax()
+            ? this.send(model.getId())
+            : this.backToRef();
     }
 };
-
-const async = require('areto/helper/AsyncHelper');

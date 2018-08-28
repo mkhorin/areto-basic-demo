@@ -1,19 +1,17 @@
 'use strict';
 
 // cd /areto-basic-demo
-// node bin/migrate --action apply --classes migrations/Init
+// node bin/migrate --action apply --file migrations/Init
 
-const app = require('../module');
-const async = require('areto/helper/AsyncHelper');
-const CommonHelper = require('areto/helper/CommonHelper');
-
-async.series([
-    cb => app.configure('development', cb),
-    cb => {
+(async ()=> {
+    const application = require('../module');
+    const CommonHelper = require('areto/helper/CommonHelper');
+    try {
         let data = CommonHelper.parseArguments(process.argv);
-        app.migrate(data.action, data.classes, cb);
+        await application.init('development');
+        await application.migrate(data.action, data.file);
+    } catch (err) {
+        application.log('error', 'Migration error', err);
     }
-], err => {
-    err && console.error(err);
     process.exit();
-});
+})();

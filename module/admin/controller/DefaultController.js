@@ -4,51 +4,45 @@ const Base = require('../component/BaseController');
 
 module.exports = class DefaultController extends Base {
 
-    actionIndex () {
-        async.waterfall([
-            cb => this.module.components.cache.use('dashboard', this.renderDashboard.bind(this), cb),
-            content => this.send(content)
-        ], err => this.throwError(err));
+    async actionIndex () {
+        let dashboard = await this.module.components.cache.use('dashboard', this.renderDashboard.bind(this));
+        await this.render('index', {dashboard});
     }
 
-    renderDashboard (cb) {
-        async.waterfall([
-            cb => this.getDashboard(cb),
-            result => this.render('index', result, cb)
-        ], cb);
+    async renderDashboard () {
+        return this.render('dashboard', await this.getDashboard(), false);
     }
 
-    getDashboard (cb) {
-        async.series({
-            'drafts': cb => Article.find({
+    async getDashboard () {
+        return {
+            'drafts': await Article.find({
                 status: Article.STATUS_DRAFT
-            }).count(cb),
-            'published': cb => Article.find({
+            }).count(),
+            'published': await Article.find({
                 status: Article.STATUS_PUBLISHED
-            }).count(cb),
-            'archived': cb => Article.find({
+            }).count(),
+            'archived': await Article.find({
                 status: Article.STATUS_ARCHIVED
-            }).count(cb),
-            'blocked': cb => Article.find({
+            }).count(),
+            'blocked': await Article.find({
                 status: Article.STATUS_BLOCKED
-            }).count(cb),
-            'photos': cb => Photo.find().count(cb),
-            'tags': cb => Tag.find().count(cb),
-            'pending': cb => Comment.find({
+            }).count(),
+            'photos': await Photo.find().count(),
+            'tags': await Tag.find().count(),
+            'pending': await Comment.find({
                 status: Comment.STATUS_PENDING
-            }).count(cb),
-            'approved': cb => Comment.find({
+            }).count(),
+            'approved': await Comment.find({
                 status: Comment.STATUS_APPROVED
-            }).count(cb),
-            'rejected': cb => Comment.find({
+            }).count(),
+            'rejected': await Comment.find({
                 status: Comment.STATUS_REJECTED
-            }).count(cb)
-        }, cb);
+            }).count()
+        };
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const Article = require('../model/Article');
 const Comment = require('../model/Comment');
 const Photo = require('../model/Photo');

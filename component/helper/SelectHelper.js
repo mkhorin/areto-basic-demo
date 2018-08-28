@@ -22,31 +22,24 @@ module.exports = class SelectHelper {
 
     // QUERY HANDLER
 
-    static handleQueryCaptionNames (handler, cb) {
-        handler((err, query)=> {
-            err ? cb(err) : this.queryCaptionNames(query, cb);
-        });
+    static async handleQueryCaptionNames (handler) {
+        return this.queryCaptionNames(await handler());
     }
 
-    static handleQueryItems (handler, cb, data) {
-        handler((err, query)=> {
-            err ? cb(err) : this.queryItems(query, cb, data);
-        });
+    static async handleQueryItems (handler, data) {
+        return this.queryItems(await handler(), data);
     }
 
     // QUERY
 
-    static queryCaptionNames (query, cb) {
-        this.queryItems(query, cb, {
+    static queryCaptionNames (query) {
+        return this.queryItems(query, {
             getItemText: this.getCaptionText
         });
     }
 
-    static queryItems (query, cb, data) {
-        async.waterfall([
-            cb => query.asRaw().all(cb),
-            (docs, cb)=> cb(null, this.getItems(docs, data))
-        ], cb);
+    static async queryItems (query, data) {
+        return this.getItems(await query.asRaw().all(), data);
     }
 
     // MODEL
@@ -100,5 +93,3 @@ module.exports = class SelectHelper {
         return doc[data.textKey] || doc[data.valueKey];
     }
 };
-
-const async = require('areto/helper/AsyncHelper');

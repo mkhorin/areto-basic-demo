@@ -17,30 +17,23 @@ module.exports = class LoginByEmail extends Base {
         }, config));
     }
 
-    login (cb) {
-        async.series([
-            cb => this.getIdentity(cb),
-            cb => this._error ? cb() : this.user.login(this._identity, this.getRememberPeriod(), cb)
-        ], err => cb(err, {
-            error: this._error,
-            identity: this._identity
-        }));
+    async login () {
+        let result = await this.getIdentity();
+        if (!result.error) {
+            await this.user.login(result.identity, this.getRememberPeriod());
+            return result;
+        }
     }
 
-    getIdentity (cb) {
-        this._identity = null;
-        async.waterfall([
-            cb => this.User.findByEmail(this.email).one(cb),
-            (model, cb)=> {
-                if (!model || !model.validatePassword(this.password)) {
-                    this._error = this.failedMessage;
-                } else if (model.isBanned()) {
-                    this._error = this.bannedMessage;
-                }
-                this._identity = model;
-                cb(null, model);
-            }
-        ], cb);
+    async getIdentity () {
+        let error = null;
+        let identity = await this.User.findByEmail(this.email).one();
+        if (!identity || !identity.validatePassword(this.password)) {
+            error = this.failedMessage;
+        } else if (identity.isBanned()) {
+            error = this.bannedMessage;
+        }
+        return {identity, error};
     }
 
     getRememberPeriod () {
@@ -49,5 +42,4 @@ module.exports = class LoginByEmail extends Base {
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const User = require('../../model/User');

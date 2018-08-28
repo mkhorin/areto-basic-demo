@@ -21,40 +21,37 @@ module.exports = class AuthController extends Base {
                         actions: ['sign-in', 'sign-up'],
                         roles: ['?']
                     }],
-                    denyCallback: (action, user, cb)=> {
-                        action.render('signed', {
+                    denyPromise: (action, user)=> {
+                        return action.render('signed', {
                             model: user.model
-                        }, cb);
+                        });
                     }
                 }
             }
         };
     }
 
-    actionLogout () {
-        this.user.logout(err => err ? this.throwError(err) : this.goHome());
+    async actionLogout () {
+        await this.user.logout();
+        this.goHome();
     }
 
-    actionSignIn () {
+    async actionSignIn () {
         let model = new SignInForm({
             user: this.user
         });
-        async.series([
-            cb => model.resolveCaptchaScenario(cb),
-            cb => {
-                if (this.isGet()) {
-                    return this.render('sign-in', {model});
-                }
-                model.captchaAction = this.createAction('captcha');
-                model.load(this.getBodyParams()).login(cb);
-            },
-            cb => model.hasError()
-                ? this.render('sign-in', {model})
-                : this.goBack()
-        ], err => this.throwError(err));
+        await model.resolveCaptchaScenario();
+        if (this.isGet()) {
+            return this.render('sign-in', {model});
+        }
+        model.captchaAction = this.createAction('captcha');
+        await model.load(this.getBodyParams()).login();
+        return model.hasError()
+            ? this.render('sign-in', {model})
+            : this.goBack();
     }
 
-    actionSignUp () {
+    async actionSignUp () {
         let model = new SignUpForm({
             user: this.user
         });
@@ -63,16 +60,13 @@ module.exports = class AuthController extends Base {
         }
         model.captchaAction = this.createAction('captcha');
         model.load(this.getBodyParams());
-        async.series([
-            cb => model.register(cb),
-            cb => model.hasError()
-                ? this.render('sign-up', {model})
-                : this.goLogin()
-        ], err => this.throwError(err));
+        await model.register();
+        return model.hasError()
+            ? this.render('sign-up', {model})
+            : this.goLogin();
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const SignInForm = require('../model/SignInForm');
 const SignUpForm = require('../model/SignUpForm');

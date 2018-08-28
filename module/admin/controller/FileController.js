@@ -14,7 +14,7 @@ module.exports = class FileController extends Base {
         };
     }
 
-    actionIndex () {
+    async actionIndex () {
         let provider = this.createDataProvider({
             query: File.find(),
             pagination: {},
@@ -29,20 +29,16 @@ module.exports = class FileController extends Base {
                 }
             }
         });
-        this.renderDataProvider(provider, 'index', {provider});
+        await this.renderDataProvider(provider, 'index', {provider});
     }
 
-    actionUpload () {
+    async actionUpload () {
         let model = new File;
-        async.series([
-            cb => model.upload(this, cb),
-            cb => model.hasError()
-                ? this.sendText(this.translate(model.getFirstError()), 400)
-                : this.sendText(model.getId())
-        ], err => this.throwError(err));
+        await model.upload(this.req, this.res, this.user)
+            ? this.sendText(model.getId())
+            : this.sendText(this.translate(model.getFirstError()), 400);
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const File = require('../model/File');

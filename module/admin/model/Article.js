@@ -67,18 +67,14 @@ module.exports = class Article extends Base {
 
     // EVENTS
     
-    beforeValidate (cb) {
-        async.series([
-            cb => super.beforeValidate(cb),
-            cb => this.resolveFiles(this.get('files'), cb)
-        ], cb);
+    async beforeValidate () {
+        await super.beforeValidate();
+        await this.resolveFiles(this.get('files'));
     }
 
-    afterSave (insert, cb) {
-        async.series([
-            cb => super.afterSave(insert, cb),
-            cb => this.createPhotos(this.get('files'), cb)
-        ], cb);
+    async afterSave (insert) {
+        await super.afterSave(insert);
+        await this.createPhotos(this.get('files'));
     }
 
     // RELATIONS
@@ -112,80 +108,77 @@ module.exports = class Article extends Base {
 
     // TAG
 
-    validateTags (cb, attr, params) {
+    async validateTags (attr, params) {
         let items = this.get(attr);
         if (typeof items !== 'string') {
-            return cb();
+            return;
         }
         items = items.split(',').map(item => item.trim()).filter(item => item);
         items = ArrayHelper.unique(items);
-        async.series([
-            cb => this.unlinkAll('tags', cb),
-            cb => async.eachSeries(items, this.resolveTag.bind(this), cb)
-        ], cb);
+        await this.unlinkAll('tags');
+        for (let item of items) {
+            await this.resolveTag(item);
+        }
     }
 
-    resolveTag (name, cb) {
-        async.waterfall([
-            cb => Tag.findByName(name).one(cb),
-            (model, cb)=> {
-                if (model) {
-                    return this.link('tags', model, cb);
-                }
-                model = new Tag;
-                model.set('name', name);
-                model.save(cb);
-            },
-            (model, cb)=> model.hasError()
-                ? cb()
-                : this.link('tags', model, cb)
-        ], cb);
+    async resolveTag (name) {
+        let model = await Tag.findByName(name).one();
+        if (model) {
+            return this.link('tags', model);
+        }
+        model = new Tag;
+        model.set('name', name);
+        if (await model.save()) {
+            await this.link('tags', model);
+        }
     }
 
     // PHOTO
 
-    resolveFiles (files, cb) {
-        if (!files || typeof files !== 'string') {
-            return cb();
+    async resolveFiles (files) {
+        if (files && typeof files === 'string') {
+            this.set('files', await File.findById(files.split(',')).all());
+            await PromiseHelper.setImmediate();
         }
-        async.waterfall([
-            cb => File.findById(files.split(',')).all(cb),
-            (models, cb)=> {
-                this.set('files', models);
-                setImmediate(cb);
-            }
-        ], cb);
     }
 
-    createPhotos (files, cb) {
+    async createPhotos (files) {
         if (!(files instanceof Array)) {
-            return cb();
+            return false;
         }
         let photos = [];
-        async.eachSeries(files, (file, cb)=> {
-            let photo = new Photo;
-            photo.set('articleId', this.getId());
-            photo.set('file', file);
-            photo.save(err => {
-                err ? this.module.log('error', err)
-                    : photos.push(photo);
-                setImmediate(cb);
-            });
-        }, ()=> {
-            if (!photos.length || this.get('mainPhotoId')) {
-                return cb();
+        for (let file of files) {
+            let photo = await this.createPhoto(file);
+            if (photo) {
+                photos.push(photo);
             }
+            await PromiseHelper.setImmediate();
+        }
+        if (photos.length && this.get('mainPhotoId')) {
             // set first photo as main
-            this.set('files', null);
             this.set('mainPhotoId', photos[0].getId());
-            this.forceSave(cb);
-        });
+            this.set('files', null);
+            await this.forceSave();
+        }
+    }
+
+    async createPhoto (file) {
+        let photo = new Photo;
+        photo.set('articleId', this.getId());
+        photo.set('file', file);
+        try {
+            if (await photo.save()) {
+                return photo;
+            }
+        } catch (err) {
+            this.log('error', err);
+        }
     }
 };
 module.exports.init(module);
 
-const async = require('areto/helper/AsyncHelper');
 const ArrayHelper = require('areto/helper/ArrayHelper');
+const PromiseHelper = require('areto/helper/PromiseHelper');
 const Category = require('./Category');
 const Comment = require('./Comment');
 const Tag = require('./Tag');

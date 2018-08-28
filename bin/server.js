@@ -3,12 +3,12 @@
 // cd /areto-basic-demo
 // node bin/server
 
-const app = require('../module');
-const async = require('areto/helper/AsyncHelper');
-
-async.series([
-    cb => app.configure(process.env.NODE_ENV, cb),
-    cb => app.start(cb)
-], err => {
-    err && console.error(err);
-});
+(async ()=> {
+    const application = require('../module');
+    try {
+        await application.init(process.env.NODE_ENV);
+        await application.start();
+    } catch (err) {
+        application.log('error', err);
+    }
+})();
