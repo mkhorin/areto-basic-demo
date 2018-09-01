@@ -6,6 +6,6 @@
     title: _t('Users')
 }]) %>
 
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     itemTemplate: 'user/list-item'
 }) %>

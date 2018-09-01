@@ -2,12 +2,15 @@
 
 module.exports = {
     components: {
-        'static': {
-        },
         'i18n': {
             sources: {
                 'admin': require('areto/i18n/JsMessageSource')
             }
+        }
+    },
+    params: {
+        'dashboard': {
+            cacheDuration: 10 // seconds
         }
     },
     tasks: {

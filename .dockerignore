@@ -1,0 +1,6 @@
+log
+node_modules
+tests
+config/*-local.js
+module/admin/upload
+web/photo

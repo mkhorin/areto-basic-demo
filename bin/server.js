@@ -10,5 +10,6 @@
         await application.start();
     } catch (err) {
         application.log('error', err);
+        process.exit();
     }
 })();

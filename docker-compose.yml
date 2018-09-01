@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017
+    environment:
+      - MONGODB_USER=""
+      - MONGODB_PASS=""
+    command:
+      mongod
+
+  server:
+    image: areto-basic-demo
+    ports:
+      - 8888:8888
+    environment:
+      - MONGO_HOST=mongo
+    depends_on:
+      - migration
+    command:
+       node bin/server
+
+  migration:
+    build: .
+    image: areto-basic-demo
+    environment:
+      - MONGO_HOST=mongo
+      - WAIT_HOSTS=mongo:27017
+    depends_on:
+      - mongo
+    command:
+       node bin/migrate --action apply --file migration/Init
+

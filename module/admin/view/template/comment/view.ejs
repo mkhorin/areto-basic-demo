@@ -9,35 +9,35 @@
     title: model.getId()
 }]) %>
 
-<%- partial(_view.get('_part/field/relation'), {
+<%- include(_view.get('_part/field/relation'), {
     attr: 'article',
     viewRoute: 'article/view'
 }) %>
 
 <% let stat = _view.get('_part/field/static'); %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'name'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'email'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'status'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'content'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'updatedAt',
     value: _format(model.get('updatedAt'), 'timestamp')
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'createdAt',
     value: _format(model.get('createdAt'), 'timestamp')
 }) %>

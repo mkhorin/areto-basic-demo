@@ -6,6 +6,6 @@
     title: _t('Comments')
 }]) %>
 
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     itemTemplate: 'comment/list-item'
 }) %>

@@ -15,7 +15,7 @@
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     itemTemplate: 'article/list-item'
 }) %>
 <% } else { %>

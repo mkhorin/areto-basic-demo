@@ -16,27 +16,27 @@
         </h3>
 
         <form action="<%- _url('sign-up') %>" method="post">
-            <%- partial(_view.get('_part/field/auth/input'), {
+            <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'name',
                 iconClass: 'glyphicon glyphicon-user'
             }) %>
 
-            <%- partial(_view.get('_part/field/auth/input'), {
+            <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'email',
                 iconClass: 'glyphicon glyphicon-envelope'
             }) %>
 
-            <%- partial(_view.get('_part/field/auth/password'), {
+            <%- include(_view.get('_part/field/auth/password'), {
                 attr: 'password',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
 
-            <%- partial(_view.get('_part/field/auth/password'), {
+            <%- include(_view.get('_part/field/auth/password'), {
                 attr: 'passwordRepeat',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
 
-            <%- partial(_view.get('_part/field/auth/captcha'), {
+            <%- include(_view.get('_part/field/auth/captcha'), {
                 attr: 'captchaCode',
                 iconClass: 'glyphicon glyphicon-check',
                 url: _url('captcha')

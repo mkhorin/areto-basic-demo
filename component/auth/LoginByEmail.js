@@ -21,8 +21,8 @@ module.exports = class LoginByEmail extends Base {
         let result = await this.getIdentity();
         if (!result.error) {
             await this.user.login(result.identity, this.getRememberPeriod());
-            return result;
         }
+        return result;
     }
 
     async getIdentity () {

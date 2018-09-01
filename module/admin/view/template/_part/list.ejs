@@ -19,7 +19,7 @@
     <% } %>
 
     <% if (provider.sort) { %>
-    <%- partial(_view.get('_part/sort'), {
+    <%- include(_view.get('_part/sort'), {
         sort: provider.sort
     }) %>
     <% } %>
@@ -58,7 +58,7 @@
         </button>
     </div>
     <% if (params.itemTemplate) { %>
-    <%- partial(params.itemTemplate, {model}) %>
+    <%- include(params.itemTemplate, {model}) %>
     <% } else { %>
     <%= model.getTitle() %>
     <% } %>
@@ -66,7 +66,7 @@
 <% } %>
 
 <% if (provider.pagination) { %>
-<%- partial(_view.get('_part/pagination'), {
+<%- include(_view.get('_part/pagination'), {
     pager: provider.pagination
 }) %>
 <% } %>

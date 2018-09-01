@@ -15,17 +15,15 @@ module.exports = {
                 }
             }
         },
-        'static': {
-        },
         'view': {
             // theme: 'sample'
         },
         'connection': {
             schema: 'mongodb',
             settings: {
-                host: 'localhost',
-                port: 27017,
-                database: 'areto-basic',
+                host: process.env.MONGO_HOST || 'localhost',
+                port: process.env.MONGO_PORT || 27017,
+                database: process.env.MONGO_NAME || 'areto-basic',
                 options: {
                     bufferMaxEntries: 0,
                     keepAlive: true,
@@ -50,10 +48,6 @@ module.exports = {
         },
         'bodyParser': {
             limit: '10mb'
-        },
-        'viewEngine': {
-            engine: require('ejs-locals'), 
-            extension: 'ejs'
         },
         'i18n': {
             // language: 'ru'
@@ -80,13 +74,18 @@ module.exports = {
     modules: {
         'admin': {}
     },
+    params: {
+        'template': {
+            engine: require('areto-ejs'),
+            extension: 'ejs'
+        },
+        'static': {},
+        'homeUrl': '/'
+    },
     router: {
         'errors': {
             Controller: require('../controller/DefaultController')
         }
-    },
-    params: {
-        'homeUrl': '/'
     },
     widgets: {
         'breadcrumbs': {

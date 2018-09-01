@@ -14,7 +14,7 @@
         <% if (items) { %>
         <% for (let model of items) { %>
             <% if (typeof itemTemplate !== 'undefined') { %>
-                <%- partial(itemTemplate, {model}) %>
+                <%- include(itemTemplate, {model}) %>
             <% } else if (typeof viewRoute !== 'undefined') { %>
                 <a href="<%- _url([viewRoute, model])%>" class="rel-list-item">
                     <%= model.getTitle() %>

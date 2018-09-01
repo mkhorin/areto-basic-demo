@@ -89,7 +89,7 @@
 </div>
 
 <% if (comments.pagination) { %>
-<%- partial(_view.get('_part/pagination'), {
+<%- include(_view.get('_part/pagination'), {
     pager: comments.pagination
 }) %>
 <% } %>
@@ -112,19 +112,19 @@
         <%- _t('Add comment') %>
     </h4>
 
-    <%- partial(_view.get('_part/field/input'), {
+    <%- include(_view.get('_part/field/input'), {
         attr: 'name',
         model: comment,
         label: _t('Your name')
     }) %>
 
-    <%- partial(_view.get('_part/field/input'), {
+    <%- include(_view.get('_part/field/input'), {
         attr: 'email',
         model: comment,
         label: _t('Email (not shown)')
     }) %>
 
-    <%- partial(_view.get('_part/field/text'), {
+    <%- include(_view.get('_part/field/text'), {
         attr: 'content',
         model: comment,
         label: _t('Message')

@@ -3,7 +3,7 @@
 <% let params = {
     rows: typeof rows === 'undefined' ? 4 : rows
 }; %>
-<%- partial('_set-params', {params}) %>
+<%- include('_set-params', {params}) %>
 
 <div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
     <label for="<%- params.id %>" class="col-sm-2 control-label">

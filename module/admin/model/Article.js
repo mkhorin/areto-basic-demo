@@ -88,7 +88,8 @@ module.exports = class Article extends Base {
     }
 
     relPhotos () {
-        return this.hasMany(Photo, 'articleId', this.PK);
+        return this.hasMany(Photo, 'articleId', this.PK)
+            .removeOnUnlink();
     }
     
     relMainPhoto () {
@@ -138,7 +139,6 @@ module.exports = class Article extends Base {
     async resolveFiles (files) {
         if (files && typeof files === 'string') {
             this.set('files', await File.findById(files.split(',')).all());
-            await PromiseHelper.setImmediate();
         }
     }
 
@@ -152,9 +152,8 @@ module.exports = class Article extends Base {
             if (photo) {
                 photos.push(photo);
             }
-            await PromiseHelper.setImmediate();
         }
-        if (photos.length && this.get('mainPhotoId')) {
+        if (photos.length && !this.get('mainPhotoId')) {
             // set first photo as main
             this.set('mainPhotoId', photos[0].getId());
             this.set('files', null);

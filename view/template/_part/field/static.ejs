@@ -3,7 +3,7 @@
 <% let params = {
     escaping: typeof escaping === 'undefined' ? true : escaping
 }; %>
-<%- partial('_set-params', {params}) %>
+<%- include('_set-params', {params}) %>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">

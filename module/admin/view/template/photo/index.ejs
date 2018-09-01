@@ -6,6 +6,6 @@
     title: _t('Photos')
 }]) %>
 
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     itemTemplate: 'photo/list-item'
 }) %>

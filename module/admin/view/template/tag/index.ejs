@@ -6,6 +6,6 @@
     title: _t('Tags')
 }]) %>
 
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     itemTemplate: 'tag/list-item'
 }) %>

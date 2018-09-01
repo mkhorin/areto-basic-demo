@@ -4,8 +4,10 @@ module.exports = {
     port: 8888,
     components: {
         'logger': {
-            level: 'trace'
-        },
+            level: 'info'
+        }
+    },
+    params: {
         'static': {
             options: {
                 maxAge: 10 * 60 * 1000
@@ -14,13 +16,16 @@ module.exports = {
     },
     widgets: {
         'categories': {
-            caching: true
+            caching: true,
+            cacheDuration: 10 // seconds
         },
         'recentComments': {
-            caching: true
+            caching: true,
+            cacheDuration: 10
         },
         'tagList': {
-            caching: true
+            caching: true,
+            cacheDuration: 10
         }
     },
 };

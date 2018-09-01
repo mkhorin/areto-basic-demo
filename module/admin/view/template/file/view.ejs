@@ -11,27 +11,27 @@
 
 <% let stat = _view.get('_part/field/static'); %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'originalName'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'filename'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'size'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'mime'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'ip'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'createdAt',
     value: _format(model.get('createdAt'), 'timestamp')
 }) %>

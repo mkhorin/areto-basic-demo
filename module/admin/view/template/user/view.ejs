@@ -11,29 +11,29 @@
 
 <% let stat = _view.get('_part/field/static'); %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'status'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'name'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'email'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'role'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'updatedAt',
     value: _format(model.get('updatedAt'), 'timestamp'),
     escaping: false
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'createdAt',
     value: _format(model.get('createdAt'), 'timestamp'),
     escaping: false

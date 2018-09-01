@@ -1,6 +1,6 @@
 <!-- _part/field/hidden -->
 
 <% let params = {}; %>
-<%- partial('_set-params', {params}) %>
+<%- include('_set-params', {params}) %>
 
 <input id="<%- params.id %>" name="<%- params.name %>" type="hidden" value="<%- params.value %>">

@@ -9,11 +9,11 @@
     title: model.getTitle()
 }]) %>
 
-<%- partial(_view.get('_part/field/static'), {
+<%- include(_view.get('_part/field/static'), {
     attr: 'name'
 }) %>
 
-<%- partial(_view.get('_part/field/list'), {
+<%- include(_view.get('_part/field/list'), {
     attr: 'articles',
     provider: articles,
     create: null,

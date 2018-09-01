@@ -1,39 +1,39 @@
 
-<%- partial(_view.get('_part/field/radiolist'), {
+<%- include(_view.get('_part/field/radiolist'), {
     attr: 'status',
     items: _controller.getLabelSelectItems('status', model)
 }) %>
 
-<%- partial(_view.get('_part/field/select'), {
+<%- include(_view.get('_part/field/select'), {
     attr: 'category',
     items: categories,
     empty: ''
 }) %>
 
-<%- partial(_view.get('_part/field/datepicker'), {
+<%- include(_view.get('_part/field/datepicker'), {
     attr: 'date',
     value: model.get('date') ? _format(model.get('date'), 'date', {format: 'YYYY-MM-DD'}) : ''
 }) %>
 
-<%- partial(_view.get('_part/field/input'), {
+<%- include(_view.get('_part/field/input'), {
     attr: 'title'
 }) %>
 
-<%- partial(_view.get('_part/field/text'), {
+<%- include(_view.get('_part/field/text'), {
     attr: 'content',
     rows: 8
 }) %>
 
 <% if (!model.isNew()) { %>
 <% let tags = model.get('tags'); %>
-<%- partial(_view.get('_part/field/input'), {
+<%- include(_view.get('_part/field/input'), {
     attr: 'tags',
     value: tags instanceof Array ? tags.map((tag)=> tag.getTitle()).join(', ') : tags,
     hint: 'Split by comma'
 }) %>
 <% } %>
 
-<%- partial(_view.get('_part/field/uploader'), {
+<%- include(_view.get('_part/field/uploader'), {
     attr: 'files',
     url: 'photo/upload',
     options: {

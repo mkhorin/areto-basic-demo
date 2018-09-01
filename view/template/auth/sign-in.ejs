@@ -15,18 +15,18 @@
         </h3>
 
         <form action="<%- _url('sign-in') %>" method="post">
-            <%- partial(_view.get('_part/field/auth/input'), {
+            <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'email',
                 iconClass: 'glyphicon glyphicon-envelope'
             }) %>
 
-            <%- partial(_view.get('_part/field/auth/password'), {
+            <%- include(_view.get('_part/field/auth/password'), {
                 attr: 'password',
                 iconClass: 'glyphicon glyphicon-lock'
             }) %>
 
             <% if (model.isCaptchaRequired()) { %>
-            <%- partial(_view.get('_part/field/auth/captcha'), {
+            <%- include(_view.get('_part/field/auth/captcha'), {
                 attr: 'captchaCode',
                 iconClass: 'glyphicon glyphicon-check',
                 url: _url('captcha')
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-xs-8">
                     <% if (_controller.user.owner.enableAutoLogin) { %>
-                    <%- partial(_view.get('_part/field/checkbox'), {
+                    <%- include(_view.get('_part/field/checkbox'), {
                         attr: 'rememberMe'
                     }) %>
                     <% } %>

@@ -12,63 +12,63 @@
 <% let stat = _view.get('_part/field/static'); %>
 <% let relation = _view.get('_part/field/relation'); %>
 
-<%- partial(relation, {
+<%- include(relation, {
     attr: 'category',
     viewRoute: 'category/view'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'title'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'date',
     value: _format(model.get('date'), 'date')
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'status'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'author',
     value: model.get('author.name'),
     escaping: false
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'updatedAt',
     value: _format(model.get('updatedAt'), 'datetime')
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'createdAt',
     value: _format(model.get('createdAt'), 'datetime')
 }) %>
 
-<%- partial(relation, {
+<%- include(relation, {
     attr: 'tags',
     viewRoute: 'tag/view'
 }) %>
 
-<%- partial(stat, {
+<%- include(stat, {
     attr: 'content',
     escaping: false
 }) %>
 
-<%- partial(relation, {
+<%- include(relation, {
     attr: 'mainPhoto',
     itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(relation, {
+<%- include(relation, {
     attr: 'photos',
     itemTemplate: _view.get('article/thumb-item'),
     viewRoute: 'photo/view'
 }) %>
 
-<%- partial(_view.get('_part/field/list'), {
+<%- include(_view.get('_part/field/list'), {
     attr: 'comments',
     provider: comments,
     itemTemplate: 'article/comment-item',

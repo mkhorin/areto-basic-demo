@@ -6,7 +6,7 @@
     title: 'Uploaded files'
 }]) %>
 
-<%- partial(_view.get('_part/list'), {
+<%- include(_view.get('_part/list'), {
     search: null,
     create: null,
     itemTemplate: 'file/list-item'

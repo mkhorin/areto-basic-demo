@@ -9,7 +9,7 @@
     title: model.getTitle()
 }]) %>
 
-<%- partial('./form') %>
+<%- include('./form') %>
 
 <% let photos = model.get('photos'); %>
 <% if (photos instanceof Array) { %>

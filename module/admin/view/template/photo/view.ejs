@@ -9,15 +9,15 @@
     title: model.getId()
 }]) %>
 
-<% block('customControls', `<button class="btn btn-warning action-submit" type="button"
+<% block('customControls', `<button class="btn btn-primary action-submit" type="button"
     data-url="${_url(['assign-main', model])}">Assign the main</button>`) -%>
 
-<%- partial(_view.get('_part/field/relation'), {
+<%- include(_view.get('_part/field/relation'), {
     attr: 'article',
     viewRoute: 'article/view'
 }) %>
 
-<%- partial(_view.get('_part/field/static'), {
+<%- include(_view.get('_part/field/static'), {
     attr: 'title',
     escaping: false
 }) %>

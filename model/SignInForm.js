@@ -52,8 +52,7 @@ module.exports = class SignInForm extends Base {
     }
 
     async login () {
-        await this.validate();
-        if (!this.hasError()) {
+        if (await this.validate()) {
             let result = await this.createLoginByEmail().login();
             if (result.error) {
                 this.addError('email', result.error);
