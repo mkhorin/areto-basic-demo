@@ -26,10 +26,13 @@ module.exports = class Article extends Base {
 
     static findBySearch (text) {
         let query = this.findPublished();
-        if (typeof text === 'string' && /[a-z0-9\-\s]{1,32}/i.test(text)) {
-            query.and(['LIKE', 'title', `%${text}%`]);
+        if (text === '') {
+            return query;
         }
-        return query;
+        if (/[a-zа-я0-9\-\s]{1,32}/i.test(text)) {
+            return query.and(['LIKE', 'title', `%${text}%`]);
+        }
+        return query.where(['FALSE']);
     }
 
     getTitle () {

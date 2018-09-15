@@ -6,7 +6,7 @@
 (async ()=> {
     const application = require('../module');
     try {
-        await application.init(process.env.NODE_ENV);
+        await application.init();
         await application.start();
     } catch (err) {
         application.log('error', err);

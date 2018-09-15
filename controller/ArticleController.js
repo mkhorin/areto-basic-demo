@@ -41,10 +41,11 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionSearch () {
+        let search = String(this.getQueryParam('text')).trim();
         let provider = this.createDataProvider({
-            query: Article.findBySearch(this.getQueryParam('text'))
+            query: Article.findBySearch(search)
         });
-        await this.renderDataProvider(provider, 'index', {provider});
+        await this.renderDataProvider(provider, 'index', {provider, search});
     }
 
     async actionView () {

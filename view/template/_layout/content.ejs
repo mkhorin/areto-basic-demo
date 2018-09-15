@@ -1,3 +1,5 @@
+<% let searchValue = typeof search === 'undefined' ? '' : search; %>
+
 <% layout(_view.get('_layout/main')) -%>
 
 <div class="row">
@@ -15,9 +17,9 @@
             <div class="panel-body">
                 <form action="article/search" method="get">
                     <div class="input-group">
-                        <input type="text" name="text" class="form-control">
+                        <input type="text" name="text" class="form-control" value="<%= searchValue %>">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
+                            <button class="btn btn-primary" type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>

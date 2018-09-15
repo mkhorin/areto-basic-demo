@@ -1,6 +1,6 @@
-# Basic demo application on the Areto Node.js framework
+# Simple demo blog using Areto Framework
 
-## Install using Docker
+## Docker installation
 
 ### Build from Dockerfile
 Clone application to /areto-basic-demo
@@ -10,14 +10,14 @@ docker-compose build
 docker-compose up -d
 ```
 
-### Go!
+### Usage
 http://{YourDockerIP}:8888
 ```sh
 Email: a@a.a
 Password: 123456
 ```
 
-## Install a typical way
+## Typical installation
 
 ### Install the environment
 - [Node.js](https://nodejs.org)
@@ -43,7 +43,7 @@ node bin/migrate --action apply --file migration/Init
 node bin/server
 ```
 
-### Go!
+### Usage
 http://localhost:3000
 ```sh
 Email: a@a.a
@@ -51,5 +51,4 @@ Password: 123456
 ```   
 
 ## Tutorial
-- [Build a blog with Areto framework](http://nervebit.com/areto/blog/)
-
+- [Build a blog with Areto Framework](http://nervebit.com/areto/blog/)
