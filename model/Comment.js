@@ -36,7 +36,7 @@ module.exports = class Comment extends Base {
     }
 
     static findRecent (limit = 3) {
-        return this.findApproved().order({[Comment.PK]: - 1}).limit(limit);
+        return this.findApproved().order({[Comment.PK]: -1}).limit(limit);
     }
 
     static findApproved () {

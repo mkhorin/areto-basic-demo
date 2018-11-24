@@ -15,10 +15,10 @@ module.exports = {
     },
     tasks: {
         'expiredFileCleaner': {
-            period: 3600, // seconds
+            period: 3660, // seconds
             job: {
-                Class: require('../component/job/ExpiredFileCleaner'),
-                timeout: 3600
+                'Class': require('../component/job/ExpiredFileCleaner'),
+                'expirationTimeout': 3600
             }
         },
         'expiredSessionCleaner': {

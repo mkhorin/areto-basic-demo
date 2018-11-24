@@ -6,7 +6,7 @@ module.exports = class DefaultController extends Base {
 
     async actionIndex () {
         let duration = this.module.getParam('dashboard.cacheDuration', 60);
-        let dashboard = await this.module.components.cache.use('dashboard', this.renderDashboard.bind(this), duration);
+        let dashboard = await this.module.get('cache').use('dashboard', this.renderDashboard.bind(this), duration);
         await this.render('index', {dashboard});
     }
 

@@ -5,7 +5,7 @@ const Base = require('areto/base/Base');
 module.exports = class LoginByEmail extends Base {
 
     constructor (config) {
-        super(Object.assign({
+        super({
             // email:
             // password:
             // rememberMe:
@@ -13,8 +13,9 @@ module.exports = class LoginByEmail extends Base {
             rememberPeriod: 7 * 24 * 3600,
             failedMessage: 'Invalid authentication',
             bannedMessage: 'This account is banned',
-            User
-        }, config));
+            User,
+            ...config
+        });
     }
 
     async login () {

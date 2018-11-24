@@ -12,21 +12,27 @@ module.exports = class BaseController extends Base {
         };
     }
 
-    getModel (params) {
-        params = Object.assign({
+    async getModel (params) {
+        params = {
             'ModelClass': this.getModelClass(),
-            'id': this.getQueryParam('id')
-        }, params);
-        if (MongoHelper.isValidId(params.id)) {
-            return params.ModelClass.findById(params.id).with(params.with).one();
+            'id': this.getQueryParam('id'),
+            ...params
+        };
+        if (!MongoHelper.isValidId(params.id)) {
+            throw new BadRequestHttpException;
         }
-        throw new NotFoundHttpException;
+        let model = await params.ModelClass.findById(params.id).with(params.with).one();
+        if (!model) {
+            throw new NotFoundHttpException;
+        }
+        return model;
     }
 
     createDataProvider (config) {
-        return new ActiveDataProvider(Object.assign({
-            controller: this
-        }, config));
+        return new ActiveDataProvider({
+            'controller': this,
+            ...config
+        });
     }
 
     async renderDataProvider (provider, template, data) {
@@ -41,6 +47,7 @@ module.exports = class BaseController extends Base {
 };
 module.exports.init(module);
 
+const BadRequestHttpException = require('areto/error/BadRequestHttpException');
 const NotFoundHttpException = require('areto/error/NotFoundHttpException');
 const MongoHelper = require('areto/helper/MongoHelper');
 const SelectHelper = require('./helper/SelectHelper');

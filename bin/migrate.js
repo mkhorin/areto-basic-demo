@@ -5,9 +5,9 @@
 
 (async ()=> {
     const application = require('../module');
-    const CommonHelper = require('areto/helper/CommonHelper');
+    const SystemHelper = require('areto/helper/SystemHelper');
     try {
-        let data = CommonHelper.parseArguments(process.argv);
+        let data = SystemHelper.parseArguments(process.argv);
         await application.init();
         await application.migrate(data.action, data.file);
     } catch (err) {

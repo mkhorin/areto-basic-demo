@@ -67,7 +67,7 @@ module.exports = class ArticleController extends Base {
     }
 
     createDataProvider (params) {
-        return super.createDataProvider(Object.assign({
+        return super.createDataProvider({
             pagination: {
                 pageSize: 10
             },
@@ -79,8 +79,9 @@ module.exports = class ArticleController extends Base {
                 defaultOrder: {
                     date: -1
                 }
-            }
-        }, params));
+            },
+            ...params
+        });
     }
 
     async renderView (model, comment) {

@@ -72,9 +72,10 @@ module.exports = class ArticleController extends Base {
     }
 
     async renderForm (template, params) {        
-        await this.render(template, Object.assign({
-            categories: await Category.findNames().all()
-        }, params));
+        await this.render(template, {
+            'categories': await Category.findNames().all(),
+            ...params
+        });
     }
 };
 module.exports.init(module);

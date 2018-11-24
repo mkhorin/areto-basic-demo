@@ -5,7 +5,7 @@ const Base = require('areto/base/Behavior');
 module.exports = class File extends Base {
 
     constructor (config) {
-        super(Object.assign({
+        super({
             // FileClass: require('../model/File'),
             fileAttr: 'file', // owner attr with uploaded file
             // filenameAttr: 'filename', // owner attr with filename
@@ -20,8 +20,8 @@ module.exports = class File extends Base {
             // thumbResizeMethod: 'cropResizeImage',
             // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
             // afterProcessFile: async (fileModel)
-        }, config));
-        
+            ...config
+        });
         if (!this.defaultThumbSize && this.neededThumbs) {
             this.defaultThumbSize = this.neededThumbs[this.neededThumbs.length - 1];
         }

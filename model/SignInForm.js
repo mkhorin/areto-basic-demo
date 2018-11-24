@@ -27,12 +27,13 @@ module.exports = class SignInForm extends Base {
     }
 
     constructor (config) {
-        super(Object.assign({
+        super({
             // user: new WebUser
-            rateLimit: SignInForm.module.components.rateLimit,
+            rateLimit: SignInForm.module.get('rateLimit'),
             rateLimitType: 'signIn',
-            rememberPeriod: 7 * 24 * 3600
-        }, config));
+            rememberPeriod: 7 * 24 * 3600,
+            ...config
+        });
     }
 
     isCaptchaRequired () {

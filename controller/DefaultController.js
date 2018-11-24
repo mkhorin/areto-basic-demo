@@ -9,7 +9,7 @@ module.exports = class DefaultController extends Base {
     }
 
     async actionError () {
-        if (this.err.isServerError() || this.module.components.logger.isDebug()) {
+        if (this.err.isServerError() || this.module.get('logger').isDebug()) {
             this.log('error', this.err);
         }
         this.setHttpStatus(this.err.status);

@@ -5,16 +5,17 @@ const Base = require('areto/scheduler/Job');
 module.exports = class ExpiredFileCleaner extends Base {
 
     constructor (config) {
-        super(Object.assign({
-            timeout: 60 * 60,
-            File: require('../../model/File')
-        }, config));
+        super({
+            'expirationTimeout': 60 * 60,
+            'FileModel': require('../../model/File'),
+            ...config
+        });
     }
 
     async run () {
-        let query = this.File.findExpired(this.timeout);
+        let query = this.FileModel.findExpired(this.expirationTimeout);
         let models = await query.all();
-        let counter = await this.File.removeBatch(models);
+        let counter = await this.FileModel.removeBatch(models);
         return `${counter} files have been removed`;
     }
 };

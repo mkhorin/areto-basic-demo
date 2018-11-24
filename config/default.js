@@ -21,10 +21,10 @@ module.exports = {
         'connection': {
             schema: 'mongodb',
             settings: {
-                host: process.env.MONGO_HOST || 'localhost',
-                port: process.env.MONGO_PORT || 27017,
-                database: process.env.MONGO_NAME || 'areto-basic',
-                options: {
+                'host': process.env.MONGO_HOST || 'localhost',
+                'port': process.env.MONGO_PORT || 27017,
+                'database': process.env.MONGO_NAME || 'areto-basic',
+                'options': {
                     bufferMaxEntries: 0,
                     keepAlive: true,
                     useNewUrlParser: true
@@ -42,8 +42,8 @@ module.exports = {
             secret: 'basic.app',
             lifetime: 30 * 60, // seconds
             store: {
-                Class: require('areto/web/session/DbSessionStore'),
-                table: 'session'
+                'Class': require('areto/web/session/DbSessionStore'),
+                'table': 'session'
             }
         },
         'bodyParser': {
@@ -65,8 +65,8 @@ module.exports = {
             returnUrl: '/',
             enableAutoLogin: true,
             identityCookie: {
-                httpOnly: true,
-                path: '/'
+                'httpOnly': true,
+                'path': '/'
             },
             defaultAssignments: ['reader']
         }        
