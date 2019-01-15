@@ -7,7 +7,9 @@ $('.datepicker').datepicker({
 $('.list-search').click(function () {
     let $btn = $(this).attr('disabled', true);
     let $input = $btn.closest('.input-group').find('input');
-    window.location = location.pathname + '?search=' + encodeURIComponent($.trim($input.val()));
+    window.location = location.pathname
+        + '?search='
+        + encodeURIComponent($.trim($input.val()));
 });
 
 $('.action-submit').click(function () {

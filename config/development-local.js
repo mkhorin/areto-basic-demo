@@ -7,6 +7,9 @@ module.exports = {
                 user: '',
                 password: ''
             }
+        },
+        'i18n': {
+            // language: 'ru'
         }
     }
 };

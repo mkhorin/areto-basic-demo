@@ -4,7 +4,7 @@
     options: typeof options === 'undefined' ? {} : options,
     files: typeof files === 'undefined' ? null : files
 }; %>
-<%- include('_set-params', {params}) %>
+<%- include('_params', {params}) %>
 
 <%
 if (params.files instanceof Array) {

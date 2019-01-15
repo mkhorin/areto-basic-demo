@@ -17,7 +17,7 @@
             "type": "node",
             "request": "launch",
             "name": "Init app",
-            "program": "${workspaceFolder}/bin/migrate.js",
+            "program": "${workspaceFolder}/bin/init.js",
             "env": {
                 "NODE_ENV": "development"
             }

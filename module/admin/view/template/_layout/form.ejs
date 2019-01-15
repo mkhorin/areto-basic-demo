@@ -6,7 +6,7 @@
         <div class="alert alert-danger">
             <% for (let attr of Object.keys(model.getErrors())) { %>
             <p>
-                <b><%- model.getAttrLabel(attr) %>:</b>
+                <b><%- _t(model.getAttrLabel(attr)) %>:</b>
                 <%- _t(model.getFirstError(attr))%>
             </p>
             <% } %>
@@ -26,7 +26,7 @@
     <input type="hidden" name="referrer" value="<%= _controller.getRefUrl() %>">
 
     <div class="object-controls">
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit"><%- _t('Save') %></button>
 
         <% if (!model.isNew()) { %>
 

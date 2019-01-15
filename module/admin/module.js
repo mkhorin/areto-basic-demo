@@ -10,8 +10,8 @@ module.exports = class Admin extends Base {
                 'access': {
                     Class: require('areto/filter/AccessControl'),
                     rules: [{
-                        allow: true,
-                        roles: ['reader']
+                        'allow': true,
+                        'roles': ['reader']
                     }]
                 }
             }

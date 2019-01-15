@@ -21,7 +21,7 @@ services:
     depends_on:
       - migration
     command:
-       node bin/server
+       npm run start
 
   migration:
     build: .
@@ -32,5 +32,5 @@ services:
     depends_on:
       - mongo
     command:
-       node bin/migrate --action apply --file migration/Init
+       npm run init
 

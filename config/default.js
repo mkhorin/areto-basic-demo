@@ -38,6 +38,12 @@ module.exports = {
         'cookie': {
             secret: 'basic.app'
         },
+        'router': {
+            errors: {
+                'Controller': require('../controller/DefaultController')
+            },
+            defaultController: 'article'
+        },
         'session': {
             secret: 'basic.app',
             lifetime: 30 * 60, // seconds
@@ -82,11 +88,6 @@ module.exports = {
         'static': {},
         'homeUrl': '/'
     },
-    router: {
-        'errors': {
-            Controller: require('../controller/DefaultController')
-        }
-    },
     widgets: {
         'breadcrumbs': {
             Class: require('../component/widget/Breadcrumbs'),
@@ -108,6 +109,5 @@ module.exports = {
             Class: require('../component/widget/TagList'),
             caching: false
         }
-    },
-    defaultController: 'article'
+    }
 };

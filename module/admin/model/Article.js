@@ -177,7 +177,6 @@ module.exports = class Article extends Base {
 module.exports.init(module);
 
 const ArrayHelper = require('areto/helper/ArrayHelper');
-const PromiseHelper = require('areto/helper/PromiseHelper');
 const Category = require('./Category');
 const Comment = require('./Comment');
 const Tag = require('./Tag');

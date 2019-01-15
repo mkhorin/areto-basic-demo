@@ -64,7 +64,7 @@ module.exports = class ArticleController extends Base {
             authorId: model.get('authorId')
         });
         if (!access) {
-            throw new ForbiddenHttpException;
+            throw new Forbidden;
         }
         this.isPost() && await model.load(this.getBodyParams()).save()
             ? this.backToRef()
@@ -80,6 +80,6 @@ module.exports = class ArticleController extends Base {
 };
 module.exports.init(module);
 
-const ForbiddenHttpException = require('areto/error/ForbiddenHttpException');
+const Forbidden = require('areto/error/ForbiddenHttpException');
 const Category = require('../model/Category');
 const Article = require('../model/Article');

@@ -19,11 +19,11 @@ module.exports = class BaseController extends Base {
             ...params
         };
         if (!MongoHelper.isValidId(params.id)) {
-            throw new BadRequestHttpException;
+            throw new BadRequest;
         }
         let model = await params.ModelClass.findById(params.id).with(params.with).one();
         if (!model) {
-            throw new NotFoundHttpException;
+            throw new NotFound;
         }
         return model;
     }
@@ -47,8 +47,8 @@ module.exports = class BaseController extends Base {
 };
 module.exports.init(module);
 
-const BadRequestHttpException = require('areto/error/BadRequestHttpException');
-const NotFoundHttpException = require('areto/error/NotFoundHttpException');
+const BadRequest = require('areto/error/BadRequestHttpException');
+const NotFound = require('areto/error/NotFoundHttpException');
 const MongoHelper = require('areto/helper/MongoHelper');
 const SelectHelper = require('./helper/SelectHelper');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');

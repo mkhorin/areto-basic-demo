@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-xs-8">
-                    <% if (user.owner.enableAutoLogin) { %>
+                    <% if (_controller.user.config.enableAutoLogin) { %>
                     <%- include(_view.get('_part/field/checkbox'), {
                         attr: 'rememberMe',
                         label: 'Запомнить меня'

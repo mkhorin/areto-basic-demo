@@ -7,6 +7,7 @@ Clone application to /areto-basic-demo
 ```sh
 cd /areto-basic-demo
 docker-compose build
+docker-compose up -d mongo
 docker-compose up -d
 ```
 
@@ -29,8 +30,8 @@ Clone application to /areto-basic-demo
 ```sh
 cd /areto-basic-demo
 npm install
-NODE_ENV=development node bin/migrate --action apply --file migration/Init
-NODE_ENV=development node bin/server
+NODE_ENV=development npm run init
+NODE_ENV=development npm run start
 ```
 
 ### Windows
@@ -39,8 +40,8 @@ Clone application to c:/areto-basic-demo
 cd /d c:/areto-basic-demo
 npm install
 set NODE_ENV=development
-node bin/migrate --action apply --file migration/Init
-node bin/server
+npm run init
+npm run start
 ```
 
 ### Usage

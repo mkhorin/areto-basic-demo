@@ -25,10 +25,10 @@ module.exports = class File extends Base {
         if (!this.defaultThumbSize && this.neededThumbs) {
             this.defaultThumbSize = this.neededThumbs[this.neededThumbs.length - 1];
         }
-        this.assign(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
-        this.assign(ActiveRecord.EVENT_BEFORE_INSERT, this.beforeInsert);
-        this.assign(ActiveRecord.EVENT_BEFORE_UPDATE, this.beforeUpdate);
-        this.assign(ActiveRecord.EVENT_AFTER_REMOVE, this.afterRemove);
+        this.setHandler(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
+        this.setHandler(ActiveRecord.EVENT_BEFORE_INSERT, this.beforeInsert);
+        this.setHandler(ActiveRecord.EVENT_BEFORE_UPDATE, this.beforeUpdate);
+        this.setHandler(ActiveRecord.EVENT_AFTER_REMOVE, this.afterRemove);
     }
   
     getPath () {
