@@ -9,7 +9,7 @@ module.exports = class SideMenu extends Base {
             for (let item of this.items) {
                 this.prepareItem(item);
             }
-            return this.render('_part/widget/side-menu', this.params);
+            return this.renderTemplate('_part/widget/side-menu', this.params);
         }
     }
 

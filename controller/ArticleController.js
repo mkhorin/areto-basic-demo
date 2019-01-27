@@ -6,7 +6,7 @@ module.exports = class ArticleController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({
-            query: Article.findPublished()
+            'query': Article.findPublished()
         });
         await provider.prepare();
         await this.render('index', {provider});
@@ -14,11 +14,11 @@ module.exports = class ArticleController extends Base {
 
     async actionCategory () {
         let category = await this.getModel({
-            ModelClass: Category,
-            id: this.getQueryParam('category')
+            'ModelClass': Category,
+            'id': this.getQueryParam('category')
         });
         let provider = this.createDataProvider({
-            query: Article.findPublishedByCategory(category.getId())
+            'query': Article.findPublishedByCategory(category.getId())
         });
         await this.renderDataProvider(provider, 'category', {provider, category});
     }
@@ -43,7 +43,7 @@ module.exports = class ArticleController extends Base {
     async actionSearch () {
         let search = String(this.getQueryParam('text')).trim();
         let provider = this.createDataProvider({
-            query: Article.findBySearch(search)
+            'query': Article.findBySearch(search)
         });
         await this.renderDataProvider(provider, 'index', {provider, search});
     }
@@ -86,7 +86,7 @@ module.exports = class ArticleController extends Base {
 
     async renderView (model, comment) {
         let comments = this.createDataProvider({
-            query: model.relComments()
+            'query': model.relComments()
         });
         await comments.prepare();
         await this.render('view', {model, comments, comment});
