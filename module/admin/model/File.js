@@ -58,9 +58,7 @@ module.exports = class File extends Base {
     }
     
     createSingleUploader () {
-        return multer({
-            'storage': this.createUploaderStorage()
-        }).single('file');
+        return multer({'storage': this.createUploaderStorage()}).single('file');
     }
 
     createUploaderStorage () {

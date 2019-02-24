@@ -30,8 +30,8 @@ module.exports = class Comment extends Base {
         }
         return this.find(['OR',
             ['LIKE', 'content', `%${text}%`],
-            {name: text},
-            {email: text}
+            {'name': text},
+            {'email': text}
         ]);
     }
 

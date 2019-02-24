@@ -36,7 +36,11 @@ module.exports = class Article extends Base {
             BEHAVIORS: {
                 'timestamp': require('areto/behavior/TimestampBehavior')
             },
-            UNLINK_ON_REMOVE: ['photos','comments'],
+            UNLINK_ON_REMOVE: [
+                'photos',
+                'comments',
+                'tags'
+            ],
             ATTR_VALUE_LABELS: {
                 'status': {
                     [this.STATUS_DRAFT]: 'Draft',
@@ -57,7 +61,7 @@ module.exports = class Article extends Base {
     }
     
     static findToSelect () {
-        return this.find().select({title: 1}).asRaw();
+        return this.find().select('title').asRaw();
     }
 
     constructor (config) {
