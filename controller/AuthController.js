@@ -45,7 +45,7 @@ module.exports = class AuthController extends Base {
             return this.render('sign-in', {model});
         }
         model.captchaAction = this.createAction('captcha');
-        await model.load(this.getBodyParams()).login();
+        await model.load(this.getPostParams()).login();
         return model.hasError()
             ? this.render('sign-in', {model})
             : this.goBack();
@@ -59,7 +59,7 @@ module.exports = class AuthController extends Base {
             return this.render('sign-up', {model});
         }
         model.captchaAction = this.createAction('captcha');
-        model.load(this.getBodyParams());
+        model.load(this.getPostParams());
         await model.register();
         return model.hasError()
             ? this.render('sign-up', {model})

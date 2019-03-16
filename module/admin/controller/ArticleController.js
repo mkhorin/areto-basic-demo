@@ -49,7 +49,7 @@ module.exports = class ArticleController extends Base {
         if (this.isGet()) {
             return this.renderForm('create', {model});
         }
-        model.load(this.getBodyParams());
+        model.load(this.getPostParams());
         model.set('authorId', this.user.getId());
         await model.save()
             ? this.backToRef()
@@ -66,7 +66,7 @@ module.exports = class ArticleController extends Base {
         if (!access) {
             throw new Forbidden;
         }
-        this.isPost() && await model.load(this.getBodyParams()).save()
+        this.isPost() && await model.load(this.getPostParams()).save()
             ? this.backToRef()
             : await this.renderForm('update', {model});
     }

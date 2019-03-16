@@ -1,7 +1,7 @@
 'use strict';
 
 // cd /areto-basic-demo
-// node bin/server
+// node console/start
 
 (async ()=> {
     const application = require('../module');

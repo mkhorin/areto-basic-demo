@@ -29,7 +29,7 @@ module.exports = class CommentController extends Base {
         if (this.isGet()) {
             return this.render('create', {model});
         }
-        model.load(this.getBodyParams());
+        model.load(this.getPostParams());
         model.set('articleId', article.getId());
         await model.save()
             ? this.backToRef()

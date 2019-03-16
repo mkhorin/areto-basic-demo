@@ -1,7 +1,7 @@
 {
   "name": "areto-basic-demo",
-  "version": "2.23.0",
-  "description": "Areto framework demo application",
+  "version": "2.24.0",
+  "description": "Areto Framework demo application",
   "author": "Maxim Khorin",
   "license": "MIT",
   "repository": {
@@ -9,12 +9,12 @@
     "url": "https://github.com/mkhorin/areto-basic-demo.git"
   },
   "dependencies": {
-    "areto": "~0.23.0",
+    "areto": "~0.24.0",
     "areto-ejs": "^0.1.0",
     "multer": "^1.4.1"
   },
   "scripts": {
-    "init": "node bin/init --action apply --file migration/Init",
-    "start": "node bin/server"
+    "init": "node console/init --action apply --file migration/Init",
+    "start": "node console/start"
   }
 }

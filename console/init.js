@@ -1,7 +1,7 @@
 'use strict';
 
 // cd /areto-basic-demo
-// node bin/init --action apply --file migration/Init
+// node console/init --action apply --file migration/Init
 
 (async ()=> {
     const application = require('../module');

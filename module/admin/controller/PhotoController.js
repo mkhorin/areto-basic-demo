@@ -34,7 +34,7 @@ module.exports = class PhotoController extends Base {
     async actionCreate () {
         let model = new Photo;
         model.scenario = 'create';
-        if (this.isPost() && model.load(this.getBodyParams()).save()) {
+        if (this.isPost() && model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
         await this.render('create', {
@@ -45,7 +45,7 @@ module.exports = class PhotoController extends Base {
     
     async actionUpdate () {
         let model = await this.getModel();
-        if (this.isPost() && model.load(this.getBodyParams()).save()) {
+        if (this.isPost() && model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
         await this.render('update', {

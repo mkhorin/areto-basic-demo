@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Start app",
-            "program": "${workspaceFolder}/bin/server.js",
+            "program": "${workspaceFolder}/console/start.js",
             "env": {
                 "NODE_ENV": "development"
             }            
@@ -17,7 +17,7 @@
             "type": "node",
             "request": "launch",
             "name": "Init app",
-            "program": "${workspaceFolder}/bin/init.js",
+            "program": "${workspaceFolder}/console/init.js",
             "env": {
                 "NODE_ENV": "development"
             }

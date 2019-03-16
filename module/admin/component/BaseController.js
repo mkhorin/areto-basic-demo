@@ -7,11 +7,11 @@ module.exports = class BaseController extends Base {
     getRefUrl () {
         let ref = this.isGet()
             ? this.getHttpHeader('referrer')
-            : this.getBodyParam('referrer');
+            : this.getPostParam('referrer');
         return ref ? ref : '';
     }
 
     backToRef (url = 'index') {
-        this.redirect(this.getBodyParam('referrer') || url);
+        this.redirect(this.getPostParam('referrer') || url);
     }
 };

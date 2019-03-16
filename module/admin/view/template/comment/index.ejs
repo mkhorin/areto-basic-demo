@@ -2,9 +2,7 @@
 
 <% block('title', _t('Comments')) -%>
 
-<% _data.set('breadcrumbs', [{
-    title: _t('Comments')
-}]) %>
+<% _data.set('breadcrumbs', [{'title': _t('Comments')}]) %>
 
 <%- include(_view.get('_part/list'), {
     itemTemplate: 'comment/list-item'
