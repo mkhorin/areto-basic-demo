@@ -49,9 +49,7 @@ module.exports = class ArticleController extends Base {
 
     async actionUpdate () {
         let model = await this.getModel({'with': ['photos', 'tags']});
-        let access = await this.user.can('updateArticle', {
-            'authorId': model.get('authorId')
-        });
+        let access = await this.user.can('updateArticle', {'authorId': model.get('authorId')});
         if (!access) {
             throw new Forbidden;
         }
@@ -60,7 +58,7 @@ module.exports = class ArticleController extends Base {
             : this.renderForm('update', {model});
     }
 
-    async renderForm (template, params) {        
+    async renderForm (template, params) {
         await this.render(template, {
             'categories': await this.spawn(Category).findNames().all(),
             ...params
