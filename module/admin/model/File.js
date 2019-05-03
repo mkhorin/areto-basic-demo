@@ -32,7 +32,7 @@ module.exports = class File extends Base {
         };
     }
 
-    static findExpired (timeout = 3600) {
+    findExpired (timeout = 3600) {
         let expired = new Date(Date.now() - parseInt(timeout) * 1000);
         return this.find(['<', 'updatedAt', expired]);
     }
@@ -69,7 +69,7 @@ module.exports = class File extends Base {
     }
 
     generateStoreDir (req, file, callback) {
-        mkdirp(this.STORE_DIR, err => callback(err, this.STORE_DIR));
+        fs.mkdir(this.STORE_DIR, {'recursive': true}, err => callback(err, this.STORE_DIR));
     }
 
     generateFilename (req, file, callback) {
@@ -109,6 +109,5 @@ module.exports.init(module);
 
 const fs = require('fs');
 const multer = require('multer');
-const mkdirp = require('mkdirp');
 const CommonHelper = require('areto/helper/CommonHelper');
 const PromiseHelper = require('areto/helper/PromiseHelper');

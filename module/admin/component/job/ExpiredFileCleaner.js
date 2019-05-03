@@ -13,7 +13,7 @@ module.exports = class ExpiredFileCleaner extends Base {
     }
 
     async run () {
-        let query = this.FileModel.findExpired(this.expirationTimeout);
+        let query = this.spawn(this.FileModel).findExpired(this.expirationTimeout);
         let models = await query.all();
         let counter = await this.FileModel.removeBatch(models);
         return `${counter} files have been removed`;

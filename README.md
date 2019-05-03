@@ -23,7 +23,6 @@ Password: 123456
 ### Install the environment
 - [Node.js](https://nodejs.org)
 - [MongoDB](https://www.mongodb.com)
-- [Graphics Magick](http://www.graphicsmagick.org)
 
 ### Linux
 Clone application to /areto-basic-demo

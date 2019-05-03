@@ -15,30 +15,20 @@ module.exports = class DefaultController extends Base {
     }
 
     async getDashboard () {
+        let article = this.spawn(Article);
+        let photo = this.spawn(Photo);
+        let tag = this.spawn(Tag);
+        let comment = this.spawn(Comment);
         return {
-            'drafts': await Article.find({
-                status: Article.STATUS_DRAFT
-            }).count(),
-            'published': await Article.find({
-                status: Article.STATUS_PUBLISHED
-            }).count(),
-            'archived': await Article.find({
-                status: Article.STATUS_ARCHIVED
-            }).count(),
-            'blocked': await Article.find({
-                status: Article.STATUS_BLOCKED
-            }).count(),
-            'photos': await Photo.find().count(),
-            'tags': await Tag.find().count(),
-            'pending': await Comment.find({
-                status: Comment.STATUS_PENDING
-            }).count(),
-            'approved': await Comment.find({
-                status: Comment.STATUS_APPROVED
-            }).count(),
-            'rejected': await Comment.find({
-                status: Comment.STATUS_REJECTED
-            }).count()
+            'drafts': await article.find({'status': Article.STATUS_DRAFT}).count(),
+            'published': await article.find({'status': Article.STATUS_PUBLISHED}).count(),
+            'archived': await article.find({'status': Article.STATUS_ARCHIVED}).count(),
+            'blocked': await article.find({'status': Article.STATUS_BLOCKED}).count(),
+            'photos': await photo.find().count(),
+            'tags': await tag.find().count(),
+            'pending': await comment.find({'status': Comment.STATUS_PENDING}).count(),
+            'approved': await comment.find({'status': Comment.STATUS_APPROVED}).count(),
+            'rejected': await comment.find({'status': Comment.STATUS_REJECTED}).count()
         };
     }
 };

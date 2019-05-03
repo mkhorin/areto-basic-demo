@@ -16,24 +16,22 @@ module.exports = class FileController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({
-            query: File.find(),
-            pagination: {},
-            sort: {
+            'query': this.spawn(File).find(),
+            'pagination': {},
+            'sort': {
                 attrs: {
                     [File.PK]: true,
                     originalName: true,
                     size: true
                 },
-                defaultOrder: {
-                    [File.PK]: -1
-                }
+                defaultOrder: {[File.PK]: -1}
             }
         });
         await this.renderDataProvider(provider, 'index', {provider});
     }
 
     async actionUpload () {
-        let model = new File;
+        let model = this.spawn(File);
         await model.upload(this.req, this.res, this.user)
             ? this.sendText(model.getId())
             : this.sendText(this.translate(model.getFirstError()), 400);

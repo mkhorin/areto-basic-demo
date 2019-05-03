@@ -14,17 +14,15 @@ module.exports = class Article extends Base {
         };
     }
 
-    static findPublishedByCategory (category) {
+    findPublishedByCategory (category) {
         return this.findPublished().and({category});
     }
 
-    static findPublished () {
-        return this.find({
-            status: this.STATUS_PUBLISHED
-        }).with('mainPhoto','tags');
+    findPublished () {
+        return this.find({'status': this.STATUS_PUBLISHED}).with('mainPhoto','tags');
     }
 
-    static findBySearch (text) {
+    findBySearch (text) {
         let query = this.findPublished();
         if (text === '') {
             return query;
@@ -75,7 +73,7 @@ module.exports = class Article extends Base {
 
     relComments () {
         return this.hasMany(Comment, 'articleId', this.PK).and({
-            status: Comment.STATUS_APPROVED
+            'status': Comment.STATUS_APPROVED
         });
     }
 

@@ -269,7 +269,8 @@ table.detail-view tr th {
 .mr20 {
     margin-right: 20px !important;
 }
-/*** jumbotron ***/
+
+/* JUMBOTRON */
 
 .jumbotron {
     padding: 20px 0 0 0;
@@ -303,7 +304,8 @@ table.detail-view tr th {
         font-size: 80%;
     }
 }
-/*** BADGES ***/
+
+/* BADGES */
 
 .badge-draft {
     background: #000;
@@ -366,4 +368,11 @@ table.detail-view tr th {
 .tag-item {
     margin-right: 10px;
     text-decoration: underline;
+}
+
+pre {
+    background: #f4f4f4;
+}
+pre code {
+    line-height: 1.5;
 }

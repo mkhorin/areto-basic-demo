@@ -43,7 +43,7 @@ module.exports = class User extends Base {
         };
     }
 
-    static findBySearch (text) {
+    findBySearch (text) {
         if (!text) {
             return this.find();
         }

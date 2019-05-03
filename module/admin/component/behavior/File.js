@@ -55,7 +55,7 @@ module.exports = class File extends Base {
             this.fileModel = file;
             this.owner.set(this.fileAttr, file.getFileStats());
         } else if (file) {
-            this.fileModel = await this.FileClass.findById(file).one();
+            this.fileModel = await this.spawn(this.FileClass).findById(file).one();
             if (this.fileModel) {
                 this.owner.set(this.fileAttr, this.fileModel.getFileStats());
             }
@@ -97,7 +97,7 @@ module.exports = class File extends Base {
     async processFile () {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        mkdirp.sync(path.dirname(destPath));
+        fs.mkdirSync(path.dirname(destPath), {'recursive': true});
         fs.renameSync(this.fileModel.getPath(), destPath);
         this.owner.set(this.filenameAttr, filename);
         await this.generateThumbs();
@@ -138,23 +138,21 @@ module.exports = class File extends Base {
     }
 
     async generateThumbs () {
-        if (this.neededThumbs instanceof Array && this.fileModel.isImage()) {
-            let image = gm(this.getPath());
+        if (Array.isArray(this.neededThumbs) && this.fileModel.isImage()) {
             for (let width of this.neededThumbs) {
-                await this.createThumb(image, width);
+                await this.createThumb(width);
             }
         }
     }
 
-    createThumb (image, width) {
+    createThumb (width) {
+        let image = sharp(this.getPath());
         let height = this.getThumbHeight(width);
-        image.resize(width, height);
-        // image.resize(width, height, '!'); // to override the image's proportions
+        image.resize(width, height, {'fit': 'inside'});
         this.setWatermark(image, width);
-        mkdirp.sync(path.dirname(this.getThumbPath(width)));
-        image.quality(this.quality);
         let thumbPath = this.getThumbPath(width);
-        return PromiseHelper.promise(image.write.bind(image, thumbPath));
+        fs.mkdirSync(path.dirname(thumbPath), {'recursive': true});
+        return image.jpeg({'quality': this.quality}).toFile(thumbPath);
     }
 
     getThumbHeight (width) {
@@ -165,14 +163,15 @@ module.exports = class File extends Base {
 
     setWatermark (image, width) {
         if (this.watermark && this.watermark[width]) {
-            image.draw([`image Over 0,0 0,0 ${this.watermark[width]}`]);
+            image.composite([{
+                'input': this.watermark[width],
+                'gravity': 'northwest'
+            }]);
         }
     }
 };
 
 const fs = require('fs');
-const gm = require('gm');
-const mkdirp = require('mkdirp');
 const path = require('path');
+const sharp = require('sharp');
 const ActiveRecord = require('areto/db/ActiveRecord');
-const PromiseHelper = require('areto/helper/PromiseHelper');

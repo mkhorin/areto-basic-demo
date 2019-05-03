@@ -12,14 +12,14 @@
 <%- include('./form') %>
 
 <% let photos = model.get('photos'); %>
-<% if (photos instanceof Array) { %>
+<% if (Array.isArray(photos)) { %>
 <div class="form-group">
     <label class="col-sm-2 control-label"></label>
     <div class="col-sm-10">
         <p class="form-control-static thumb-list clearfix">
             <% for (let photo of photos) { %>
             <a href="admin/photo/view?id=<%- photo.getId() %>" class="thumb-item">
-                <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive">
+                <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive" alt="">
             </a>
             <% } %>
         </p>

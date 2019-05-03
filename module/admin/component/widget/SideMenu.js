@@ -5,7 +5,7 @@ const Base = require('areto/view/Widget');
 module.exports = class SideMenu extends Base {
 
     run () {
-        if (this.items instanceof Array) {
+        if (Array.isArray(this.items)) {
             for (let item of this.items) {
                 this.prepareItem(item);
             }

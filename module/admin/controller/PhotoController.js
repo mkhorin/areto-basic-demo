@@ -14,68 +14,60 @@ module.exports = class PhotoController extends Base {
 
     actionIndex () {
         let provider = this.createDataProvider({            
-            query: Photo.find().with(['article']),
-            pagination: {
-                pageSize: 10
-            },
+            query: this.spawn(Photo).find().with(['article']),
+            pagination: {'pageSize': 10},
             sort: {
                 attrs: {
                     [Photo.PK]: true,
                     title: true
                 },
-                defaultOrder: {
-                    [Photo.PK]: -1
-                }
+                defaultOrder: {[Photo.PK]: -1}
             }
         });
         return this.renderDataProvider(provider, 'index', {provider});
     }
 
     async actionCreate () {
-        let model = new Photo;
+        let model = this.spawn(Photo);
         model.scenario = 'create';
-        if (this.isPost() && model.load(this.getPostParams()).save()) {
+        if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
         await this.render('create', {
-            articles: await Article.findToSelect().all(),
-            model
+            'articles': await this.spawn(Article).findToSelect().all(),
+            'model': model
         });
     }
     
     async actionUpdate () {
         let model = await this.getModel();
-        if (this.isPost() && model.load(this.getPostParams()).save()) {
+        if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
         await this.render('update', {
-            articles: await Article.findToSelect().all(),
-            model
+            'articles': await this.spawn(Article).findToSelect().all(),
+            'model': model
         });
     }
 
     async actionView () {
-        await super.actionView({
-            with: ['article']
-        });
+        await super.actionView({'with': ['article']});
     }
 
     async actionUpload () {
-        let file = new File;
+        let file = this.spawn(File);
         if (!await file.upload(this.req, this.res, this.user)) {
             return this.sendText(this.translate(file.getFirstError()), 400);
         }
-        let photo = new Photo;
+        let photo = this.spawn(Photo);
         photo.set('file', file.getId());
         await photo.validate(['file'])
             ? this.sendText(file.getId())
             : this.sendText(this.translate(photo.getFirstError()), 400);
     }
 
-    async actionAssignMain () {
-        let model = await this.getModel({
-            with: ['article']
-        });
+    async actionLead () {
+        let model = await this.getModel({'with': ['article']});
         let article = model.get('article');
         if (!article) {
             this.setFlash('danger', 'Article not found');

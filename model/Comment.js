@@ -35,12 +35,12 @@ module.exports = class Comment extends Base {
         };
     }
 
-    static findRecent (limit = 3) {
+    findRecent (limit = 3) {
         return this.findApproved().order({[Comment.PK]: -1}).limit(limit);
     }
 
-    static findApproved () {
-        return this.find({status: this.STATUS_APPROVED});
+    findApproved () {
+        return this.find({'status': this.STATUS_APPROVED});
     }
 
     constructor (config) {

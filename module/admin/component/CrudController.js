@@ -5,7 +5,7 @@ const Base = require('./BaseController');
 module.exports = class CrudController extends Base {
 
     async actionCreate () {
-        let model = new (this.getModelClass());
+        let model = this.spawn(this.getModelClass());
         model.scenario = 'create';
         this.isPost() && await model.load(this.getPostParams()).save()
             ? this.backToRef()

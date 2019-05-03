@@ -28,7 +28,7 @@
 <% let tags = model.get('tags'); %>
 <%- include(_view.get('_part/field/input'), {
     attr: 'tags',
-    value: tags instanceof Array ? tags.map((tag)=> tag.getTitle()).join(', ') : tags,
+    value: Array.isArray(tags) ? tags.map(tag => tag.getTitle()).join(', ') : tags,
     hint: 'Split by comma'
 }) %>
 <% } %>

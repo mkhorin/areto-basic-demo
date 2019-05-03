@@ -161,7 +161,8 @@ table.detail-view tr th {
     margin-bottom: 5px;
 }
 .custom-object-controls {
-    float: left;
+    float: right;
+    margin-right: 10px;
 }
 .list-controls {
     margin-bottom: 30px;

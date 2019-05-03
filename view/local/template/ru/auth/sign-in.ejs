@@ -16,12 +16,15 @@
         <form action="<%- _url('sign-in') %>" method="post">
             <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'email',
+                type: 'email',
                 iconClass: 'glyphicon glyphicon-envelope',
                 placeholder: 'Электронный адрес'
             }) %>
 
-            <%- include(_view.get('_part/field/auth/password'), {
+            <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'password',
+                type: 'password',
+                value: '',
                 iconClass: 'glyphicon glyphicon-lock',
                 placeholder: 'Пароль'
             }) %>

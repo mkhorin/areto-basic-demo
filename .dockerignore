@@ -1,6 +1,7 @@
 log
 node_modules
 tests
-config/*-local.js
+config/*.local.js
 module/admin/upload
 web/photo
+temp

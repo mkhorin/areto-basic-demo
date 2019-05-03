@@ -20,7 +20,7 @@ module.exports = class UserController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({
-            query: User.findBySearch(this.getQueryParam('search')),
+            query: this.spawn(User).findBySearch(this.getQueryParam('search')),
             sort: {
                 attrs: {
                     [User.PK]: true,
@@ -28,9 +28,7 @@ module.exports = class UserController extends Base {
                     email: true,
                     role: true
                 },
-                defaultOrder: {
-                    [User.PK]: -1
-                }
+                defaultOrder: {[User.PK]: -1}
             }
         });
         await this.renderDataProvider(provider, 'index', {provider});

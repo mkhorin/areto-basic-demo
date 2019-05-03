@@ -28,7 +28,7 @@ module.exports = class LoginByEmail extends Base {
 
     async getIdentity () {
         let error = null;
-        let identity = await this.User.findByEmail(this.email).one();
+        let identity = await this.spawn(this.User).findByEmail(this.email).one();
         if (!identity || !identity.validatePassword(this.password)) {
             error = this.failedMessage;
         } else if (identity.isBanned()) {
@@ -41,6 +41,6 @@ module.exports = class LoginByEmail extends Base {
         return this.rememberMe ? this.rememberPeriod : 0;
     }
 };
-module.exports.init(module);
+module.exports.init();
 
 const User = require('../../model/User');

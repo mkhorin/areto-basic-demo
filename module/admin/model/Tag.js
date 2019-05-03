@@ -17,11 +17,11 @@ module.exports = class Tag extends Base {
         };
     }
 
-    static findByName (name) {
+    findByName (name) {
         return this.find({'name': new RegExp(`^${name}$`, 'i')});
     }
 
-    static findBySearch (text) {
+    findBySearch (text) {
         return text
             ? this.find(['LIKE', 'name', `%${text}%`])
             : this.find();

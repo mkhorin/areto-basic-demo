@@ -5,14 +5,17 @@
 
     <input type="hidden" name="referrer" value="<%= _controller.getRefUrl() %>">
 
-    <div class="object-controls">
-        <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
-        <a href="<%- _url(['update', model]) %>" class="btn btn-info">Update</a>
-        <button class="btn btn-danger action-submit" type="button"
-                data-url="<%- _url(['delete', model]) %>"
-                data-confirm="Remove this object?">
-            Delete
-        </button>
+    <div class="object-controls clearfix">
+
+        <div class="pull-right">
+            <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
+            <a href="<%- _url(['update', model]) %>" class="btn btn-info">Update</a>
+            <button class="btn btn-danger action-submit" type="button"
+                    data-url="<%- _url(['delete', model]) %>"
+                    data-confirm="Remove this object?">
+                Delete
+            </button>
+        </div>
 
         <div class="custom-object-controls">
             <%- blocks.customControls %>

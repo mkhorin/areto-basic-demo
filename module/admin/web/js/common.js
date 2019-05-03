@@ -12,6 +12,12 @@ $('.list-search').click(function () {
         + encodeURIComponent($.trim($input.val()));
 });
 
+$('.list-search-input').keyup(function (event) {
+    if (event.keyCode === 13) {
+        $(this).parent().find('.list-search').click();
+    }
+});
+
 $('.action-submit').click(function () {
     let $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {

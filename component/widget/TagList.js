@@ -5,7 +5,7 @@ const Base = require('areto/view/Widget');
 module.exports = class TagList extends Base {
 
     async run () {
-        this.tags = await Tag.find().all();
+        this.tags = await this.spawn(Tag).find().all();
         for (let tag of this.tags) {
             await this.countArticlesByTag(tag);
         }

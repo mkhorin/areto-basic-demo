@@ -21,7 +21,8 @@ module.exports = class BaseController extends Base {
         if (!MongoHelper.isValidId(params.id)) {
             throw new BadRequest;
         }
-        let model = await params.ModelClass.findById(params.id).with(params.with).one();
+        let model = new params.ModelClass({'module': this.module});
+        model = await model.findById(params.id).with(params.with).one();
         if (!model) {
             throw new NotFound;
         }
@@ -45,7 +46,7 @@ module.exports = class BaseController extends Base {
         return SelectHelper.getMapItems(this.translateMessageMap(data));
     }
 };
-module.exports.init(module);
+module.exports.init();
 
 const BadRequest = require('areto/error/BadRequestHttpException');
 const NotFound = require('areto/error/NotFoundHttpException');

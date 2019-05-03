@@ -16,7 +16,7 @@ module.exports = class ImageConverter extends Base {
     async processFile () {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        mkdirp.sync(path.dirname(destPath));
+        fs.mkdirSync(path.dirname(destPath), {'recursive': true});
         await this.createThumbImage(destPath);
         this.owner.set(this.filenameAttr, filename);
         await this.generateThumbs();
@@ -26,13 +26,12 @@ module.exports = class ImageConverter extends Base {
     }
     
     createThumbImage (destPath) {
-        let image = gm(this.fileModel.getPath());
-        image.resize(this.size, this.getThumbHeight(this.size));
-        return PromiseHelper.promise(image.write.bind(image, destPath));
+        let image = sharp(this.fileModel.getPath());
+        image.resize(this.size, this.getThumbHeight(this.size), {'fit': 'inside'});
+        return image.toFile(destPath);
     }
 };
 
+const fs = require('fs');
 const path = require('path');
-const gm = require('gm');
-const mkdirp = require('mkdirp');
-const PromiseHelper = require('areto/helper/PromiseHelper');
+const sharp = require('sharp');

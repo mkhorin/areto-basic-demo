@@ -27,4 +27,4 @@ module.exports = class Admin extends Base {
         this.get('scheduler').addTasks(this.getConfig('tasks'));
     }
 };
-module.exports = new (module.exports.init(module));
+module.exports.init(module);

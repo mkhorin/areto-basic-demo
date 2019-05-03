@@ -1,12 +1,10 @@
-FROM node:10.9-alpine
+FROM node:12-alpine
 
 WORKDIR /app
 
 COPY . .
 
 RUN npm install --quiet
-
-RUN apk add graphicsmagick
 
 EXPOSE 8888
 

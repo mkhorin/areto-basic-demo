@@ -22,7 +22,7 @@ module.exports = {
             }
         },
         'expiredSessionCleaner': {
-            period: 3600,
+            period: 3600, // seconds
             job: require('../component/job/ExpiredSessionCleaner')
         }
     },

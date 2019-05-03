@@ -16,7 +16,7 @@ module.exports = {
             }
         },
         'view': {
-            // theme: 'sample'
+             // theme: 'sample'
         },
         'connection': {
             schema: 'mongodb',
@@ -40,7 +40,7 @@ module.exports = {
         },
         'router': {
             errors: {
-                'Controller': require('../controller/DefaultController')
+                'controller': 'default'
             },
             defaultController: 'article'
         },

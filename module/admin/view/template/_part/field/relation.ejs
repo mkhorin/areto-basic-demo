@@ -1,9 +1,9 @@
 <%
     let params = {
-        label: typeof label === 'undefined' ? model.getAttrLabel(attr) : label
+        'label': typeof label === 'undefined' ? model.getAttrLabel(attr) : label
     };
     let items = model.rel(attr);
-    items = items instanceof Array ? items : items ? [items] : null;
+    items = Array.isArray(items) ? items : items ? [items] : null;
 %>
 <div class="form-group">
     <label class="col-sm-2 control-label">

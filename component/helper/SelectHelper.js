@@ -12,8 +12,8 @@ module.exports = class SelectHelper {
         if (map) {
             for (let key of Object.keys(map)) {
                 items.push({
-                    value: key,
-                    label: map[key]
+                    'value': key,
+                    'label': map[key]
                 });
             }
         }
@@ -33,9 +33,7 @@ module.exports = class SelectHelper {
     // QUERY
 
     static queryCaptionNames (query) {
-        return this.queryItems(query, {
-            getItemText: this.getCaptionText
-        });
+        return this.queryItems(query, {'getItemText': this.getCaptionText});
     }
 
     static async queryItems (query, data) {
@@ -45,9 +43,7 @@ module.exports = class SelectHelper {
     // MODEL
 
     static getModelCaptionNames (models) {
-        return this.getModelItems(models, {
-            getItemText: this.getCaptionText
-        });
+        return this.getModelItems(models, {'getItemText': this.getCaptionText});
     }
 
     static getModelItems (models, data) {
@@ -58,9 +54,7 @@ module.exports = class SelectHelper {
     // DOCS
 
     static getCaptionNames (docs) {
-        return this.getItems(docs, {
-            getItemText: this.getCaptionText
-        });
+        return this.getItems(docs, {'getItemText': this.getCaptionText});
     }
 
     static getItems (docs, data = {}) {

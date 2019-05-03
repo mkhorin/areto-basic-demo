@@ -52,15 +52,15 @@ module.exports = class Article extends Base {
         };
     }
 
-    static findBySearch (text) {
+    findBySearch (text) {
         let query = this.find();
-        if (typeof text === 'string' && /[a-z0-9\-\s]{1,32}/i.test(text)) {
+        if (typeof text === 'string' && /[a-z0-9а-я\-\s]{1,32}/i.test(text)) {
             query.and(['LIKE','title', `%${text}%`]);
         }
         return query;
     }
     
-    static findToSelect () {
+    findToSelect () {
         return this.find().select('title').asRaw();
     }
 
@@ -127,14 +127,14 @@ module.exports = class Article extends Base {
     }
 
     async resolveTag (name) {
-        let model = await Tag.findByName(name).one();
+        let tag = this.spawn(Tag);
+        let model = await tag.findByName(name).one();
         if (model) {
             return this.link('tags', model);
         }
-        model = new Tag;
-        model.set('name', name);
-        if (await model.save()) {
-            await this.link('tags', model);
+        tag.set('name', name);
+        if (await tag.save()) {
+            await this.link('tags', tag);
         }
     }
 
@@ -142,12 +142,12 @@ module.exports = class Article extends Base {
 
     async resolveFiles (files) {
         if (files && typeof files === 'string') {
-            this.set('files', await File.findById(files.split(',')).all());
+            this.set('files', await this.spawn(File).findById(files.split(',')).all());
         }
     }
 
     async createPhotos (files) {
-        if (!(files instanceof Array)) {
+        if (!Array.isArray(files)) {
             return false;
         }
         let photos = [];
@@ -166,7 +166,7 @@ module.exports = class Article extends Base {
     }
 
     async createPhoto (file) {
-        let photo = new Photo;
+        let photo = this.spawn(Photo);
         photo.set('articleId', this.getId());
         photo.set('file', file);
         try {

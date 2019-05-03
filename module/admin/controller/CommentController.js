@@ -6,26 +6,22 @@ module.exports = class CommentController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({
-            query: Comment.findBySearch(this.getQueryParam('search')),
+            query: this.spawn(Comment).findBySearch(this.getQueryParam('search')),
             pagination: {},
             sort: {
                 attrs: {
                     [Comment.PK]: true,
                     status: true
                 },
-                defaultOrder: {
-                    [Comment.PK]: -1
-                }
+                defaultOrder: {[Comment.PK]: -1}
             }
         });
         await this.renderDataProvider(provider, 'index', {provider});
     }
 
     async actionCreate () {
-        let article = await this.getModel({
-            ModelClass: Article
-        });
-        let model = new Comment;
+        let article = await this.getModel({'ModelClass': Article});
+        let model = this.spawn(Comment);
         if (this.isGet()) {
             return this.render('create', {model});
         }
@@ -37,9 +33,7 @@ module.exports = class CommentController extends Base {
     }
 
     async actionView () {
-        await super.actionView({
-            with: 'article'
-        });
+        await super.actionView({'with': 'article'});
     }
 };
 module.exports.init(module);

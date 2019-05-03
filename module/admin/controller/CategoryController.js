@@ -7,15 +7,13 @@ module.exports = class CategoryController extends Base {
     async actionIndex () {
         let searchText = this.getQueryParam('search');
         let provider = this.createDataProvider({            
-            query: Category.findBySearch(searchText),
+            query: this.spawn(Category).findBySearch(searchText),
             sort: {
                 attrs: {
                     [Category.PK]: true,
                     name: true
                 },
-                defaultOrder: {
-                    [Category.PK]: -1
-                }
+                defaultOrder: {[Category.PK]: -1}
             }
         });
         await this.renderDataProvider(provider, 'index', {provider, searchText});
@@ -26,12 +24,8 @@ module.exports = class CategoryController extends Base {
         let articles = this.createDataProvider({
             query: model.relArticles(),
             sort: {
-                attrs: {
-                    [model.PK]: true
-                },
-                defaultOrder: {
-                    [model.PK]: -1
-                }
+                attrs: {[model.PK]: true},
+                defaultOrder: {[model.PK]: -1}
             }
         });
         await this.renderDataProvider(articles, 'view', {model, articles});

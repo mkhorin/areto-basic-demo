@@ -16,12 +16,12 @@ module.exports = class Category extends Base {
         };
     }
 
-    static findBySearch (text) {
+    findBySearch (text) {
         return text ? this.find(['LIKE', 'name', `%${text}%`]) : this.find();
     }
 
-    static findNames () {
-        return this.find().select('name').order({name:1}).asRaw();
+    findNames () {
+        return this.find().select('name').order({'name': 1}).asRaw();
     }
 
     relArticles () {

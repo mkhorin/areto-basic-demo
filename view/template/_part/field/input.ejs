@@ -1,6 +1,9 @@
 <!-- _part/field/input -->
-
-<% let params = {}; %>
+<%
+let params = {
+    'type': typeof type === 'undefined' ? 'text' : type
+};
+%>
 <%- include('_params', {params}) %>
 
 <div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
@@ -8,7 +11,8 @@
         <%- params.label %>
     </label>
     <div class="col-sm-9">
-        <input id="<%- params.id %>" name="<%- params.name %>" type="text" value="<%- params.value %>" class="form-control">
+        <input id="<%- params.id %>" name="<%- params.name %>" type="<%- params.type %>"
+               value="<%- params.value %>" class="form-control">
         <div class="hint-block"><%- params.error %></div>
     </div>
 </div>

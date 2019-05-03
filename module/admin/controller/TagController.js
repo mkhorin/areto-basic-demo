@@ -22,15 +22,13 @@ module.exports = class TagController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({            
-            query: Tag.findBySearch(this.getQueryParam('search')),
+            query: this.spawn(Tag).findBySearch(this.getQueryParam('search')),
             sort: {
                 attrs: {
                     [Tag.PK]: true,
                     name: true
                 },
-                defaultOrder: {
-                    [Tag.PK]: -1
-                }
+                defaultOrder: {[Tag.PK]: -1}
             }
         });
         await this.renderDataProvider(provider, 'index', {provider});
@@ -41,12 +39,8 @@ module.exports = class TagController extends Base {
         let articles = this.createDataProvider({
             query: model.relArticles(),
             sort: {
-                attrs: {
-                    [model.PK]: true
-                },
-                defaultOrder: {
-                    [model.PK]: -1
-                }
+                attrs: {[model.PK]: true},
+                defaultOrder: {[model.PK]: -1}
             }
         });
         await this.renderDataProvider(articles, 'view', {model, articles});

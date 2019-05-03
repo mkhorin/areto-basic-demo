@@ -3,13 +3,15 @@
 // cd /areto-basic-demo
 // node console/start
 
+const Application = require('../Application');
+const application = new Application;
+
 (async ()=> {
-    const application = require('../module');
     try {
         await application.init();
         await application.start();
     } catch (err) {
-        application.log('error', err);
+        application.logError(err);
         process.exit();
     }
 })();
