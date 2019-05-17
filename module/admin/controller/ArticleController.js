@@ -8,7 +8,7 @@ module.exports = class ArticleController extends Base {
         let searchText = this.getQueryParam('search');
         let provider = this.createDataProvider({
             query: this.spawn(Article).findBySearch(searchText).with('author', 'mainPhoto'),
-            pagination: {'pageSize': 10},
+            pagination: {pageSize: 10},
             sort: {
                 attrs: {
                     [Article.PK]: true,
@@ -48,8 +48,8 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionUpdate () {
-        let model = await this.getModel({'with': ['photos', 'tags']});
-        let access = await this.user.can('updateArticle', {'authorId': model.get('authorId')});
+        let model = await this.getModel({with: ['photos', 'tags']});
+        let access = await this.user.can('updateArticle', {authorId: model.get('authorId')});
         if (!access) {
             throw new Forbidden;
         }
@@ -60,7 +60,7 @@ module.exports = class ArticleController extends Base {
 
     async renderForm (template, params) {
         await this.render(template, {
-            'categories': await this.spawn(Category).findNames().all(),
+            categories: await this.spawn(Category).findNames().all(),
             ...params
         });
     }

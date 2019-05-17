@@ -20,7 +20,7 @@ module.exports = class CommentController extends Base {
     }
 
     async actionCreate () {
-        let article = await this.getModel({'ModelClass': Article});
+        let article = await this.getModel({ModelClass: Article});
         let model = this.spawn(Comment);
         if (this.isGet()) {
             return this.render('create', {model});
@@ -33,7 +33,7 @@ module.exports = class CommentController extends Base {
     }
 
     async actionView () {
-        await super.actionView({'with': 'article'});
+        await super.actionView({with: 'article'});
     }
 };
 module.exports.init(module);

@@ -5,7 +5,7 @@ const Base = require('areto/view/Widget');
 module.exports = class Categories extends Base {
 
     async run () {
-        this.items = await this.spawn(Category).find().order({'name': 1}).all();
+        this.items = await this.spawn(Category).find().order({name: 1}).all();
         for (let item of this.items) {
             await this.countArticlesByCategory(item);
         }        

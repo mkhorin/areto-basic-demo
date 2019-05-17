@@ -10,10 +10,10 @@ module.exports = class SelectHelper {
     static getMapItems (map) {
         let items = [];
         if (map) {
-            for (let key of Object.keys(map)) {
+            for (let value of Object.keys(map)) {
                 items.push({
-                    'value': key,
-                    'label': map[key]
+                    value,
+                    label: map[value]
                 });
             }
         }
@@ -33,7 +33,7 @@ module.exports = class SelectHelper {
     // QUERY
 
     static queryCaptionNames (query) {
-        return this.queryItems(query, {'getItemText': this.getCaptionText});
+        return this.queryItems(query, {getItemText: this.getCaptionText});
     }
 
     static async queryItems (query, data) {
@@ -43,7 +43,7 @@ module.exports = class SelectHelper {
     // MODEL
 
     static getModelCaptionNames (models) {
-        return this.getModelItems(models, {'getItemText': this.getCaptionText});
+        return this.getModelItems(models, {getItemText: this.getCaptionText});
     }
 
     static getModelItems (models, data) {
@@ -54,7 +54,7 @@ module.exports = class SelectHelper {
     // DOCS
 
     static getCaptionNames (docs) {
-        return this.getItems(docs, {'getItemText': this.getCaptionText});
+        return this.getItems(docs, {getItemText: this.getCaptionText});
     }
 
     static getItems (docs, data = {}) {
@@ -71,8 +71,8 @@ module.exports = class SelectHelper {
         if (docs) {
             for (let doc of docs) {
                 items.push({
-                    'value': doc[data.valueKey],
-                    'label': data.getItemText.call(this, doc, data)
+                    value: doc[data.valueKey],
+                    label: data.getItemText.call(this, doc, data)
                 });
             }
         }

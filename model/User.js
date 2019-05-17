@@ -32,18 +32,15 @@ module.exports = class User extends Base {
         };
     }
 
+    role = this.ROLE_AUTHOR;
+    status = this.STATUS_ACTIVE;
+
     findIdentity (id) {
-        return this.findById(id).and({'status': this.STATUS_ACTIVE});
+        return this.findById(id).and({status: this.STATUS_ACTIVE});
     }
 
     findByEmail (email) {
         return this.find({email});
-    }
-
-    constructor (config) {
-        super(config);
-        this.set('role', this.ROLE_AUTHOR);
-        this.set('status', this.STATUS_ACTIVE);
     }
 
     getTitle () {
@@ -81,7 +78,7 @@ module.exports = class User extends Base {
     setPasswordHash () {
         let password = this.get('password');
         if (password) {
-            this.set('passwordHash', SecurityHelper.encryptPassword(password));
+            this.set('passwordHash', SecurityHelper.hashPassword(password));
         }
     }
 
@@ -96,7 +93,7 @@ module.exports = class User extends Base {
     }
 
     setAuthKey () {
-        this.set('authKey', SecurityHelper.generateRandomString(this.AUTH_KEY_LENGTH));
+        this.set('authKey', SecurityHelper.getRandomString(this.AUTH_KEY_LENGTH));
     }
 };
 module.exports.init(module);

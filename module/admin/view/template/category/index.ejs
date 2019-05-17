@@ -2,7 +2,7 @@
 
 <% block('title', _t('Categories')) -%>
 
-<% _data.set('breadcrumbs', [{'title': _t('Categories')}]) %>
+<% _data.set('breadcrumbs', [{title: _t('Categories')}]) %>
 
 <%- include(_view.get('_part/list'), {
     itemTemplate: 'tag/list-item'

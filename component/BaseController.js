@@ -14,14 +14,14 @@ module.exports = class BaseController extends Base {
 
     async getModel (params) {
         params = {
-            'ModelClass': this.getModelClass(),
-            'id': this.getQueryParam('id'),
+            ModelClass: this.getModelClass(),
+            id: this.getQueryParam('id'),
             ...params
         };
         if (!MongoHelper.isValidId(params.id)) {
             throw new BadRequest;
         }
-        let model = new params.ModelClass({'module': this.module});
+        let model = new params.ModelClass({module: this.module});
         model = await model.findById(params.id).with(params.with).one();
         if (!model) {
             throw new NotFound;
@@ -30,10 +30,7 @@ module.exports = class BaseController extends Base {
     }
 
     createDataProvider (config) {
-        return new ActiveDataProvider({
-            'controller': this,
-            ...config
-        });
+        return new ActiveDataProvider({controller: this, ...config});
     }
 
     async renderDataProvider (provider, template, data) {

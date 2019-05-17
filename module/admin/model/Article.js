@@ -52,6 +52,12 @@ module.exports = class Article extends Base {
         };
     }
 
+    status = this.STATUS_DRAFT;
+
+    findByStatus (status) {
+        return this.find({status});
+    }
+
     findBySearch (text) {
         let query = this.find();
         if (typeof text === 'string' && /[a-z0-9а-я\-\s]{1,32}/i.test(text)) {
@@ -62,11 +68,6 @@ module.exports = class Article extends Base {
     
     findToSelect () {
         return this.find().select('title').asRaw();
-    }
-
-    constructor (config) {
-        super(config);
-        this.set('status', this.STATUS_DRAFT);
     }
 
     // EVENTS

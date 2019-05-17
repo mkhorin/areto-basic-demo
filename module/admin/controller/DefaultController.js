@@ -20,15 +20,15 @@ module.exports = class DefaultController extends Base {
         let tag = this.spawn(Tag);
         let comment = this.spawn(Comment);
         return {
-            'drafts': await article.find({'status': Article.STATUS_DRAFT}).count(),
-            'published': await article.find({'status': Article.STATUS_PUBLISHED}).count(),
-            'archived': await article.find({'status': Article.STATUS_ARCHIVED}).count(),
-            'blocked': await article.find({'status': Article.STATUS_BLOCKED}).count(),
-            'photos': await photo.find().count(),
-            'tags': await tag.find().count(),
-            'pending': await comment.find({'status': Comment.STATUS_PENDING}).count(),
-            'approved': await comment.find({'status': Comment.STATUS_APPROVED}).count(),
-            'rejected': await comment.find({'status': Comment.STATUS_REJECTED}).count()
+            drafts: await article.findByStatus(Article.STATUS_DRAFT).count(),
+            published: await article.findByStatus(Article.STATUS_PUBLISHED).count(),
+            archived: await article.findByStatus(Article.STATUS_ARCHIVED).count(),
+            blocked: await article.findByStatus(Article.STATUS_BLOCKED).count(),
+            photos: await photo.find().count(),
+            tags: await tag.find().count(),
+            pending: await comment.findByStatus(Comment.STATUS_PENDING).count(),
+            approved: await comment.findByStatus(Comment.STATUS_APPROVED).count(),
+            rejected: await comment.findByStatus(Comment.STATUS_REJECTED).count()
         };
     }
 };

@@ -28,10 +28,10 @@ module.exports = class SignInForm extends Base {
 
     constructor (config) {
         super({
-            // user: new WebUser
-            'rateLimit': config.module.get('rateLimit'),
-            'rateLimitType': 'signIn',
-            'rememberPeriod': 7 * 24 * 3600,
+            // user: [WebUser]
+            rateLimit: config.module.get('rateLimit'),
+            rateLimitType: 'signIn',
+            rememberPeriod: 7 * 24 * 3600,
             ...config
         });
     }
@@ -65,11 +65,11 @@ module.exports = class SignInForm extends Base {
 
     createLoginByEmail () {
         return new LoginByEmail({
-            'module': this.module,
-            'email': this.get('email'),
-            'password': this.get('password'),
-            'rememberMe': this.get('rememberMe'),
-            'user': this.user
+            module: this.module,
+            email: this.get('email'),
+            password: this.get('password'),
+            rememberMe: this.get('rememberMe'),
+            user: this.user
         });
     }
 

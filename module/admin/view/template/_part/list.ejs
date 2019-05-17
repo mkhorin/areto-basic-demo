@@ -1,9 +1,9 @@
-
-<% let params = {
-    'routePrefix': typeof routePrefix === 'undefined' ? '' : routePrefix,
-    'searchText': typeof searchText === 'string' ? searchText : ''
-}; %>
-
+<%
+let params = {
+    routePrefix: typeof routePrefix === 'undefined' ? '' : routePrefix,
+    searchText: typeof searchText === 'string' ? searchText : ''
+};
+%>
 <div class="list-controls clearfix">
     <% if (typeof search === 'undefined') { %>
     Search
@@ -14,8 +14,7 @@
                <span class="glyphicon glyphicon-search"></span>
            </button>
         </span>
-    </div>
-    &nbsp; &nbsp;
+    </div>    &nbsp; &nbsp;
     <% } %>
 
     <% if (provider.sort) { %>
@@ -36,7 +35,6 @@
         <% } %>
     </div>
 </div>
-
 
 <% if (provider.models.length) { %>
 

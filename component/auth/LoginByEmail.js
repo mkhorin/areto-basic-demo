@@ -6,10 +6,10 @@ module.exports = class LoginByEmail extends Base {
 
     constructor (config) {
         super({
-            // email:
-            // password:
-            // rememberMe:
-            // user: new WebUser
+            // email: [email]
+            // password: [password]
+            // rememberMe: [true]
+            // user: [WebUser]
             rememberPeriod: 7 * 24 * 3600,
             failedMessage: 'Invalid authentication',
             bannedMessage: 'This account is banned',

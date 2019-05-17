@@ -24,14 +24,18 @@ module.exports = class Comment extends Base {
         };
     }
 
+    findByStatus (status) {
+        return this.find({status});
+    }
+
     findBySearch (text) {
         if (!text) {
             return this.find();
         }
         return this.find(['OR',
             ['LIKE', 'content', `%${text}%`],
-            {'name': text},
-            {'email': text}
+            {name: text},
+            {email: text}
         ]);
     }
 

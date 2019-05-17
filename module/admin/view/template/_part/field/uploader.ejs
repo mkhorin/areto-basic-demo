@@ -1,19 +1,19 @@
 <!-- _part/field/uploader -->
-
-<% let params = {
-    'options': typeof options === 'undefined' ? {} : options,
-    'files': typeof files === 'undefined' ? null : files
-}; %>
+<%
+let params = {
+    options: typeof options === 'undefined' ? {} : options,
+    files: typeof files === 'undefined' ? null : files
+};
+%>
 <%- include('_params', {params}) %>
-
 <%
 if (Array.isArray(params.files)) {
     params.options.items = [];
     for (let file of params.files) {
         params.options.items.push({
-            'id': file.getId(),
-            'name': file.get('originalName'),
-            'size': file.get('size')
+            id: file.getId(),
+            name: file.get('originalName'),
+            size: file.get('size')
         });
     }
 }

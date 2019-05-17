@@ -58,18 +58,18 @@ module.exports = class File extends Base {
     }
     
     createSingleUploader () {
-        return multer({'storage': this.createUploaderStorage()}).single('file');
+        return multer({storage: this.createUploaderStorage()}).single('file');
     }
 
     createUploaderStorage () {
         return multer.diskStorage({
-            'destination': this.generateStoreDir.bind(this),
-            'filename': this.generateFilename.bind(this)
+            destination: this.generateStoreDir.bind(this),
+            filename: this.generateFilename.bind(this)
         });
     }
 
     generateStoreDir (req, file, callback) {
-        fs.mkdir(this.STORE_DIR, {'recursive': true}, err => callback(err, this.STORE_DIR));
+        fs.mkdir(this.STORE_DIR, {recursive: true}, err => callback(err, this.STORE_DIR));
     }
 
     generateFilename (req, file, callback) {
@@ -78,23 +78,23 @@ module.exports = class File extends Base {
 
     populateFileStats (file, req, user) {
         this.setAttrs({
-            'userId': user.getId(),
-            'originalName': file.originalname,
-            'filename': file.filename,
-            'mime': file.mimetype,
-            'extension': path.extname(file.originalname).substring(1).toLowerCase(),
-            'size': file.size,
-            'ip': req.ip
+            userId: user.getId(),
+            originalName: file.originalname,
+            filename: file.filename,
+            mime: file.mimetype,
+            extension: path.extname(file.originalname).substring(1).toLowerCase(),
+            size: file.size,
+            ip: req.ip
         });
     }
 
     getFileStats () {
         return {
-            'model': this,
-            'path': this.getPath(),
-            'size': this.get('size'),
-            'extension': this.get('extension'),
-            'mime': this.get('mime')
+            model: this,
+            path: this.getPath(),
+            size: this.get('size'),
+            extension: this.get('extension'),
+            mime: this.get('mime')
         };
     }
 
@@ -102,7 +102,7 @@ module.exports = class File extends Base {
 
     async afterRemove () {
         await super.afterRemove();
-        fs.unlinkSync(this.getPath());
+        await fs.promises.unlink(this.getPath());
     }
 };
 module.exports.init(module);

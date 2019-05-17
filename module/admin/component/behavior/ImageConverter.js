@@ -16,7 +16,7 @@ module.exports = class ImageConverter extends Base {
     async processFile () {
         let filename = this.createFilename(this.fileModel);
         let destPath = path.join(this.storeDir, filename);
-        fs.mkdirSync(path.dirname(destPath), {'recursive': true});
+        await fs.promises.mkdir(path.dirname(destPath), {recursive: true});
         await this.createThumbImage(destPath);
         this.owner.set(this.filenameAttr, filename);
         await this.generateThumbs();
@@ -27,7 +27,7 @@ module.exports = class ImageConverter extends Base {
     
     createThumbImage (destPath) {
         let image = sharp(this.fileModel.getPath());
-        image.resize(this.size, this.getThumbHeight(this.size), {'fit': 'inside'});
+        image.resize(this.size, this.getThumbHeight(this.size), {fit: 'inside'});
         return image.toFile(destPath);
     }
 };

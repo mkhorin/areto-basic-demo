@@ -15,7 +15,7 @@ module.exports = class PhotoController extends Base {
     actionIndex () {
         let provider = this.createDataProvider({            
             query: this.spawn(Photo).find().with(['article']),
-            pagination: {'pageSize': 10},
+            pagination: {pageSize: 10},
             sort: {
                 attrs: {
                     [Photo.PK]: true,
@@ -33,10 +33,8 @@ module.exports = class PhotoController extends Base {
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
-        await this.render('create', {
-            'articles': await this.spawn(Article).findToSelect().all(),
-            'model': model
-        });
+        let articles = await this.spawn(Article).findToSelect().all();
+        await this.render('create', {model, articles});
     }
     
     async actionUpdate () {
@@ -44,14 +42,12 @@ module.exports = class PhotoController extends Base {
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
-        await this.render('update', {
-            'articles': await this.spawn(Article).findToSelect().all(),
-            'model': model
-        });
+        let articles = await this.spawn(Article).findToSelect().all();
+        await this.render('update', {model, articles});
     }
 
     async actionView () {
-        await super.actionView({'with': ['article']});
+        await super.actionView({with: ['article']});
     }
 
     async actionUpload () {
@@ -67,7 +63,7 @@ module.exports = class PhotoController extends Base {
     }
 
     async actionLead () {
-        let model = await this.getModel({'with': ['article']});
+        let model = await this.getModel({with: ['article']});
         let article = model.get('article');
         if (!article) {
             this.setFlash('danger', 'Article not found');

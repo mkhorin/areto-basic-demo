@@ -6,8 +6,8 @@ module.exports = class ExpiredFileCleaner extends Base {
 
     constructor (config) {
         super({
-            'expirationTimeout': 60 * 60,
-            'FileModel': require('../../model/File'),
+            expirationTimeout: 60 * 60,
+            FileModel: require('../../model/File'),
             ...config
         });
     }

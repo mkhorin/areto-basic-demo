@@ -1,4 +1,4 @@
-# Simple blog made by Areto Framework
+# Simple blog built on Areto Framework
 
 ## Docker installation
 

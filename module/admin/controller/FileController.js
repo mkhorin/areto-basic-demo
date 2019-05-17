@@ -16,9 +16,9 @@ module.exports = class FileController extends Base {
 
     async actionIndex () {
         let provider = this.createDataProvider({
-            'query': this.spawn(File).find(),
-            'pagination': {},
-            'sort': {
+            query: this.spawn(File).find(),
+            pagination: {},
+            sort: {
                 attrs: {
                     [File.PK]: true,
                     originalName: true,

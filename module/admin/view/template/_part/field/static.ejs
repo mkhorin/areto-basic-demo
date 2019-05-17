@@ -10,9 +10,9 @@
     <div class="col-sm-10">
         <div class="form-control-static">
             <% if (params.escaping) { %>
-            <%= _format(params.value, 'raw') %>
+            <%= _format(params.value) %>
             <% } else { %>
-            <%- _format(params.value, 'raw') %>
+            <%- _format(params.value) %>
             <% } %>
         </div>
     </div>

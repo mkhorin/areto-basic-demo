@@ -19,7 +19,7 @@ module.exports = class Article extends Base {
     }
 
     findPublished () {
-        return this.find({'status': this.STATUS_PUBLISHED}).with('mainPhoto','tags');
+        return this.find({status: this.STATUS_PUBLISHED}).with('mainPhoto','tags');
     }
 
     findBySearch (text) {
@@ -72,9 +72,7 @@ module.exports = class Article extends Base {
     }
 
     relComments () {
-        return this.hasMany(Comment, 'articleId', this.PK).and({
-            'status': Comment.STATUS_APPROVED
-        });
+        return this.hasMany(Comment, 'articleId', this.PK).and({status: Comment.STATUS_APPROVED});
     }
 
     relTags () {

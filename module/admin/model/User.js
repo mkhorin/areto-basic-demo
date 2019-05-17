@@ -28,11 +28,11 @@ module.exports = class User extends Base {
                 [['email', 'name'], 'unique', {ignoreCase: true}]
             ],
             ATTR_VALUE_LABELS: {
-                'status': {
+                status: {
                     [this.STATUS_ACTIVE]: 'Active',
                     [this.STATUS_BANNED]: 'Banned'
                 },
-                'role': {
+                role: {
                     [this.ROLE_READER]: 'Reader',
                     [this.ROLE_AUTHOR]: 'Author',
                     [this.ROLE_EDITOR]: 'Editor',

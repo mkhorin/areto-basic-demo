@@ -35,17 +35,14 @@ module.exports = class Comment extends Base {
         };
     }
 
+    status = this.STATUS_PENDING;
+
     findRecent (limit = 3) {
         return this.findApproved().order({[Comment.PK]: -1}).limit(limit);
     }
 
     findApproved () {
-        return this.find({'status': this.STATUS_APPROVED});
-    }
-
-    constructor (config) {
-        super(config);
-        this.set('status', this.STATUS_PENDING);
+        return this.find({status: this.STATUS_APPROVED});
     }
 
     getTitle () {

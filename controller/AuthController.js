@@ -20,12 +20,10 @@ module.exports = class AuthController extends Base {
                 'rejectSigned': {
                     Class: require('areto/filter/AccessControl'),
                     rules: [{
-                        'actions': ['sign-in', 'sign-up'],
-                        'roles': ['?']
+                        actions: ['sign-in', 'sign-up'],
+                        roles: ['?']
                     }],
-                    denyPromise: (action, user)=> {
-                        return action.render('signed', {'model': user.model});
-                    }
+                    deny: (action, user)=> action.render('signed', {model: user.model})
                 }
             }
         };
@@ -37,7 +35,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignIn () {
-        let model = this.spawn(SignInForm, {'user': this.user});
+        let model = this.spawn(SignInForm, {user: this.user});
         await model.resolveCaptchaScenario();
         if (this.isGet()) {
             return this.render('sign-in', {model});
@@ -50,7 +48,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignUp () {
-        let model = this.spawn(SignUpForm, {'user': this.user});
+        let model = this.spawn(SignUpForm, {user: this.user});
         if (this.isGet()) {
             return this.render('sign-up', {model});
         }

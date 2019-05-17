@@ -18,7 +18,7 @@ module.exports = class Tag extends Base {
     }
 
     findByName (name) {
-        return this.find({'name': new RegExp(`^${name}$`, 'i')});
+        return this.find({name: new RegExp(`^${name}$`, 'i')});
     }
 
     findBySearch (text) {
