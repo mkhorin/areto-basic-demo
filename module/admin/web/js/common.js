@@ -5,8 +5,8 @@ $('.datepicker').datepicker({
 });
 
 $('.list-search').click(function () {
-    let $btn = $(this).attr('disabled', true);
-    let $input = $btn.closest('.input-group').find('input');
+    const $btn = $(this).attr('disabled', true);
+    const $input = $btn.closest('.input-group').find('input');
     window.location = location.pathname
         + '?search='
         + encodeURIComponent($.trim($input.val()));
@@ -19,7 +19,7 @@ $('.list-search-input').keyup(function (event) {
 });
 
 $('.action-submit').click(function () {
-    let $btn = $(this);
+    const $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
         let $form = $btn.closest('form');
         $btn.parent().find('button').attr('disabled', true);
@@ -28,9 +28,9 @@ $('.action-submit').click(function () {
 });
 
 $('.delete-object-ajax').click(function () {
-    let $btn = $(this);
+    const $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
-        let $btns = $btn.parent().find('button').attr('disabled', true);
+        const $btns = $btn.parent().find('button').attr('disabled', true);
         $.post($btn.data('url')).done(function () {
             location.reload();
         }).fail(function (xhr) {
@@ -41,8 +41,8 @@ $('.delete-object-ajax').click(function () {
 });
 
 $('.uploader').each(function () {
-    let $uploader = $(this);
-    let $field = $($uploader.data('id'));
+    const $uploader = $(this);
+    const $field = $($uploader.data('id'));
     $uploader.ajaxUploader()
         .on('uploader.selected', function (event, data) {
             $uploader.find('.uploader-overflow').hide();
@@ -62,26 +62,26 @@ $('.uploader').each(function () {
                 }
             });            
         })
-        .on('uploader.file.validated', function (event, data) {
-            if (data.image) {
-                data.$item.addClass('thumb').find('.uploader-thumb').append(data.image);
+        .on('uploader.file.validated', function (event, {image, $item}) {
+            if (image) {
+                $item.addClass('thumb').find('.uploader-thumb').append(image);
             }
         })
-        .on('uploader.file.started', function (event, data) {
-            data.$item.removeClass('pending').addClass('processing');
-            data.$item.find('.uploader-message').text('Uploading...');
+        .on('uploader.file.started', function (event, {$item}) {
+            $item.removeClass('pending').addClass('processing');
+            $item.find('.uploader-message').text('Uploading...');
         })
-        .on('uploader.file.progress', function (event, data) {
-            data.$item.find('.progress-bar').css('width', data.percent + '%');
+        .on('uploader.file.progress', function (event, {$item, percent}) {
+            $item.find('.progress-bar').css('width', percent + '%');
         })
-        .on('uploader.file.uploaded', function (event, data) {
-            data.$item.removeClass('pending processing').addClass('done');
-            data.$item.find('.uploader-message').text('Uploaded');
-            $field.val(addValueToString(data.response, $field.val()));
+        .on('uploader.file.uploaded', function (event, {$item, response}) {
+            $item.removeClass('pending processing').addClass('done');
+            $item.find('.uploader-message').text('Uploaded');
+            $field.val(addValueToString(response, $field.val()));
         })
-        .on('uploader.file.error', function (event, data) {
-            data.$item.removeClass('pending processing').addClass('failed');
-            data.$item.find('.uploader-message').text(data.error || 'Uploading is failed');
+        .on('uploader.file.error', function (event, {$item, error}) {
+            $item.removeClass('pending processing').addClass('failed');
+            $item.find('.uploader-message').text(error || 'Uploading failed');
         });
     $uploader.data('uploader').initItems();
 });

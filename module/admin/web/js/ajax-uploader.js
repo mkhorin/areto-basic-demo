@@ -1,7 +1,7 @@
 'use strict';
 
-(function () {    
-    let defaultSettings = {
+(function () {
+    const defaultSettings = {
         fileAttrName: 'file',
         maxFiles: 1,
         minSize: 1,
@@ -26,8 +26,8 @@
         alreadyExists: 'This file has already been selected',
         confirmRemoveStatus: [ 'done', 'uploading' ]
     };
-    
-    let methods = {
+
+    const methods = {
         settings: function (options) {
             // override default settings for new uploaders
             return $.extend(defaultSettings, options);
@@ -167,7 +167,7 @@
                     if (this.files[i].status === File.STATUS_DONE) {
                         ++counter.done;
                     }
-                    ++counter.total;    
+                    ++counter.total;
                 }
             }
             return counter;
@@ -192,8 +192,8 @@
             for (let i = 0; i < this.files.length; ++i) {
                 let file = this.files[i];
                 if (!file.removed && !file.failed && !(file.status in map)) {
-                    map[file.status] = file;    
-                } 
+                    map[file.status] = file;
+                }
             }
             return map;
         }
@@ -225,7 +225,7 @@
             this.fireEvent('appended');
             this.fireEvent('uploaded');
         },
-        
+
         fireEvent: function (eventName) {
             this.uploader.fireEvent('file.' + eventName, this);
         },
@@ -269,7 +269,7 @@
             this.fireEvent('validated');
             this.uploader.processNext();
             return; //*/
-            // trying to load a file as an image and then start to validateельно
+            // trying to load a file as an image and then start to validate
             this.image = new Image;
             this.image.onload = this.startValidate.bind(this);
             this.image.onerror = function () {
@@ -325,13 +325,12 @@
             let files = this.uploader.files;
             for (let i = 0; i < files.length; ++i) {
                 if (!files[i].removed) {
-                    // проверять на совпадение только с предыдущими файлами
                     if (files[i] === this) {
                         return false;
                     }
                     if (files[i].file.size === this.file.size && files[i].file.name === this.file.name) {
                         return true;
-                    }    
+                    }
                 }
             }
             return false;
@@ -364,7 +363,6 @@
                 this.xhr.upload.addEventListener('progress', this.progressUploading.bind(this), false);
             }
             this.xhr.onreadystatechange = this.changeReadyState.bind(this);
-            // создать данные формы для выгрузки на сервер
             let data = new FormData;
             data.append(this.uploader.options.fileAttrName, this.file.name);
             data.append(this.uploader.options.fileAttrName, this.file);
@@ -382,15 +380,15 @@
         },
 
         changeReadyState: function (event) {
-            if (this.xhr.readyState == 4) {
-                if (this.xhr.status == 200) {
+            if (this.xhr.readyState === 4) {
+                if (this.xhr.status === 200) {
                     this.status = UFile.STATUS_DONE;
                     this.response = this.xhr.response;
                     this.fireEvent('uploaded');
                 } else {
                     this.setError(this.xhr.response);
                 }
-                this.uploader.processNext();    
+                this.uploader.processNext();
             }
         }
     };

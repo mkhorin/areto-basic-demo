@@ -30,7 +30,7 @@ module.exports = class BaseController extends Base {
     }
 
     createDataProvider (config) {
-        return new ActiveDataProvider({controller: this, ...config});
+        return this.spawn(ActiveDataProvider, {controller: this, ...config});
     }
 
     async renderDataProvider (provider, template, data) {

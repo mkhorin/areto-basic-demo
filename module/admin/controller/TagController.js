@@ -11,9 +11,9 @@ module.exports = class TagController extends Base {
                     Class: require('areto/filter/AccessControl'),
                     rules: [{
                         actions: ['create'],
-                        roles: ['editor']
+                        permissions: ['editor']
                     },{
-                        roles: ['reader']
+                        permissions: ['reader']
                     }]
                 }
             }

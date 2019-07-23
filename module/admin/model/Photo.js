@@ -31,7 +31,7 @@ module.exports = class Photo extends Base {
                     storeDir: path.join(__dirname, '../upload/photo'),
                     thumbDir: path.join(__dirname, '../../../web/photo'),
                     size: 720,
-                    neededThumbs: [720, 360, 128],
+                    thumbs: [720, 360, 128],
                     watermark: {
                         720: path.join(__dirname, '../asset/photo-watermark.png')
                     }

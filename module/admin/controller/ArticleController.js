@@ -22,10 +22,10 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionView () {
-        let model = await this.getModel({
+        const model = await this.getModel({
             with: ['author', 'category', 'photos', 'mainPhoto', 'tags']
         });
-        let comments = this.createDataProvider({
+        const comments = this.createDataProvider({
             query: model.relComments(),
             sort: {
                 attrs: {[model.PK]: true},
@@ -36,8 +36,9 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionCreate () {
-        let model = this.spawn(Article);
+        const model = this.spawn(Article);
         if (this.isGet()) {
+            await model.setDefaultValues();
             return this.renderForm('create', {model});
         }
         model.load(this.getPostParams());
@@ -48,8 +49,8 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionUpdate () {
-        let model = await this.getModel({with: ['photos', 'tags']});
-        let access = await this.user.can('updateArticle', {authorId: model.get('authorId')});
+        const model = await this.getModel({with: ['photos', 'tags']});
+        const access = await this.user.can('updateArticle', {authorId: model.get('authorId')});
         if (!access) {
             throw new Forbidden;
         }

@@ -21,7 +21,7 @@ module.exports = class Category extends Base {
     }
 
     findNames () {
-        return this.find().select('name').order({name: 1}).asRaw();
+        return this.find().select('name').order({name: 1}).raw();
     }
 
     relArticles () {

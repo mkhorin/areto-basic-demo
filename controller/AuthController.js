@@ -21,9 +21,9 @@ module.exports = class AuthController extends Base {
                     Class: require('areto/filter/AccessControl'),
                     rules: [{
                         actions: ['sign-in', 'sign-up'],
-                        roles: ['?']
+                        permissions: ['?']
                     }],
-                    deny: (action, user)=> action.render('signed', {model: user.model})
+                    deny: action => action.render('signed', {model: action.controller.user.model})
                 }
             }
         };

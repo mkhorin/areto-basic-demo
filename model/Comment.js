@@ -24,7 +24,9 @@ module.exports = class Comment extends Base {
                 [['name','email','content'], 'required'],
                 ['name', 'string', {min: 2, max: 32}],
                 ['email', 'email'],
-                ['content', 'string', {min: 3, max: 512}]
+                ['content', 'string', {min: 3, max: 512}],
+                ['status', 'default', {value: 'pending'}],
+                ['status', 'unsafe'] // skip attribute loading
             ],
             BEHAVIORS: {
                 'timestamp': require('areto/behavior/TimestampBehavior')
@@ -34,8 +36,6 @@ module.exports = class Comment extends Base {
             STATUS_REJECTED: 'rejected'
         };
     }
-
-    status = this.STATUS_PENDING;
 
     findRecent (limit = 3) {
         return this.findApproved().order({[Comment.PK]: -1}).limit(limit);

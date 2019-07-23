@@ -14,7 +14,7 @@ module.exports = class File extends Base {
             // thumbDir: path.join(__dirname, '../web/thumbs'),
             thumbExtension: 'jpg',
             quality: 50,
-            // neededThumbs: [800, 400, 200],
+            // thumbs: [800, 400, 200],
             // if thumb max height does not match thumb max width
             // thumbHeights: { 128: 164, 200: 300 },
             // thumbResizeMethod: 'cropResizeImage',
@@ -22,12 +22,11 @@ module.exports = class File extends Base {
             // afterProcessFile: async (fileModel)
             ...config
         });
-        if (!this.defaultThumbSize && this.neededThumbs) {
-            this.defaultThumbSize = this.neededThumbs[this.neededThumbs.length - 1];
+        if (!this.defaultThumbSize && this.thumbs) {
+            this.defaultThumbSize = this.thumbs[this.thumbs.length - 1];
         }
         this.setHandler(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
-        this.setHandler(ActiveRecord.EVENT_BEFORE_INSERT, this.beforeInsert);
-        this.setHandler(ActiveRecord.EVENT_BEFORE_UPDATE, this.beforeUpdate);
+        this.setHandler(ActiveRecord.EVENT_AFTER_VALIDATE, this.afterValidate);
         this.setHandler(ActiveRecord.EVENT_AFTER_REMOVE, this.afterRemove);
     }
   
@@ -62,18 +61,19 @@ module.exports = class File extends Base {
         }
     }
 
-    async beforeInsert () {
-        if (this.fileModel) {
-            this.checkFile();
-            await this.processFile();
+    async afterValidate () {
+        if (!this.fileModel || this.owner.hasError()) {
+            return true;
         }
-    }
-
-    async beforeUpdate () {
-        if (this.fileModel) {
+        try {
             await this.checkFile();
-            await this.removeFiles();
+            if (!this.owner.isNew()) {
+                await this.removeFiles();
+            }
             await this.processFile();
+        } catch (err) {
+            this.log('error', err);
+            this.owner.addError(this.fileAttr, err);
         }
     }
 
@@ -120,7 +120,7 @@ module.exports = class File extends Base {
             try {
                 await fs.promises.unlink(thumbPath);
             } catch (err) {
-                this.owner.log('error', `File remove failed: ${thumbPath}`, err);
+                this.log('error', `File remove failed: ${thumbPath}`, err);
             }
         }
     }
@@ -129,8 +129,8 @@ module.exports = class File extends Base {
 
     getThumbPaths () {
         let paths = [this.getPath()];
-        if (this.neededThumbs) {
-            for (let thumb of this.neededThumbs)  {
+        if (this.thumbs) {
+            for (let thumb of this.thumbs)  {
                 paths.push(this.getThumbPath(thumb));
             }
         }
@@ -138,8 +138,8 @@ module.exports = class File extends Base {
     }
 
     async generateThumbs () {
-        if (Array.isArray(this.neededThumbs) && this.fileModel.isImage()) {
-            for (let width of this.neededThumbs) {
+        if (Array.isArray(this.thumbs) && this.fileModel.isImage()) {
+            for (let width of this.thumbs) {
                 await this.createThumb(width);
             }
         }

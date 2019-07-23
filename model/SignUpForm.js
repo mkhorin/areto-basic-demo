@@ -29,7 +29,7 @@ module.exports = class SignUpForm extends Base {
 
     async register () {
         if (await this.validate()) {
-            let model = new User;
+            const model = this.spawn(User);
             model.setAttrs(this);
             if (await model.save()) {
                 await this.user.login(model, 0);

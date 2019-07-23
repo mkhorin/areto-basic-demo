@@ -30,6 +30,7 @@ module.exports = class Article extends Base {
                     this.STATUS_ARCHIVED,
                     this.STATUS_BLOCKED
                 ]}],
+                ['status', 'default', {value: this.STATUS_DRAFT}],
                 ['files', 'safe'],
                 ['tags', 'validateTags', {skipOnAnyError: true}]
             ],
@@ -52,8 +53,6 @@ module.exports = class Article extends Base {
         };
     }
 
-    status = this.STATUS_DRAFT;
-
     findByStatus (status) {
         return this.find({status});
     }
@@ -67,7 +66,7 @@ module.exports = class Article extends Base {
     }
     
     findToSelect () {
-        return this.find().select('title').asRaw();
+        return this.find().select('title').raw();
     }
 
     // EVENTS
@@ -121,7 +120,7 @@ module.exports = class Article extends Base {
         }
         items = items.split(',').map(item => item.trim()).filter(item => item);
         items = ArrayHelper.unique(items);
-        await this.unlinkAll('tags');
+        await this.getLinker().unlinkAll('tags');
         for (let item of items) {
             await this.resolveTag(item);
         }
@@ -131,11 +130,11 @@ module.exports = class Article extends Base {
         let tag = this.spawn(Tag);
         let model = await tag.findByName(name).one();
         if (model) {
-            return this.link('tags', model);
+            return this.getLinker().link('tags', model);
         }
         tag.set('name', name);
         if (await tag.save()) {
-            await this.link('tags', tag);
+            await this.getLinker().link('tags', tag);
         }
     }
 

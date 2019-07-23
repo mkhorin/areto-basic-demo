@@ -32,8 +32,11 @@ module.exports = class User extends Base {
         };
     }
 
-    role = this.ROLE_AUTHOR;
-    status = this.STATUS_ACTIVE;
+    constructor (config) {
+        super(config);
+        this.set('role', this.ROLE_AUTHOR);
+        this.set('status', this.STATUS_ACTIVE);
+    }
 
     findIdentity (id) {
         return this.findById(id).and({status: this.STATUS_ACTIVE});

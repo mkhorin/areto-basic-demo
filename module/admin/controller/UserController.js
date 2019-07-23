@@ -11,7 +11,7 @@ module.exports = class UserController extends Base {
                     Class: require('areto/filter/AccessControl'),
                     rules: [{
                         allow: true,
-                        roles: ['admin']
+                        permissions: ['admin']
                     }]
                 }
             }

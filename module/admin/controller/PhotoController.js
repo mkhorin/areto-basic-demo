@@ -28,21 +28,20 @@ module.exports = class PhotoController extends Base {
     }
 
     async actionCreate () {
-        let model = this.spawn(Photo);
-        model.scenario = 'create';
+        const model = this.spawn(Photo, {scenario: 'create'});
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
-        let articles = await this.spawn(Article).findToSelect().all();
+        const articles = await this.spawn(Article).findToSelect().all();
         await this.render('create', {model, articles});
     }
     
     async actionUpdate () {
-        let model = await this.getModel();
+        const model = await this.getModel();
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
             return this.backToRef();
         }
-        let articles = await this.spawn(Article).findToSelect().all();
+        const articles = await this.spawn(Article).findToSelect().all();
         await this.render('update', {model, articles});
     }
 

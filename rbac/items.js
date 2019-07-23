@@ -2,7 +2,7 @@
 
 module.exports = {
 
-    // PERMISSIONS
+    // PERMISSION ITEMS
 
     'updateArticle': {
         type: 'permission'
@@ -14,7 +14,7 @@ module.exports = {
         rule: 'author'
     },
     
-    // ROLES
+    // ROLE ITEMS
 
     'admin': {
         type: 'role',
