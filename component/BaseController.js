@@ -39,7 +39,7 @@ module.exports = class BaseController extends Base {
     }
 
     getLabelSelectItems (attrName, model) {
-        let data = model.constructor.getAttrValueLabels(attrName);
+        const data = model.constructor.getAttrValueLabels(attrName);
         return SelectHelper.getMapItems(this.translateMessageMap(data));
     }
 };

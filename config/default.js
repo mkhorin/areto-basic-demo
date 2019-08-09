@@ -7,19 +7,17 @@ module.exports = {
 
     components: {        
         'logger': {
-            level: 'info',
-            types: { // optional: separate storage for error logs
-                'error': {
-                    Class: require('areto/log/LogType'),
-                    store: require('areto/log/FileLogStore')
-                }
-            }
+            level: 'info'
+        },
+        'actionProfiler': {
+            Class: require('areto/log/ActionProfiler'),
+            level: 'debug'
         },
         'view': {
              // theme: 'sample'
         },
-        'connection': {
-            schema: 'mongodb',
+        'db': {
+            Class: require('areto/db/MongoDatabase'),
             settings: {
                 'host': process.env.MONGO_HOST || 'localhost',
                 'port': process.env.MONGO_PORT || 27017,
@@ -48,7 +46,7 @@ module.exports = {
             secret: 'basic.app',
             lifetime: 30 * 60, // seconds
             store: {
-                'Class': require('areto/web/session/DbSessionStore'),
+                'Class': require('areto/web/session/DatabaseSessionStore'),
                 'table': 'session'
             }
         },
@@ -63,10 +61,8 @@ module.exports = {
         'rateLimit': {
             attempts: 3
         },
-        'scheduler': {
-        },
-        'user': {
-            UserModel: require('../model/User'),
+        'auth': {
+            Identity: require('../model/User'),
             loginUrl: '/auth/sign-in',
             returnUrl: '/',
             enableAutoLogin: true,
@@ -75,7 +71,8 @@ module.exports = {
                 'path': '/'
             },
             defaultAssignments: ['reader']
-        }        
+        },
+        'scheduler': {}
     },
     modules: {
         'admin': {}

@@ -19,7 +19,7 @@
     </span>
 </p>
 
-<% let photos = model.get('photos'); %>
+<% const photos = model.get('photos'); %>
 <% if (photos && photos.length) { %>
 <div id="carousel-article-photos" class="carousel slide inline-block mb20">
     <div class="carousel-inner" role="listbox">
@@ -102,7 +102,7 @@
 <hr>
 
 <a name="comment-form"></a>
-<% let done = _controller.getFlash('comment-done'); %>
+<% const done = _controller.getFlash('comment-done'); %>
 <% if (done.length) { %>
 <div class="alert alert-success"><%= done[0] %></div>
 <% } else { %>

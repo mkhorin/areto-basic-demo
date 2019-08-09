@@ -5,10 +5,11 @@ const Base = require('../component/BaseController');
 module.exports = class AuthController extends Base {
 
     static getConstants () {
+        // noinspection Annotator
         return {
             ACTIONS: {
                 'captcha': {
-                    Class: require('areto/captcha/CaptchaAction'),
+                    Class: require('areto/security/captcha/CaptchaAction'),
                     minLength: 3,
                     maxLength: 4,
                     fontFamily: 'Serif',
@@ -23,7 +24,7 @@ module.exports = class AuthController extends Base {
                         actions: ['sign-in', 'sign-up'],
                         permissions: ['?']
                     }],
-                    deny: action => action.render('signed', {model: action.controller.user.model})
+                    deny: action => action.render('signed', {model: action.controller.user.identity})
                 }
             }
         };
@@ -35,7 +36,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignIn () {
-        let model = this.spawn(SignInForm, {user: this.user});
+        const model = this.spawn(SignInForm, {user: this.user});
         await model.resolveCaptchaScenario();
         if (this.isGet()) {
             return this.render('sign-in', {model});
@@ -48,7 +49,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignUp () {
-        let model = this.spawn(SignUpForm, {user: this.user});
+        const model = this.spawn(SignUpForm, {user: this.user});
         if (this.isGet()) {
             return this.render('sign-up', {model});
         }

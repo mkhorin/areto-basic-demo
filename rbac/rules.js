@@ -3,6 +3,6 @@
 module.exports = {    
 
     'author': {
-        Class: require('areto/rbac/AuthorRule')
+        Class: require('areto/security/rbac/AuthorRule')
     }
 };

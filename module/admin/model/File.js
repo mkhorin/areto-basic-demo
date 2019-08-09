@@ -33,7 +33,7 @@ module.exports = class File extends Base {
     }
 
     findExpired (timeout = 3600) {
-        let expired = new Date(Date.now() - parseInt(timeout) * 1000);
+        const expired = new Date(Date.now() - parseInt(timeout) * 1000);
         return this.find(['<', 'updatedAt', expired]);
     }
 
@@ -50,7 +50,7 @@ module.exports = class File extends Base {
     }
 
     async upload (req, res, user) {
-        let uploader = this.createSingleUploader();
+        const uploader = this.createSingleUploader();
         await PromiseHelper.promise(uploader.bind(this, req, res));
         this.populateFileStats(req.file, req, user);
         this.set('file', this.getFileStats());
@@ -73,7 +73,7 @@ module.exports = class File extends Base {
     }
 
     generateFilename (req, file, callback) {
-        callback(null, Date.now().toString() + CommonHelper.getRandom(11, 99));
+        callback(null, Date.now().toString() + SecurityHelper.getRandomString(11, 99));
     }
 
     populateFileStats (file, req, user) {
@@ -109,5 +109,5 @@ module.exports.init(module);
 
 const fs = require('fs');
 const multer = require('multer');
-const CommonHelper = require('areto/helper/CommonHelper');
 const PromiseHelper = require('areto/helper/PromiseHelper');
+const SecurityHelper = require('areto/helper/SecurityHelper');

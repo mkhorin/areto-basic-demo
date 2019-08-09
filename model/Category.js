@@ -2,7 +2,7 @@
 
 const Base = require('areto/db/ActiveRecord');
 
-module.exports = class Categoryy extends Base {
+module.exports = class Category extends Base {
 
     static getConstants () {
         return {

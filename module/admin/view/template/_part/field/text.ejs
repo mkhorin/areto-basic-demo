@@ -1,8 +1,9 @@
 <!-- _part/field/text -->
-
-<% let params = {
+<%
+const params = {
     rows: typeof rows === 'undefined' ? 4 : rows
-}; %>
+};
+%>
 <%- include('_params', {params}) %>
 
 <div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">

@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-9">
         <p><b>Article:</b>
-            <% let article = model.get('article') %>
+            <% const article = model.get('article') %>
             <% if (article) { %>
             <a href="<%- _url(['article/view', article]) %>">
                 <%= article.getTitle() %>

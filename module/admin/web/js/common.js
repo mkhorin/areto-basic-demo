@@ -21,7 +21,7 @@ $('.list-search-input').keyup(function (event) {
 $('.action-submit').click(function () {
     const $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
-        let $form = $btn.closest('form');
+        const $form = $btn.closest('form');
         $btn.parent().find('button').attr('disabled', true);
         $form.attr('action', $btn.data('url')).submit();
     }    
@@ -30,12 +30,12 @@ $('.action-submit').click(function () {
 $('.delete-object-ajax').click(function () {
     const $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
-        const $btns = $btn.parent().find('button').attr('disabled', true);
+        const $buttons = $btn.parent().find('button').attr('disabled', true);
         $.post($btn.data('url')).done(function () {
             location.reload();
         }).fail(function (xhr) {
             console.error(xhr);
-            $btns.removeAttr('disabled');
+            $buttons.removeAttr('disabled');
         });
     }
 });
@@ -44,7 +44,7 @@ $('.uploader').each(function () {
     const $uploader = $(this);
     const $field = $($uploader.data('id'));
     $uploader.ajaxUploader()
-        .on('uploader.selected', function (event, data) {
+        .on('uploader.selected', function () {
             $uploader.find('.uploader-overflow').hide();
         })
         .on('uploader.overflow', function (event, data) {
@@ -87,14 +87,14 @@ $('.uploader').each(function () {
 });
 
 function addValueToString (value, str) {
-    let array = str ? str.split(',') : [];
+    const array = str ? str.split(',') : [];
     array.push(value);
     return array.join(',');
 }
 
 function removeValueFromString (value, str) {
-    let array = str ? str.split(',') : [];
-    let index = array.indexOf(value);
+    const array = str ? str.split(',') : [];
+    const index = array.indexOf(value);
     index > -1 && array.splice(index, 1);
     return array.join(',');
 }

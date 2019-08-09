@@ -1,7 +1,7 @@
 
-<% let url = _url(['view', model]); %>
-<% let photo = model.get('mainPhoto'); %>
-<% let tags = model.get('tags'); %>
+<% const url = _url(['view', model]); %>
+<% const photo = model.get('mainPhoto'); %>
+<% const tags = model.get('tags'); %>
 
 <h3>
     <a href="<%- url %>"><%= model.getTitle() %></a>
@@ -25,7 +25,7 @@
 
 <% if (photo) { %>
 <div class="mt20">
-    <a href="<%- url%>">
+    <a href="<%- url %>">
         <img src="<%- photo.getMedium() %>" class="center-block thumbnail img-responsive">
     </a>
 </div>

@@ -14,7 +14,7 @@ module.exports = class SignInForm extends Base {
                 ['rememberMe', 'boolean'],
                 ['captchaCode', 'required', {on: [CAPTCHA_SCENARIO]}],
                 ['captchaCode', {
-                    Class: require('areto/captcha/CaptchaValidator'),
+                    Class: require('areto/security/captcha/CaptchaValidator'),
                     on: [CAPTCHA_SCENARIO]
                 }]
             ],
@@ -54,17 +54,17 @@ module.exports = class SignInForm extends Base {
 
     async login () {
         if (await this.validate()) {
-            let result = await this.createLoginByEmail().login();
-            if (result.error) {
-                this.addError('email', result.error);
+            const error = await this.createAuthService().login();
+            if (error) {
+                this.addError('email', error);
             }
             await this.updateRateLimit();
             this.toggleCaptchaScenario();
         }
     }
 
-    createLoginByEmail () {
-        return new LoginByEmail({
+    createAuthService () {
+        return new PasswordAuthService({
             module: this.module,
             email: this.get('email'),
             password: this.get('password'),
@@ -86,5 +86,5 @@ module.exports = class SignInForm extends Base {
 };
 module.exports.init(module);
 
-const RateLimit = require('areto/web/rate-limit/RateLimit');
-const LoginByEmail = require('../component/auth/LoginByEmail');
+const RateLimit = require('areto/security/rate-limit/RateLimit');
+const PasswordAuthService = require('../component/security/PasswordAuthService');

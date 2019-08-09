@@ -23,7 +23,7 @@ module.exports = class Article extends Base {
     }
 
     findBySearch (text) {
-        let query = this.findPublished();
+        const query = this.findPublished();
         if (text === '') {
             return query;
         }

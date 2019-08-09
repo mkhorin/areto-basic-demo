@@ -4,7 +4,7 @@ module.exports = {
     components: {
         'i18n': {
             sources: {
-                'admin': require('areto/i18n/JsMessageSource')
+                'admin': require('areto/i18n/FileMessageSource')
             }
         }
     },

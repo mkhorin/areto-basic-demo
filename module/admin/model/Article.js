@@ -58,7 +58,7 @@ module.exports = class Article extends Base {
     }
 
     findBySearch (text) {
-        let query = this.find();
+        const query = this.find();
         if (typeof text === 'string' && /[a-z0-9а-я\-\s]{1,32}/i.test(text)) {
             query.and(['LIKE','title', `%${text}%`]);
         }
@@ -113,7 +113,7 @@ module.exports = class Article extends Base {
 
     // TAG
 
-    async validateTags (attr, params) {
+    async validateTags (attr) {
         let items = this.get(attr);
         if (typeof items !== 'string') {
             return;
@@ -127,8 +127,8 @@ module.exports = class Article extends Base {
     }
 
     async resolveTag (name) {
-        let tag = this.spawn(Tag);
-        let model = await tag.findByName(name).one();
+        const tag = this.spawn(Tag);
+        const model = await tag.findByName(name).one();
         if (model) {
             return this.getLinker().link('tags', model);
         }

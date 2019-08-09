@@ -1,9 +1,10 @@
 <!-- _part/field/select -->
-
-<% let params = {
+<%
+const params = {
     itemValueKey: typeof itemValueKey === 'undefined' ? model.PK : itemValueKey,
     itemLabelKey: typeof itemLabelKey === 'undefined' ? 'name' : itemLabelKey
-}; %>
+};
+%>
 <%- include('_params', {params}) %>
 
 <div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">

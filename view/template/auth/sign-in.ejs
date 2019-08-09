@@ -1,10 +1,10 @@
-<% let title = 'Sign in'; %>
+<% const title = 'Sign in'; %>
 
-<% layout(_view.get('_layout/main')) -%>
+<% layout(_view.get('_layout/main'), {
+    breadcrumbs: [{label: title}]
+}) -%>
 
 <% block('title', title) -%>
-
-<% _data.set('breadcrumbs', [{label: title}]) %>
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-xs-8">
-                    <% if (_controller.user.config.enableAutoLogin) { %>
+                    <% if (_controller.user.auth.enableAutoLogin) { %>
                     <%- include(_view.get('_part/field/checkbox'), {attr: 'rememberMe'}) %>
                     <% } %>
                 </div>

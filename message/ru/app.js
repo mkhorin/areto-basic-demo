@@ -33,6 +33,7 @@ module.exports = {
     'Tag list': 'Список меток',
     'Tagged articles not found': 'Статьи с данной меткой не найдены',
     'Tags': 'Метки',
+    'This account has been suspended': 'Действие этого аккаунта приостановлено',
     'Title': 'Заголовок',
 
     'Your name': 'Ваше имя'

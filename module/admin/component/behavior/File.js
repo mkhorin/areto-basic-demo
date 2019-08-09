@@ -49,7 +49,7 @@ module.exports = class File extends Base {
     // EVENTS
 
     async beforeValidate () {
-        let file = this.owner.get(this.fileAttr);
+        const file = this.owner.get(this.fileAttr);
         if (file instanceof this.FileClass) {
             this.fileModel = file;
             this.owner.set(this.fileAttr, file.getFileStats());
@@ -87,18 +87,18 @@ module.exports = class File extends Base {
         if (!this.fileModel) {
             throw new Error(`File model is not set`);
         }
-        let filePath = this.fileModel.getPath();
-        let stat = await fs.promises.stat(filePath);
+        const filePath = this.fileModel.getPath();
+        const stat = await fs.promises.stat(filePath);
         if (!stat.isFile()) {
             throw new Error(`This is not file: ${filePath}`);
         }
     }
 
     async processFile () {
-        let filename = this.createFilename(this.fileModel);
-        let destPath = path.join(this.storeDir, filename);
-        await fs.promises.mkdir(path.dirname(destPath), {recursive: true});
-        await fs.promises.rename(this.fileModel.getPath(), destPath);
+        const filename = this.createFilename(this.fileModel);
+        const targetPath = path.join(this.storeDir, filename);
+        await fs.promises.mkdir(path.dirname(targetPath), {recursive: true});
+        await fs.promises.rename(this.fileModel.getPath(), targetPath);
         this.owner.set(this.filenameAttr, filename);
         await this.generateThumbs();
         if (this.afterProcessFile) {
@@ -111,7 +111,7 @@ module.exports = class File extends Base {
     }
 
     generateNestedDir () { // split by months
-        let now = new Date;
+        const now = new Date;
         return now.getFullYear() +'-'+ ('0' + (now.getMonth() + 1)).slice(-2);
     }
 
@@ -120,7 +120,7 @@ module.exports = class File extends Base {
             try {
                 await fs.promises.unlink(thumbPath);
             } catch (err) {
-                this.log('error', `File remove failed: ${thumbPath}`, err);
+                this.log('warn', `File remove failed: ${thumbPath}`, err);
             }
         }
     }
@@ -128,7 +128,7 @@ module.exports = class File extends Base {
     // THUMBS
 
     getThumbPaths () {
-        let paths = [this.getPath()];
+        const paths = [this.getPath()];
         if (this.thumbs) {
             for (let thumb of this.thumbs)  {
                 paths.push(this.getThumbPath(thumb));
@@ -149,7 +149,7 @@ module.exports = class File extends Base {
         let image = sharp(this.getPath());
         let height = this.getThumbHeight(width);
         image.resize(width, height, {fit: 'inside'});
-        this.setWatermark(image, width);
+        image = await this.setWatermark(image, width);
         let thumbPath = this.getThumbPath(width);
         await fs.promises.mkdir(path.dirname(thumbPath), {recursive: true});
         return image.jpeg({quality: this.quality}).toFile(thumbPath);
@@ -161,13 +161,21 @@ module.exports = class File extends Base {
             : width;
     }
 
-    setWatermark (image, width) {
-        if (this.watermark && this.watermark[width]) {
-            image.composite([{
-                gravity: 'northwest',
-                input: this.watermark[width]                
-            }]);
+    async setWatermark (image, width) {
+        if (!this.watermark || !this.watermark[width]) {
+            return image;
         }
+        const {data, info} = await image.raw().toBuffer({resolveWithObject: true});
+        const overlay = await sharp(this.watermark[width]).metadata();
+        image = sharp(data, {raw: info});
+        if (info.width < overlay.width || info.height < overlay.height) {
+            this.log('warn', `Watermark skipped: Overlay is larger than image: ${this.getFilename()}`);
+            return image;
+        }
+        return image.composite([{
+            gravity: 'northwest',
+            input: this.watermark[width]
+        }]);
     }
 };
 

@@ -5,7 +5,7 @@ const Base = require('./BaseController');
 module.exports = class CrudController extends Base {
 
     async actionCreate () {
-        let model = this.spawn(this.getModelClass());
+        const model = this.spawn(this.getModelClass());
         model.scenario = 'create';
         this.isPost() && await model.load(this.getPostParams()).save()
             ? this.backToRef()
@@ -13,12 +13,12 @@ module.exports = class CrudController extends Base {
     }
     
     async actionView (params) {
-        let model = await this.getModel(params);
+        const model = await this.getModel(params);
         await this.render('view', {model});
     }
 
     async actionUpdate (params) {
-        let model = await this.getModel(params);
+        const model = await this.getModel(params);
         model.scenario = 'update';
         this.isPost() && await model.load(this.getPostParams()).save()
             ? this.backToRef()
@@ -26,7 +26,7 @@ module.exports = class CrudController extends Base {
     }
 
     async actionDelete (params) {
-        let model = await this.getModel(params);
+        const model = await this.getModel(params);
         await model.remove();
         this.isAjax()
             ? this.send(model.getId())

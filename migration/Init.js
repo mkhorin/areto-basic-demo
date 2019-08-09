@@ -6,7 +6,7 @@ module.exports = class Init extends Base {
    
     async apply () {
         await this.getDb().createIndex('user', [{email: 1}, {unique: true}]);
-        let user = this.spawn(User);
+        const user = this.spawn(User);
         user.setAttrs({
             name: 'Administrator',
             email: 'a@a.a',

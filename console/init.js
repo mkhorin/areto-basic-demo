@@ -10,12 +10,12 @@ const application = new Application;
 
 (async ()=> {
     try {
-        let data = SystemHelper.parseArguments(process.argv);
+        const data = SystemHelper.parseArguments(process.argv);
         await application.init();
-        let migrator = new Migrator({module: application});
+        const migrator = new Migrator({module: application});
         await migrator.migrate(data.action, data.file);
     } catch (err) {
-        application.logError('Migration error', err);
+        application.log('error', 'Migration failed:', err);
     }
     process.exit();
 })();

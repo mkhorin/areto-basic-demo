@@ -1,8 +1,8 @@
 <%
-    let flashes = _controller.getFlash();
+    const flashes = _controller.getFlash();
     if (flashes) {
         for (let key of Object.keys(flashes)) {
-            let flash = flashes[key];
+            const flash = flashes[key];
 %>
     <div class="alert alert-<%- key %> flash-alert">
     <% for (let item of flash) { %>

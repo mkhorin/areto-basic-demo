@@ -1,8 +1,9 @@
 
-<% let params = {
+<%
+const params = {
     label: typeof label === 'undefined' ? model.getAttrLabel(attr) : label
-}; %>
-
+};
+%>
 <div class="form-group">
     <label class="col-sm-2 control-label">
         <%- params.label %>

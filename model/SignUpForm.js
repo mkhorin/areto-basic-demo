@@ -14,7 +14,7 @@ module.exports = class SignUpForm extends Base {
                 ['email', 'email'],
                 ['password', 'string', {min: 6, max: 24}],
                 ['passwordRepeat', 'compare', {compareAttr: 'password'}],
-                ['captchaCode', require('areto/captcha/CaptchaValidator')],
+                ['captchaCode', require('areto/security/captcha/CaptchaValidator')],
                 [['name', 'email'], 'unique', {
                     skipOnAnyError: true, 
                     targetClass: User, 
@@ -28,15 +28,18 @@ module.exports = class SignUpForm extends Base {
     }
 
     async register () {
-        if (await this.validate()) {
-            const model = this.spawn(User);
-            model.setAttrs(this);
-            if (await model.save()) {
-                await this.user.login(model, 0);
-            } else {
-                this.addError('name', model.getFirstError());
-            }
+        if (!await this.validate()) {
+            return false;
         }
+        const model = this.spawn(User);
+        model.setAttrs(this);
+        if (!await model.save()) {
+            return this.addError('name', model.getFirstError());
+        }
+        return this.user.login({
+            identity: model,
+            duration: 0
+        });
     }
 };
 module.exports.init(module);

@@ -9,24 +9,32 @@ module.exports = class DefaultController extends Base {
     }
 
     async actionError () {
-        if (this.err.isServerError() || this.module.get('logger').isDebug()) {
-            this.log('error', this.err);
-        }
-        this.setHttpStatus(this.err.status);
+        this.log('error', this.err);
+        const status = this.err.status;
+        this.setHttpStatus(status);
         if (this.isAjax()) {
-            return this.sendText(this.err, this.err.status);
+            return this.sendText(this.err, status);
         }
-        if (this.err.status === 403 && this.user.isGuest()) {
-            return this.user.loginRequired(this);
+        if (status === 403 && this.isAuthRedirect()) {
+            return true;
         }
-        switch (this.err.status) {
+        switch (status) {
             case 400:
             case 403:
             case 404:
-                await this.render(this.err.status);
-                break;
-            default:
-                await this.render(500);
+                return this.render(status);
+        }
+        this.render(500);
+    }
+
+    isAuthRedirect () {
+        if (this.user.isGuest()) {
+            this.user.setReturnUrl(this.getOriginalUrl());
+            const url = this.user.getLoginUrl();
+            if (url) {
+                this.redirect(url);
+                return true;
+            }
         }
     }
 };

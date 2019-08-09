@@ -9,8 +9,8 @@
     title: model.getTitle()
 }]) %>
 
-<% let stat = _view.get('_part/field/static'); %>
-<% let relation = _view.get('_part/field/relation'); %>
+<% const stat = _view.get('_part/field/static'); %>
+<% const relation = _view.get('_part/field/relation'); %>
 
 <%- include(relation, {
     attr: 'category',

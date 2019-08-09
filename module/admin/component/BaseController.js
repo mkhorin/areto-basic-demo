@@ -5,7 +5,7 @@ const Base = require('../../../component/BaseController');
 module.exports = class BaseController extends Base {
 
     getRefUrl () {
-        let ref = this.isGet()
+        const ref = this.isGet()
             ? this.getHttpHeader('referrer')
             : this.getPostParam('referrer');
         return ref ? ref : '';

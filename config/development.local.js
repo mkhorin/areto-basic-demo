@@ -2,7 +2,7 @@
 
 module.exports = {
     components: {
-        'connection': {
+        'db': {
             settings: {                
                 user: '',
                 password: ''

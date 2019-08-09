@@ -20,7 +20,7 @@ module.exports = class User extends Base {
             BEHAVIORS: {
                 'timestamp': require('areto/behavior/TimestampBehavior')
             },
-            STATUS_PENDING: 'penging',
+            STATUS_PENDING: 'pending',
             STATUS_ACTIVE: 'active',
             STATUS_BANNED: 'banned',
             ROLE_READER: 'reader',
@@ -74,22 +74,18 @@ module.exports = class User extends Base {
    
     // PASSWORD
 
-    validatePassword (password) {
-        return SecurityHelper.validatePassword(password, this.get('passwordHash'));
+    checkPassword (password) {
+        return SecurityHelper.checkPassword(password, this.get('passwordHash'));
     }
 
     setPasswordHash () {
-        let password = this.get('password');
+        const password = this.get('password');
         if (password) {
             this.set('passwordHash', SecurityHelper.hashPassword(password));
         }
     }
 
-    // AUTH KEY to remember me cookies
-
-    validateAuthKey (key) {
-        return this.getAuthKey() === key;
-    }
+    // AUTH KEY (remember me cookies)
 
     getAuthKey () {
         return this.get('authKey');
@@ -97,6 +93,10 @@ module.exports = class User extends Base {
 
     setAuthKey () {
         this.set('authKey', SecurityHelper.getRandomString(this.AUTH_KEY_LENGTH));
+    }
+
+    checkAuthKey (key) {
+        return this.getAuthKey() === key;
     }
 };
 module.exports.init(module);

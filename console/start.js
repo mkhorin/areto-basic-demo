@@ -11,7 +11,7 @@ const application = new Application;
         await application.init();
         await application.start();
     } catch (err) {
-        application.logError(err);
+        application.log('error', err);
         process.exit();
     }
 })();

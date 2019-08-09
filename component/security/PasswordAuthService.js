@@ -2,7 +2,7 @@
 
 const Base = require('areto/base/Base');
 
-module.exports = class LoginByEmail extends Base {
+module.exports = class PasswordAuthService extends Base {
 
     constructor (config) {
         super({
@@ -12,24 +12,27 @@ module.exports = class LoginByEmail extends Base {
             // user: [WebUser]
             rememberPeriod: 7 * 24 * 3600,
             failedMessage: 'Invalid authentication',
-            bannedMessage: 'This account is banned',
+            bannedMessage: 'This account has been suspended',
             User,
             ...config
         });
     }
 
     async login () {
-        let result = await this.getIdentity();
-        if (!result.error) {
-            await this.user.login(result.identity, this.getRememberPeriod());
+        const {identity, error} = await this.getIdentityData();
+        if (error) {
+            return error;
         }
-        return result;
+        await this.user.login({
+            identity,
+            duration: this.getRememberPeriod()
+        });
     }
 
-    async getIdentity () {
-        let error = null;
+    async getIdentityData () {
         let identity = await this.spawn(this.User).findByEmail(this.email).one();
-        if (!identity || !identity.validatePassword(this.password)) {
+        let error = null;
+        if (!identity || !identity.checkPassword(this.password)) {
             error = this.failedMessage;
         } else if (identity.isBanned()) {
             error = this.bannedMessage;
