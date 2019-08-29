@@ -1,9 +1,9 @@
-<% layout(_view.get('_layout/main')) -%>
+<% layout(_view.get('_layout/main')) %>
 
 <div class="row">
 
     <div class="col-sm-3 col-md-2">
-        <%- _view.anchorWidget('sideMenu', {
+        <%- _view.placeWidget('sideMenu', {
             'items': [{
                 title: 'Categories',
                 url: 'admin/category'
@@ -31,7 +31,7 @@
             <%- blocks.title %>
         </h1>
         <section class="content">
-            <%- body -%>
+            <%- body %>
         </section>
     </div>
 </div>

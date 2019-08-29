@@ -12,8 +12,12 @@ module.exports = class Tag extends Base {
                 ['name', 'string', {min: 2, max: 32}],
                 ['name', 'unique', {ignoreCase: true}]
             ],
-            INDEXES: [[{name: 1}, {unique: true}]],
-            UNLINK_ON_REMOVE: ['articles']
+            INDEXES: [
+                [{name: 1}, {unique: true}]
+            ],
+            UNLINK_ON_REMOVE: [
+                'articles'
+            ]
         };
     }
 

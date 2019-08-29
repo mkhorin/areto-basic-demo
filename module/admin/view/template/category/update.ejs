@@ -1,12 +1,12 @@
-<% layout(_view.get('_layout/form')) -%>
+<%
+layout(_view.get('_layout/form'));
 
-<% block('title', _t('Update category')) -%>
-
-<% _data.set('breadcrumbs', [{
+block('title', _t('Update category'));
+block('breadcrumbs', {
     title: 'Categories',
     url: 'admin/category'
 },{
     title: model.getTitle()
-}]) %>
-
+});
+%>
 <%- include('./form') %>

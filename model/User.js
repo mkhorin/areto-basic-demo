@@ -43,7 +43,7 @@ module.exports = class User extends Base {
     }
 
     findByEmail (email) {
-        return this.find({email});
+        return this.find().and({email});
     }
 
     getTitle () {

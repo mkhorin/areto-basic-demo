@@ -1,10 +1,9 @@
 <%
+layout(_view.get('_layout/main'))
 const title = 'Sign up';
-_data.set('breadcrumbs', [{label: title}]);
+block('title', title)
+block('breadcrumbs', title);
 %>
-<% layout(_view.get('_layout/main')) -%>
-
-<% block('title', title) -%>
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">

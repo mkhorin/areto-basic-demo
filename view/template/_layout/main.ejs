@@ -38,7 +38,9 @@
 
     <div class="breadcrumb-wrapper">
         <div class="container">
-            <%- _view.anchorWidget('breadcrumbs', {links: _data.get('breadcrumbs')}) %>
+            <% if (blocks.breadcrumbs) { %>
+            <%- _view.placeWidget('breadcrumbs', {links: blocks.breadcrumbs.get()}) %>
+            <% } %>
         </div>
     </div>
 
@@ -46,7 +48,7 @@
 
         <%- include('../_part/flash-alert') %>
 
-        <%- body -%>
+        <%- body %>
 
     </div>
 </div>

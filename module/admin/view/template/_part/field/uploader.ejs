@@ -9,7 +9,7 @@ const params = {
 <%
 if (Array.isArray(params.files)) {
     params.options.items = [];
-    for (let file of params.files) {
+    for (const file of params.files) {
         params.options.items.push({
             id: file.getId(),
             name: file.get('originalName'),

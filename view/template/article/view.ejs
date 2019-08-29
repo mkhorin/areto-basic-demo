@@ -1,13 +1,13 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', 'Article') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/content'));
+block('title', 'Article');
+block('breadcrumbs', {
     title: 'Articles',
     url: 'article'
 },{
     title: model.getTitle()
-}]) %>
+});
+%>
 
 <h1 class="mt0">
     <%- model.getTitle() %>
@@ -19,124 +19,32 @@
     </span>
 </p>
 
-<% const photos = model.get('photos'); %>
-<% if (photos && photos.length) { %>
-<div id="carousel-article-photos" class="carousel slide inline-block mb20">
-    <div class="carousel-inner" role="listbox">
-        <% for (let i = 0; i < photos.length; ++i) { %>
-        <div class="item <%- i === 0 ? 'active' : '' %>">
-            <img src="<%- photos[i].getLarge() %>" alt="<%- photos[i].getTitle() %>">
-            <div class="carousel-caption">
-                <%= photos[i].getTitle() %>
-            </div>
-        </div>
-        <% } %>
-    </div>
-    <a class="left carousel-control" href="#carousel-article-photos" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-article-photos" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-<% } %>
+<%- include('./photos') %>
 
 <div class="mb30">
     <%- model.get('content') %>
 </div>
 
-<% let category = model.rel('category'); %>
+<% const category = model.rel('category'); %>
 <% if (category) { %>
 <b class="mr10"><%- _t('Category')%>:</b>
 <a href="<%- _url(['category', {category: category.getId()}]) %>"
    class="tag-item"><%= category.getTitle() %></a>&nbsp;
 <% } %>
 
-<% let tags = model.get('tags'); %>
+<% const tags = model.get('tags'); %>
 <% if (tags.length) { %>
     <b class="mr10"><%- _t('Tags') %>:</b>
-<% for (let tag of tags) { %>
+<% for (const tag of tags) { %>
     <a href="<%= _url(['tagged', {tag: tag.getTitle()}]) %>" class="tag-item">
         <%= tag.getTitle() %>
     </a>
 <% }} %>
 
 <hr>
-<h4 class="mt30 mb30">
-    <%- _t('Comments') %>
-    <small>(<%- comments.totalCount %>)</small>
-</h4>
 
-<% if (comments.models.length) { %>
-<a name="comments"></a>
-<div class="comment-list">
-    <% for (let comment of comments.models) { %>
-    <div class="comment-item clearfix">
-        <div class="comment-icon">
-            <span class="glyphicon glyphicon-comment text-info"></span>
-        </div>
-        <div class="comment-column">
-            <div class="comment-head">
-                <b class="text-primary"><%= comment.get('name') %></b>,
-                <%- _format(comment.get('createdAt'), 'datetime') %>
-            </div>
-            <div class="comment-body"><i><%= comment.get('content') %></i></div>
-        </div>
-    </div>
-    <% } %>
-</div>
-
-<% if (comments.pagination) { %>
-<%- include(_view.get('_part/pagination'), {
-    pager: comments.pagination
-}) %>
-<% } %>
-<% } else { %>
-<div class="alert alert-warning">
-    <%- _t('Not commented yet') %>
-</div>
-<% } %>
+<%- include('./comments') %>
 
 <hr>
 
-<a name="comment-form"></a>
-<% const done = _controller.getFlash('comment-done'); %>
-<% if (done.length) { %>
-<div class="alert alert-success"><%= done[0] %></div>
-<% } else { %>
-<form action="<%= _controller.getOriginalUrl() %>#comment-form" method="post"
-      class="comment-form form form-horizontal mt30">
-    <h4 class="mb30">
-        <%- _t('Add comment') %>
-    </h4>
-
-    <%- include(_view.get('_part/field/input'), {
-        attr: 'name',
-        model: comment,
-        label: _t('Your name')
-    }) %>
-
-    <%- include(_view.get('_part/field/input'), {
-        attr: 'email',
-        type: 'email',
-        model: comment,
-        label: _t('Email (not shown)')
-    }) %>
-
-    <%- include(_view.get('_part/field/text'), {
-        attr: 'content',
-        model: comment,
-        label: _t('Message')
-    }) %>
-
-    <div class="form-group">
-        <div class="col-sm-9 col-sm-offset-3">
-            <button id="submit-comment" type="submit" class="btn btn-primary">
-                <%- _t('Send') %>
-            </button>
-        </div>
-    </div>
-</form>
-<% } %>
+<%- include('./comment-form') %>

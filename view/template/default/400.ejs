@@ -1,10 +1,8 @@
-<% layout(_view.get('_layout/main')) -%>
-
-<% block('title', '400') -%>
-
-<% _data.set('breadcrumbs', [{
-    title: 400
-}]) %>
+<%
+layout(_view.get('_layout/main'));
+block('title', '400');
+block('breadcrumbs', 'Bad Request');
+%>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">

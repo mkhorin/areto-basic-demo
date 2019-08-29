@@ -1,14 +1,13 @@
-<% layout(_view.get('_layout/form')) -%>
-
-<% block('title', 'Update comment') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/form'));
+block('title', 'Update comment');
+block('breadcrumbs', {
     title: 'Comments',
     url: 'admin/comment'
 },{
     title: model.getId()
-}]) %>
-
+});
+%>
 <%- include('./form') %>
 
 <% const photos = model.get('photos'); %>
@@ -17,9 +16,9 @@
     <label class="col-sm-2 control-label"></label>
     <div class="col-sm-10">
         <p class="form-control-static thumb-list clearfix">
-            <% for (let photo of photos) { %>
+            <% for (const photo of photos) { %>
             <a href="admin/photo/view?id=<%- photo.getId() %>" class="thumb-item">
-                <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive" alt="">
+                <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive" alt="Photo">
             </a>
             <% } %>
         </p>

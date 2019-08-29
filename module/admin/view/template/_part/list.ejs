@@ -40,7 +40,7 @@ const params = {
 
 <% params.itemTemplate = typeof itemTemplate === 'undefined' ? null : _view.get(itemTemplate); %>
 
-<% for (let model of provider.models ) { %>
+<% for (const model of provider.models ) { %>
 <div class="list-item clearfix">
     <div class="list-item-controls">
         <a href="<%- _url([`${params.routePrefix}view`, model]) %>" class="btn btn-success btn-xs">

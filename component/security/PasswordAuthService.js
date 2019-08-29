@@ -30,7 +30,7 @@ module.exports = class PasswordAuthService extends Base {
     }
 
     async getIdentityData () {
-        let identity = await this.spawn(this.User).findByEmail(this.email).one();
+        const identity = await this.spawn(this.User).findByEmail(this.email).one();
         let error = null;
         if (!identity || !identity.checkPassword(this.password)) {
             error = this.failedMessage;

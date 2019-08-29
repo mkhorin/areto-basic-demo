@@ -1,10 +1,8 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', _t('Articles')) -%>
-
-<% _data.set('breadcrumbs', [{
-    title: _t('Articles')
-}]) %>
+<%
+layout(_view.get('_layout/content'));
+block('title', _t('Articles'));
+block('breadcrumbs', _t('Articles'));
+%>
 
 <%- include(_view.get('_part/list'), {
     itemTemplate: 'article/list-item'

@@ -1,13 +1,13 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', 'Статья') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/content'));
+block('title', 'Статья');
+block('breadcrumbs', {
     title: 'Статья',
     url: 'article'
 },{
     title: model.getTitle()
-}]) %>
+});
+%>
 
 <h1 class="mt0">
     <%- model.getTitle() %>

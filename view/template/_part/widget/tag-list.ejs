@@ -6,7 +6,7 @@
         </h3>
     </div>
     <div class="panel-body">
-        <% for (let tag of _widget.tags) { %>
+        <% for (const tag of _widget.tags) { %>
         <span class="mr10">
             <a href="article/tagged?tag=<%= tag.get('name') %>">
                 <%= tag.get('name') %>

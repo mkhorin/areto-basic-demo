@@ -12,7 +12,7 @@ items = Array.isArray(items) ? items : items ? [items] : null;
     <div class="col-sm-10">
         <div class="form-control-static clearfix">
         <% if (items) { %>
-        <% for (let model of items) { %>
+        <% for (const model of items) { %>
             <% if (typeof itemTemplate !== 'undefined') { %>
                 <%- include(itemTemplate, {model}) %>
             <% } else if (typeof viewRoute !== 'undefined') { %>

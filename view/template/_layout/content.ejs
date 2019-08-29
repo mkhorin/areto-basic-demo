@@ -1,10 +1,11 @@
-<% const searchValue = typeof search === 'undefined' ? '' : search; %>
-
-<% layout(_view.get('_layout/main')) -%>
+<%
+layout(_view.get('_layout/main'));
+const searchValue = typeof search === 'undefined' ? '' : search;
+%>
 
 <div class="row">
     <div class="col-sm-8">
-        <%- body -%>
+        <%- body %>
     </div>
 
     <div class="col-sm-4">
@@ -28,11 +29,11 @@
             </div>
         </div>
 
-        <%- _view.anchorWidget('categories') %>
+        <%- _view.placeWidget('categories') %>
 
-        <%- _view.anchorWidget('tagList') %>
+        <%- _view.placeWidget('tagList') %>
 
-        <%- _view.anchorWidget('recentComments') %>
+        <%- _view.placeWidget('recentComments') %>
     </div>
 
 </div>

@@ -116,7 +116,7 @@ module.exports = class File extends Base {
     }
 
     async removeFiles () {
-        for (let thumbPath of this.getThumbPaths()) {
+        for (const thumbPath of this.getThumbPaths()) {
             try {
                 await fs.promises.unlink(thumbPath);
             } catch (err) {
@@ -130,7 +130,7 @@ module.exports = class File extends Base {
     getThumbPaths () {
         const paths = [this.getPath()];
         if (this.thumbs) {
-            for (let thumb of this.thumbs)  {
+            for (const thumb of this.thumbs)  {
                 paths.push(this.getThumbPath(thumb));
             }
         }
@@ -139,7 +139,7 @@ module.exports = class File extends Base {
 
     async generateThumbs () {
         if (Array.isArray(this.thumbs) && this.fileModel.isImage()) {
-            for (let width of this.thumbs) {
+            for (const width of this.thumbs) {
                 await this.createThumb(width);
             }
         }
@@ -147,10 +147,10 @@ module.exports = class File extends Base {
 
     async createThumb (width) {
         let image = sharp(this.getPath());
-        let height = this.getThumbHeight(width);
+        const height = this.getThumbHeight(width);
         image.resize(width, height, {fit: 'inside'});
         image = await this.setWatermark(image, width);
-        let thumbPath = this.getThumbPath(width);
+        const thumbPath = this.getThumbPath(width);
         await fs.promises.mkdir(path.dirname(thumbPath), {recursive: true});
         return image.jpeg({quality: this.quality}).toFile(thumbPath);
     }

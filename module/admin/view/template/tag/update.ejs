@@ -1,12 +1,14 @@
-<% layout(_view.get('_layout/form')) -%>
+<%
+layout(_view.get('_layout/form'));
 
-<% block('title', 'Update tag') -%>
+block('title', 'Update tag');
 
-<% _data.set('breadcrumbs', [{
+block('breadcrumbs', {
     title: 'Tags',
     url: 'admin/tag'
 },{
     title: model.getTitle()
-}]) %>
+});
+%>
 
 <%- include('./form') %>

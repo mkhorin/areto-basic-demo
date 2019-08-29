@@ -1,13 +1,15 @@
-<% layout(_view.get('_layout/view')) -%>
+<%
+layout(_view.get('_layout/view'));
 
-<% block('title', 'Tag') -%>
+block('title', 'Tag');
 
-<% _data.set('breadcrumbs', [{
+block('breadcrumbs', {
     title: 'Tags',
     url: 'admin/tag'
 },{
     title: model.getTitle()
-}]) %>
+});
+%>
 
 <%- include(_view.get('_part/field/static'), {
     attr: 'name'

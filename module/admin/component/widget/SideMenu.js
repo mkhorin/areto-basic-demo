@@ -6,7 +6,7 @@ module.exports = class SideMenu extends Base {
 
     run () {
         if (Array.isArray(this.items)) {
-            for (let item of this.items) {
+            for (const item of this.items) {
                 this.prepareItem(item);
             }
             return this.renderTemplate('_part/widget/side-menu', this.params);

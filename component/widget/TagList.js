@@ -6,7 +6,7 @@ module.exports = class TagList extends Base {
 
     async run () {
         this.tags = await this.spawn(Tag).find().all();
-        for (let tag of this.tags) {
+        for (const tag of this.tags) {
             await this.countArticlesByTag(tag);
         }
         this.tags = this.tags.filter(tag => tag.get('articleCount') > 0);

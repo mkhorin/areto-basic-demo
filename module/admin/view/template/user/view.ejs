@@ -1,15 +1,14 @@
-<% layout(_view.get('_layout/view')) -%>
-
-<% block('title', 'User') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/view'));
+block('title', 'User');
+block('breadcrumbs', {
     title: 'Users',
     url: 'admin/user'
 },{
     title: model.getTitle()
-}]) %>
-
-<% const stat = _view.get('_part/field/static'); %>
+});
+const stat = _view.get('_part/field/static');
+%>
 
 <%- include(stat, {
     attr: 'status'

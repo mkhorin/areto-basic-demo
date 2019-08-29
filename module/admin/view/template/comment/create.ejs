@@ -1,12 +1,12 @@
-<% layout(_view.get('_layout/form')) -%>
-
-<% block('title', 'Create comment') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/form'));
+block('title', 'Create comment');
+block('breadcrumbs', {
     title: 'Comments',
     url: 'admin/comment'
 },{
     title: 'Create'
-}]) %>
+});
+%>
 
 <%- include('./form') %>

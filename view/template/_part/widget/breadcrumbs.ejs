@@ -1,17 +1,11 @@
 
 <% if (_widget.links) { %>
 <ol class="breadcrumb">
-    <% for (let i = 0; i < _widget.links.length; ++i) { %>
-    <% if (i < _widget.links.length - 1) { %>
-        <li>
-            <a href="<%- _widget.links[i].url %>">
-                <%- _widget.links[i].title %>
-            </a>
-        </li>
+    <% for (const link of _widget.links) {
+       if (link.hasOwnProperty('url')) { %>
+        <li><a href="<%- link.url %>"><%- link.title %></a></li>
     <% } else { %>
-        <li>
-            <%- _widget.links[i].title %>
-        </li>
+        <li><%- link.title || link %></li>
     <% }} %>
 </ol>
 <% } %>

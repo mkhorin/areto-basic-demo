@@ -1,10 +1,10 @@
-<% layout(_view.get('_layout/content')) -%>
+<% layout(_view.get('_layout/content')) %>
 
 <% if (model.hasError()) { %>
 <div class="row">
     <div class="col-sm-10 col-sm-offset-2">
         <div class="alert alert-danger">
-            <% for (let attr of Object.keys(model.getErrors())) { %>
+            <% for (const attr of Object.keys(model.getErrors())) { %>
             <p>
                 <b><%- _t(model.getAttrLabel(attr)) %>:</b>
                 <%- _t(model.getFirstError(attr))%>
@@ -40,6 +40,6 @@
         <% } %>
     </div>
 
-    <%- body -%>
+    <%- body %>
 
 </form>

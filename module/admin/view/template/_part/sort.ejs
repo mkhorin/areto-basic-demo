@@ -8,7 +8,7 @@ Sort by
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-        <% for (let attr of Object.keys(sort.attrs)) { %>
+        <% for (const attr of Object.keys(sort.attrs)) { %>
         <% const link = sort.getLink(attr); %>
             <li>
                 <a href="<%- link.url %>">

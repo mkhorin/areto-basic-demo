@@ -1,13 +1,13 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', 'Articles by category') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/content'));
+block('title', 'Articles by category');
+block('breadcrumbs', {
     title: 'Articles',
     url: 'article'
 },{
     title: 'By category'
-}]) %>
+});
+%>
 
 <h3 class="mt0 mb30">
     <span class="color-gray"><%- _t('Category') %>:</span>
@@ -15,11 +15,11 @@
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>
-<%- include(_view.get('_part/list'), {
-    itemTemplate: 'article/list-item'
-}) %>
+    <%- include(_view.get('_part/list'), {
+        itemTemplate: 'article/list-item'
+    }) %>
 <% } else { %>
-<div class="alert alert-warning">
-    <%- _t('Articles not found') %>
-</div>
+    <div class="alert alert-warning">
+        <%- _t('Articles not found') %>
+    </div>
 <% } %>

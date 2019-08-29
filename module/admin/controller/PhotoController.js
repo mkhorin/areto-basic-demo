@@ -13,7 +13,7 @@ module.exports = class PhotoController extends Base {
     }
 
     actionIndex () {
-        let provider = this.createDataProvider({            
+        const provider = this.createDataProvider({            
             query: this.spawn(Photo).find().with(['article']),
             pagination: {pageSize: 10},
             sort: {
@@ -50,11 +50,11 @@ module.exports = class PhotoController extends Base {
     }
 
     async actionUpload () {
-        let file = this.spawn(File);
+        const file = this.spawn(File);
         if (!await file.upload(this.req, this.res, this.user)) {
             return this.sendText(this.translate(file.getFirstError()), 400);
         }
-        let photo = this.spawn(Photo);
+        const photo = this.spawn(Photo);
         photo.set('file', file.getId());
         await photo.validate(['file'])
             ? this.sendText(file.getId())
@@ -62,8 +62,8 @@ module.exports = class PhotoController extends Base {
     }
 
     async actionLead () {
-        let model = await this.getModel({with: ['article']});
-        let article = model.get('article');
+        const model = await this.getModel({with: ['article']});
+        const article = model.get('article');
         if (!article) {
             this.setFlash('danger', 'Article not found');
             return this.redirect(['view', model]);

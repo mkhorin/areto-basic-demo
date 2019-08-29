@@ -6,7 +6,7 @@ module.exports = class Categories extends Base {
 
     async run () {
         this.items = await this.spawn(Category).find().order({name: 1}).all();
-        for (let item of this.items) {
+        for (const item of this.items) {
             await this.countArticlesByCategory(item);
         }        
         this.items.sort((a, b)=> b.get('articleCount') - a.get('articleCount'));

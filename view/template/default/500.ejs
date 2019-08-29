@@ -1,10 +1,8 @@
-<% layout(_view.get('_layout/main')) -%>
-
-<% block('title', 'Server error') -%>
-
-<% _data.set('breadcrumbs', [{
-    title: 500
-}]) %>
+<%
+layout(_view.get('_layout/main'));
+block('title', 'Server error');
+block('breadcrumbs', 'Server error');
+%>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">

@@ -1,13 +1,13 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', 'Articles') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/content'));
+block('title', 'Articles');
+block('breadcrumbs', {
     title: 'Articles',
     url: 'article'
 },{
     title: 'Tagged'
-}]) %>
+});
+%>
 
 <h3 class="mt0 mb30">
     <%- _t('Tag') %>:

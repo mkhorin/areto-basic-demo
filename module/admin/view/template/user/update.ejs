@@ -1,12 +1,10 @@
-<% layout(_view.get('_layout/form')) -%>
-
-<% block('title', 'Update user') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/form'));
+block('title', 'Update user');
+block('breadcrumbs', {
     title: 'Users',
     url: 'admin/user'
-},{
-    title: model.getTitle()
-}]) %>
+}, model.getTitle());
+%>
 
 <%- include('./form') %>

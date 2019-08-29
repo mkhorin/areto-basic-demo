@@ -5,7 +5,7 @@ const Base = require('../component/CrudController');
 module.exports = class CommentController extends Base {
 
     async actionIndex () {
-        let provider = this.createDataProvider({
+        const provider = this.createDataProvider({
             query: this.spawn(Comment).findBySearch(this.getQueryParam('search')),
             pagination: {},
             sort: {
@@ -20,8 +20,8 @@ module.exports = class CommentController extends Base {
     }
 
     async actionCreate () {
-        let article = await this.getModel({ModelClass: Article});
-        let model = this.spawn(Comment);
+        const article = await this.getModel({ModelClass: Article});
+        const model = this.spawn(Comment);
         if (this.isGet()) {
             return this.render('create', {model});
         }

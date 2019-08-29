@@ -1,13 +1,12 @@
-<% layout(_view.get('_layout/form')) -%>
-
-<% block('title', 'Create photo') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/form'));
+block('title', 'Create photo');
+block('breadcrumbs', {
     title: 'Photos',
     url: 'admin/photo'
 },{
     title: 'Create'
-}]) %>
-
+});
+%>
 <%- include('./form') %>
 

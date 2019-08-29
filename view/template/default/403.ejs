@@ -1,10 +1,8 @@
-<% layout(_view.get('_layout/main')) -%>
-
-<% block('title', '403') -%>
-
-<% _data.set('breadcrumbs', [{
-    title: 403
-}]) %>
+<%
+layout(_view.get('_layout/main'));
+block('title', '403');
+block('breadcrumbs', 'Access denied');
+%>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">

@@ -5,8 +5,8 @@ const Base = require('../component/BaseController');
 module.exports = class DefaultController extends Base {
 
     async actionIndex () {
-        let duration = this.module.getParam('dashboard.cacheDuration', 60);
-        let dashboard = await this.module.get('cache').use('dashboard', this.renderDashboard.bind(this), duration);
+        const duration = this.module.getParam('dashboard.cacheDuration', 60);
+        const dashboard = await this.module.get('cache').use('dashboard', this.renderDashboard.bind(this), duration);
         await this.render('index', {dashboard});
     }
 
@@ -15,10 +15,10 @@ module.exports = class DefaultController extends Base {
     }
 
     async getDashboard () {
-        let article = this.spawn(Article);
-        let photo = this.spawn(Photo);
-        let tag = this.spawn(Tag);
-        let comment = this.spawn(Comment);
+        const article = this.spawn(Article);
+        const photo = this.spawn(Photo);
+        const tag = this.spawn(Tag);
+        const comment = this.spawn(Comment);
         return {
             drafts: await article.findByStatus(Article.STATUS_DRAFT).count(),
             published: await article.findByStatus(Article.STATUS_PUBLISHED).count(),

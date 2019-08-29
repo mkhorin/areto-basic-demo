@@ -16,7 +16,7 @@ const params = {
         <% if (typeof empty !== 'undefined') { %>
             <option value=""><%- empty %></option>
         <% } %>
-        <% for (let item of items) { %>
+        <% for (const item of items) { %>
             <option value="<%- item[params.itemValueKey] %>"
                     <%- item[params.itemValueKey].toString() == params.value ? 'selected' : '' %>>
                 <%= item[params.itemLabelKey] %>

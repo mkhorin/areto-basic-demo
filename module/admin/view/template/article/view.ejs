@@ -1,16 +1,15 @@
-<% layout(_view.get('_layout/view')) -%>
-
-<% block('title', 'Article') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/view'));
+block('title', 'Article');
+block('breadcrumbs', {
     title: 'Articles',
     url: 'admin/article'
 },{
     title: model.getTitle()
-}]) %>
-
-<% const stat = _view.get('_part/field/static'); %>
-<% const relation = _view.get('_part/field/relation'); %>
+});
+const stat = _view.get('_part/field/static');
+const relation = _view.get('_part/field/relation');
+%>
 
 <%- include(relation, {
     attr: 'category',

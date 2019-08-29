@@ -10,7 +10,7 @@ module.exports = class SignInForm extends Base {
             RULES: [
                 [['email', 'password'], 'required'],
                 ['email', 'email'],
-                ['password', 'string', {min: 6, max:24}],
+                ['password', 'string', {min: 6, max: 24}],
                 ['rememberMe', 'boolean'],
                 ['captchaCode', 'required', {on: [CAPTCHA_SCENARIO]}],
                 ['captchaCode', {

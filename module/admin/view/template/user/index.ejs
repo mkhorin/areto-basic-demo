@@ -1,11 +1,8 @@
-<% layout(_view.get('_layout/content')) -%>
-
-<% block('title', _t('Users')) -%>
-
-<% _data.set('breadcrumbs', [{
-    title: _t('Users')
-}]) %>
-
+<%
+layout(_view.get('_layout/content'));
+block('title', _t('Users'));
+block('breadcrumbs', _t('Users'));
+%>
 <%- include(_view.get('_part/list'), {
     itemTemplate: 'user/list-item'
 }) %>

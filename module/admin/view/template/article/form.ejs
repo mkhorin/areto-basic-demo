@@ -29,7 +29,7 @@
 <%- include(_view.get('_part/field/input'), {
     attr: 'tags',
     value: Array.isArray(tags) ? tags.map(tag => tag.getTitle()).join(', ') : tags,
-    hint: 'Split by comma'
+    hint: 'Separate with commas'
 }) %>
 <% } %>
 

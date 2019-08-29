@@ -12,7 +12,9 @@ module.exports = class Category extends Base {
                 ['name', 'string', {min: 2, max: 32}],
                 ['name', 'unique', {ignoreCase: true}]
             ],
-            UNLINK_ON_REMOVE: ['articles']
+            UNLINK_ON_REMOVE: [
+                'articles'
+            ]
         };
     }
 

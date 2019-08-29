@@ -1,0 +1,37 @@
+
+<a name="comment-form"></a>
+
+<% const messages = _controller.getFlash('comment-done'); %>
+<% if (messages.length) { %>
+<div class="alert alert-success"><%= messages[0] %></div>
+<% } else { %>
+<form action="<%= _controller.getOriginalUrl() %>#comment-form" method="post"
+      class="comment-form form form-horizontal mt30">
+    <h4 class="mb30">
+        <%- _t('Add comment') %>
+    </h4>
+    <%- include(_view.get('_part/field/input'), {
+        attr: 'name',
+        model: comment,
+        label: _t('Your name')
+    }) %>
+    <%- include(_view.get('_part/field/input'), {
+        attr: 'email',
+        type: 'email',
+        model: comment,
+        label: _t('Email (not shown)')
+    }) %>
+    <%- include(_view.get('_part/field/text'), {
+        attr: 'content',
+        model: comment,
+        label: _t('Message')
+    }) %>
+    <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            <button id="submit-comment" type="submit" class="btn btn-primary">
+                <%- _t('Send') %>
+            </button>
+        </div>
+    </div>
+</form>
+<% } %>

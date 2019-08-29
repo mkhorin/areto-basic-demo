@@ -11,7 +11,7 @@
     attr: 'title'
 }) %>
 
-<% let file = model.get('file'); %>
+<% const file = model.get('file'); %>
 <%- include(_view.get('_part/field/uploader'), {
     attr: 'file',
     url: 'file/upload',

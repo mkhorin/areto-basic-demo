@@ -24,7 +24,7 @@ module.exports = class DefaultController extends Base {
             case 404:
                 return this.render(status);
         }
-        this.render(500);
+        return this.render(500);
     }
 
     isAuthRedirect () {

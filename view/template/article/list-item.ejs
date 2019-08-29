@@ -16,7 +16,7 @@
     <span class="mr10">
         <%- _t('Tags')%>
     </span>
-    <% for (let tag of model.get('tags')) { %>
+    <% for (const tag of model.get('tags')) { %>
     <a href="article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
         <%= tag.get('name') %>
     </a>

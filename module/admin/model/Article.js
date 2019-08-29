@@ -121,7 +121,7 @@ module.exports = class Article extends Base {
         items = items.split(',').map(item => item.trim()).filter(item => item);
         items = ArrayHelper.unique(items);
         await this.getLinker().unlinkAll('tags');
-        for (let item of items) {
+        for (const item of items) {
             await this.resolveTag(item);
         }
     }
@@ -150,9 +150,9 @@ module.exports = class Article extends Base {
         if (!Array.isArray(files)) {
             return false;
         }
-        let photos = [];
-        for (let file of files) {
-            let photo = await this.createPhoto(file);
+        const photos = [];
+        for (const file of files) {
+            const photo = await this.createPhoto(file);
             if (photo) {
                 photos.push(photo);
             }
@@ -166,7 +166,7 @@ module.exports = class Article extends Base {
     }
 
     async createPhoto (file) {
-        let photo = this.spawn(Photo);
+        const photo = this.spawn(Photo);
         photo.set('articleId', this.getId());
         photo.set('file', file);
         try {

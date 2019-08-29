@@ -1,13 +1,13 @@
-<% layout(_view.get('_layout/view')) -%>
-
-<% block('title', 'Comment') -%>
-
-<% _data.set('breadcrumbs', [{
+<%
+layout(_view.get('_layout/view'));
+block('title', 'Comment');
+block('breadcrumbs', {
     title: 'Comments',
     url: 'admin/comment'
 },{
     title: model.getId()
-}]) %>
+});
+%>
 
 <%- include(_view.get('_part/field/relation'), {
     attr: 'article',
