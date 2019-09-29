@@ -7,7 +7,7 @@
         <p><b>Article:</b>
             <% const article = model.get('article') %>
             <% if (article) { %>
-            <a href="<%- _url(['article/view', article]) %>">
+            <a href="<%- _url('article/view', article) %>">
                 <%= article.getTitle() %>
             </a>
             <% } else { %>

@@ -58,7 +58,7 @@ module.exports = class ArticleController extends Base {
         if (!await comment.save()) {
             return this.renderView(model, comment);
         }
-        this.setFlash('comment-done', this.translate('You message has been sent successfully!'));
+        this.setFlash('comment-done', 'You message has been sent successfully!');
         this.redirect(['view', model]);
     }
 

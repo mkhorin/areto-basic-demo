@@ -44,7 +44,7 @@ module.exports = class ArticleController extends Base {
         model.load(this.getPostParams());
         model.set('authorId', this.user.getId());
         await model.save()
-            ? this.backToRef()
+            ? this.redirectToReferrer()
             : await this.renderForm('create', {model});
     }
 
@@ -55,7 +55,7 @@ module.exports = class ArticleController extends Base {
             throw new Forbidden;
         }
         return this.isPost() && await model.load(this.getPostParams()).save()
-            ? this.backToRef()
+            ? this.redirectToReferrer()
             : this.renderForm('update', {model});
     }
 

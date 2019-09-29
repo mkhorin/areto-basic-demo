@@ -16,7 +16,7 @@ items = Array.isArray(items) ? items : items ? [items] : null;
             <% if (typeof itemTemplate !== 'undefined') { %>
                 <%- include(itemTemplate, {model}) %>
             <% } else if (typeof viewRoute !== 'undefined') { %>
-                <a href="<%- _url([viewRoute, model])%>" class="rel-list-item">
+                <a href="<%- _url(viewRoute, model)%>" class="rel-list-item">
                     <%= model.getTitle() %>
                 </a>
             <% } else { %>

@@ -41,7 +41,7 @@ module.exports = class SignInForm extends Base {
     }
 
     toggleCaptchaScenario () {
-        this.scenario = this._rateLimitModel && this._rateLimitModel.isLimited()
+        this.scenario = this._rateLimitModel && this._rateLimitModel.isExceeded()
             ? this.CAPTCHA_SCENARIO : null;
     }
 

@@ -1,6 +1,6 @@
 <%
-layout(_view.get('_layout/main'))
 const title = 'Sign up';
+layout(_view.get('_layout/main'))
 block('title', title)
 block('breadcrumbs', title);
 %>
@@ -12,7 +12,7 @@ block('breadcrumbs', title);
             Sign up new user
         </h3>
 
-        <form action="<%- _url('sign-up') %>" method="post">
+        <form method="post">
             <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'name',
                 iconClass: 'glyphicon glyphicon-user'

@@ -1,16 +1,17 @@
 <% layout(_view.get('_layout/content')) %>
 
-<form action="#" method="post" class="form-horizontal form object-view">
+<form method="post" class="form-horizontal form object-view">
 
-    <input type="hidden" name="referrer" value="<%= _controller.getRefUrl() %>">
+    <input type="hidden" name="referrer" value="<%= _controller.getReferrer() %>">
+    <input type="hidden" name="csrf" value="<%- _controller.getCsrfToken() %>">
 
     <div class="object-controls clearfix">
 
         <div class="pull-right">
             <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
-            <a href="<%- _url(['update', model]) %>" class="btn btn-info">Update</a>
+            <a href="<%- _url('update', model) %>" class="btn btn-info">Update</a>
             <button class="btn btn-danger action-submit" type="button"
-                    data-url="<%- _url(['delete', model]) %>"
+                    data-url="<%- _url('delete', model) %>"
                     data-confirm="Remove this object?">
                 Delete
             </button>

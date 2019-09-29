@@ -28,7 +28,7 @@ module.exports = class CommentController extends Base {
         model.load(this.getPostParams());
         model.set('articleId', article.getId());
         await model.save()
-            ? this.backToRef()
+            ? this.redirectToReferrer()
             : await this.render('create', {model});
     }
 

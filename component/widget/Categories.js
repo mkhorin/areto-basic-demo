@@ -6,15 +6,15 @@ module.exports = class Categories extends Base {
 
     async run () {
         this.items = await this.spawn(Category).find().order({name: 1}).all();
+        const categories = [];
         for (const item of this.items) {
-            await this.countArticlesByCategory(item);
+            const count = await item.relArticles().count();
+            if (count) {
+                categories.push({item, count});
+            }
         }        
-        this.items.sort((a, b)=> b.get('articleCount') - a.get('articleCount'));
-        return this.renderTemplate('_part/widget/categories');
-    }
-
-    async countArticlesByCategory (category) {        
-        category.set('articleCount', await category.relArticles().count());
+        categories.sort((a, b)=> b.count - a.count);
+        return this.renderTemplate('_part/widget/categories', {categories});
     }
 };
 

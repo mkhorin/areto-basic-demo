@@ -30,7 +30,7 @@ module.exports = class PhotoController extends Base {
     async actionCreate () {
         const model = this.spawn(Photo, {scenario: 'create'});
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
-            return this.backToRef();
+            return this.redirectToReferrer();
         }
         const articles = await this.spawn(Article).findToSelect().all();
         await this.render('create', {model, articles});
@@ -39,7 +39,7 @@ module.exports = class PhotoController extends Base {
     async actionUpdate () {
         const model = await this.getModel();
         if (this.isPost() && await model.load(this.getPostParams()).save()) {
-            return this.backToRef();
+            return this.redirectToReferrer();
         }
         const articles = await this.spawn(Article).findToSelect().all();
         await this.render('update', {model, articles});

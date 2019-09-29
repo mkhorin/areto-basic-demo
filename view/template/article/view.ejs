@@ -28,7 +28,7 @@ block('breadcrumbs', {
 <% const category = model.rel('category'); %>
 <% if (category) { %>
 <b class="mr10"><%- _t('Category')%>:</b>
-<a href="<%- _url(['category', {category: category.getId()}]) %>"
+<a href="<%- _url('category', {category: category.getId()}) %>"
    class="tag-item"><%= category.getTitle() %></a>&nbsp;
 <% } %>
 
@@ -36,7 +36,7 @@ block('breadcrumbs', {
 <% if (tags.length) { %>
     <b class="mr10"><%- _t('Tags') %>:</b>
 <% for (const tag of tags) { %>
-    <a href="<%= _url(['tagged', {tag: tag.getTitle()}]) %>" class="tag-item">
+    <a href="<%= _url('tagged', {tag: tag.getTitle()}) %>" class="tag-item">
         <%= tag.getTitle() %>
     </a>
 <% }} %>

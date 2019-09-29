@@ -17,9 +17,6 @@ module.exports = class Comment extends Base {
                 'createdAt', 
                 'updatedAt'
             ],
-            INDEXES: [
-                [{entityId: 1}, {unique: false}]
-            ],
             RULES: [
                 [['name','email','content'], 'required'],
                 ['name', 'string', {min: 2, max: 32}],

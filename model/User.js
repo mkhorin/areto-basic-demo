@@ -74,8 +74,8 @@ module.exports = class User extends Base {
    
     // PASSWORD
 
-    checkPassword (password) {
-        return SecurityHelper.checkPassword(password, this.get('passwordHash'));
+    checkPassword (password, hash) {
+        return SecurityHelper.checkPassword(password, hash || this.get('passwordHash'));
     }
 
     setPasswordHash () {

@@ -24,7 +24,7 @@
         underWidth: 'The width cannot be smaller than {limit} px',
         tooMany: 'Too many files',
         alreadyExists: 'This file has already been selected',
-        confirmRemoveStatus: [ 'done', 'uploading' ]
+        confirmRemoveStatus: ['done', 'uploading']
     };
 
     const methods = {
@@ -366,7 +366,7 @@
             this.xhr.onreadystatechange = this.changeReadyState.bind(this);
             const data = new FormData;
             data.append(this.uploader.options.fileAttrName, this.file.name);
-            data.append(this.uploader.options.fileAttrName, this.file);
+            data.append(this.uploader.options.fileAttrName, this.file);     
             this.status = UFile.STATUS_UPLOADING;
             this.fireEvent('started');
             this.xhr.send(data);

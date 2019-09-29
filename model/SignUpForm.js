@@ -10,7 +10,7 @@ module.exports = class SignUpForm extends Base {
             RULES: [
                 [['name', 'email', 'password', 'passwordRepeat', 'captchaCode'], 'required'],
                 ['name', 'string', {min: 3, max: 24}],
-                ['name', 'regexp', {pattern: /^[а-яa-z\s-]+$/i}],
+                ['name', 'regex', {pattern: /^[а-яa-z\s-]+$/i}],
                 ['email', 'email'],
                 ['password', 'string', {min: 6, max: 24}],
                 ['passwordRepeat', 'compare', {compareAttr: 'password'}],

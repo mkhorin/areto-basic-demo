@@ -4,11 +4,22 @@ const Base = require('./BaseController');
 
 module.exports = class CrudController extends Base {
 
+    static getConstants ()  {
+        return {
+            BEHAVIORS: {
+                'csrf': {
+                    Class: require('areto/filter/CsrfFilter'),
+                    only: ['create', 'update', 'delete']
+                },
+            }
+        };
+    }
+
     async actionCreate () {
         const model = this.spawn(this.getModelClass());
         model.scenario = 'create';
         this.isPost() && await model.load(this.getPostParams()).save()
-            ? this.backToRef()
+            ? this.redirectToReferrer()
             : await this.render('create', {model});
     }
     
@@ -21,7 +32,7 @@ module.exports = class CrudController extends Base {
         const model = await this.getModel(params);
         model.scenario = 'update';
         this.isPost() && await model.load(this.getPostParams()).save()
-            ? this.backToRef()
+            ? this.redirectToReferrer()
             : await this.render('update', {model});
     }
 
@@ -30,6 +41,7 @@ module.exports = class CrudController extends Base {
         await model.remove();
         this.isAjax()
             ? this.send(model.getId())
-            : this.backToRef();
+            : this.redirectToReferrer();
     }
 };
+module.exports.init();

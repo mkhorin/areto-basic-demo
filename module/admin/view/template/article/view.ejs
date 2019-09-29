@@ -71,7 +71,7 @@ const relation = _view.get('_part/field/relation');
     attr: 'comments',
     provider: comments,
     itemTemplate: 'article/comment-item',
-    create: _url(['comment/create', model]),
+    create: _url('comment/create', model),
     search: null,
     routePrefix: 'comment/'
 }) %>

@@ -31,7 +31,7 @@ $('.delete-object-ajax').click(function () {
     const $btn = $(this);
     if (!$btn.data('confirm') || confirm($btn.data('confirm'))) {
         const $buttons = $btn.parent().find('button').attr('disabled', true);
-        $.post($btn.data('url')).done(function () {
+        postAjax($btn.data('url')).done(function () {
             location.reload();
         }).fail(function (xhr) {
             console.error(xhr);
@@ -95,6 +95,16 @@ function addValueToString (value, str) {
 function removeValueFromString (value, str) {
     const array = str ? str.split(',') : [];
     const index = array.indexOf(value);
-    index > -1 && array.splice(index, 1);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
     return array.join(',');
+}
+
+function postAjax (url, data) {
+    return $.post(url, {csrf: getCsrfToken(), ...data});
+}
+
+function getCsrfToken () {
+    return document.body.dataset.csrf;
 }

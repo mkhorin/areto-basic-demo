@@ -39,7 +39,7 @@ module.exports = {
         },
         'session': {
             secret: 'basic.app',
-            lifetime: 30 * 60, // seconds
+            lifetime: 1800, // seconds
             store: {
                 'Class': require('areto/web/session/DatabaseSessionStore'),
                 'table': 'session'
@@ -49,7 +49,7 @@ module.exports = {
             limit: '10mb'
         },
         'i18n': {
-            // language: 'ru'
+            //language: 'ru'
         },
         'rbac': {            
         },

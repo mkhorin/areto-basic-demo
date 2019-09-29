@@ -7,9 +7,9 @@
     </div>
     <div class="panel-body">
         <div id="category-nav" class="list-group mb0">
-        <% for (const item of _widget.items) { %>
+        <% for (const {item, count} of categories) { %>
         <a href="article/category?category=<%- item.getId() %>" class="list-group-item">
-            <span class="badge"><%- item.get('articleCount') %></span>
+            <span class="badge"><%- count %></span>
             <%= item.getTitle() %>
         </a>
         <% } %>

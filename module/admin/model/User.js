@@ -22,7 +22,7 @@ module.exports = class User extends Base {
                     this.ROLE_ADMIN
                 ]}],
                 ['name', 'string', {min: 3, max: 24}],
-                ['name', 'regexp', {pattern: /^[a-zа-я\s-]+$/i}],
+                ['name', 'regex', {pattern: /^[a-zа-я\s-]+$/i}],
                 ['email', 'email'],
                 ['password', 'string', {min: 6, max: 32}],
                 [['email', 'name'], 'unique', {ignoreCase: true}]
