@@ -54,7 +54,7 @@ module.exports = class ArticleController extends Base {
         }
         comment.load(this.getPostParams());
         comment.set('articleId', model.getId());
-        comment.set('ip', this.req.ip);
+        comment.set('ip', this.user.getIp());
         if (!await comment.save()) {
             return this.renderView(model, comment);
         }

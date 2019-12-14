@@ -39,25 +39,25 @@ module.exports = class AuthController extends Base {
         const model = this.spawn(SignInForm, {user: this.user});
         await model.resolveCaptchaScenario();
         if (this.isGet()) {
-            return this.render('sign-in', {model});
+            return this.render('signIn', {model});
         }
         model.captchaAction = this.createAction('captcha');
         await model.load(this.getPostParams()).login();
         return model.hasError()
-            ? this.render('sign-in', {model})
+            ? this.render('signIn', {model})
             : this.goBack();
     }
 
     async actionSignUp () {
         const model = this.spawn(SignUpForm, {user: this.user});
         if (this.isGet()) {
-            return this.render('sign-up', {model});
+            return this.render('signUp', {model});
         }
         model.captchaAction = this.createAction('captcha');
         model.load(this.getPostParams());
         await model.register();
         return model.hasError()
-            ? this.render('sign-up', {model})
+            ? this.render('signUp', {model})
             : this.goLogin();
     }
 };

@@ -26,7 +26,7 @@ module.exports = {
         },
         'cache': {            
             Class: require('areto/cache/MemoryCache'),
-            duration: 100, // seconds
+            defaultDuration: 100, // seconds
         },
         'cookie': {
             secret: 'basic.app'
@@ -49,7 +49,7 @@ module.exports = {
             limit: '10mb'
         },
         'i18n': {
-            //language: 'ru'
+            // language: 'ru'
         },
         'rbac': {            
         },

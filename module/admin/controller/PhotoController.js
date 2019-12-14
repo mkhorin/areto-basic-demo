@@ -14,7 +14,7 @@ module.exports = class PhotoController extends Base {
 
     actionIndex () {
         const provider = this.createDataProvider({            
-            query: this.spawn(Photo).find().with(['article']),
+            query: this.spawn(Photo).find().with('article'),
             pagination: {pageSize: 10},
             sort: {
                 attrs: {

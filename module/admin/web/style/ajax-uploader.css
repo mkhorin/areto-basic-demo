@@ -94,7 +94,7 @@
     cursor: pointer;
     color: #c00;
 }
-.uploader-thumb {
+.uploader-preview {
     display: none;
     float: left;
     width: 96px;
@@ -105,14 +105,14 @@
     background-size: contain;
     background-position: center;
 }
-.uploader-thumb img {
+.uploader-preview img {
     max-height: 100%;
     max-width: 100%;
 }
-.uploader-item.thumb .uploader-info {
+.uploader-item.preview .uploader-info {
     margin-left: 135px;
 }
-.uploader-item.thumb .uploader-thumb {
+.uploader-item.preview .uploader-preview {
     display: block;
 }
 .uploader-dropzone {

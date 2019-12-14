@@ -14,8 +14,8 @@
 
     <%- stylesheets %>
 
-    <link rel="stylesheet" href="admin/css/ajax-uploader.css">
-    <link rel="stylesheet" href="admin/css/common.css">
+    <link rel="stylesheet" href="admin/style/ajax-uploader.css">
+    <link rel="stylesheet" href="admin/style/common.css">
 </head>
 <body data-csrf="<%- _controller.getCsrfToken() %>">
 
@@ -53,7 +53,7 @@
     </div>
 
     <div class="container">
-        <%- include('../_part/flash-alert') %>
+        <%- include('../_part/flashAlert') %>
         <%- body %>
     </div>
 </div>
@@ -69,12 +69,12 @@
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <% if (_controller.language === 'ru') { %>
-        <script src="js/datepicker.ru.js"></script>
+        <script src="script/datepicker.ru.js"></script>
     <% } %>
 
     <%- scripts %>
 
-    <script src="admin/js/ajax-uploader.js"></script>
-    <script src="admin/js/common.js"></script>
+    <script src="admin/script/ajax-uploader.js"></script>
+    <script src="admin/script/common.js"></script>
 </body>
 </html>

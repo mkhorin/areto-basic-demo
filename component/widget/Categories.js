@@ -12,9 +12,10 @@ module.exports = class Categories extends Base {
             if (count) {
                 categories.push({item, count});
             }
-        }        
+        }
+        const activeId = this.controller.getQueryParam('category');
         categories.sort((a, b)=> b.count - a.count);
-        return this.renderTemplate('_part/widget/categories', {categories});
+        return this.renderTemplate('_widget/categories', {categories, activeId});
     }
 };
 

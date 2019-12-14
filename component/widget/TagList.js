@@ -11,7 +11,7 @@ module.exports = class TagList extends Base {
         }
         this.tags = this.tags.filter(tag => tag.get('articleCount') > 0);
         this.tags.sort((a, b)=> b.get('articleCount') - a.get('articleCount'));
-        return this.renderTemplate('_part/widget/tag-list');
+        return this.renderTemplate('_widget/tagList');
     }
 
     async countArticlesByTag (tag) {

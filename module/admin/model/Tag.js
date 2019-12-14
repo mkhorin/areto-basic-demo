@@ -19,6 +19,7 @@ module.exports = class Tag extends Base {
     }
 
     findByName (name) {
+        name = EscapeHelper.escapeRegex(name);
         return this.find({name: new RegExp(`^${name}$`, 'i')});
     }
 
@@ -36,4 +37,5 @@ module.exports = class Tag extends Base {
 };
 module.exports.init(module);
 
+const EscapeHelper = require('areto/helper/EscapeHelper');
 const Article = require('./Article');

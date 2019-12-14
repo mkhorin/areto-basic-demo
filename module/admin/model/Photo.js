@@ -28,12 +28,12 @@ module.exports = class Photo extends Base {
                     Class: require('../component/behavior/ImageConverter'),
                     FileClass: require('./File'),
                     filenameAttr: 'filename',
-                    storeDir: path.join(__dirname, '../upload/photo'),
-                    thumbDir: path.join(__dirname, '../../../web/photo'),
+                    storeDirectory: path.join(__dirname, '../upload/photo'),
+                    previewDirectory: path.join(__dirname, '../../../web/photo'),
                     size: 720,
-                    thumbs: [720, 360, 128],
+                    previews: [720, 360, 128],
                     watermark: {
-                        720: path.join(__dirname, '../asset/photo-watermark.png')
+                        720: path.join(__dirname, '../asset/photoWatermark.png')
                     }
                 }
             }

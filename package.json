@@ -1,19 +1,19 @@
 {
   "name": "areto-basic-demo",
-  "version": "2.30.0",
-  "description": "Areto Framework demo application",
+  "version": "2.31.0",
+  "description": "Demo application based on Areto Framework",
   "author": "Maxim Khorin",
   "license": "MIT",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=12.13.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mkhorin/areto-basic-demo.git"
   },
   "dependencies": {
-    "areto": "~0.30.0",
-    "areto-ejs": "^0.1.5",
+    "areto": "~0.31.0",
+    "areto-ejs": "^0.1.6",
     "multer": "^1.4.2"
   },
   "scripts": {

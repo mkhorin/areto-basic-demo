@@ -19,7 +19,7 @@ module.exports = class Article extends Base {
     }
 
     findPublished () {
-        return this.find({status: this.STATUS_PUBLISHED}).with('mainPhoto','tags');
+        return this.find({status: this.STATUS_PUBLISHED}).with('mainPhoto', 'tags');
     }
 
     findBySearch (text) {
@@ -76,8 +76,7 @@ module.exports = class Article extends Base {
     }
 
     relTags () {
-        return this.hasMany(Tag, Tag.PK, 'tagId')
-            .viaTable('rel_article_tag', 'articleId', this.PK);
+        return this.hasMany(Tag, Tag.PK, 'tagId').viaTable('rel_article_tag', 'articleId', this.PK);
     }
 };
 module.exports.init(module);

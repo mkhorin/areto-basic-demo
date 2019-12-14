@@ -15,9 +15,7 @@ block('breadcrumbs', {
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>
-<%- include(_view.get('_part/list'), {
-    itemTemplate: 'article/list-item'
-}) %>
+    <%- include(_view.get('_part/list'), {itemTemplate: 'article/_listItem'}) %>
 <% } else { %>
 <div class="alert alert-warning">
     <%- _t('Tagged articles not found') %>

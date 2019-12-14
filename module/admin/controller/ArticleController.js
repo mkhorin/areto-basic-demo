@@ -50,7 +50,10 @@ module.exports = class ArticleController extends Base {
 
     async actionUpdate () {
         const model = await this.getModel({with: ['photos', 'tags']});
-        const access = await this.user.can('updateArticle', {authorId: model.get('authorId')});
+        const access = await this.user.can('updateArticle', {
+            controller: this,
+            authorId: model.get('authorId')
+        });
         if (!access) {
             throw new Forbidden;
         }

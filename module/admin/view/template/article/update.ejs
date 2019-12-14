@@ -9,16 +9,16 @@ block('breadcrumbs', {
 });
 %>
 
-<%- include('./form') %>
+<%- include('./_form') %>
 
 <% const photos = model.get('photos'); %>
 <% if (Array.isArray(photos)) { %>
 <div class="form-group">
     <label class="col-sm-2 control-label"></label>
     <div class="col-sm-10">
-        <p class="form-control-static thumb-list clearfix">
+        <p class="form-control-static preview-list clearfix">
             <% for (const photo of photos) { %>
-            <a href="<%- _url('photo/view', photo)%>" class="thumb-item">
+            <a href="<%- _url('photo/view', photo)%>" class="preview-item">
                 <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive" alt="Photo">
             </a>
             <% } %>

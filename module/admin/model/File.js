@@ -28,7 +28,7 @@ module.exports = class File extends Base {
                     updatedAttr: false
                 }
             },
-            STORE_DIR: path.join(__dirname, '../upload/temp')
+            STORE_DIRECTORY: path.join(__dirname, '../upload/temp')
         };
     }
 
@@ -46,7 +46,7 @@ module.exports = class File extends Base {
     }
 
     getPath () {
-        return path.join(this.STORE_DIR, this.get('filename'));
+        return path.join(this.STORE_DIRECTORY, this.get('filename'));
     }
 
     async upload (req, res, user) {
@@ -63,13 +63,13 @@ module.exports = class File extends Base {
 
     createUploaderStorage () {
         return multer.diskStorage({
-            destination: this.generateStoreDir.bind(this),
+            destination: this.generateStoreDirectory.bind(this),
             filename: this.generateFilename.bind(this)
         });
     }
 
-    generateStoreDir (req, file, callback) {
-        fs.mkdir(this.STORE_DIR, {recursive: true}, err => callback(err, this.STORE_DIR));
+    generateStoreDirectory (req, file, callback) {
+        fs.mkdir(this.STORE_DIRECTORY, {recursive: true}, err => callback(err, this.STORE_DIRECTORY));
     }
 
     generateFilename (req, file, callback) {

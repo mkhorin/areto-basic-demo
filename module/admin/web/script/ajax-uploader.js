@@ -175,26 +175,26 @@
 
         processNext: function () {
             setTimeout(function () {
-                const map = this.getFirstFilesByStatus();
-                if (UFile.STATUS_PENDING in map) {
-                    map[UFile.STATUS_PENDING].append();
-                } else if (UFile.STATUS_APPENDED in map) {
-                    map[UFile.STATUS_APPENDED].validate();
-                } else if (UFile.STATUS_VALIDATED in map && !(UFile.STATUS_UPLOADING in map)) {
-                    map[UFile.STATUS_VALIDATED].upload();
+                const data = this.getFirstFilesByStatus();
+                if (UFile.STATUS_PENDING in data) {
+                    data[UFile.STATUS_PENDING].append();
+                } else if (UFile.STATUS_APPENDED in data) {
+                    data[UFile.STATUS_APPENDED].validate();
+                } else if (UFile.STATUS_VALIDATED in data && !(UFile.STATUS_UPLOADING in data)) {
+                    data[UFile.STATUS_VALIDATED].upload();
                 }
             }.bind(this), 250);
         },
 
         getFirstFilesByStatus: function () {
-            const map = {};
+            const data = {};
             for (let i = 0; i < this.files.length; ++i) {
                 const file = this.files[i];
-                if (!file.removed && !file.failed && !(file.status in map)) {
-                    map[file.status] = file;
+                if (!file.removed && !file.failed && !(file.status in data)) {
+                    data[file.status] = file;
                 }
             }
-            return map;
+            return data;
         }
     };
 

@@ -8,7 +8,8 @@
     <div class="panel-body">
         <div id="category-nav" class="list-group mb0">
         <% for (const {item, count} of categories) { %>
-        <a href="article/category?category=<%- item.getId() %>" class="list-group-item">
+        <% const active = activeId === item.getId().toString() ? 'active' : ''; %>
+        <a href="article/category?category=<%- item.getId() %>" class="list-group-item <%- active %>">
             <span class="badge"><%- count %></span>
             <%= item.getTitle() %>
         </a>

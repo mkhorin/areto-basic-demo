@@ -5,29 +5,29 @@ const Base = require('./File');
 module.exports = class ImageConverter extends Base {
 
     createFilename (file) {
-        file = `${file.get('filename')}.${this.thumbExtension}`; 
-        return path.join(this.generateNestedDir(), file);
+        file = `${file.get('filename')}.${this.previewExtension}`;
+        return path.join(this.generateNestedDirectory(), file);
     }
 
-    getThumbName (size) {
+    getPreviewName (size) {
         return `${size}/${this.getFilename()}`;
     }
 
     async processFile () {
         const filename = this.createFilename(this.fileModel);
-        const targetPath = path.join(this.storeDir, filename);
+        const targetPath = path.join(this.storeDirectory, filename);
         await fs.promises.mkdir(path.dirname(targetPath), {recursive: true});
-        await this.createThumbImage(targetPath);
+        await this.createPreviewImage(targetPath);
         this.owner.set(this.filenameAttr, filename);
-        await this.generateThumbs();
+        await this.generatePreviews();
         if (this.afterProcessFile) {
             await this.afterProcessFile(this.fileModel);
         }
     }
     
-    createThumbImage (targetPath) {
+    createPreviewImage (targetPath) {
         const image = sharp(this.fileModel.getPath());
-        image.resize(this.size, this.getThumbHeight(this.size), {fit: 'inside'});
+        image.resize(this.size, this.getPreviewHeight(this.size), {fit: 'inside'});
         return image.toFile(targetPath);
     }
 };

@@ -7,23 +7,23 @@ module.exports = class File extends Base {
     constructor (config) {
         super({
             // FileClass: require('../model/File'),
-            fileAttr: 'file', // owner attr with uploaded file
-            // filenameAttr: 'filename', // owner attr with filename
-            // dirs can be public or private
-            // storeDir: path.join(__dirname, '../upload/files'),
-            // thumbDir: path.join(__dirname, '../web/thumbs'),
-            thumbExtension: 'jpg',
+            fileAttr: 'file', // owner attribute with uploaded file
+            // filenameAttr: 'filename', // owner attribute with filename
+            // directories can be public or private
+            // storeDirectory: path.join(__dirname, '../upload/files'),
+            // previewDirectory: path.join(__dirname, '../web/previews'),
+            previewExtension: 'jpg',
             quality: 50,
-            // thumbs: [800, 400, 200],
-            // if thumb max height does not match thumb max width
-            // thumbHeights: { 128: 164, 200: 300 },
-            // thumbResizeMethod: 'cropResizeImage',
+            // previews: [800, 400, 200],
+            // if preview max height does not match preview max width
+            // previewHeights: { 128: 164, 200: 300 },
+            // previewResizeMethod: 'cropResizeImage',
             // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
             // afterProcessFile: async (fileModel)
             ...config
         });
-        if (!this.defaultThumbSize && this.thumbs) {
-            this.defaultThumbSize = this.thumbs[this.thumbs.length - 1];
+        if (!this.defaultPreviewSize && this.previews) {
+            this.defaultPreviewSize = this.previews[this.previews.length - 1];
         }
         this.setHandler(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
         this.setHandler(ActiveRecord.EVENT_AFTER_VALIDATE, this.afterValidate);
@@ -31,19 +31,19 @@ module.exports = class File extends Base {
     }
   
     getPath () {
-        return path.join(this.storeDir, this.getFilename());
+        return path.join(this.storeDirectory, this.getFilename());
     }
 
     getFilename () {
         return this.owner.get(this.filenameAttr) || '';
     }
 
-    getThumbPath (size) {
-        return path.join(this.thumbDir, this.getThumbName(size));
+    getPreviewPath (size) {
+        return path.join(this.previewDirectory, this.getPreviewName(size));
     }
 
-    getThumbName (size) {
-        return `${size}/${this.getFilename()}.${this.thumbExtension}`;
+    getPreviewName (size) {
+        return `${size}/${this.getFilename()}.${this.previewExtension}`;
     }
 
     // EVENTS
@@ -96,68 +96,68 @@ module.exports = class File extends Base {
 
     async processFile () {
         const filename = this.createFilename(this.fileModel);
-        const targetPath = path.join(this.storeDir, filename);
+        const targetPath = path.join(this.storeDirectory, filename);
         await fs.promises.mkdir(path.dirname(targetPath), {recursive: true});
         await fs.promises.rename(this.fileModel.getPath(), targetPath);
         this.owner.set(this.filenameAttr, filename);
-        await this.generateThumbs();
+        await this.generatePreviews();
         if (this.afterProcessFile) {
             await this.afterProcessFile(this.fileModel);
         }
     }
 
     createFilename (file) {
-        return path.join(this.generateNestedDir(), file.get('filename'));
+        return path.join(this.generateNestedDirectory(), file.get('filename'));
     }
 
-    generateNestedDir () { // split by months
+    generateNestedDirectory () { // split by months
         const now = new Date;
         return now.getFullYear() +'-'+ ('0' + (now.getMonth() + 1)).slice(-2);
     }
 
     async removeFiles () {
-        for (const thumbPath of this.getThumbPaths()) {
+        for (const previewPath of this.getPreviewPaths()) {
             try {
-                await fs.promises.unlink(thumbPath);
+                await fs.promises.unlink(previewPath);
             } catch (err) {
-                this.log('warn', `File remove failed: ${thumbPath}`, err);
+                this.log('warn', `File remove failed: ${previewPath}`, err);
             }
         }
     }
 
-    // THUMBS
+    // PREVIEWS
 
-    getThumbPaths () {
+    getPreviewPaths () {
         const paths = [this.getPath()];
-        if (this.thumbs) {
-            for (const thumb of this.thumbs)  {
-                paths.push(this.getThumbPath(thumb));
+        if (this.previews) {
+            for (const preview of this.previews)  {
+                paths.push(this.getPreviewPath(preview));
             }
         }
         return paths;
     }
 
-    async generateThumbs () {
-        if (Array.isArray(this.thumbs) && this.fileModel.isImage()) {
-            for (const width of this.thumbs) {
-                await this.createThumb(width);
+    async generatePreviews () {
+        if (Array.isArray(this.previews) && this.fileModel.isImage()) {
+            for (const width of this.previews) {
+                await this.createPreview(width);
             }
         }
     }
 
-    async createThumb (width) {
+    async createPreview (width) {
         let image = sharp(this.getPath());
-        const height = this.getThumbHeight(width);
+        const height = this.getPreviewHeight(width);
         image.resize(width, height, {fit: 'inside'});
         image = await this.setWatermark(image, width);
-        const thumbPath = this.getThumbPath(width);
-        await fs.promises.mkdir(path.dirname(thumbPath), {recursive: true});
-        return image.jpeg({quality: this.quality}).toFile(thumbPath);
+        const previewPath = this.getPreviewPath(width);
+        await fs.promises.mkdir(path.dirname(previewPath), {recursive: true});
+        return image.jpeg({quality: this.quality}).toFile(previewPath);
     }
 
-    getThumbHeight (width) {
-        return this.thumbHeights && this.thumbHeights[width]
-            ? this.thumbHeights[width]
+    getPreviewHeight (width) {
+        return this.previewHeights && this.previewHeights[width]
+            ? this.previewHeights[width]
             : width;
     }
 

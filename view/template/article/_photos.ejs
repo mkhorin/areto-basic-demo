@@ -5,9 +5,9 @@
     <div class="carousel-inner" role="listbox">
         <% for (let i = 0; i < photos.length; ++i) { %>
         <div class="item <%- i === 0 ? 'active' : '' %>">
-            <img src="<%- photos[i].getLarge() %>" alt="<%- photos[i].getTitle() %>">
+            <img src="<%- photos[i].getLarge() %>" alt="<%= photos[i].getTitle() %>">
             <div class="carousel-caption">
-                <%= photos[i].getTitle() %>
+                <%- photos[i].getTitle() %>
             </div>
         </div>
         <% } %>

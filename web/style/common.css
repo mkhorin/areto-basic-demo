@@ -330,7 +330,7 @@ table.detail-view tr th {
 .article-body, .article-footer {
     margin-top: 20px;
 }
-.article-item .thumbnail {
+.article-item .preview {
     margin: 20px auto;
     max-width: 560px;
 }

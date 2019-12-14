@@ -92,8 +92,7 @@ module.exports = class Article extends Base {
     }
 
     relPhotos () {
-        return this.hasMany(Photo, 'articleId', this.PK)
-            .removeOnUnlink();
+        return this.hasMany(Photo, 'articleId', this.PK).removeOnUnlink();
     }
     
     relMainPhoto () {
@@ -101,8 +100,7 @@ module.exports = class Article extends Base {
     }
 
     relComments () {
-        return this.hasMany(Comment, 'articleId', this.PK)
-            .removeOnUnlink();
+        return this.hasMany(Comment, 'articleId', this.PK).removeOnUnlink();
     }
 
     relTags () {

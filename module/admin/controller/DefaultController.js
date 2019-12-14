@@ -11,7 +11,8 @@ module.exports = class DefaultController extends Base {
     }
 
     async renderDashboard () {
-        return this.render('dashboard', await this.getDashboard(), false);
+        const data = await this.getDashboard();
+        return this.renderOnly('dashboard', data);
     }
 
     async getDashboard () {
