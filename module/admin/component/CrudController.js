@@ -38,7 +38,7 @@ module.exports = class CrudController extends Base {
 
     async actionDelete (params) {
         const model = await this.getModel(params);
-        await model.remove();
+        await model.delete();
         this.isAjax()
             ? this.send(model.getId())
             : this.redirectToReferrer();

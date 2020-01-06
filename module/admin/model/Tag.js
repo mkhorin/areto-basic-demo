@@ -12,7 +12,7 @@ module.exports = class Tag extends Base {
                 ['name', 'string', {min: 2, max: 32}],
                 ['name', 'unique', {ignoreCase: true}]
             ],           
-            UNLINK_ON_REMOVE: [
+            UNLINK_ON_DELETE: [
                 'articles'
             ]
         };
@@ -32,7 +32,7 @@ module.exports = class Tag extends Base {
     relArticles () {
         return this.hasMany(Article, Article.PK, 'articleId')
             .viaTable('rel_article_tag', 'tagId', this.PK)
-            .removeOnUnlink();
+            .deleteOnUnlink();
     }
 };
 module.exports.init(module);

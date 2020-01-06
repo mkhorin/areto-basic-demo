@@ -27,7 +27,7 @@ module.exports = class File extends Base {
         }
         this.setHandler(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
         this.setHandler(ActiveRecord.EVENT_AFTER_VALIDATE, this.afterValidate);
-        this.setHandler(ActiveRecord.EVENT_AFTER_REMOVE, this.afterRemove);
+        this.setHandler(ActiveRecord.EVENT_AFTER_DELETE, this.afterDelete);
     }
   
     getPath () {
@@ -68,7 +68,7 @@ module.exports = class File extends Base {
         try {
             await this.checkFile();
             if (!this.owner.isNew()) {
-                await this.removeFiles();
+                await this.deleteFiles();
             }
             await this.processFile();
         } catch (err) {
@@ -77,8 +77,8 @@ module.exports = class File extends Base {
         }
     }
 
-    async afterRemove () {
-        await this.removeFiles();
+    async afterDelete () {
+        await this.deleteFiles();
     }
 
     // PROCESS
@@ -115,12 +115,12 @@ module.exports = class File extends Base {
         return now.getFullYear() +'-'+ ('0' + (now.getMonth() + 1)).slice(-2);
     }
 
-    async removeFiles () {
+    async deleteFiles () {
         for (const previewPath of this.getPreviewPaths()) {
             try {
                 await fs.promises.unlink(previewPath);
             } catch (err) {
-                this.log('warn', `File remove failed: ${previewPath}`, err);
+                this.log('warn', `File deletion failed: ${previewPath}`, err);
             }
         }
     }

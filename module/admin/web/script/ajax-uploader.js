@@ -24,12 +24,12 @@
         underWidth: 'The width cannot be smaller than {limit} px',
         tooMany: 'Too many files',
         alreadyExists: 'This file has already been selected',
-        confirmRemoveStatus: ['done', 'uploading']
+        deletionConfirmStatuses: ['done', 'uploading']
     };
 
     const methods = {
         settings: function (options) {
-            // override default settings for new uploaders
+            // override default settings for new uploader
             return $.extend(defaultSettings, options);
         }
     };
@@ -248,8 +248,8 @@
             this.fireEvent('remove');
         },
 
-        isConfirmRemove: function () {
-            return !this.failed && this.uploader.options.confirmRemoveStatus.indexOf(this.status) > -1;
+        isDeletionConfirm: function () {
+            return !this.failed && this.uploader.options.deletionConfirmStatuses.indexOf(this.status) > -1;
         },
 
         // APPEND

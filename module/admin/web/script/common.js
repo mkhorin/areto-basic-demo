@@ -55,8 +55,8 @@ $('.uploader').each(function () {
             $uploader.find('.uploader-list').prepend(data.$item);
             data.$item.find('.uploader-filename').text(data.file.name +' ('+ data.file.size +')');
             data.$item.find('.uploader-remove').click(function () {
-                if (!data.isConfirmRemove() || confirm('Remove uploaded file?')) {
-                    $field.val(removeValueFromString(data.response, $field.val()));
+                if (!data.isDeletionConfirm() || confirm('Delete uploaded file?')) {
+                    $field.val(deleteValueFromString(data.response, $field.val()));
                     data.remove();
                     data.$item.remove();
                 }
@@ -92,7 +92,7 @@ function addValueToString (value, str) {
     return array.join(',');
 }
 
-function removeValueFromString (value, str) {
+function deleteValueFromString (value, str) {
     const array = str ? str.split(',') : [];
     const index = array.indexOf(value);
     if (index > -1) {

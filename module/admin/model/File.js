@@ -100,8 +100,8 @@ module.exports = class File extends Base {
 
     // EVENTS
 
-    async afterRemove () {
-        await super.afterRemove();
+    async afterDelete () {
+        await super.afterDelete();
         await fs.promises.unlink(this.getPath());
     }
 };
