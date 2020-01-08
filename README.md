@@ -20,7 +20,7 @@ Password: 123456
 
 ## Typical installation
 
-### Install the environment
+### Install environment
 - [Node.js](https://nodejs.org)
 - [MongoDB](https://www.mongodb.com)
 
