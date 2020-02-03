@@ -19,6 +19,8 @@
     position: relative;
     margin: 10px 0 15px 0;
     transition: opacity 0.5s;
+    border: none;
+    padding: 0;
 }
 .uploader-item.sample {
     display: none !important;
@@ -94,7 +96,7 @@
     cursor: pointer;
     color: #c00;
 }
-.uploader-preview {
+.uploader-thumbnail {
     display: none;
     float: left;
     width: 96px;
@@ -105,14 +107,14 @@
     background-size: contain;
     background-position: center;
 }
-.uploader-preview img {
+.uploader-thumbnail img {
     max-height: 100%;
     max-width: 100%;
 }
-.uploader-item.preview .uploader-info {
+.uploader-item.thumbnail .uploader-info {
     margin-left: 135px;
 }
-.uploader-item.preview .uploader-preview {
+.uploader-item.thumbnail .uploader-thumbnail {
     display: block;
 }
 .uploader-dropzone {

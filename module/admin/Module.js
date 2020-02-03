@@ -2,7 +2,7 @@
 
 const Base = require('areto/base/Module');
 
-module.exports = class Admin extends Base {
+module.exports = class AdminModule extends Base {
 
     static getConstants ()  {
         return {

@@ -1,4 +1,4 @@
-# Simple blog built on Areto Framework
+# Demo blog built on Areto Framework
 
 ## Docker installation
 
@@ -12,7 +12,7 @@ docker-compose up -d
 ```
 
 ### Usage
-http://{YourDockerIP}:8888
+http://localhost:8888
 ```sh
 Email: a@a.a
 Password: 123456

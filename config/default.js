@@ -25,8 +25,7 @@ module.exports = {
             }
         },
         'cache': {            
-            Class: require('areto/cache/MemoryCache'),
-            defaultDuration: 100, // seconds
+            Class: require('areto/cache/MemoryCache')
         },
         'cookie': {
             secret: 'basic.app'
@@ -39,7 +38,7 @@ module.exports = {
         },
         'session': {
             secret: 'basic.app',
-            lifetime: 1800, // seconds
+            lifetime: 'PT30M', // see ISO_8601#Duration
             store: {
                 'Class': require('areto/web/session/DatabaseSessionStore'),
                 'table': 'session'

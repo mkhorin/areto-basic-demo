@@ -14,16 +14,18 @@ module.exports = {
         }
     },
     tasks: {
-        'expiredFileCleaner': {
-            period: 3600, // seconds
+        'expiredFileCleaner': {            
             job: {
-                'Class': require('../component/job/ExpiredFileCleaner'),
-                'expirationTimeout': 3600
-            }
+                Class: require('../component/job/ExpiredFileCleaner'),
+                expirationTimeout: 3600
+            },
+            period: 3600
         },
-        'expiredSessionCleaner': {
-            period: 3600,
-            job: require('../component/job/ExpiredSessionCleaner')
+        'expiredSessionCleaner': {            
+            job: {
+                Class: require('../component/job/ExpiredSessionCleaner')
+            },
+            period: 3600
         }
     },
     widgets: {

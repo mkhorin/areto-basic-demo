@@ -64,7 +64,7 @@ $('.uploader').each(function () {
         })
         .on('uploader.file.validated', function (event, {image, $item}) {
             if (image) {
-                $item.addClass('preview').find('.uploader-preview').append(image);
+                $item.addClass('thumbnail').find('.uploader-thumbnail').append(image);
             }
         })
         .on('uploader.file.started', function (event, {$item}) {

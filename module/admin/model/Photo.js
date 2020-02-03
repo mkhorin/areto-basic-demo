@@ -29,9 +29,9 @@ module.exports = class Photo extends Base {
                     FileClass: require('./File'),
                     filenameAttr: 'filename',
                     storeDirectory: path.join(__dirname, '../upload/photo'),
-                    previewDirectory: path.join(__dirname, '../../../web/photo'),
+                    thumbnailDirectory: path.join(__dirname, '../../../web/photo'),
                     size: 720,
-                    previews: [720, 360, 128],
+                    thumbnails: [720, 360, 128],
                     watermark: {
                         720: path.join(__dirname, '../asset/photoWatermark.png')
                     }

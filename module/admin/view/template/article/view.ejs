@@ -57,13 +57,13 @@ const relation = _view.get('_part/field/relation');
 
 <%- include(relation, {
     attr: 'mainPhoto',
-    itemTemplate: _view.get('article/_previewItem'),
+    itemTemplate: _view.get('article/_thumbnail'),
     viewRoute: 'photo/view'
 }) %>
 
 <%- include(relation, {
     attr: 'photos',
-    itemTemplate: _view.get('article/_previewItem'),
+    itemTemplate: _view.get('article/_thumbnail'),
     viewRoute: 'photo/view'
 }) %>
 

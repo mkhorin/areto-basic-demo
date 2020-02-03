@@ -18,18 +18,18 @@ module.exports = class Photo extends Base {
     }
 
     getLarge () {
-        return this.getPreview(this.SIZE_LARGE);
+        return this.getThumbnail(this.SIZE_LARGE);
     }
 
     getMedium () {
-        return this.getPreview(this.SIZE_MEDIUM);
+        return this.getThumbnail(this.SIZE_MEDIUM);
     }
 
     getSmall () {
-        return this.getPreview(this.SIZE_SMALL);
+        return this.getThumbnail(this.SIZE_SMALL);
     }
 
-    getPreview (size) {
+    getThumbnail (size) {
         return `photo/${size}/${this.get('filename')}`;
     }
 };

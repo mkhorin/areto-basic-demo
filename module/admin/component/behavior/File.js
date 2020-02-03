@@ -11,19 +11,19 @@ module.exports = class File extends Base {
             // filenameAttr: 'filename', // owner attribute with filename
             // directories can be public or private
             // storeDirectory: path.join(__dirname, '../upload/files'),
-            // previewDirectory: path.join(__dirname, '../web/previews'),
-            previewExtension: 'jpg',
+            // thumbnailDirectory: path.join(__dirname, '../web/thumbnails'),
+            thumbnailExtension: 'jpg',
             quality: 50,
-            // previews: [800, 400, 200],
-            // if preview max height does not match preview max width
-            // previewHeights: { 128: 164, 200: 300 },
-            // previewResizeMethod: 'cropResizeImage',
+            // thumbnails: [800, 400, 200],
+            // if thumbnail max height does not match thumbnail max width
+            // thumbnailHeights: { 128: 164, 200: 300 },
+            // thumbnailResizeMethod: 'cropResizeImage',
             // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
             // afterProcessFile: async (fileModel)
             ...config
         });
-        if (!this.defaultPreviewSize && this.previews) {
-            this.defaultPreviewSize = this.previews[this.previews.length - 1];
+        if (!this.defaultThumbnailSize && this.thumbnails) {
+            this.defaultThumbnailSize = this.thumbnails[this.thumbnails.length - 1];
         }
         this.setHandler(ActiveRecord.EVENT_BEFORE_VALIDATE, this.beforeValidate);
         this.setHandler(ActiveRecord.EVENT_AFTER_VALIDATE, this.afterValidate);
@@ -38,12 +38,12 @@ module.exports = class File extends Base {
         return this.owner.get(this.filenameAttr) || '';
     }
 
-    getPreviewPath (size) {
-        return path.join(this.previewDirectory, this.getPreviewName(size));
+    getThumbnailPath (size) {
+        return path.join(this.thumbnailDirectory, this.getThumbnailName(size));
     }
 
-    getPreviewName (size) {
-        return `${size}/${this.getFilename()}.${this.previewExtension}`;
+    getThumbnailName (size) {
+        return `${size}/${this.getFilename()}.${this.thumbnailExtension}`;
     }
 
     // EVENTS
@@ -100,7 +100,7 @@ module.exports = class File extends Base {
         await fs.promises.mkdir(path.dirname(targetPath), {recursive: true});
         await fs.promises.rename(this.fileModel.getPath(), targetPath);
         this.owner.set(this.filenameAttr, filename);
-        await this.generatePreviews();
+        await this.generateThumbnails();
         if (this.afterProcessFile) {
             await this.afterProcessFile(this.fileModel);
         }
@@ -116,48 +116,48 @@ module.exports = class File extends Base {
     }
 
     async deleteFiles () {
-        for (const previewPath of this.getPreviewPaths()) {
+        for (const thumbnailPath of this.getThumbnailPaths()) {
             try {
-                await fs.promises.unlink(previewPath);
+                await fs.promises.unlink(thumbnailPath);
             } catch (err) {
-                this.log('warn', `File deletion failed: ${previewPath}`, err);
+                this.log('warn', `File deletion failed: ${thumbnailPath}`, err);
             }
         }
     }
 
-    // PREVIEWS
+    // THUMBNAILS
 
-    getPreviewPaths () {
+    getThumbnailPaths () {
         const paths = [this.getPath()];
-        if (this.previews) {
-            for (const preview of this.previews)  {
-                paths.push(this.getPreviewPath(preview));
+        if (Array.isArray(this.thumbnails)) {
+            for (const thumbnail of this.thumbnails)  {
+                paths.push(this.getThumbnailPath(thumbnail));
             }
         }
         return paths;
     }
 
-    async generatePreviews () {
-        if (Array.isArray(this.previews) && this.fileModel.isImage()) {
-            for (const width of this.previews) {
-                await this.createPreview(width);
+    async generateThumbnails () {
+        if (Array.isArray(this.thumbnails) && this.fileModel.isImage()) {
+            for (const width of this.thumbnails) {
+                await this.createThumbnail(width);
             }
         }
     }
 
-    async createPreview (width) {
+    async createThumbnail (width) {
         let image = sharp(this.getPath());
-        const height = this.getPreviewHeight(width);
+        const height = this.getThumbnailHeight(width);
         image.resize(width, height, {fit: 'inside'});
         image = await this.setWatermark(image, width);
-        const previewPath = this.getPreviewPath(width);
-        await fs.promises.mkdir(path.dirname(previewPath), {recursive: true});
-        return image.jpeg({quality: this.quality}).toFile(previewPath);
+        const thumbnailPath = this.getThumbnailPath(width);
+        await fs.promises.mkdir(path.dirname(thumbnailPath), {recursive: true});
+        return image.jpeg({quality: this.quality}).toFile(thumbnailPath);
     }
 
-    getPreviewHeight (width) {
-        return this.previewHeights && this.previewHeights[width]
-            ? this.previewHeights[width]
+    getThumbnailHeight (width) {
+        return this.thumbnailHeights && this.thumbnailHeights[width]
+            ? this.thumbnailHeights[width]
             : width;
     }
 
