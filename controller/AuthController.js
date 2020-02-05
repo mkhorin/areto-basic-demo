@@ -24,7 +24,7 @@ module.exports = class AuthController extends Base {
                         actions: ['sign-in', 'sign-up'],
                         permissions: ['?']
                     }],
-                    deny: action => action.render('signed', {model: action.controller.user.identity})
+                    deny: action => action.render('signed', {model: action.user.identity})
                 }
             }
         };
@@ -36,7 +36,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignIn () {
-        const model = this.spawn(SignInForm, {user: this.user});
+        const model = this.spawn(SignInForm);
         await model.resolveCaptchaScenario();
         if (this.isGet()) {
             return this.render('signIn', {model});
@@ -49,7 +49,7 @@ module.exports = class AuthController extends Base {
     }
 
     async actionSignUp () {
-        const model = this.spawn(SignUpForm, {user: this.user});
+        const model = this.spawn(SignUpForm);
         if (this.isGet()) {
             return this.render('signUp', {model});
         }
