@@ -1,11 +1,11 @@
-# Demo blog built on Areto Framework
+# Demo Blog built on Areto Framework
 
 ## Docker installation
 
 ### Build from Dockerfile
-Clone application to /areto-basic-demo
+Clone application to /app
 ```sh
-cd /areto-basic-demo
+cd /app
 docker-compose build
 docker-compose up -d mongo
 docker-compose up -d
@@ -22,21 +22,21 @@ Password: 123456
 
 ### Install environment
 - [Node.js](https://nodejs.org)
-- [MongoDB](https://www.mongodb.com)
+- [MongoDB](https://www.mongodb.com/download-center/community)
 
 ### Linux
-Clone application to /areto-basic-demo
+Clone application to /app
 ```sh
-cd /areto-basic-demo
+cd /app
 npm install
 NODE_ENV=development npm run init
 NODE_ENV=development npm run start
 ```
 
 ### Windows
-Clone application to c:/areto-basic-demo
+Clone application to c:/app
 ```sh
-cd /d c:/areto-basic-demo
+cd c:/app
 npm install
 set NODE_ENV=development
 npm run init
@@ -51,4 +51,4 @@ Password: 123456
 ```   
 
 ## Tutorial
-- [Build a blog with Areto Framework](http://nervebit.com/areto/blog/)
+- [Build a Blog with Areto Framework](http://nervebit.com/areto/blog/)
