@@ -2,17 +2,16 @@
 
 ## Docker installation
 
-### Build from Dockerfile
 Clone application to /app
 ```sh
 cd /app
 docker-compose build
 docker-compose up -d mongo
 docker-compose up -d
+docker-machine ip default
 ```
 
-### Usage
-http://localhost:8888
+Usage - http://{dockerMachineIP}:8888
 ```sh
 Email: a@a.a
 Password: 123456
@@ -20,7 +19,7 @@ Password: 123456
 
 ## Typical installation
 
-### Install environment
+Install environment
 - [Node.js](https://nodejs.org)
 - [MongoDB](https://www.mongodb.com/download-center/community)
 
@@ -43,8 +42,7 @@ npm run init
 npm run start
 ```
 
-### Usage
-http://localhost:3000
+Usage - http://localhost:3000
 ```sh
 Email: a@a.a
 Password: 123456
