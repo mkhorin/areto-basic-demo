@@ -1,4 +1,6 @@
-# Demo Blog built on Areto Framework
+# Blog App
+
+Multi-user blog management application built on Areto Framework  
 
 ## Docker installation
 

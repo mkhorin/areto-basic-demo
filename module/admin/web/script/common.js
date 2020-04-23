@@ -33,8 +33,8 @@ $('.delete-object-ajax').click(function () {
         const $buttons = $btn.parent().find('button').attr('disabled', true);
         postAjax($btn.data('url')).done(function () {
             location.reload();
-        }).fail(function (xhr) {
-            console.error(xhr);
+        }).fail(function (data) {
+            console.error(data);
             $buttons.removeAttr('disabled');
         });
     }
