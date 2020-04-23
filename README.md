@@ -10,10 +10,14 @@ cd /app
 docker-compose build
 docker-compose up -d mongo
 docker-compose up -d
+```
+Usage - http://localhost:3000
+
+Or get Docker Toolbox IP address
+```sh
 docker-machine ip default
 ```
-
-Usage - http://{dockerMachineIP}:8888
+Usage - http://{dockerIP}:3000
 ```sh
 Email: a@a.a
 Password: 123456
