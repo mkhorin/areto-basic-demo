@@ -381,7 +381,7 @@
         },
 
         changeReadyState: function () {
-            if (this.xhr.readyState === 4) {
+            if (this.xhr.readyState === XMLHttpRequest.DONE) {
                 if (this.xhr.status === 200) {
                     this.status = UFile.STATUS_DONE;
                     this.response = this.xhr.response;
