@@ -20,7 +20,8 @@ module.exports = class Tag extends Base {
 
     findByName (name) {
         name = EscapeHelper.escapeRegex(name);
-        return this.find({name: new RegExp(`^${name}$`, 'i')});
+        name = new RegExp(`^${name}$`, 'i');
+        return this.find({name});
     }
 
     findBySearch (text) {
@@ -30,9 +31,7 @@ module.exports = class Tag extends Base {
     }
 
     relArticles () {
-        return this.hasMany(Article, Article.PK, 'articleId')
-            .viaTable('rel_article_tag', 'tagId', this.PK)
-            .deleteOnUnlink();
+        return this.hasMany(Article, Article.PK, 'articleId').viaTable('rel_article_tag', 'tagId', this.PK);
     }
 };
 module.exports.init(module);

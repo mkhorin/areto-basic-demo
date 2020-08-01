@@ -71,6 +71,6 @@ module.exports = class ArticleController extends Base {
 };
 module.exports.init(module);
 
-const Forbidden = require('areto/error/ForbiddenHttpException');
+const Forbidden = require('areto/error/http/Forbidden');
 const Category = require('../model/Category');
 const Article = require('../model/Article');

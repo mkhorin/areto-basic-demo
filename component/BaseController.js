@@ -45,8 +45,8 @@ module.exports = class BaseController extends Base {
 };
 module.exports.init();
 
-const BadRequest = require('areto/error/BadRequestHttpException');
-const NotFound = require('areto/error/NotFoundHttpException');
+const BadRequest = require('areto/error/http/BadRequest');
+const NotFound = require('areto/error/http/NotFound');
 const MongoHelper = require('areto/helper/MongoHelper');
 const SelectHelper = require('./helper/SelectHelper');
 const ActiveDataProvider = require('areto/data/ActiveDataProvider');
