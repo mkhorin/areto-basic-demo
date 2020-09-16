@@ -1,7 +1,7 @@
 {
   "name": "areto-basic-demo",
-  "version": "3.4.0",
-  "description": "Demo App based on Areto Framework",
+  "version": "3.6.0",
+  "description": "Demo Blog App based on Areto Framework",
   "author": "Maxim Khorin",
   "license": "MIT",
   "engines": {
@@ -12,7 +12,7 @@
     "url": "https://github.com/mkhorin/areto-basic-demo.git"
   },
   "dependencies": {
-    "areto": "~1.4.0",
+    "areto": "~1.6.0",
     "areto-ejs": "^1.0.0",
     "multer": "^1.4.2",
     "sharp": "0.24.1"

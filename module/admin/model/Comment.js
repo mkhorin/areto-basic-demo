@@ -30,7 +30,7 @@ module.exports = class Comment extends Base {
 
     findBySearch (text) {
         if (!text) {
-            return this.find();
+            return this.createQuery();
         }
         return this.find(['OR',
             ['LIKE', 'content', `%${text}%`],

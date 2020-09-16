@@ -60,7 +60,7 @@ module.exports = class Article extends Base {
     }
 
     findBySearch (text) {
-        const query = this.find();
+        const query = this.createQuery();
         if (typeof text === 'string' && /[a-z0-9а-я\-\s]{1,32}/i.test(text)) {
             query.and(['LIKE','title', `%${text}%`]);
         }
@@ -68,7 +68,7 @@ module.exports = class Article extends Base {
     }
     
     findToSelect () {
-        return this.find().select('title').raw();
+        return this.createQuery().select('title').raw();
     }
 
     // EVENTS

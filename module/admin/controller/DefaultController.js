@@ -25,8 +25,8 @@ module.exports = class DefaultController extends Base {
             published: await article.findByStatus(Article.STATUS_PUBLISHED).count(),
             archived: await article.findByStatus(Article.STATUS_ARCHIVED).count(),
             blocked: await article.findByStatus(Article.STATUS_BLOCKED).count(),
-            photos: await photo.find().count(),
-            tags: await tag.find().count(),
+            photos: await photo.createQuery().count(),
+            tags: await tag.createQuery().count(),
             pending: await comment.findByStatus(Comment.STATUS_PENDING).count(),
             approved: await comment.findByStatus(Comment.STATUS_APPROVED).count(),
             rejected: await comment.findByStatus(Comment.STATUS_REJECTED).count()

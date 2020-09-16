@@ -23,7 +23,7 @@ module.exports = class Category extends Base {
     }
 
     findNames () {
-        return this.find().select('name').order({name: 1}).raw();
+        return this.createQuery().select('name').order({name: 1}).raw();
     }
 
     relArticles () {
