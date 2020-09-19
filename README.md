@@ -1,6 +1,6 @@
-# Blog App
+# Areto Demo App
 
-Multi-user blog management application built on Areto Framework  
+Multi-user blog built on [Areto Framework](https://github.com/mkhorin/areto).  
 
 ## Docker installation
 
@@ -11,13 +11,9 @@ docker-compose build
 docker-compose up -d mongo
 docker-compose up -d
 ```
-Usage - http://localhost:8888
 
-Or get Docker Toolbox IP address
-```sh
-docker-machine ip default
-```
-Usage - http://{dockerIP}:8888
+[http://localhost:8888](http://localhost:8888)
+
 ```sh
 Email: a@a.a
 Password: 123456
@@ -25,7 +21,8 @@ Password: 123456
 
 ## Typical installation
 
-Install environment
+Install environment:
+
 - [Node.js](https://nodejs.org)
 - [MongoDB](https://www.mongodb.com/download-center/community)
 
@@ -48,7 +45,9 @@ npm run init
 npm run start
 ```
 
-Usage - http://localhost:3000
+### Usage
+
+[http://localhost:3000](http://localhost:3000)
 ```sh
 Email: a@a.a
 Password: 123456
