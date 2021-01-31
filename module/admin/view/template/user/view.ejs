@@ -11,7 +11,8 @@ const stat = _view.get('_part/field/static');
 %>
 
 <%- include(stat, {
-    attr: 'status'
+    attr: 'status',
+    value: model.getAttrValueLabel('status')
 }) %>
 
 <%- include(stat, {
@@ -23,7 +24,8 @@ const stat = _view.get('_part/field/static');
 }) %>
 
 <%- include(stat, {
-    attr: 'role'
+    attr: 'role',
+    value: model.getAttrValueLabel('role')
 }) %>
 
 <%- include(stat, {

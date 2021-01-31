@@ -37,7 +37,7 @@ module.exports = class ArticleController extends Base {
 
     async actionCreate () {
         const model = this.spawn(Article);
-        if (this.isGet()) {
+        if (this.isGetRequest()) {
             await model.setDefaultValues();
             return this.renderForm('create', {model});
         }
@@ -57,7 +57,11 @@ module.exports = class ArticleController extends Base {
         if (!access) {
             throw new Forbidden;
         }
-        return this.isPost() && await model.load(this.getPostParams()).save()
+        if (this.isGetRequest()) {
+            return this.renderForm('update', {model});
+        }
+        model.load(this.getPostParams());
+        return await model.save()
             ? this.redirectToReferrer()
             : this.renderForm('update', {model});
     }

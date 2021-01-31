@@ -4,7 +4,7 @@ const Base = require('areto/view/Widget');
 
 module.exports = class RecentComments extends Base {
 
-    async run () {
+    async execute () {
         this.comments = await this.spawn(Comment).findRecent(3).all();
         return this.renderTemplate('_widget/recentComments');
     }

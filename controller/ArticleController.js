@@ -49,7 +49,7 @@ module.exports = class ArticleController extends Base {
     async actionView () {
         const model = await this.getModel({with: ['category', 'mainPhoto', 'photos', 'tags']});
         const comment = this.spawn(Comment, {scenario: 'create'});
-        if (this.isGet()) {
+        if (this.isGetRequest()) {
             return this.renderView(model, comment);
         }
         comment.load(this.getPostParams());

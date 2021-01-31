@@ -4,7 +4,7 @@ const Base = require('areto/view/Widget');
 
 module.exports = class Breadcrumbs extends Base {
 
-    run () {
+    execute () {
         if (this.links) {
             if (this.baseLinks) {
                 this.links = this.baseLinks.concat(this.links);    

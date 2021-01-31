@@ -22,7 +22,7 @@ module.exports = class Comment extends Base {
                 ['name', 'string', {min: 2, max: 32}],
                 ['email', 'email'],
                 ['content', 'string', {min: 3, max: 512}],
-                ['status', 'default', {value: 'pending', on: 'create'}],
+                ['status', 'default', {value: 'pending'}],
                 ['status', 'unsafe', {on: 'create'}] // skip attribute loading
             ],
             BEHAVIORS: {

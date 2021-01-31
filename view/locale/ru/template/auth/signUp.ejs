@@ -6,16 +6,17 @@ block('breadcrumbs', title);
 %>
 
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="login-box-msg">
+        <h3 class="mb-4">
             Зарегистрировать нового пользователя
         </h3>
 
-        <form method="post">
+        <form method="post" class="form">
+
             <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'name',
-                iconClass: 'glyphicon glyphicon-user',
+                iconClass: 'fas fa-user',
                 placeholder: 'Имя'
             }) %>
 
@@ -23,7 +24,7 @@ block('breadcrumbs', title);
                 attr: 'email',
                 type: 'email',
                 autocomplete: 'off',
-                iconClass: 'glyphicon glyphicon-envelope',
+                iconClass: 'fas fa-at',
                 placeholder: 'Электронный адрес'
             }) %>
 
@@ -32,7 +33,7 @@ block('breadcrumbs', title);
                 type: 'password',
                 value: '',
                 autocomplete: 'new-password',
-                iconClass: 'glyphicon glyphicon-lock',
+                iconClass: 'fas fa-key',
                 placeholder: 'Пароль'
             }) %>
 
@@ -41,19 +42,19 @@ block('breadcrumbs', title);
                 type: 'password',
                 value: '',
                 autocomplete: 'new-password',
-                iconClass: 'glyphicon glyphicon-lock',
+                iconClass: 'fas fa-key',
                 placeholder: 'Повтор пароля'
             }) %>
 
             <%- include(_view.get('_part/field/auth/captcha'), {
                 attr: 'captchaCode',
-                iconClass: 'glyphicon glyphicon-check',
+                iconClass: 'fas fa-check',
                 url: _url('captcha'),
                 placeholder: 'Проверочный код'
             }) %>
 
             <div class="text-right">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-success">
                     Зарегистрировать
                 </button>
             </div>

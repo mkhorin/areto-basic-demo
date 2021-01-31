@@ -7,10 +7,14 @@ const params = {
 %>
 <%- include('../_params', {params}) %>
 
-<div class="form-group has-feedback <%- params.error ? 'has-error' : '' %>">
-    <input name="<%- params.name %>" type="<%- params.type %>" class="form-control"
-           placeholder="<%- params.placeholder %>" <%- params.autocomplete %>
-           value="<%- params.value %>">
-    <span class="form-control-feedback <%- iconClass %>"></span>
-    <div class="hint-block"><%- params.error %></div>
+<div class="form-group <%- params.error ? 'has-error' : '' %>">
+    <div class="input-group">
+        <input name="<%- params.name %>" type="<%- params.type %>" class="form-control"
+               placeholder="<%- params.placeholder %>" <%- params.autocomplete %>
+               value="<%- params.value %>" required>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
+        </div>
+    </div>
+    <div class="error-block"><%- params.error %></div>
 </div>

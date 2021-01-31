@@ -5,13 +5,13 @@
 }; %>
 <%- include('_params', {params}) %>
 
-<div class="form-group<%- params.required %> <%- params.error ? 'has-error' : '' %>">
-    <label for="<%- params.id %>" class="col-sm-3 control-label">
+<div class="form-group row <%- params.required %> <%- params.error ? 'has-error' : '' %>">
+    <label for="<%- params.id %>" class="col-md-3 col-form-label">
         <%- params.label %>
     </label>
-    <div class="col-sm-9">
-        <textarea id="<%- params.id %>" name="<%- params.name %>"
+    <div class="col-md-9">
+        <textarea id="<%- params.id %>" name="<%- params.name %>" <%- params.required %>
                   class="form-control" rows="<%- params.rows %>"><%- params.value %></textarea>
-        <div class="hint-block"><%- params.error %></div>
+        <div class="error-block"><%- params.error %></div>
     </div>
 </div>

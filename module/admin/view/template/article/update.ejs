@@ -13,13 +13,13 @@ block('breadcrumbs', {
 
 <% const photos = model.get('photos'); %>
 <% if (Array.isArray(photos)) { %>
-<div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-        <p class="form-control-static thumbnail-list clearfix">
+<div class="form-group row">
+    <label class="col-md-3 col-form-label"></label>
+    <div class="col-md-9">
+        <p class="form-control-plaintext thumbnail-list clearfix">
             <% for (const photo of photos) { %>
             <a href="<%- _url('photo/view', photo)%>" class="thumbnail-item">
-                <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive" alt="Photo">
+                <img src="<%- photo.getSmall() %>" class="img-thumbnail img-fluid" alt="Photo">
             </a>
             <% } %>
         </p>

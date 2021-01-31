@@ -1,7 +1,7 @@
 
 <% if (provider.models.length) { %>
 
-<div class="list-controls clearfix">
+<div class="list-controls">
     <% if (provider.sort) { %>
     <%- include(_view.get('_part/sort'), {
         sort: provider.sort
@@ -11,7 +11,7 @@
 
 <% itemTemplate = _view.get(itemTemplate) %>
 <% for (const model of provider.models) { %>
-    <div class="list-item clearfix">
+    <div class="list-item">
         <%- include(itemTemplate, {model}) %>
     </div>
 <% } %>
@@ -20,12 +20,8 @@
     <%- include(_view.get('_part/pagination'), {
         pager: provider.pagination
     }) %>
-<% } %>
-
-<% } else { %>
-
+<% }} else { %>
 <div class="alert alert-warning">
-    <p><%- _t('Articles not found')%></p>
+    <%- _t('Articles not found')%>
 </div>
-
 <% } %>

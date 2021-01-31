@@ -3,9 +3,9 @@
 <ol class="breadcrumb">
     <% for (const link of _widget.links) {
        if (link.hasOwnProperty('url')) { %>
-        <li><a href="<%- link.url %>"><%- link.title %></a></li>
+        <li class="breadcrumb-item"><a href="<%- link.url %>"><%- link.title %></a></li>
     <% } else { %>
-        <li><%- link.title || link %></li>
+        <li class="breadcrumb-item active"><%- link.title || link %></li>
     <% }} %>
 </ol>
 <% } %>

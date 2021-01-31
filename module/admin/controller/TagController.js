@@ -21,8 +21,9 @@ module.exports = class TagController extends Base {
     }
 
     async actionIndex () {
+        const searchText = this.getQueryParam('search');
         const provider = this.createDataProvider({
-            query: this.spawn(Tag).findBySearch(this.getQueryParam('search')),
+            query: this.spawn(Tag).findBySearch(searchText),
             sort: {
                 attrs: {
                     [Tag.PK]: true,
@@ -31,7 +32,7 @@ module.exports = class TagController extends Base {
                 defaultOrder: {[Tag.PK]: -1}
             }
         });
-        await this.renderDataProvider(provider, 'index', {provider});
+        await this.renderDataProvider(provider, 'index', {provider, searchText});
     }
 
     async actionView () {

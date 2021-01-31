@@ -1,17 +1,23 @@
 <!-- _part/field/auth/captcha -->
-
-<% const params = {}; %>
+<%
+const params = {};
+%>
 <%- include('../_params', {params}) %>
 
-<div class="captcha mb10" data-url="<%- url %>">
+<div class="captcha" data-url="<%- url %>">
     <img src="<%- `${url}?_=${_controller.timestamp}` %>" class="captcha-image">
     <a class="captcha-refresh" href="<%- `${url}?_=` %>" >
-        <span class="glyphicon glyphicon-refresh"></span>
+        <span class="fas fa-sync-alt"></span>
     </a>
 </div>
-<div class="form-group has-feedback <%- params.error ? 'has-error' : '' %>">
-    <input name="<%- params.name %>" type="text" class="form-control"
-           placeholder="<%- params.placeholder %>" autocomplete="off">
-    <span class="form-control-feedback <%- iconClass %>"></span>
-    <div class="hint-block"><%- params.error %></div>
+
+<div class="form-group <%- params.error ? 'has-error' : '' %>">
+    <div class="input-group">
+        <input name="<%- params.name %>" type="text" class="form-control"
+               placeholder="<%- params.placeholder %>" autocomplete="off" required>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
+        </div>
+    </div>
+    <div class="error-block"><%- params.error %></div>
 </div>

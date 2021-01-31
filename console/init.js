@@ -1,8 +1,10 @@
 'use strict';
-
-// cd /areto-basic-demo
-// node console/init --action apply --file migration/Init
-
+/**
+ * Initialize app
+ *
+ * cd /areto-basic-demo
+ * node console/init --action apply --file migration/Init
+ */
 const SystemHelper = require('areto/helper/SystemHelper');
 const Migrator = require('areto/db/Migrator');
 const Application = require('../Application');

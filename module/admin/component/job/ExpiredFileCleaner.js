@@ -12,7 +12,7 @@ module.exports = class ExpiredFileCleaner extends Base {
         });
     }
 
-    async run () {
+    async execute () {
         const query = this.spawn(this.FileModel).findExpired(this.expirationTimeout);
         const models = await query.all();
         await this.FileModel.delete(models);

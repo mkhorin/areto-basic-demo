@@ -18,7 +18,7 @@ module.exports = class CrudController extends Base {
     async actionCreate () {
         const model = this.spawn(this.getModelClass());
         model.scenario = 'create';
-        this.isPost() && await model.load(this.getPostParams()).save()
+        this.isPostRequest() && await model.load(this.getPostParams()).save()
             ? this.redirectToReferrer()
             : await this.render('create', {model});
     }
@@ -31,7 +31,7 @@ module.exports = class CrudController extends Base {
     async actionUpdate (params) {
         const model = await this.getModel(params);
         model.scenario = 'update';
-        this.isPost() && await model.load(this.getPostParams()).save()
+        this.isPostRequest() && await model.load(this.getPostParams()).save()
             ? this.redirectToReferrer()
             : await this.render('update', {model});
     }

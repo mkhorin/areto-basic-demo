@@ -7,7 +7,7 @@ module.exports = class Comment extends Base {
     static getConstants () {
         return {
             RULES: super.RULES.concat([
-                ['status', 'range', {range: [
+                ['status', 'range', {values: [
                     this.STATUS_PENDING,
                     this.STATUS_APPROVED,
                     this.STATUS_REJECTED

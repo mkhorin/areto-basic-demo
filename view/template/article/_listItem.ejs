@@ -1,32 +1,33 @@
-
-<% const url = _url('view', model); %>
-<% const photo = model.get('mainPhoto'); %>
-<% const tags = model.get('tags'); %>
-
-<h3>
-    <a href="<%- url %>"><%= model.getTitle() %></a>
+<%
+const url = _url('view', model);
+const photo = model.get('mainPhoto');
+const tags = model.get('tags');
+%>
+<h3 class="mb-3">
+    <a class="text-muted" href="<%- url %>"><%= model.getTitle() %></a>
 </h3>
 
-<p>
-    <span class="badge badge-info mr10">
+<div>
+    <div class="badge badge-info mr-3">
         <%- _format(model.get('date'), 'dateLong') %>
-    </span>
+    </div>
+</div>
 
-    <% if (tags.length) { %>
-    <span class="mr10">
-        <%- _t('Tags')%>
-    </span>
+<% if (photo) { %>
+<div class="mt-3 text-center">
+    <a href="<%- url %>">
+        <img src="<%- photo.getMedium() %>" class="img-thumbnail img-fluid">
+    </a>
+</div>
+<% } %>
+
+<% if (tags.length) { %>
+<div class="mt-3">
+    <b class="mr-2"><%- _t('Tags')%>:</b>
     <% for (const tag of model.get('tags')) { %>
     <a href="article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
         <%= tag.get('name') %>
     </a>
-    <% }} %>
-</p>
-
-<% if (photo) { %>
-<div class="mt20">
-    <a href="<%- url %>">
-        <img src="<%- photo.getMedium() %>" class="center-block thumbnail img-responsive">
-    </a>
+    <% } %>
 </div>
 <% } %>

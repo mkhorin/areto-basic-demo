@@ -17,7 +17,7 @@
 .uploader-item {
     clear: both;
     position: relative;
-    margin: 10px 0 15px 0;
+    margin: 20px 0 20px 0;
     transition: opacity 0.5s;
     border: none;
     padding: 0;
@@ -88,7 +88,7 @@
 }
 .uploader-remove {
     float: right;
-    margin: 17px 0 0 0;
+    margin: 20px 0 0 0;
     font-size: 15px;
     color: #bbb;
 }
@@ -111,10 +111,10 @@
     max-height: 100%;
     max-width: 100%;
 }
-.uploader-item.thumbnail .uploader-info {
+.uploader-item.img-thumbnail .uploader-info {
     margin-left: 135px;
 }
-.uploader-item.thumbnail .uploader-thumbnail {
+.uploader-item.img-thumbnail .uploader-thumbnail {
     display: block;
 }
 .uploader-dropzone {
@@ -139,9 +139,6 @@
     animation: move-bg 2s linear infinite;
 }
 .uploader-dropzone-h1 {
-}
-.uploader-dropzone-h2 {
-    font-weight: bold;
 }
 @-webkit-keyframes move-bg {
     0% {

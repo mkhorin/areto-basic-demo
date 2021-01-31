@@ -24,7 +24,7 @@ module.exports = class Article extends Base {
                 ['content', 'string', {min: 10, max: 16128}],
                 ['date', 'date'],
                 ['category', 'id'],
-                ['status', 'range', {range: [
+                ['status', 'range', {values: [
                     this.STATUS_DRAFT,
                     this.STATUS_PUBLISHED,
                     this.STATUS_ARCHIVED,

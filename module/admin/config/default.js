@@ -31,7 +31,7 @@ module.exports = {
     widgets: {
         'breadcrumbs': {
             baseLinks: [{
-                title: 'Main',
+                title: 'Dashboard',
                 url: 'admin'
             }]
         },

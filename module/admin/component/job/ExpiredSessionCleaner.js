@@ -4,7 +4,7 @@ const Base = require('areto/scheduler/Job');
 
 module.exports = class ExpiredSessionCleaner extends Base {
 
-    async run () {
+    async execute () {
         await this.module.get('session').deleteExpired();
     }
 };

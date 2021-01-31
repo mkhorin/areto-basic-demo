@@ -1,16 +1,16 @@
-
-<% const photo = model.get('mainPhoto'); %>
-<% if (photo) { %>
-    <img src="<%- photo.getSmall() %>" class="thumbnail img-responsive pull-left">
-<% } %>
-
-<h3><%= model.getTitle() %></h3>
-<p>
-    <%- _format(model.get('date'), 'date') %>
-    &nbsp;
-    <span class="badge badge-<%- model.get('status') %>">
-        <%- model.get('status') %>
-    </span>
-    &nbsp;
-    <%- model.get('author.name') %>
-</p>
+<%
+const photo = model.get('mainPhoto');
+%>
+<div class="list-item-content">
+    <% if (photo) { %>
+    <img src="<%- photo.getSmall() %>" class="mr-3 float-left img-thumbnail img-fluid">
+    <% } %>
+    <h5 class="mb-3"><%= model.getTitle() %></h5>
+    <div>
+        <%- _format(model.get('date'), 'date') %>
+        <span class="badge badge-dark badge-<%- model.get('status') %>">
+            <%- model.getAttrValueLabel('status') %>
+        </span>
+        <%- model.get('author.name') %>
+    </div>
+</div>

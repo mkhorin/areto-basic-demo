@@ -2,85 +2,80 @@
 <% block('title', _t('Dashboard')) %>
 
 <div class="row">
-    <div class="col-sm-6">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="admin/article">
-                        <%- _t('Articles') %>
-                    </a>
-                </h3>
+
+    <div class="col-md-6">
+        <div class="card-success card mb-4">
+            <div class="card-header">
+                <a href="admin/article"><%- _t('Articles') %></a>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <span class="text-succes"><%-_t('Published') %>: <b><%- published %></b></span>
-                    </div>
-                    <div class="col-xs-3">
-                        <span class="text-gray"><%-_t('Drafts') %>: <b><%- drafts %></b></span>
-                    </div>
-                    <div class="col-xs-3">
-                        <span class="text-warning"><%-_t('Archived') %>: <b><%- archived %></b></span>
-                    </div>
-                    <div class="col-xs-3">
-                        <span class="text-danger"><%-_t('Blocked') %>: <b><%- blocked %></b></span>
-                    </div>
-                </div>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-primary"><%-_t('Drafts') %></span>
+                    <span class="badge badge-primary badge-pill"><%- drafts %></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-success"><%-_t('Published') %></span>
+                    <span class="badge badge-success badge-pill"><%- published %></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-dark"><%-_t('Archived') %></span>
+                    <span class="badge badge-dark badge-pill"><%- archived %></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-danger"><%-_t('Blocked') %></span>
+                    <span class="badge badge-danger badge-pill"><%- blocked %></span>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="admin/photo">
-                        <%- _t('Photos') %>
-                    </a>
-                </h3>
+
+    <div class="col-md-6">
+        <div class="card-info card mb-4">
+            <div class="card-header">
+                <a href="admin/comment"><%- _t('Comments') %></a>
             </div>
-            <div class="panel-body">
-                <%-_t('Total') %>: <b><%- photos %></b>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-primary"><%-_t('Pending') %></span>
+                    <span class="badge badge-primary badge-pill"><%- pending %></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-success"><%-_t('Approved') %></span>
+                    <span class="badge badge-success badge-pill"><%- approved %></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-danger"><%-_t('Rejected') %></span>
+                    <span class="badge badge-danger badge-pill"><%- rejected %></span>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-6">
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="admin/tag">
-                        <%- _t('Tags') %>
-                    </a>
-                </h3>
+
+    <div class="col-md-6">
+        <div class="card-info card mb-4">
+            <div class="card-header">
+                <a href="admin/tag"><%- _t('Tags') %></a>
             </div>
-            <div class="panel-body">
-                <%- _t('Total') %>: <b><%- tags %></b>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-dark"><%-_t('Total') %></span>
+                    <span class="badge badge-dark badge-pill"><%- tags %></span>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="admin/comment">
-                        <%- _t('Comments') %>
-                    </a>
-                </h3>
+
+    <div class="col-md-6">
+        <div class="card-success card mb-4">
+            <div class="card-header">
+                <a href="admin/photo"><%- _t('Photos') %></a>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <span class="text-gray"><%-_t('Pending') %>: <b><%- pending %></b></span>
-                    </div>
-                    <div class="col-xs-4">
-                        <span class="text-success"><%-_t('Approved') %>: <b><%- approved %></b></span>
-                    </div>
-                    <div class="col-xs-4">
-                        <span class="text-danger"><%-_t('Rejected') %>: <b><%- rejected %></b></span>
-                    </div>
-                </div>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-dark"><%-_t('Total') %></span>
+                    <span class="badge badge-dark badge-pill"><%- photos %></span>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

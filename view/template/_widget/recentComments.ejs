@@ -1,15 +1,15 @@
 
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <%- _t('Recent comments') %>
-        </h3>
+<div class="card-success card mb-4">
+    <div class="card-header">
+        <%- _t('Recent comments') %>
     </div>
-    <div class="panel-body">
+    <div class="list-group list-group-flush">
         <% for (const comment of _widget.comments) { %>
-        <p>
-            <a href="article/view?id=<%- comment.get('articleId') %>#comments"><%= comment.getTitle() %></a>
-        </p>
+        <a href="article/view?id=<%- comment.get('articleId') %>#comments"
+           class="list-group-item list-group-item-action">
+            <%= comment.getTitle() %>
+        </a>
         <% } %>
     </div>
 </div>
+

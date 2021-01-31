@@ -156,9 +156,7 @@ module.exports = class File extends Base {
     }
 
     getThumbnailHeight (width) {
-        return this.thumbnailHeights && this.thumbnailHeights[width]
-            ? this.thumbnailHeights[width]
-            : width;
+        return this.thumbnailHeights?.[width] || width;
     }
 
     async setWatermark (image, width) {

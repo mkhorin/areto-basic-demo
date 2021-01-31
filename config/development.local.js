@@ -9,7 +9,7 @@ module.exports = {
             }
         },
         'i18n': {
-            // language: 'ru'
+            language: 'en'
         }
     }
 };

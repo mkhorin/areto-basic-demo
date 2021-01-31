@@ -8,7 +8,7 @@ module.exports = class Category extends Base {
         return {
             RULES: [
                 ['name', 'required'],
-                ['name', 'filter', {filter: 'trim'}],
+                ['name', 'filter', {method: 'trim'}],
                 ['name', 'string', {min: 2, max: 32}],
                 ['name', 'unique', {ignoreCase: true}]
             ],

@@ -1,8 +1,10 @@
 'use strict';
-
-// cd /areto-basic-demo
-// node console/start
-
+/**
+ * Start app
+ *
+ * cd /areto-basic-demo
+ * node console/start
+ */
 const Application = require('../Application');
 const application = new Application;
 

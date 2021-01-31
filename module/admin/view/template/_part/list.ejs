@@ -4,34 +4,32 @@ const params = {
     searchText: typeof searchText === 'string' ? searchText : ''
 };
 %>
-<div class="list-controls clearfix">
+<div class="list-controls">
     <% if (typeof search === 'undefined') { %>
-    Search
-    <div class="input-group">
-        <input class="list-search-input form-control" value="<%= params.searchText %>">
-        <span class="input-group-btn">
-           <button type="button" class="btn btn-default list-search">
-               <span class="glyphicon glyphicon-search"></span>
-           </button>
-        </span>
-    </div>    &nbsp; &nbsp;
+    <div class="list-control-search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><%- _t('Search') %></span>
+            </div>
+            <input type="search" class="list-search-input form-control" value="<%= params.searchText %>">
+            <div class="input-group-append">
+                <button type="button" class="list-search btn-primary btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <% } %>
 
     <% if (provider.sort) { %>
-    <%- include(_view.get('_part/sort'), {
-        sort: provider.sort
-    }) %>
+    <%- include(_view.get('_part/sort'), {sort: provider.sort}) %>
     <% } %>
 
-    <div class="pull-right">
+    <div class="ml-auto d-inline-block align-top">
         <% if (typeof create === 'undefined') { %>
-        <a href="<%- _url(`${params.routePrefix}create`) %>" class="btn btn-success">
-            <%- _t('Create') %>
-        </a>
+        <a href="<%- _url(`${params.routePrefix}create`) %>" class="btn-success btn"><%- _t('Create') %></a>
         <% } else if (create) { %>
-        <a href="<%- create %>" class="btn btn-success">
-            <%- _t('Create') %>
-        </a>
+        <a href="<%- create %>" class="btn-success btn"><%- _t('Create') %></a>
         <% } %>
     </div>
 </div>
@@ -43,16 +41,16 @@ const params = {
 <% for (const model of provider.models ) { %>
 <div class="list-item clearfix">
     <div class="list-item-controls">
-        <a href="<%- _url(`${params.routePrefix}view`, model) %>" class="btn btn-success btn-xs">
-            <span class="glyphicon glyphicon-eye-open"></span>
+        <a href="<%- _url(`${params.routePrefix}view`, model) %>" class="btn-success btn-sm btn">
+            <span class="fas fa-eye"></span>
         </a>
-        <a href="<%- _url(`${params.routePrefix}update`, model) %>" class="btn btn-info btn-xs">
-            <span class="glyphicon glyphicon-edit"></span>
+        <a href="<%- _url(`${params.routePrefix}update`, model) %>" class="btn-info btn-sm btn">
+            <span class="fas fa-edit"></span>
         </a>
-        <button class="btn btn-danger btn-xs delete-object-ajax" type="button"
+        <button class="delete-object-ajax btn-danger btn-sm btn" type="button"
                 data-url="<%- _url(`${params.routePrefix}delete`, model) %>"
                 data-confirm="Delete this object?">
-            <span class="glyphicon glyphicon-remove"></span>
+            <span class="fas fa-trash"></span>
         </button>
     </div>
     <% if (params.itemTemplate) { %>

@@ -10,11 +10,11 @@ block('breadcrumbs', {
 %>
 <%- include('./_form') %>
 
-<div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-        <p class="form-control-static">
-            <img src="<%- model.getMedium() %>" class="thumbnail img-responsive" alt="">
+<div class="form-group row">
+    <label class="col-md-3 col-form-label"></label>
+    <div class="col-md-9">
+        <p class="form-control-plaintext">
+            <img src="<%- model.getMedium() %>" class="img-thumbnail img-fluid" alt="">
         </p>
     </div>
 </div>

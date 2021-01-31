@@ -22,7 +22,7 @@ module.exports = class CommentController extends Base {
     async actionCreate () {
         const article = await this.getModel({ModelClass: Article});
         const model = this.spawn(Comment);
-        if (this.isGet()) {
+        if (this.isGetRequest()) {
             return this.render('create', {model});
         }
         model.load(this.getPostParams());

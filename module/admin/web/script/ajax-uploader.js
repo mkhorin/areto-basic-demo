@@ -241,9 +241,7 @@
 
         remove: function () {
             this.removed = true;
-            if (this.xhr) {
-                this.xhr.abort();
-            }
+            this.xhr?.abort();
             this.uploader.$dropzone.show();
             this.fireEvent('remove');
         },

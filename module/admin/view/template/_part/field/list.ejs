@@ -1,14 +1,13 @@
-
 <%
 const params = {
     label: typeof label === 'undefined' ? model.getAttrLabel(attr) : label
 };
 %>
-<div class="form-group">
-    <label class="col-sm-2 control-label">
-        <%- params.label %>
-    </label>
-    <div class="col-sm-10">
-        <%- include(_view.get('_part/list')) %>
+<div class="form-group row">
+    <label class="col-md-3 col-form-label"><%- params.label %></label>
+    <div class="col-md-9">
+        <div class="pt-md-2">
+            <%- include(_view.get('_part/list')) %>
+        </div>
     </div>
 </div>

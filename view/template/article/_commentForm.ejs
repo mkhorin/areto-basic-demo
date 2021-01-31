@@ -1,13 +1,14 @@
 
 <a name="comment-form"></a>
-
-<% const messages = _controller.getFlash('comment-done'); %>
+<%
+const messages = _controller.getFlash('comment-done');
+%>
 <% if (messages.length) { %>
-<div class="alert alert-success"><%= messages[0] %></div>
+<div class="alert alert-success mb-5"><%= messages[0] %></div>
 <% } else { %>
 <form action="<%= _controller.getOriginalUrl() %>#comment-form" method="post"
-      class="comment-form form form-horizontal mt30">
-    <h4 class="mb30">
+      class="comment-form form mb-5">
+    <h4 class="my-4">
         <%- _t('Add comment') %>
     </h4>
     <%- include(_view.get('_part/field/input'), {
@@ -26,9 +27,9 @@
         model: comment,
         label: _t('Message')
     }) %>
-    <div class="form-group">
-        <div class="col-sm-9 col-sm-offset-3">
-            <button id="submit-comment" type="submit" class="btn btn-primary">
+    <div class="form-group row">
+        <div class="col-md-9 offset-sm-3">
+            <button id="submit-comment" type="submit" class="btn-success btn">
                 <%- _t('Send') %>
             </button>
         </div>

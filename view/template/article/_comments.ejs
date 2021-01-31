@@ -1,20 +1,21 @@
 
-<h4 class="mt30 mb30">
+<a name="comments"></a>
+
+<h4 class="my-4">
     <%- _t('Comments') %>
     <small>(<%- comments.totalCount %>)</small>
 </h4>
 
 <% if (comments.models.length) { %>
-<a name="comments"></a>
 <div class="comment-list">
     <% for (const comment of comments.models) { %>
-    <div class="comment-item clearfix">
+    <div class="comment-item">
         <div class="comment-icon">
-            <span class="glyphicon glyphicon-comment text-info"></span>
+            <i class="text-info far fa-comment"></i>
         </div>
         <div class="comment-column">
             <div class="comment-head">
-                <b class="text-primary"><%= comment.get('name') %></b>,
+                <b class="text-danger"><%= comment.get('name') %></b>,
                 <%- _format(comment.get('createdAt'), 'datetime') %>
             </div>
             <div class="comment-body"><i><%= comment.get('content') %></i></div>
@@ -25,7 +26,8 @@
 
 <% if (comments.pagination) { %>
 <%- include(_view.get('_part/pagination'), {
-    pager: comments.pagination
+    pager: comments.pagination,
+    anchor: 'comments'
 }) %>
 <% }} else { %>
 <div class="alert alert-warning">

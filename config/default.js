@@ -2,7 +2,7 @@
 
 module.exports = {
 
-    //mountPath: "/test",
+    mountPath: '/',
     port: 3000,
 
     components: {        
@@ -48,7 +48,7 @@ module.exports = {
             limit: '10mb'
         },
         'i18n': {
-            // language: 'ru'
+            language: 'en'
         },
         'rbac': {            
         },
@@ -96,8 +96,8 @@ module.exports = {
             Class: require('../component/widget/RecentComments'),
             caching: false
         },
-        'tagList': {
-            Class: require('../component/widget/TagList'),
+        'tags': {
+            Class: require('../component/widget/Tags'),
             caching: false
         }
     }

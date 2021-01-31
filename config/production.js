@@ -26,7 +26,7 @@ module.exports = {
             caching: true,
             cacheDuration: 10
         },
-        'tagList': {
+        'tags': {
             caching: true,
             cacheDuration: 10
         }

@@ -26,7 +26,8 @@ const relation = _view.get('_part/field/relation');
 }) %>
 
 <%- include(stat, {
-    attr: 'status'
+    attr: 'status',
+    value: model.getAttrValueLabel('status')
 }) %>
 
 <%- include(stat, {

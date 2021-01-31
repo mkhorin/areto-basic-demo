@@ -30,7 +30,6 @@ module.exports = {
     'Sort by': 'Сортировать по',
 
     'Tag': 'Метка',
-    'Tag list': 'Список меток',
     'Tagged articles not found': 'Статьи с данной меткой не найдены',
     'Tags': 'Метки',
     'This account has been suspended': 'Действие этого аккаунта приостановлено',

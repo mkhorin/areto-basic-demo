@@ -1,12 +1,10 @@
 
 <% if (_widget.items) { %>
-<ul class="nav nav-pills nav-stacked nav-side">
+<div class="flex-column nav-pills nav mb-4">
     <% for (const item of _widget.items) { %>
-    <li class="<%- item.active ? 'active' : ''%>">
-        <a href="<%- item.url %>">
-            <%- _t(item.title) %>
-        </a>
-    </li>
+    <a class="nav-link <%- item.active ? 'active' : ''%>" href="<%- item.url %>">
+        <%- _t(item.title) %>
+    </a>
     <% } %>
-</ul>
+</div>
 <% } %>

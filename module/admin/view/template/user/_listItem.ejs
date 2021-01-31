@@ -1,6 +1,6 @@
-<p>
+<div class="list-item-content">
     <b><%- model.get('name') %></b>, <%- model.get('email') %>,
-    <span class="badge badge-default">
-        <%- model.get('role') %>
+    <span class="badge badge-dark">
+        <%- model.getAttrValueLabel('role') %>
     </span>
-</p>
+</div>

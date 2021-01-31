@@ -9,12 +9,12 @@ module.exports = class User extends Base {
             RULES: [
                 [['name', 'email', 'role', 'status'], 'required'],
                 ['password', 'required', {on: ['create']}],
-                ['status', 'range', {range: [
+                ['status', 'range', {values: [
                     this.STATUS_PENDING,
                     this.STATUS_ACTIVE,
                     this.STATUS_BANNED
                 ]}],
-                ['role', 'range', {range: [
+                ['role', 'range', {values: [
                     this.ROLE_READER,
                     this.ROLE_AUTHOR,
                     this.ROLE_EDITOR,

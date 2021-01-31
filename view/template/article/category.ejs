@@ -9,9 +9,9 @@ block('breadcrumbs', {
 });
 %>
 
-<h3 class="mt0 mb30">
-    <span class="color-gray"><%- _t('Category') %>:</span>
-    <span class="text-primary"><%= category.getTitle() %></span>
+<h3 class="page-header">
+    <span class="text-muted"><%- _t('Category') %>:</span>
+    <span class="text-danger"><%= category.getTitle() %></span>
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>

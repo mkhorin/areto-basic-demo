@@ -5,12 +5,12 @@ const params = {
 let items = model.rel(attr);
 items = Array.isArray(items) ? items : items ? [items] : null;
 %>
-<div class="form-group">
-    <label class="col-sm-2 control-label">
+<div class="form-group row">
+    <label class="col-md-3 col-form-label">
         <%- params.label %>
     </label>
-    <div class="col-sm-10">
-        <div class="form-control-static clearfix">
+    <div class="col-md-9">
+        <div class="form-control-plaintext clearfix">
         <% if (items) { %>
         <% for (const model of items) { %>
             <% if (typeof itemTemplate !== 'undefined') { %>

@@ -1,23 +1,22 @@
 <%
-const title = 'Sign in';
+const title = _t('Sign in');
 layout(_view.get('_layout/main'));
 block('title', title);
 block('breadcrumbs', title);
 %>
 
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="login-box-msg">
-            <%- title %>
-        </h3>
+        <h3 class="mb-4"><%- title %></h3>
 
-        <form method="post">
+        <form method="post" class="form">
+
             <%- include(_view.get('_part/field/auth/input'), {
                 attr: 'email',
                 type: 'email',
                 autocomplete: 'on',
-                iconClass: 'glyphicon glyphicon-envelope'
+                iconClass: 'fas fa-at'
             }) %>
 
             <%- include(_view.get('_part/field/auth/input'), {
@@ -25,35 +24,35 @@ block('breadcrumbs', title);
                 type: 'password',
                 autocomplete: 'off',
                 value: '',
-                iconClass: 'glyphicon glyphicon-lock'
+                iconClass: 'fas fa-key'
             }) %>
 
             <% if (model.isCaptchaRequired()) { %>
             <%- include(_view.get('_part/field/auth/captcha'), {
                 attr: 'captchaCode',
-                iconClass: 'glyphicon glyphicon-check',
+                iconClass: 'fas fa-check',
                 url: _url('captcha')
             }) %>
             <% } %>
 
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-8">
                     <% if (_controller.user.auth.enableAutoLogin) { %>
                     <%- include(_view.get('_part/field/checkbox'), {attr: 'rememberMe'}) %>
                     <% } %>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">
                         <%- title %>
                     </button>
                 </div>
             </div>
         </form>
-        <br>
-        <p class="text-center">
+
+        <div class="text-center mt-4">
             <a href="auth/sign-up">
                 Sign up new user
             </a>
-        </p>
+        </div>
     </div>
 </div>
