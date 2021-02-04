@@ -85,5 +85,5 @@ module.exports = class SignInForm extends Base {
 };
 module.exports.init(module);
 
-const RateLimit = require('areto/security/rate-limit/RateLimit');
+const RateLimit = require('areto/security/rateLimit/RateLimit');
 const PasswordAuthService = require('../component/security/PasswordAuthService');
