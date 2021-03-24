@@ -13,7 +13,7 @@ $('.list-search').click(function () {
 });
 
 $('.list-search-input').keyup(function (event) {
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
         $(this).parent().find('.list-search').click();
     }
 });
