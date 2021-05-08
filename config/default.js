@@ -45,7 +45,9 @@ module.exports = {
             }
         },
         'bodyParser': {
-            limit: '10mb'
+            urlencoded: {
+                limit: '10mb'
+            }
         },
         'i18n': {
             language: 'en'

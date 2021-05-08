@@ -7,7 +7,7 @@ module.exports = class BaseController extends Base {
     static getConstants () {
         return {
             METHODS: {
-                'delete': ['post']
+                'delete': 'post'
             }
         };
     }

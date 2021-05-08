@@ -7,7 +7,7 @@ module.exports = class FileController extends Base {
     static getConstants () {
         return {
             METHODS: {
-                'upload': ['post']
+                'upload': 'post'
             },
             actionCreate: null,
             actionUpdate: null
