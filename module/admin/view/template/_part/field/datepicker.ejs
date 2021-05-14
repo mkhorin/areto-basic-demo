@@ -12,11 +12,9 @@ const params = {};
         <div class="input-group">
             <input id="<%- params.id %>" name="<%- params.name %>" value="<%- params.value %>"
                    type="text" class="form-control datepicker">
-            <div class="input-group-append">
-                <span class="input-group-text">
-                    <i class="far fa-calendar-alt"></i>
-                </span>
-            </div>
+            <span class="input-group-text">
+                <i class="far fa-calendar-alt"></i>
+            </span>
         </div>
         <div class="error-block"><%- params.error %></div>
     </div>

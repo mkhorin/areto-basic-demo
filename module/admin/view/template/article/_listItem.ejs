@@ -3,12 +3,12 @@ const photo = model.get('mainPhoto');
 %>
 <div class="list-item-content">
     <% if (photo) { %>
-    <img src="<%- photo.getSmall() %>" class="mr-3 float-left img-thumbnail img-fluid">
+    <img src="<%- photo.getSmall() %>" class="me-3 float-start img-thumbnail img-fluid">
     <% } %>
     <h5 class="mb-3"><%= model.getTitle() %></h5>
     <div>
         <%- _format(model.get('date'), 'date') %>
-        <span class="badge badge-dark badge-<%- model.get('status') %>">
+        <span class="badge bg-dark badge-<%- model.get('status') %>">
             <%- model.getAttrValueLabel('status') %>
         </span>
         <%- model.get('author.name') %>

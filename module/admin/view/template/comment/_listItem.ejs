@@ -2,7 +2,7 @@
     <div class="mb-2">
         <%- _format(model.get('createdAt'), 'datetime') %>
 
-        <span class="badge-dark badge badge-<%- model.get('status') %>">
+        <span class="badge bg-dark badge-<%- model.get('status') %>">
             <%- model.getAttrValueLabel('status') %>
         </span>
     </div>

@@ -12,9 +12,7 @@ const params = {
         <input name="<%- params.name %>" type="<%- params.type %>" class="form-control"
                placeholder="<%- params.placeholder %>" <%- params.autocomplete %>
                value="<%- params.value %>" required>
-        <div class="input-group-append">
-            <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
-        </div>
+        <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
     </div>
     <div class="error-block"><%- params.error %></div>
 </div>

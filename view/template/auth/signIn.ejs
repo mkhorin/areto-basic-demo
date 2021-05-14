@@ -35,14 +35,14 @@ block('breadcrumbs', title);
             }) %>
             <% } %>
 
-            <div class="row">
+            <div class="form-group row">
                 <div class="col-8">
                     <% if (_controller.user.auth.enableAutoLogin) { %>
                     <%- include(_view.get('_part/field/checkbox'), {attr: 'rememberMe'}) %>
                     <% } %>
                 </div>
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">
+                    <button type="submit" class="btn btn-primary btn-flat w-100">
                         <%- title %>
                     </button>
                 </div>

@@ -12,7 +12,7 @@ const params = {
         <%- params.label %>
     </label>
     <div class="col-md-9">
-        <select id="<%- params.id %>" name="<%- params.name %>" class="form-control">
+        <select id="<%- params.id %>" name="<%- params.name %>" class="form-select">
         <% if (typeof empty !== 'undefined') { %>
             <option value=""><%- empty %></option>
         <% } %>

@@ -15,11 +15,9 @@ const searchValue = typeof search === 'undefined' ? '' : search;
                 <form action="article/search" method="get">
                     <div class="input-group">
                         <input type="search" name="text" class="form-control" value="<%= searchValue %>">
-                        <div class="input-group-append">
-                            <button class="btn-primary btn" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                        <button class="btn-primary btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </form>
             </div>

@@ -4,7 +4,7 @@ const params = {};
 %>
 <%- include('../_params', {params}) %>
 
-<div class="captcha" data-url="<%- url %>">
+<div class="form-group captcha" data-url="<%- url %>">
     <img src="<%- `${url}?_=${_controller.timestamp}` %>" class="captcha-image">
     <a class="captcha-refresh" href="<%- `${url}?_=` %>" >
         <span class="fas fa-sync-alt"></span>
@@ -15,9 +15,7 @@ const params = {};
     <div class="input-group">
         <input name="<%- params.name %>" type="text" class="form-control"
                placeholder="<%- params.placeholder %>" autocomplete="off" required>
-        <div class="input-group-append">
-            <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
-        </div>
+        <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
     </div>
     <div class="error-block"><%- params.error %></div>
 </div>

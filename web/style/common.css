@@ -94,7 +94,6 @@ body {
     font-size: 1rem;
 }
 
-
 /* CARDS */
 
 .card-danger {
@@ -170,6 +169,9 @@ body {
 .form-group.required .col-form-label:before {
     content: "*";
     color: var(--color-required);
+}
+.form-group + .form-group {
+    margin-top: 1rem;
 }
 
 /* COMMENT */
