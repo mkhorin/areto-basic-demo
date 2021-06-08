@@ -12,7 +12,7 @@ module.exports = class File extends Base {
                 'userId',
                 'originalName',
                 'filename',
-                'mime',
+                'type',
                 'extension',
                 'size',
                 'ip',
@@ -42,7 +42,7 @@ module.exports = class File extends Base {
     }
 
     isImage () {
-        return this.get('mime').indexOf('image') === 0;
+        return this.get('type').indexOf('image') === 0;
     }
 
     getPath () {
@@ -51,7 +51,7 @@ module.exports = class File extends Base {
 
     async upload (req, res, user) {
         const uploader = this.createSingleUploader();
-        await PromiseHelper.promise(uploader.bind(this, req, res));
+        await PromiseHelper.promise(uploader, this, req, res);
         this.populateFileStats(req.file, req, user);
         this.set('file', this.getFileStats());
         return this.save();
@@ -81,7 +81,7 @@ module.exports = class File extends Base {
             userId: user.getId(),
             originalName: file.originalname,
             filename: file.filename,
-            mime: file.mimetype,
+            type: file.mimetype,
             extension: path.extname(file.originalname).substring(1).toLowerCase(),
             size: file.size,
             ip: req.ip
@@ -94,7 +94,7 @@ module.exports = class File extends Base {
             path: this.getPath(),
             size: this.get('size'),
             extension: this.get('extension'),
-            mime: this.get('mime')
+            type: this.get('type')
         };
     }
 

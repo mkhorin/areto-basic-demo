@@ -7,11 +7,11 @@
         minSize: 1,
         maxSize: 10000000,
         extensions: null,
-        mimeTypes: null,
+        types: null,
         tooSmall: 'File size cannot be smaller than {limit} B',
         tooBig: 'File size cannot exceed {limit} B',
         wrongExtension: 'Only these extensions are allowed: {extensions}',
-        wrongMimeType: 'Only these MIME types are allowed: {mimeTypes}',
+        wrongType: 'Only these media types are allowed: {types}',
         imageOnly: false,
         maxHeight: null,
         maxWidth: null,
@@ -75,8 +75,8 @@
         this.$input = $uploader.find('.uploader-input-file');
         this.initDropZone();
 
-        if (this.options.mimeTypes) {
-            this.$input.attr('accept', this.options.mimeTypes.join(','));
+        if (this.options.types) {
+            this.$input.attr('accept', this.options.types.join(','));
         }
         if (this.options.maxFiles > 1) {
             this.$input.attr('multiple', true);
@@ -299,8 +299,8 @@
                     return options.wrongExtension.replace(/{extensions}/g, options.extensions.join(', '));
                 }
             }
-            if (options.mimeTypes && options.mimeTypes.indexOf(file.type) < 0) {
-                return options.wrongMimeType.replace(/{mimeTypes}/g, options.mimeTypes.join(', '));
+            if (options.types && options.types.indexOf(file.type) < 0) {
+                return options.wrongType.replace(/{types}/g, options.types.join(', '));
             }
             if (options.maxSize && options.maxSize < file.size) {
                 return options.tooBig.replace(/{limit}/g, options.maxSize);
