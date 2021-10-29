@@ -16,6 +16,9 @@ module.exports = class DefaultController extends Base {
     }
 
     async getDashboard () {
+
+        this.user.setCookie('test', {test: 'test'});
+
         const article = this.spawn(Article);
         const photo = this.spawn(Photo);
         const tag = this.spawn(Tag);

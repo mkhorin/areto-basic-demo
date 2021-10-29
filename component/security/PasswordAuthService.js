@@ -4,12 +4,15 @@ const Base = require('areto/base/Base');
 
 module.exports = class PasswordAuthService extends Base {
 
+    /**
+     * @param {Object} config
+     * @param {string} config.email
+     * @param {string} config.password
+     * @param {boolean} config.rememberMe
+     * @param {Object} config.user - WebUser instance
+     */
     constructor (config) {
         super({
-            // email: [email]
-            // password: [password]
-            // rememberMe: [true]
-            // user: [WebUser]
             rememberPeriod: 7 * 24 * 3600,
             failedMessage: 'Invalid authentication',
             bannedMessage: 'This account has been suspended',

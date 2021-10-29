@@ -10,8 +10,8 @@ module.exports = {
 
     'updateOwnArticle': {
         type: 'permission',
-        children: ['updateArticle'],
-        rule: 'author'
+        children: 'updateArticle',
+        rules: 'author'
     },
     
     // ROLE ITEMS
@@ -27,12 +27,12 @@ module.exports = {
 
     'moderator': {
         type: 'role',
-        children: ['reader']
+        children: 'reader'
     },
 
     'editor': {
         type: 'role',
-        children: ['author']
+        children: 'author'
     },
 
     'author': {

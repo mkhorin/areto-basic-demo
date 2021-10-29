@@ -4,22 +4,25 @@ const Base = require('areto/base/Behavior');
 
 module.exports = class File extends Base {
 
+    /**
+     * @param {Object} config
+     * @param {class} config.FileClass - File model class
+     * @param {string} config.fileAttr - Owner attribute with uploaded file
+     * @param {string} config.filenameAttr - Owner attribute with filename
+     * @param {string} config.storeDirectory - path.join(__dirname, '../upload/files')
+     * @param {string} config.thumbnailDirectory - path.join(__dirname, '../web/thumbnails')
+     * @param {number} config.quality - JPEG converting quality
+     * @param {number[]} config.thumbnails - Thumbnail widths: [800, 400, 200]
+     * @param {Object} config.thumbnailHeights - Thumbnail max heights if necessary: {[width]: height}
+     * @param {string} config.thumbnailResizeMethod
+     * @param {Object} config.watermark - {[width]: path.join(__dirname, './common/data/watermark.png')}
+     * @param {function} config.afterProcessFile - (fileModel) => ...
+     */
     constructor (config) {
         super({
-            // FileClass: require('../model/File'),
-            fileAttr: 'file', // owner attribute with uploaded file
-            // filenameAttr: 'filename', // owner attribute with filename
-            // directories can be public or private
-            // storeDirectory: path.join(__dirname, '../upload/files'),
-            // thumbnailDirectory: path.join(__dirname, '../web/thumbnails'),
+            fileAttr: 'file',
             thumbnailExtension: 'jpg',
             quality: 50,
-            // thumbnails: [800, 400, 200],
-            // if thumbnail max height does not match thumbnail max width
-            // thumbnailHeights: { 128: 164, 200: 300 },
-            // thumbnailResizeMethod: 'cropResizeImage',
-            // watermark: { 800: path.join(__dirname, './common/data/watermark.png')}
-            // afterProcessFile: async (fileModel)
             ...config
         });
         if (!this.defaultThumbnailSize && this.thumbnails) {

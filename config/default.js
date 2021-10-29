@@ -62,10 +62,6 @@ module.exports = {
             loginUrl: '/auth/sign-in',
             returnUrl: '/',
             enableAutoLogin: true,
-            identityCookie: {
-                'httpOnly': true,
-                'path': '/'
-            },
             defaultAssignments: ['reader']
         },
         'scheduler': {}
