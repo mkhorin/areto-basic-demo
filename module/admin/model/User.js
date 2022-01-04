@@ -47,9 +47,9 @@ module.exports = class User extends Base {
         if (!text) {
             return this.find();
         }
-        return this.find(['OR',
-            ['LIKE','name',`%${text}%`],
-            ['LIKE','email',`%${text}%`]
+        return this.find(['or',
+            ['like','name',`%${text}%`],
+            ['like','email',`%${text}%`]
         ]);
     }
 

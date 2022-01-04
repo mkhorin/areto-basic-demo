@@ -62,7 +62,7 @@ module.exports = class Article extends Base {
     findBySearch (text) {
         const query = this.createQuery();
         if (typeof text === 'string' && /[a-z0-9а-я\-\s]{1,32}/i.test(text)) {
-            query.and(['LIKE','title', `%${text}%`]);
+            query.and(['like','title', `%${text}%`]);
         }
         return query;
     }

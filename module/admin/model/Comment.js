@@ -32,8 +32,8 @@ module.exports = class Comment extends Base {
         if (!text) {
             return this.createQuery();
         }
-        return this.find(['OR',
-            ['LIKE', 'content', `%${text}%`],
+        return this.find(['or',
+            ['like', 'content', `%${text}%`],
             {name: text},
             {email: text}
         ]);

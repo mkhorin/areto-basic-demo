@@ -28,9 +28,9 @@ module.exports = class Article extends Base {
             return query;
         }
         if (/[a-zа-я0-9\-\s]{1,32}/i.test(text)) {
-            return query.and(['LIKE', 'title', `%${text}%`]);
+            return query.and(['like', 'title', `%${text}%`]);
         }
-        return query.where(['FALSE']);
+        return query.where(['false']);
     }
 
     getTitle () {

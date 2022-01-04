@@ -19,7 +19,7 @@ module.exports = class Category extends Base {
     }
 
     findBySearch (text) {
-        return text ? this.find(['LIKE', 'name', `%${text}%`]) : this.find();
+        return text ? this.find(['like', 'name', `%${text}%`]) : this.find();
     }
 
     findNames () {

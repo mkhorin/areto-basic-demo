@@ -26,7 +26,7 @@ module.exports = class Tag extends Base {
 
     findBySearch (text) {
         return text
-            ? this.find(['LIKE', 'name', `%${text}%`])
+            ? this.find(['like', 'name', `%${text}%`])
             : this.find();
     }
 
