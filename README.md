@@ -4,7 +4,7 @@ Multi-user blog built on [Areto Framework](https://github.com/mkhorin/areto).
 
 ## Docker installation
 
-Clone application to /app
+Clone application to `/app`
 ```sh
 cd /app
 docker-compose build
@@ -27,7 +27,7 @@ Install environment:
 - [MongoDB](https://www.mongodb.com/download-center/community)
 
 ### Linux
-Clone application to /app
+Clone application to `/app`
 ```sh
 cd /app
 npm install
@@ -36,7 +36,7 @@ NODE_ENV=development npm run start
 ```
 
 ### Windows
-Clone application to c:/app
+Clone application to `c:/app`
 ```sh
 cd c:/app
 npm install

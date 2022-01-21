@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "areto": "~3.1.0",
-    "areto-ejs": "^1.0.0",
-    "multer": "^1.4.4",
+    "areto-ejs": "~1.0.0",
+    "multer": "~1.4.4",
     "sharp": "~0.29.0"
   },
   "scripts": {
