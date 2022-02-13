@@ -17,7 +17,7 @@ module.exports = class Article extends Base {
                 'createdAt',
                 'updatedAt'
             ],
-            RULES: [                
+            RULES: [
                 [['title', 'content', 'status', 'date'], 'required'],
                 ['title', 'string', {min: 3, max: 128}],
                 ['title', 'unique'],
@@ -66,13 +66,13 @@ module.exports = class Article extends Base {
         }
         return query;
     }
-    
+
     findToSelect () {
         return this.createQuery().select('title').raw();
     }
 
     // EVENTS
-    
+
     async beforeValidate () {
         await super.beforeValidate();
         await this.resolveFiles(this.get('files'));
@@ -96,7 +96,7 @@ module.exports = class Article extends Base {
     relPhotos () {
         return this.hasMany(Photo, 'articleId', this.PK);
     }
-    
+
     relMainPhoto () {
         return this.hasOne(Photo, Photo.PK, 'mainPhotoId');
     }

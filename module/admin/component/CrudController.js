@@ -22,7 +22,7 @@ module.exports = class CrudController extends Base {
             ? this.redirectToReferrer()
             : await this.render('create', {model});
     }
-    
+
     async actionView (params) {
         const model = await this.getModel(params);
         await this.render('view', {model});

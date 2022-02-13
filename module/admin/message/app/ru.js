@@ -7,7 +7,7 @@ module.exports = {
     'Articles': 'Статьи',
 
     'Blocked': 'Блокировано',
-    
+
     'Categories': 'Категории',
     'Comments': 'Комментарии',
     'Content': 'Содержание',

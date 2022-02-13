@@ -6,7 +6,7 @@ module.exports = class CategoryController extends Base {
 
     async actionIndex () {
         const searchText = this.getQueryParam('search');
-        const provider = this.createDataProvider({            
+        const provider = this.createDataProvider({
             query: this.spawn(Category).findBySearch(searchText),
             sort: {
                 attrs: {

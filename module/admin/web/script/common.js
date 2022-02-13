@@ -24,7 +24,7 @@ $('.action-submit').click(function () {
         const $form = $btn.closest('form');
         $btn.parent().find('button').attr('disabled', true);
         $form.attr('action', $btn.data('url')).submit();
-    }    
+    }
 });
 
 $('.delete-object-ajax').click(function () {
@@ -60,7 +60,7 @@ $('.uploader').each(function () {
                     data.remove();
                     data.$item.remove();
                 }
-            });            
+            });
         })
         .on('uploader.file.validated', function (event, {image, $item}) {
             if (image) {

@@ -5,7 +5,7 @@ module.exports = {
     mountPath: '/',
     port: 3000,
 
-    components: {        
+    components: {
         'logger': {
             level: 'info'
         },
@@ -24,7 +24,7 @@ module.exports = {
                 'database': process.env.MONGO_NAME || 'areto-basic'
             }
         },
-        'cache': {            
+        'cache': {
             Class: require('areto/cache/MemoryCache')
         },
         'cookie': {
@@ -52,7 +52,7 @@ module.exports = {
         'i18n': {
             language: 'en'
         },
-        'rbac': {            
+        'rbac': {
         },
         'rateLimit': {
             attempts: 3

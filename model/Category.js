@@ -12,11 +12,11 @@ module.exports = class Category extends Base {
             ]
         };
     }
-    
+
     getTitle () {
         return this.get('name');
     }
-    
+
     relArticles () {
         return this.hasMany(Article, 'category', this.PK)
             .and({status: Article.STATUS_PUBLISHED})

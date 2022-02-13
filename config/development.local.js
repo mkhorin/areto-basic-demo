@@ -3,7 +3,7 @@
 module.exports = {
     components: {
         'db': {
-            settings: {                
+            settings: {
                 user: '',
                 password: ''
             }

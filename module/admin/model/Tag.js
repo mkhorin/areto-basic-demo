@@ -11,7 +11,7 @@ module.exports = class Tag extends Base {
                 ['name', 'filter', {method: 'trim'}],
                 ['name', 'string', {min: 2, max: 32}],
                 ['name', 'unique', {ignoreCase: true}]
-            ],           
+            ],
             UNLINK_ON_DELETE: [
                 'articles'
             ]

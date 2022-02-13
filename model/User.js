@@ -8,13 +8,13 @@ module.exports = class User extends Base {
         return {
             TABLE: 'user',
             ATTRS: [
-                'name', 
-                'email', 
-                'role', 
+                'name',
+                'email',
+                'role',
                 'status',
                 'createdAt',
                 'updatedAt',
-                'passwordHash', 
+                'passwordHash',
                 'authKey'
             ],
             BEHAVIORS: {
@@ -49,7 +49,7 @@ module.exports = class User extends Base {
     getTitle () {
         return this.get('name');
     }
-    
+
     isActive () {
         return this.get('status') === this.STATUS_ACTIVE;
     }
@@ -71,7 +71,7 @@ module.exports = class User extends Base {
             this.setAuthKey();
         }
     }
-   
+
     // PASSWORD
 
     checkPassword (password, hash) {

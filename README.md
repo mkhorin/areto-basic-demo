@@ -1,6 +1,6 @@
 # Areto Demo App
 
-Multi-user blog built on [Areto Framework](https://github.com/mkhorin/areto).  
+Multi-user blog built on [Areto Framework](https://github.com/mkhorin/areto).
 
 ## Docker installation
 
@@ -51,7 +51,7 @@ npm run start
 ```sh
 Email: a@a.a
 Password: 123456
-```   
+```
 
 ## Tutorial
 - [Build a Blog with Areto Framework](http://nervebit.com/areto/blog/)

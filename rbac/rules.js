@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {    
+module.exports = {
 
     'author': {
         Class: require('areto/security/rbac/AuthorRule')

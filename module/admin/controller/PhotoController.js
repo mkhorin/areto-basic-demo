@@ -13,7 +13,7 @@ module.exports = class PhotoController extends Base {
     }
 
     actionIndex () {
-        const provider = this.createDataProvider({            
+        const provider = this.createDataProvider({
             query: this.spawn(Photo).find().with('article'),
             pagination: {pageSize: 10},
             sort: {
@@ -35,7 +35,7 @@ module.exports = class PhotoController extends Base {
         const articles = await this.spawn(Article).findToSelect().all();
         await this.render('create', {model, articles});
     }
-    
+
     async actionUpdate () {
         const model = await this.getModel();
         if (this.isPostRequest() && await model.load(this.getPostParams()).save()) {

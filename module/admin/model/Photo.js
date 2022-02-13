@@ -39,7 +39,7 @@ module.exports = class Photo extends Base {
             }
         };
     }
-    
+
     relArticle () {
         return this.hasOne(Article, Article.PK, 'articleId');
     }

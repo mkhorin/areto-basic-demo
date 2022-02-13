@@ -7,14 +7,14 @@ module.exports = class Comment extends Base {
     static getConstants () {
         return {
             TABLE: 'comment',
-            ATTRS: [                 
-                'articleId', 
+            ATTRS: [
+                'articleId',
                 'name',
                 'email',
                 'ip',
-                'content', 
-                'status',                
-                'createdAt', 
+                'content',
+                'status',
+                'createdAt',
                 'updatedAt'
             ],
             RULES: [

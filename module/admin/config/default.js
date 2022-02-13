@@ -14,14 +14,14 @@ module.exports = {
         }
     },
     tasks: {
-        'expiredFileCleaner': {            
+        'expiredFileCleaner': {
             job: {
                 Class: require('../component/job/ExpiredFileCleaner'),
                 expirationTimeout: 3600
             },
             period: 3600
         },
-        'expiredSessionCleaner': {            
+        'expiredSessionCleaner': {
             job: {
                 Class: require('../component/job/ExpiredSessionCleaner')
             },

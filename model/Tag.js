@@ -16,15 +16,15 @@ module.exports = class Tag extends Base {
             ]
         };
     }
-    
+
     findByName (name) {
         return this.find({name});
     }
-    
+
     getTitle () {
         return this.get('name');
     }
-    
+
     relArticles () {
         return this.hasMany(Article, Article.PK, 'articleId')
             .viaTable('rel_article_tag', 'tagId', this.PK)

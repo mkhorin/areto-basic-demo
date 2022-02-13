@@ -16,8 +16,8 @@ module.exports = class SignUpForm extends Base {
                 ['passwordRepeat', 'compare', {compareAttr: 'password'}],
                 ['captchaCode', require('areto/security/captcha/CaptchaValidator')],
                 [['name', 'email'], 'unique', {
-                    skipOnAnyError: true, 
-                    targetClass: User, 
+                    skipOnAnyError: true,
+                    targetClass: User,
                     ignoreCase: true
                 }]
             ],

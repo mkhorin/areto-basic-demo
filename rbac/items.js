@@ -13,7 +13,7 @@ module.exports = {
         children: 'updateArticle',
         rules: 'author'
     },
-    
+
     // ROLE ITEMS
 
     'admin': {

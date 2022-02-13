@@ -6,7 +6,7 @@ module.exports = class Article extends Base {
 
     static getConstants () {
         return {
-            TABLE: 'article',           
+            TABLE: 'article',
             STATUS_DRAFT: 'draft',
             STATUS_PUBLISHED: 'published',
             STATUS_ARCHIVED: 'archived',
@@ -66,7 +66,7 @@ module.exports = class Article extends Base {
     relPhotos () {
         return this.hasMany(Photo, 'articleId', this.PK);
     }
-    
+
     relMainPhoto () {
         return this.hasOne(Photo, Photo.PK, 'mainPhotoId');
     }

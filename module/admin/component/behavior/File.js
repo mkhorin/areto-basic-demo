@@ -32,7 +32,7 @@ module.exports = class File extends Base {
         this.setHandler(ActiveRecord.EVENT_AFTER_VALIDATE, this.afterValidate);
         this.setHandler(ActiveRecord.EVENT_AFTER_DELETE, this.afterDelete);
     }
-  
+
     getPath () {
         return path.join(this.storeDirectory, this.getFilename());
     }
