@@ -54,4 +54,4 @@ Password: 123456
 ```
 
 ## Tutorial
-- [Build a Blog with Areto Framework](http://nervebit.com/areto/blog/)
+- [Build a Blog with Areto Framework](https://mkhorin.github.io/areto-site/)
