@@ -15,7 +15,7 @@ module.exports = class Photo extends Base {
             ],
             RULES: [
                 ['title', 'string', {min: 3, max: 255}],
-                ['file', 'required', {on: ['create']}],
+                ['file', 'required', {on: 'create'}],
                 ['file', 'image'],
                 ['articleId', 'id'],
                 ['articleId', 'exist', {

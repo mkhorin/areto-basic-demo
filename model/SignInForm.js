@@ -12,10 +12,10 @@ module.exports = class SignInForm extends Base {
                 ['email', 'email'],
                 ['password', 'string', {min: 6, max: 24}],
                 ['rememberMe', 'checkbox'],
-                ['captchaCode', 'required', {on: [CAPTCHA_SCENARIO]}],
+                ['captchaCode', 'required', {on: CAPTCHA_SCENARIO}],
                 ['captchaCode', {
                     Class: require('areto/security/captcha/CaptchaValidator'),
-                    on: [CAPTCHA_SCENARIO]
+                    on: CAPTCHA_SCENARIO
                 }]
             ],
             ATTR_LABELS: {
