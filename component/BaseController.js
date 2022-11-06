@@ -13,11 +13,9 @@ module.exports = class BaseController extends Base {
     }
 
     async getModel (params) {
-        params = {
-            ModelClass: this.getModelClass(),
-            id: this.getQueryParam('id'),
-            ...params
-        };
+        const ModelClass = this.getModelClass();
+        const {id} = this.getQueryParams();
+        params = {ModelClass, id, ...params};
         if (!MongoHelper.isValidId(params.id)) {
             throw new BadRequest;
         }
@@ -30,7 +28,10 @@ module.exports = class BaseController extends Base {
     }
 
     createDataProvider (config) {
-        return this.spawn(ActiveDataProvider, {controller: this, ...config});
+        return this.spawn(ActiveDataProvider, {
+            controller: this,
+            ...config
+        });
     }
 
     async renderDataProvider (provider, template, data) {

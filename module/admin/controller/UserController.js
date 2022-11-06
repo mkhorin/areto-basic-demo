@@ -19,8 +19,9 @@ module.exports = class UserController extends Base {
     }
 
     async actionIndex () {
+        const {search} = this.getQueryParams();
         const provider = this.createDataProvider({
-            query: this.spawn(User).findBySearch(this.getQueryParam('search')),
+            query: this.spawn(User).findBySearch(search),
             sort: {
                 attrs: {
                     [User.PK]: true,

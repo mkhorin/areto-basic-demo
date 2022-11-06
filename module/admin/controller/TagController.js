@@ -21,7 +21,7 @@ module.exports = class TagController extends Base {
     }
 
     async actionIndex () {
-        const searchText = this.getQueryParam('search');
+        const {search: searchText} = this.getQueryParams();
         const provider = this.createDataProvider({
             query: this.spawn(Tag).findBySearch(searchText),
             sort: {

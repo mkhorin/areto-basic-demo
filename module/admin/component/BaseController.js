@@ -12,6 +12,7 @@ module.exports = class BaseController extends Base {
     }
 
     redirectToReferrer (url = 'index') {
-        this.redirect(this.getPostParam('referrer') || url);
+        const {referrer} = this.getPostParams();
+        this.redirect(referrer || url);
     }
 };

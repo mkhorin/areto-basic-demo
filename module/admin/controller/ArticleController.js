@@ -5,7 +5,7 @@ const Base = require('../component/CrudController');
 module.exports = class ArticleController extends Base {
 
     async actionIndex () {
-        const searchText = this.getQueryParam('search');
+        const {search: searchText} = this.getQueryParams();
         const provider = this.createDataProvider({
             query: this.spawn(Article).findBySearch(searchText).with('author', 'mainPhoto'),
             pagination: {pageSize: 10},

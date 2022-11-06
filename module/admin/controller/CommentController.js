@@ -5,8 +5,9 @@ const Base = require('../component/CrudController');
 module.exports = class CommentController extends Base {
 
     async actionIndex () {
+        const {search} = this.getQueryParams();
         const provider = this.createDataProvider({
-            query: this.spawn(Comment).findBySearch(this.getQueryParam('search')),
+            query: this.spawn(Comment).findBySearch(search),
             pagination: {},
             sort: {
                 attrs: {

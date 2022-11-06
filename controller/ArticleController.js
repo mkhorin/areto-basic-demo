@@ -13,18 +13,18 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionCategory () {
+        const {category: id} = this.getQueryParams();
         const category = await this.getModel({
             ModelClass: Category,
-            id: this.getQueryParam('category')
+            id
         });
-        const provider = this.createDataProvider({
-            query: this.spawn(Article).findPublishedByCategory(category.getId())
-        });
+        const query = this.spawn(Article).findPublishedByCategory(category.getId());
+        const provider = this.createDataProvider({query});
         await this.renderDataProvider(provider, 'category', {provider, category});
     }
 
     async actionTagged () {
-        const tagName = this.getQueryParam('tag');
+        const {tag: tagName} = this.getQueryParams();
         const tag = this.spawn(Tag);
         tag.set('name', tagName);
         if (!await tag.validate()) {
@@ -34,12 +34,15 @@ module.exports = class ArticleController extends Base {
         if (!model) {
             return this.render('tagged', {tagName});
         }
-        const provider = this.createDataProvider({query: model.relArticles()});
+        const provider = this.createDataProvider({
+            query: model.relArticles()
+        });
         await this.renderDataProvider(provider, 'tagged', {provider, tagName});
     }
 
     async actionSearch () {
-        const search = String(this.getQueryParam('text')).trim();
+        const {text} = this.getQueryParams();
+        const search = String(text).trim();
         const provider = this.createDataProvider({
             query: this.spawn(Article).findBySearch(search)
         });
@@ -47,7 +50,9 @@ module.exports = class ArticleController extends Base {
     }
 
     async actionView () {
-        const model = await this.getModel({with: ['category', 'mainPhoto', 'photos', 'tags']});
+        const model = await this.getModel({
+            with: ['category', 'mainPhoto', 'photos', 'tags']
+        });
         const comment = this.spawn(Comment, {scenario: 'create'});
         if (this.isGetRequest()) {
             return this.renderView(model, comment);
@@ -77,7 +82,9 @@ module.exports = class ArticleController extends Base {
     }
 
     async renderView (model, comment) {
-        const comments = this.createDataProvider({query: model.relComments()});
+        const comments = this.createDataProvider({
+            query: model.relComments()
+        });
         await comments.prepare();
         await this.render('view', {model, comments, comment});
     }
