@@ -2,77 +2,77 @@
 layout(_view.get('_layout/view'));
 block('title', 'Article');
 block('breadcrumbs', {
-    title: 'Articles',
-    url: 'admin/article'
+  title: 'Articles',
+  url: 'admin/article'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 const stat = _view.get('_part/field/static');
 const relation = _view.get('_part/field/relation');
 %>
 
 <%- include(relation, {
-    attr: 'category',
-    viewRoute: 'category/view'
+  attr: 'category',
+  viewRoute: 'category/view'
 }) %>
 
 <%- include(stat, {
-    attr: 'title'
+  attr: 'title'
 }) %>
 
 <%- include(stat, {
-    attr: 'date',
-    value: _format(model.get('date'), 'date')
+  attr: 'date',
+  value: _format(model.get('date'), 'date')
 }) %>
 
 <%- include(stat, {
-    attr: 'status',
-    value: model.getAttrValueLabel('status')
+  attr: 'status',
+  value: model.getAttrValueLabel('status')
 }) %>
 
 <%- include(stat, {
-    attr: 'author',
-    value: model.get('author.name'),
-    escaping: false
+  attr: 'author',
+  value: model.get('author.name'),
+  escaping: false
 }) %>
 
 <%- include(stat, {
-    attr: 'updatedAt',
-    value: _format(model.get('updatedAt'), 'datetime')
+  attr: 'updatedAt',
+  value: _format(model.get('updatedAt'), 'datetime')
 }) %>
 
 <%- include(stat, {
-    attr: 'createdAt',
-    value: _format(model.get('createdAt'), 'datetime')
+  attr: 'createdAt',
+  value: _format(model.get('createdAt'), 'datetime')
 }) %>
 
 <%- include(relation, {
-    attr: 'tags',
-    viewRoute: 'tag/view'
+  attr: 'tags',
+  viewRoute: 'tag/view'
 }) %>
 
 <%- include(stat, {
-    attr: 'content',
-    escaping: false
+  attr: 'content',
+  escaping: false
 }) %>
 
 <%- include(relation, {
-    attr: 'mainPhoto',
-    itemTemplate: _view.get('article/_thumbnail'),
-    viewRoute: 'photo/view'
+  attr: 'mainPhoto',
+  itemTemplate: _view.get('article/_thumbnail'),
+  viewRoute: 'photo/view'
 }) %>
 
 <%- include(relation, {
-    attr: 'photos',
-    itemTemplate: _view.get('article/_thumbnail'),
-    viewRoute: 'photo/view'
+  attr: 'photos',
+  itemTemplate: _view.get('article/_thumbnail'),
+  viewRoute: 'photo/view'
 }) %>
 
 <%- include(_view.get('_part/field/list'), {
-    attr: 'comments',
-    provider: comments,
-    itemTemplate: 'article/_commentItem',
-    create: _url('comment/create', model),
-    search: null,
-    routePrefix: 'comment/'
+  attr: 'comments',
+  provider: comments,
+  itemTemplate: 'article/_commentItem',
+  create: _url('comment/create', model),
+  search: null,
+  routePrefix: 'comment/'
 }) %>

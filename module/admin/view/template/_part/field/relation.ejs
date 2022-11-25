@@ -1,32 +1,32 @@
 <%
 const params = {
-    label: typeof label === 'undefined' ? model.getAttrLabel(attr) : label
+  label: typeof label === 'undefined' ? model.getAttrLabel(attr) : label
 };
 let items = model.rel(attr);
 items = Array.isArray(items) ? items : items ? [items] : null;
 %>
 <div class="form-group row">
-    <label class="col-md-3 col-form-label">
-        <%- params.label %>
-    </label>
-    <div class="col-md-9">
-        <div class="form-control-plaintext clearfix">
-        <% if (items) { %>
-        <% for (const model of items) { %>
-            <% if (typeof itemTemplate !== 'undefined') { %>
-                <%- include(itemTemplate, {model}) %>
-            <% } else if (typeof viewRoute !== 'undefined') { %>
-                <a href="<%- _url(viewRoute, model)%>" class="rel-list-item">
-                    <%= model.getTitle() %>
-                </a>
-            <% } else { %>
-                <span class="rel-list-item">
-                    <%= model.getTitle() %>
-                </span>
-            <% } %>
-        <% }} else { %>
-            <span class="not-set">[not set]</span>
-        <% } %>
-        </div>
+  <label class="col-md-3 col-form-label">
+    <%- params.label %>
+  </label>
+  <div class="col-md-9">
+    <div class="form-control-plaintext clearfix">
+    <% if (items) { %>
+    <% for (const model of items) { %>
+      <% if (typeof itemTemplate !== 'undefined') { %>
+        <%- include(itemTemplate, {model}) %>
+      <% } else if (typeof viewRoute !== 'undefined') { %>
+        <a href="<%- _url(viewRoute, model)%>" class="rel-list-item">
+          <%= model.getTitle() %>
+        </a>
+      <% } else { %>
+        <span class="rel-list-item">
+          <%= model.getTitle() %>
+        </span>
+      <% } %>
+    <% }} else { %>
+      <span class="not-set">[not set]</span>
+    <% } %>
     </div>
+  </div>
 </div>

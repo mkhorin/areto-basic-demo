@@ -1,18 +1,18 @@
 <!-- _part/field/auth/input -->
 <%
 const params = {
-    type: typeof type === 'undefined' ? 'text' : type,
-    autocomplete: typeof autocomplete === 'undefined' ? '' : ` autocomplete="${autocomplete}"`
+  type: typeof type === 'undefined' ? 'text' : type,
+  autocomplete: typeof autocomplete === 'undefined' ? '' : ` autocomplete="${autocomplete}"`
 };
 %>
 <%- include('../_params', {params}) %>
 
 <div class="form-group <%- params.error ? 'has-error' : '' %>">
-    <div class="input-group">
-        <input name="<%- params.name %>" type="<%- params.type %>" class="form-control"
-               placeholder="<%- params.placeholder %>" <%- params.autocomplete %>
-               value="<%- params.value %>" required>
-        <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
-    </div>
-    <div class="error-block"><%- params.error %></div>
+  <div class="input-group">
+    <input name="<%- params.name %>" type="<%- params.type %>" class="form-control"
+         placeholder="<%- params.placeholder %>" <%- params.autocomplete %>
+         value="<%- params.value %>" required>
+    <span class="input-group-text"><i class="<%- iconClass %>"></i></span>
+  </div>
+  <div class="error-block"><%- params.error %></div>
 </div>

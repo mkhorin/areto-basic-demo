@@ -2,19 +2,19 @@
 layout(_view.get('_layout/form'));
 block('title', 'Update photo');
 block('breadcrumbs', {
-    title: 'Photos',
-    url: 'admin/photo'
+  title: 'Photos',
+  url: 'admin/photo'
 },{
-    title: model.getId()
+  title: model.getId()
 });
 %>
 <%- include('./_form') %>
 
 <div class="form-group row">
-    <label class="col-md-3 col-form-label"></label>
-    <div class="col-md-9">
-        <p class="form-control-plaintext">
-            <img src="<%- model.getMedium() %>" class="img-thumbnail img-fluid" alt="">
-        </p>
-    </div>
+  <label class="col-md-3 col-form-label"></label>
+  <div class="col-md-9">
+    <p class="form-control-plaintext">
+      <img src="<%- model.getMedium() %>" class="img-thumbnail img-fluid" alt="">
+    </p>
+  </div>
 </div>

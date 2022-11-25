@@ -1,23 +1,22 @@
-
 <%- include(_view.get('_part/field/select'), {
-    attr: 'articleId',
-    label: _t('Article'),
-    items: articles,
-    empty: '-',
-    itemLabelKey: 'title'
+  attr: 'articleId',
+  label: _t('Article'),
+  items: articles,
+  empty: '-',
+  itemLabelKey: 'title'
 }) %>
 
 <%- include(_view.get('_part/field/input'), {
-    attr: 'title'
+  attr: 'title'
 }) %>
 
 <% const file = model.get('file'); %>
 <%- include(_view.get('_part/field/uploader'), {
-    attr: 'file',
-    url: 'file/upload',
-    options: {
-        maxSize: 2000000,
-        imageOnly: true
-    },
-    files: file ? [file.model] : null
+  attr: 'file',
+  url: 'file/upload',
+  options: {
+    maxSize: 2000000,
+    imageOnly: true
+  },
+  files: file ? [file.model] : null
 }) %>

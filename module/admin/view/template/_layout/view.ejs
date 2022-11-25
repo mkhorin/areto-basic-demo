@@ -2,25 +2,25 @@
 
 <form method="post" class="object-view form">
 
-    <input type="hidden" name="referrer" value="<%= _controller.getReferrer() %>">
-    <input type="hidden" name="csrf" value="<%- _controller.getCsrfToken() %>">
+  <input type="hidden" name="referrer" value="<%= _controller.getReferrer() %>">
+  <input type="hidden" name="csrf" value="<%- _controller.getCsrfToken() %>">
 
-    <div class="object-controls clearfix">
+  <div class="object-controls clearfix">
 
-        <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
+    <a href="<%- _url('create') %>" class="btn btn-success">Create</a>
 
-        <a href="<%- _url('update', model) %>" class="btn btn-primary">Edit</a>
+    <a href="<%- _url('update', model) %>" class="btn btn-primary">Edit</a>
 
-        <button class="btn btn-danger action-submit" type="button"
-                data-url="<%- _url('delete', model) %>"
-                data-confirm="Delete this object?">
-            Delete
-        </button>
+    <button class="btn btn-danger action-submit" type="button"
+        data-url="<%- _url('delete', model) %>"
+        data-confirm="Delete this object?">
+      Delete
+    </button>
 
-        <div class="custom-object-controls">
-            <%- blocks.controls %>
-        </div>
+    <div class="custom-object-controls">
+      <%- blocks.controls %>
     </div>
+  </div>
 
-    <%- body %>
+  <%- body %>
 </form>

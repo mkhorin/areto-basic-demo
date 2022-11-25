@@ -1,15 +1,15 @@
 <div class="list-item-content">
-    <div class="mb-2">
-        <%- _format(model.get('createdAt'), 'datetime') %>
+  <div class="mb-2">
+    <%- _format(model.get('createdAt'), 'datetime') %>
 
-        <span class="badge bg-dark badge-<%- model.get('status') %>">
-            <%- model.getAttrValueLabel('status') %>
-        </span>
-    </div>
-    <div class="mb-2">
-        <%= model.get('content') %>
-    </div>
-    <div>
-        <b><%= model.get('name') %></b>, <%- model.get('email') %>
-    </div>
+    <span class="badge bg-dark badge-<%- model.get('status') %>">
+      <%- model.getAttrValueLabel('status') %>
+    </span>
+  </div>
+  <div class="mb-2">
+    <%= model.get('content') %>
+  </div>
+  <div>
+    <b><%= model.get('name') %></b>, <%- model.get('email') %>
+  </div>
 </div>

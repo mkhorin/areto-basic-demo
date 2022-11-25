@@ -4,51 +4,50 @@ layout(_view.get('_layout/main'))
 block('title', title)
 block('breadcrumbs', title);
 %>
-
 <div class="row">
-    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="mb-4">Sign up new user</h3>
+    <h3 class="mb-4">Sign up new user</h3>
 
-        <form method="post" class="form">
+    <form method="post" class="form">
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'name',
-                iconClass: 'fas fa-user'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'name',
+        iconClass: 'fas fa-user'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'email',
-                type: 'email',
-                autocomplete: 'off',
-                iconClass: 'fas fa-at'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'email',
+        type: 'email',
+        autocomplete: 'off',
+        iconClass: 'fas fa-at'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'password',
-                type: 'password',
-                value: '',
-                autocomplete: 'new-password',
-                iconClass: 'fas fa-key'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'password',
+        type: 'password',
+        value: '',
+        autocomplete: 'new-password',
+        iconClass: 'fas fa-key'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'passwordRepeat',
-                type: 'password',
-                value: '',
-                autocomplete: 'new-password',
-                iconClass: 'fas fa-key'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'passwordRepeat',
+        type: 'password',
+        value: '',
+        autocomplete: 'new-password',
+        iconClass: 'fas fa-key'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/captcha'), {
-                attr: 'captchaCode',
-                iconClass: 'fas fa-check',
-                url: _url('captcha')
-            }) %>
+      <%- include(_view.get('_part/field/auth/captcha'), {
+        attr: 'captchaCode',
+        iconClass: 'fas fa-check',
+        url: _url('captcha')
+      }) %>
 
-            <div class="form-group text-end">
-                <button type="submit" class="btn btn-success"><%- title %></button>
-            </div>
-        </form>
-    </div>
+      <div class="form-group text-end">
+        <button type="submit" class="btn btn-success"><%- title %></button>
+      </div>
+    </form>
+  </div>
 </div>

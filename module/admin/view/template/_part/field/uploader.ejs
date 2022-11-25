@@ -1,57 +1,57 @@
 <!-- _part/field/uploader -->
 <%
 const params = {
-    options: typeof options === 'undefined' ? {} : options,
-    files: typeof files === 'undefined' ? null : files
+  options: typeof options === 'undefined' ? {} : options,
+  files: typeof files === 'undefined' ? null : files
 };
 %>
 <%- include('_params', {params}) %>
 <%
 if (Array.isArray(params.files)) {
-    params.options.items = [];
-    for (const file of params.files) {
-        params.options.items.push({
-            id: file.getId(),
-            name: file.get('originalName'),
-            size: file.get('size')
-        });
-    }
+  params.options.items = [];
+  for (const file of params.files) {
+    params.options.items.push({
+      id: file.getId(),
+      name: file.get('originalName'),
+      size: file.get('size')
+    });
+  }
 }
 %>
 <div class="form-group row<%- params.required %> <%- params.error ? 'has-error' : '' %>">
-    <label for="<%- params.id %>" class="col-md-3 col-form-label">
-        <%- params.label %>
-    </label>
-    <div class="col-md-9">
-        <input type="hidden" id="<%- params.id %>" name="<%- params.name %>">
-        <div class="uploader" data-id="#<%- params.id %>"
-             data-url="<%- _url(url) %>"
-             data-options="<%= JSON.stringify(params.options)%>">
-            <div class="uploader-input">
-                <input type="file" class="uploader-input-file">
-                <div class="uploader-dropzone">
-                    <div class="uploader-dropzone-h1">Drag and drop or select files here</div>
-                </div>
-            </div>
-            <div class="uploader-overflow">Too many</div>
-            <div class="uploader-list clearfix">
-                <div class="uploader-item pending sample">
-                    <div class="uploader-thumbnail"></div>
-                    <div class="uploader-signs">
-                        <div class="uploader-sign-pending fa fa-spinner fa-spin"></div>
-                        <div class="uploader-sign-processing fa fa-spinner fa-spin"></div>
-                        <div class="uploader-sign-done fas fa-check"></div>
-                        <div class="uploader-sign-failed fas fa-ban"></div>
-                    </div>
-                    <div class="uploader-remove" title="Delete"><span class="fas fa-times"></span></div>
-                    <div class="uploader-info">
-                        <div class="uploader-filename">File</div>
-                        <div class="progress progress-xxs"><div class="progress-bar"></div></div>
-                        <div class="uploader-message">Preparing to upload...</div>
-                    </div>
-                </div>
-            </div>
+  <label for="<%- params.id %>" class="col-md-3 col-form-label">
+    <%- params.label %>
+  </label>
+  <div class="col-md-9">
+    <input type="hidden" id="<%- params.id %>" name="<%- params.name %>">
+    <div class="uploader" data-id="#<%- params.id %>"
+       data-url="<%- _url(url) %>"
+       data-options="<%= JSON.stringify(params.options)%>">
+      <div class="uploader-input">
+        <input type="file" class="uploader-input-file">
+        <div class="uploader-dropzone">
+          <div class="uploader-dropzone-h1">Drag and drop or select files here</div>
         </div>
-        <div class="error-block"><%- params.error %></div>
+      </div>
+      <div class="uploader-overflow">Too many</div>
+      <div class="uploader-list clearfix">
+        <div class="uploader-item pending sample">
+          <div class="uploader-thumbnail"></div>
+          <div class="uploader-signs">
+            <div class="uploader-sign-pending fa fa-spinner fa-spin"></div>
+            <div class="uploader-sign-processing fa fa-spinner fa-spin"></div>
+            <div class="uploader-sign-done fas fa-check"></div>
+            <div class="uploader-sign-failed fas fa-ban"></div>
+          </div>
+          <div class="uploader-remove" title="Delete"><span class="fas fa-times"></span></div>
+          <div class="uploader-info">
+            <div class="uploader-filename">File</div>
+            <div class="progress progress-xxs"><div class="progress-bar"></div></div>
+            <div class="uploader-message">Preparing to upload...</div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="error-block"><%- params.error %></div>
+  </div>
 </div>

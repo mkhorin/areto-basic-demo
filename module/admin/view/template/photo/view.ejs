@@ -3,28 +3,28 @@ layout(_view.get('_layout/view'));
 block('title', 'Photo');
 block('controls', `<button class="btn btn-primary action-submit" type="button" data-url="${_url('lead', model)}">Assign as main</button>`);
 block('breadcrumbs', {
-    title: 'Photos',
-    url: 'admin/photo'
+  title: 'Photos',
+  url: 'admin/photo'
 },{
-    title: model.getId()
+  title: model.getId()
 });
 %>
 
 <%- include(_view.get('_part/field/relation'), {
-    attr: 'article',
-    viewRoute: 'article/view'
+  attr: 'article',
+  viewRoute: 'article/view'
 }) %>
 
 <%- include(_view.get('_part/field/static'), {
-    attr: 'title',
-    escaping: false
+  attr: 'title',
+  escaping: false
 }) %>
 
 <div class="form-group row">
-    <label class="col-md-3 col-form-label">Photo</label>
-    <div class="col-md-9">
-        <p class="form-control-plaintext">
-            <img src="<%- model.getLarge() %>" class="img-thumbnail img-fluid" alt="">
-        </p>
-    </div>
+  <label class="col-md-3 col-form-label">Photo</label>
+  <div class="col-md-9">
+    <p class="form-control-plaintext">
+      <img src="<%- model.getLarge() %>" class="img-thumbnail img-fluid" alt="">
+    </p>
+  </div>
 </div>

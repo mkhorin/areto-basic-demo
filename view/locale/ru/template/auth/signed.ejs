@@ -4,23 +4,22 @@ layout(_view.get('_layout/main'));
 block('title', title);
 block('breadcrumbs', title);
 %>
-
 <div class="row">
-    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h3 class="mb-4">
-            Вход выполнен как
-        </h3>
-        <form action="auth/logout" method="post">
-            <p class="text-center">
-                <b><%- model.get('name') %></b>
-                (<%- model.get('role') %>)
-            </p>
-            <p class="mt-3">
-                <button type="submit" class="btn btn-danger w-100">
-                    <span class="fas fa-sign-out-alt"></span>
-                    Выйти
-                </button>
-            </p>
-        </form>
-    </div>
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <h3 class="mb-4">
+      Вход выполнен как
+    </h3>
+    <form action="auth/logout" method="post">
+      <p class="text-center">
+        <b><%- model.get('name') %></b>
+        (<%- model.get('role') %>)
+      </p>
+      <p class="mt-3">
+        <button type="submit" class="btn btn-danger w-100">
+          <span class="fas fa-sign-out-alt"></span>
+          Выйти
+        </button>
+      </p>
+    </form>
+  </div>
 </div>

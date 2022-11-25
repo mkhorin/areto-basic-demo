@@ -5,13 +5,13 @@ const params = {};
 <%- include('_params', {params}) %>
 
 <div class="form-group row<%- params.required %> <%- params.error ? 'has-error' : '' %>">
-    <label for="<%- params.id %>" class="col-md-3 col-form-label">
-        <%- params.label %>
-    </label>
-    <div class="col-md-9">
-        <input id="<%- params.id %>" name="<%- params.name %>" value="<%- params.value %>" <%- params.required %>
-               type="text" class="form-control" placeholder="<%- params.placeholder %>">
-        <div class="form-text text-muted"><%- params.hint %></div>
-        <div class="error-block"><%- params.error %><%- params.hint %></div>
-    </div>
+  <label for="<%- params.id %>" class="col-md-3 col-form-label">
+    <%- params.label %>
+  </label>
+  <div class="col-md-9">
+    <input id="<%- params.id %>" name="<%- params.name %>" value="<%- params.value %>" <%- params.required %>
+         type="text" class="form-control" placeholder="<%- params.placeholder %>">
+    <div class="form-text text-muted"><%- params.hint %></div>
+    <div class="error-block"><%- params.error %><%- params.hint %></div>
+  </div>
 </div>

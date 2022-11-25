@@ -1,20 +1,17 @@
 <%
 layout(_view.get('_layout/content'));
-
 block('title', 'Article');
-
 block('breadcrumbs', {
-    title: 'Article',
-    url: 'article'
+  title: 'Article',
+  url: 'article'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
-
 <h1 class="page-header">
-    <%- model.getTitle() %>
+  <%- model.getTitle() %>
 </h1>
 
 <div class="alert alert-info">
-    SAMPLE theme
+  SAMPLE theme
 </div>

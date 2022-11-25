@@ -4,60 +4,59 @@ layout(_view.get('_layout/main'));
 block('title', title);
 block('breadcrumbs', title);
 %>
-
 <div class="row">
-    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="mb-4">
-            Зарегистрировать нового пользователя
-        </h3>
+    <h3 class="mb-4">
+      Зарегистрировать нового пользователя
+    </h3>
 
-        <form method="post" class="form">
+    <form method="post" class="form">
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'name',
-                iconClass: 'fas fa-user',
-                placeholder: 'Имя'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'name',
+        iconClass: 'fas fa-user',
+        placeholder: 'Имя'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'email',
-                type: 'email',
-                autocomplete: 'off',
-                iconClass: 'fas fa-at',
-                placeholder: 'Электронный адрес'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'email',
+        type: 'email',
+        autocomplete: 'off',
+        iconClass: 'fas fa-at',
+        placeholder: 'Электронный адрес'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'password',
-                type: 'password',
-                value: '',
-                autocomplete: 'new-password',
-                iconClass: 'fas fa-key',
-                placeholder: 'Пароль'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'password',
+        type: 'password',
+        value: '',
+        autocomplete: 'new-password',
+        iconClass: 'fas fa-key',
+        placeholder: 'Пароль'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'passwordRepeat',
-                type: 'password',
-                value: '',
-                autocomplete: 'new-password',
-                iconClass: 'fas fa-key',
-                placeholder: 'Повтор пароля'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'passwordRepeat',
+        type: 'password',
+        value: '',
+        autocomplete: 'new-password',
+        iconClass: 'fas fa-key',
+        placeholder: 'Повтор пароля'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/captcha'), {
-                attr: 'captchaCode',
-                iconClass: 'fas fa-check',
-                url: _url('captcha'),
-                placeholder: 'Проверочный код'
-            }) %>
+      <%- include(_view.get('_part/field/auth/captcha'), {
+        attr: 'captchaCode',
+        iconClass: 'fas fa-check',
+        url: _url('captcha'),
+        placeholder: 'Проверочный код'
+      }) %>
 
-            <div class="text-end">
-                <button type="submit" class="btn btn-success">
-                    Зарегистрировать
-                </button>
-            </div>
-        </form>
-    </div>
+      <div class="text-end">
+        <button type="submit" class="btn btn-success">
+          Зарегистрировать
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

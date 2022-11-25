@@ -2,10 +2,10 @@
 layout(_view.get('_layout/form'));
 block('title', 'Update comment');
 block('breadcrumbs', {
-    title: 'Comments',
-    url: 'admin/comment'
+  title: 'Comments',
+  url: 'admin/comment'
 },{
-    title: model.getId()
+  title: model.getId()
 });
 %>
 <%- include('./_form') %>
@@ -14,15 +14,15 @@ const photos = model.get('photos');
 if (Array.isArray(photos)) {
 %>
 <div class="form-group row">
-    <label class="col-md-3 col-form-label"></label>
-    <div class="col-md-9">
-        <p class="form-control-plaintext thumbnail-list clearfix">
-            <% for (const photo of photos) { %>
-            <a href="admin/photo/view?id=<%- photo.getId() %>" class="thumbnail-item">
-                <img src="<%- photo.getSmall() %>" class="img-thumbnail img-fluid" alt="Photo">
-            </a>
-            <% } %>
-        </p>
-    </div>
+  <label class="col-md-3 col-form-label"></label>
+  <div class="col-md-9">
+    <p class="form-control-plaintext thumbnail-list clearfix">
+      <% for (const photo of photos) { %>
+      <a href="admin/photo/view?id=<%- photo.getId() %>" class="thumbnail-item">
+        <img src="<%- photo.getSmall() %>" class="img-thumbnail img-fluid" alt="Photo">
+      </a>
+      <% } %>
+    </p>
+  </div>
 </div>
 <% } %>

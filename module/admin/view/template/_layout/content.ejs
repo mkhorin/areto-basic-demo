@@ -1,39 +1,38 @@
 <% layout(_view.get('_layout/main')) %>
 
 <div class="row">
+  <div class="col-lg-3">
+    <%- _view.placeWidget('sideMenu', {
+      'items': [{
+        title: 'Categories',
+        url: 'admin/category'
+      },{
+        title: 'Articles',
+        url: 'admin/article'
+      },{
+        title: 'Comments',
+        url: 'admin/comment'
+      },{
+        title: 'Photos',
+        url: 'admin/photo'
+      },{
+        title: 'Tags',
+        url: 'admin/tag'
+      },{
+        title: 'Users',
+        url: 'admin/user'
+      }]
+    }) %>
+  </div>
 
-    <div class="col-lg-3">
-        <%- _view.placeWidget('sideMenu', {
-            'items': [{
-                title: 'Categories',
-                url: 'admin/category'
-            },{
-                title: 'Articles',
-                url: 'admin/article'
-            },{
-                title: 'Comments',
-                url: 'admin/comment'
-            },{
-                title: 'Photos',
-                url: 'admin/photo'
-            },{
-                title: 'Tags',
-                url: 'admin/tag'
-            },{
-                title: 'Users',
-                url: 'admin/user'
-            }]
-        }) %>
-    </div>
+  <div class="col-lg-9">
 
-    <div class="col-lg-9">
+    <h1 class="page-header">
+      <%- blocks.title %>
+    </h1>
 
-        <h1 class="page-header">
-            <%- blocks.title %>
-        </h1>
-
-        <section class="content">
-            <%- body %>
-        </section>
-    </div>
+    <section class="content">
+      <%- body %>
+    </section>
+  </div>
 </div>

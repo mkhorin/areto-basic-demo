@@ -2,35 +2,35 @@
 layout(_view.get('_layout/view'));
 block('title', 'Photo');
 block('breadcrumbs', {
-    title: 'Photos',
-    url: 'admin/photo'
+  title: 'Photos',
+  url: 'admin/photo'
 },{
-    title: model.getId()
+  title: model.getId()
 });
 const stat = _view.get('_part/field/static');
 %>
 
 <%- include(stat, {
-    attr: 'originalName'
+  attr: 'originalName'
 }) %>
 
 <%- include(stat, {
-    attr: 'filename'
+  attr: 'filename'
 }) %>
 
 <%- include(stat, {
-    attr: 'size'
+  attr: 'size'
 }) %>
 
 <%- include(stat, {
-    attr: 'type'
+  attr: 'type'
 }) %>
 
 <%- include(stat, {
-    attr: 'ip'
+  attr: 'ip'
 }) %>
 
 <%- include(stat, {
-    attr: 'createdAt',
-    value: _format(model.get('createdAt'), 'timestamp')
+  attr: 'createdAt',
+  value: _format(model.get('createdAt'), 'timestamp')
 }) %>

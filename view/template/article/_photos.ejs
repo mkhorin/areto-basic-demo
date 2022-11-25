@@ -3,24 +3,24 @@ const photos = model.get('photos');
 if (photos?.length) {
 %>
 <div id="articlePhotos" class="carousel slide mb-3" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <% for (let i = 0; i < photos.length; ++i) { %>
-        <% const photo = photos[i]; %>
-        <div class="carousel-item <%- i === 0 ? 'active' : '' %>">
-            <img class="d-block w-100" src="<%- photo.getLarge() %>" alt="<%= photo.getTitle() %>">
-            <div class="carousel-caption d-none d-md-block">
-                <h5><%- photo.getTitle() %></h5>
-            </div>
-        </div>
-        <% } %>
+  <div class="carousel-inner">
+    <% for (let i = 0; i < photos.length; ++i) { %>
+    <% const photo = photos[i]; %>
+    <div class="carousel-item <%- i === 0 ? 'active' : '' %>">
+      <img class="d-block w-100" src="<%- photo.getLarge() %>" alt="<%= photo.getTitle() %>">
+      <div class="carousel-caption d-none d-md-block">
+        <h5><%- photo.getTitle() %></h5>
+      </div>
     </div>
-    <button class="carousel-control-prev" data-bs-target="#articlePhotos" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" data-bs-target="#articlePhotos" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    <% } %>
+  </div>
+  <button class="carousel-control-prev" data-bs-target="#articlePhotos" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" data-bs-target="#articlePhotos" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 <% } %>

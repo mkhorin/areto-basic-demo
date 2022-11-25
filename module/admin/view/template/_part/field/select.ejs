@@ -1,28 +1,28 @@
 <!-- _part/field/select -->
 <%
 const params = {
-    itemValueKey: typeof itemValueKey === 'undefined' ? model.PK : itemValueKey,
-    itemLabelKey: typeof itemLabelKey === 'undefined' ? 'name' : itemLabelKey
+  itemValueKey: typeof itemValueKey === 'undefined' ? model.PK : itemValueKey,
+  itemLabelKey: typeof itemLabelKey === 'undefined' ? 'name' : itemLabelKey
 };
 %>
 <%- include('_params', {params}) %>
 
 <div class="form-group row<%- params.required %> <%- params.error ? 'has-error' : '' %>">
-    <label for="<%- params.id %>" class="col-md-3 col-form-label">
-        <%- params.label %>
-    </label>
-    <div class="col-md-9">
-        <select id="<%- params.id %>" name="<%- params.name %>" class="form-select">
-        <% if (typeof empty !== 'undefined') { %>
-            <option value=""><%- empty %></option>
-        <% } %>
-        <% for (const item of items) { %>
-            <option value="<%- item[params.itemValueKey] %>"
-                    <%- item[params.itemValueKey].toString() == params.value ? 'selected' : '' %>>
-                <%= item[params.itemLabelKey] %>
-            </option>
-        <% } %>
-        </select>
-        <div class="error-block"><%- params.error %></div>
-    </div>
+  <label for="<%- params.id %>" class="col-md-3 col-form-label">
+    <%- params.label %>
+  </label>
+  <div class="col-md-9">
+    <select id="<%- params.id %>" name="<%- params.name %>" class="form-select">
+    <% if (typeof empty !== 'undefined') { %>
+      <option value=""><%- empty %></option>
+    <% } %>
+    <% for (const item of items) { %>
+      <option value="<%- item[params.itemValueKey] %>"
+          <%- item[params.itemValueKey].toString() == params.value ? 'selected' : '' %>>
+        <%= item[params.itemLabelKey] %>
+      </option>
+    <% } %>
+    </select>
+    <div class="error-block"><%- params.error %></div>
+  </div>
 </div>

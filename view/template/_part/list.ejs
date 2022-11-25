@@ -1,27 +1,25 @@
-
 <% if (provider.models.length) { %>
-
 <div class="list-controls">
-    <% if (provider.sort) { %>
-    <%- include(_view.get('_part/sort'), {
-        sort: provider.sort
-    }) %>
-    <% } %>
+  <% if (provider.sort) { %>
+  <%- include(_view.get('_part/sort'), {
+    sort: provider.sort
+  }) %>
+  <% } %>
 </div>
 
 <% itemTemplate = _view.get(itemTemplate) %>
 <% for (const model of provider.models) { %>
-    <div class="list-item">
-        <%- include(itemTemplate, {model}) %>
-    </div>
+  <div class="list-item">
+    <%- include(itemTemplate, {model}) %>
+  </div>
 <% } %>
 
 <% if (provider.pagination) { %>
-    <%- include(_view.get('_part/pagination'), {
-        pager: provider.pagination
-    }) %>
+  <%- include(_view.get('_part/pagination'), {
+    pager: provider.pagination
+  }) %>
 <% }} else { %>
 <div class="alert alert-warning">
-    <%- _t('Articles not found')%>
+  <%- _t('Articles not found')%>
 </div>
 <% } %>

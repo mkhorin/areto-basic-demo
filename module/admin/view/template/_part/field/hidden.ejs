@@ -1,6 +1,7 @@
 <!-- _part/field/hidden -->
-
-<% const params = {}; %>
+<%
+const params = {};
+%>
 <%- include('_params', {params}) %>
 
 <input id="<%- params.id %>" name="<%- params.name %>" type="hidden" value="<%- params.value %>">

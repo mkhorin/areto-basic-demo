@@ -3,10 +3,10 @@ layout(_view.get('_layout/form'));
 
 block('title', _t('Update category'));
 block('breadcrumbs', {
-    title: 'Categories',
-    url: 'admin/category'
+  title: 'Categories',
+  url: 'admin/category'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
 <%- include('./_form') %>

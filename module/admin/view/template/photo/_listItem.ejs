@@ -3,28 +3,28 @@ const article = model.get('article')
 const title = model.getTitle();
 %>
 <div class="list-item-content">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="text-center">
-                <img src="<%- model.getMedium() %>" class="img-thumbnail img-fluid" alt="">
-            </div>
-            <div class="d-md-none mb-3"></div>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <b>Article:</b>
-                <% if (article) { %>
-                <a href="<%- _url('article/view', article) %>">
-                    <%= article.getTitle() %>
-                </a>
-                <% } else { %>
-                <i class="text-danger">[not set]</i>
-                <% } %>
-            </p>
-            <p>
-                <b>Title:</b> <%= title %>
-            </p>
-        </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="<%- model.getMedium() %>" class="img-thumbnail img-fluid" alt="">
+      </div>
+      <div class="d-md-none mb-3"></div>
     </div>
+    <div class="col-md-9">
+      <p>
+        <b>Article:</b>
+        <% if (article) { %>
+        <a href="<%- _url('article/view', article) %>">
+          <%= article.getTitle() %>
+        </a>
+        <% } else { %>
+        <i class="text-danger">[not set]</i>
+        <% } %>
+      </p>
+      <p>
+        <b>Title:</b> <%= title %>
+      </p>
+    </div>
+  </div>
 </div>
 

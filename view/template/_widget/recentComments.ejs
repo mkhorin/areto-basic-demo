@@ -1,15 +1,14 @@
-
 <div class="card-success card mb-4">
-    <div class="card-header">
-        <%- _t('Recent comments') %>
-    </div>
-    <div class="list-group list-group-flush">
-        <% for (const comment of _widget.comments) { %>
-        <a href="article/view?id=<%- comment.get('articleId') %>#comments"
-           class="list-group-item list-group-item-action">
-            <%= comment.getTitle() %>
-        </a>
-        <% } %>
-    </div>
+  <div class="card-header">
+    <%- _t('Recent comments') %>
+  </div>
+  <div class="list-group list-group-flush">
+    <% for (const comment of _widget.comments) { %>
+    <a href="article/view?id=<%- comment.get('articleId') %>#comments"
+       class="list-group-item list-group-item-action">
+      <%= comment.getTitle() %>
+    </a>
+    <% } %>
+  </div>
 </div>
 

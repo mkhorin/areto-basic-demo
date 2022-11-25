@@ -2,30 +2,30 @@
 layout(_view.get('_layout/main'));
 const searchValue = typeof search === 'undefined' ? '' : search;
 %>
-
 <div class="row">
-    <div class="col-lg-8">
-        <%- body %>
+  <div class="col-lg-8">
+
+    <%- body %>
+
+  </div>
+  <div class="col-lg-4">
+    <div class="card-info card mb-4">
+      <div class="card-header"><%- _t('Search') %></div>
+      <div class="card-body">
+        <form action="article/search" method="get">
+          <div class="input-group">
+            <input type="search" name="text" class="form-control" value="<%= searchValue %>">
+            <button class="btn-primary btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="card-info card mb-4">
-            <div class="card-header"><%- _t('Search') %></div>
-            <div class="card-body">
-                <form action="article/search" method="get">
-                    <div class="input-group">
-                        <input type="search" name="text" class="form-control" value="<%= searchValue %>">
-                        <button class="btn-primary btn" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <%- _view.placeWidget('categories') %>
+    <%- _view.placeWidget('tags') %>
+    <%- _view.placeWidget('recentComments') %>
 
-        <%- _view.placeWidget('categories') %>
-        <%- _view.placeWidget('tags') %>
-        <%- _view.placeWidget('recentComments') %>
-    </div>
-
+  </div>
 </div>

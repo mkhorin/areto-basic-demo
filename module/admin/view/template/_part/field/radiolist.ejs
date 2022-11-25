@@ -7,18 +7,18 @@ const params = {};
 <div class="form-group row<%- params.required %> <%- params.error ? 'has-error' : '' %>">
    <label class="col-md-3 col-form-label"><%- params.label %></label>
    <div class="col-md-9">
-        <div class="pt-md-2">
-        <% for (let i = 0; i < items.length; ++i) {
-            const item = items[i];
-            const id = params.name + i;
-        %>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="<%- params.name %>" id="<%- id %>"
-                       <%- item.value == params.value ? 'checked' : '' %> value="<%- item.value %>">
-                <label class="form-check-label" for="<%- id %>"><%- item.label %></label>
-            </div>
-        <% } %>
-        </div>
-        <div class="error-block"><%- params.error %></div>
+    <div class="pt-md-2">
+    <% for (let i = 0; i < items.length; ++i) {
+      const item = items[i];
+      const id = params.name + i;
+    %>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="<%- params.name %>" id="<%- id %>"
+             <%- item.value == params.value ? 'checked' : '' %> value="<%- item.value %>">
+        <label class="form-check-label" for="<%- id %>"><%- item.label %></label>
+      </div>
+    <% } %>
     </div>
+    <div class="error-block"><%- params.error %></div>
+  </div>
 </div>

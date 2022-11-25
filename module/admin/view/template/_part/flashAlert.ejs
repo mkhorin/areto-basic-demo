@@ -1,11 +1,11 @@
 <%
 const flash = _controller.getFlash();
 if (flash) {
-    for (const key of Object.keys(flash)) {
+  for (const key of Object.keys(flash)) {
 %>
-    <div class="alert alert-<%- key %> flash-alert">
-    <% for (const message of flash[key]) { %>
-        <p><%= message %></p>
-    <% } %>
-    </div>
+  <div class="alert alert-<%- key %> flash-alert">
+  <% for (const message of flash[key]) { %>
+    <p><%= message %></p>
+  <% } %>
+  </div>
 <% }} %>

@@ -5,25 +5,25 @@ const linkAnchor = typeof anchor === 'undefined' ? '' : `#${anchor}`;
 if (count > 1) {
 %>
 <nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center mt-3 mb-4">
-        <% if (links[pager.LINK_FIRST]) { %>
-        <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_FIRST] %><%- linkAnchor %>">&laquo;</a></li>
-        <% } %>
-        <% if (links[pager.LINK_PREV]) { %>
-        <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_PREV] %><%- linkAnchor %>">&lsaquo;</a></li>
-        <% } %>
-        <% for (let i = 0; i < count; ++i) { %>
-        <% if (i === pager.page) { %>
-        <li class="page-item active"><span class="page-link"><%- i + 1 %></span></li>
-        <% } else { %>
-        <li class="page-item"><a class="page-link" href="<%- pager.createUrl(i) %><%- linkAnchor %>"><%- i + 1 %></a></li>
-        <% }} %>
-        <% if (links[pager.LINK_NEXT]) { %>
-        <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_NEXT] %><%- linkAnchor %>">&rsaquo;</a></li>
-        <% } %>
-        <% if (links[pager.LINK_LAST]) { %>
-        <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_LAST] %><%- linkAnchor %>">&raquo;</a></li>
-        <% } %>
-    </ul>
+  <ul class="pagination justify-content-center mt-3 mb-4">
+    <% if (links[pager.LINK_FIRST]) { %>
+    <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_FIRST] %><%- linkAnchor %>">&laquo;</a></li>
+    <% } %>
+    <% if (links[pager.LINK_PREV]) { %>
+    <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_PREV] %><%- linkAnchor %>">&lsaquo;</a></li>
+    <% } %>
+    <% for (let i = 0; i < count; ++i) { %>
+    <% if (i === pager.page) { %>
+    <li class="page-item active"><span class="page-link"><%- i + 1 %></span></li>
+    <% } else { %>
+    <li class="page-item"><a class="page-link" href="<%- pager.createUrl(i) %><%- linkAnchor %>"><%- i + 1 %></a></li>
+    <% }} %>
+    <% if (links[pager.LINK_NEXT]) { %>
+    <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_NEXT] %><%- linkAnchor %>">&rsaquo;</a></li>
+    <% } %>
+    <% if (links[pager.LINK_LAST]) { %>
+    <li class="page-item"><a class="page-link" href="<%- links[pager.LINK_LAST] %><%- linkAnchor %>">&raquo;</a></li>
+    <% } %>
+  </ul>
 </nav>
 <% } %>

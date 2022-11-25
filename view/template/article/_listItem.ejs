@@ -4,30 +4,30 @@ const photo = model.get('mainPhoto');
 const tags = model.get('tags');
 %>
 <h3 class="mb-3">
-    <a class="text-muted" href="<%- url %>"><%= model.getTitle() %></a>
+  <a class="text-muted" href="<%- url %>"><%= model.getTitle() %></a>
 </h3>
 
 <div>
-    <div class="badge bg-info me-3">
-        <%- _format(model.get('date'), 'dateLong') %>
-    </div>
+  <div class="badge bg-info me-3">
+    <%- _format(model.get('date'), 'dateLong') %>
+  </div>
 </div>
 
 <% if (photo) { %>
 <div class="mt-3 text-center">
-    <a href="<%- url %>">
-        <img src="<%- photo.getMedium() %>" class="img-thumbnail img-fluid">
-    </a>
+  <a href="<%- url %>">
+    <img src="<%- photo.getMedium() %>" class="img-thumbnail img-fluid">
+  </a>
 </div>
 <% } %>
 
 <% if (tags.length) { %>
 <div class="mt-3">
-    <b class="me-2"><%- _t('Tags')%>:</b>
-    <% for (const tag of model.get('tags')) { %>
-    <a href="article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
-        <%= tag.get('name') %>
-    </a>
-    <% } %>
+  <b class="me-2"><%- _t('Tags')%>:</b>
+  <% for (const tag of model.get('tags')) { %>
+  <a href="article/tagged?tag=<%= tag.get('name') %>" class="tag-item">
+    <%= tag.get('name') %>
+  </a>
+  <% } %>
 </div>
 <% } %>

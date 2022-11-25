@@ -2,24 +2,24 @@
 layout(_view.get('_layout/content'));
 block('title', 'Article');
 block('breadcrumbs', {
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
 
 <h1 class="mb-3">
-    <%- model.getTitle() %>
+  <%- model.getTitle() %>
 </h1>
 
 <div class="mb-3">
-    <span class="badge bg-info">
-        <%- _format(model.get('date'), 'dateLong') %>
-    </span>
+  <span class="badge bg-info">
+    <%- _format(model.get('date'), 'dateLong') %>
+  </span>
 </div>
 
 <%- include('./_photos') %>
 
 <div class="mb-4">
-    <%- model.get('content') %>
+  <%- model.get('content') %>
 </div>
 
 <%
@@ -28,19 +28,19 @@ const tags = model.get('tags');
 %>
 <% if (category) { %>
 <div class="d-inline-block me-3 mb-3">
-    <b class="me-1"><%- _t('Category')%>:</b>
-    <a href="<%- _url('category', {category: category.getId()}) %>"
-       class="tag-item"><%= category.getTitle() %>
-    </a>
+  <b class="me-1"><%- _t('Category')%>:</b>
+  <a href="<%- _url('category', {category: category.getId()}) %>"
+     class="tag-item"><%= category.getTitle() %>
+  </a>
 </div>
 <% } if (tags.length) { %>
 <div class="d-inline-block mb-3">
-    <b class="me-1"><%- _t('Tags') %>:</b>
-    <% for (const tag of tags) { %>
-    <a href="<%= _url('tagged', {tag: tag.getTitle()}) %>" class="tag-item">
-        <%= tag.getTitle() %>
-    </a>
-    <% } %>
+  <b class="me-1"><%- _t('Tags') %>:</b>
+  <% for (const tag of tags) { %>
+  <a href="<%= _url('tagged', {tag: tag.getTitle()}) %>" class="tag-item">
+    <%= tag.getTitle() %>
+  </a>
+  <% } %>
 </div>
 <% } %>
 

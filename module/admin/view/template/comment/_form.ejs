@@ -1,18 +1,17 @@
-
 <%- include(_view.get('_part/field/radiolist'), {
-    attr: 'status',
-    items: _controller.getLabelSelectItems('status', model)
+  attr: 'status',
+  items: _controller.getLabelSelectItems('status', model)
 }) %>
 
 <%- include(_view.get('_part/field/input'), {
-    attr: 'name'
+  attr: 'name'
 }) %>
 
 <%- include(_view.get('_part/field/input'), {
-    attr: 'email'
+  attr: 'email'
 }) %>
 
 <%- include(_view.get('_part/field/text'), {
-    attr: 'content',
-    rows: 8
+  attr: 'content',
+  rows: 8
 }) %>

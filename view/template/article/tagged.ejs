@@ -2,22 +2,21 @@
 layout(_view.get('_layout/content'));
 block('title', 'Articles');
 block('breadcrumbs', {
-    title: 'Articles',
-    url: 'article'
+  title: 'Articles',
+  url: 'article'
 },{
-    title: 'Tagged'
+  title: 'Tagged'
 });
 %>
-
 <h3 class="page-header">
-    <span class="text-muted"><%- _t('Tag') %>:</span>
-    <span class="text-danger"><%= tagName %></span>
+  <span class="text-muted"><%- _t('Tag') %>:</span>
+  <span class="text-danger"><%= tagName %></span>
 </h3>
 
 <% if (typeof provider !== 'undefined') { %>
-    <%- include(_view.get('_part/list'), {itemTemplate: 'article/_listItem'}) %>
+  <%- include(_view.get('_part/list'), {itemTemplate: 'article/_listItem'}) %>
 <% } else { %>
 <div class="alert alert-warning">
-    <%- _t('Tagged articles not found') %>
+  <%- _t('Tagged articles not found') %>
 </div>
 <% } %>

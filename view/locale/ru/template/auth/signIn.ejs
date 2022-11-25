@@ -4,59 +4,58 @@ layout(_view.get('_layout/main'));
 block('title', title);
 block('breadcrumbs', title);
 %>
-
 <div class="row">
-    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="mb-4"><%- title %></h3>
+    <h3 class="mb-4"><%- title %></h3>
 
-        <form method="post" class="form">
+    <form method="post" class="form">
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'email',
-                type: 'email',
-                iconClass: 'fas fa-at',
-                placeholder: 'Электронный адрес'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'email',
+        type: 'email',
+        iconClass: 'fas fa-at',
+        placeholder: 'Электронный адрес'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'password',
-                type: 'password',
-                value: '',
-                iconClass: 'fas fa-key',
-                placeholder: 'Пароль'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'password',
+        type: 'password',
+        value: '',
+        iconClass: 'fas fa-key',
+        placeholder: 'Пароль'
+      }) %>
 
-            <% if (model.isCaptchaRequired()) { %>
-            <%- include(_view.get('_part/field/auth/captcha'), {
-                attr: 'captchaCode',
-                iconClass: 'fas fa-check',
-                url: _url('captcha'),
-                placeholder: 'Проверочный код'
-            }) %>
-            <% } %>
+      <% if (model.isCaptchaRequired()) { %>
+      <%- include(_view.get('_part/field/auth/captcha'), {
+        attr: 'captchaCode',
+        iconClass: 'fas fa-check',
+        url: _url('captcha'),
+        placeholder: 'Проверочный код'
+      }) %>
+      <% } %>
 
-            <div class="row">
-                <div class="col-8">
-                    <% if (_controller.user.auth.enableAutoLogin) { %>
-                    <%- include(_view.get('_part/field/checkbox'), {
-                        attr: 'rememberMe',
-                        label: 'Запомнить меня'
-                    }) %>
-                    <% } %>
-                </div>
-                <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-flat w-100">
-                        Войти
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br>
-        <p class="text-center">
-            <a href="auth/sign-up">
-                Регистрация нового пользователя
-            </a>
-        </p>
-    </div>
+      <div class="row">
+        <div class="col-8">
+          <% if (_controller.user.auth.enableAutoLogin) { %>
+          <%- include(_view.get('_part/field/checkbox'), {
+            attr: 'rememberMe',
+            label: 'Запомнить меня'
+          }) %>
+          <% } %>
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-flat w-100">
+            Войти
+          </button>
+        </div>
+      </div>
+    </form>
+    <br>
+    <p class="text-center">
+      <a href="auth/sign-up">
+        Регистрация нового пользователя
+      </a>
+    </p>
+  </div>
 </div>

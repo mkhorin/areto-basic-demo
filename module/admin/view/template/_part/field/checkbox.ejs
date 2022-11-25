@@ -5,13 +5,13 @@ const params = {};
 <%- include('_params', {params}) %>
 
 <div class="form-group row">
-    <div class="col-md-9 offset-md-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" <%- params.value %>
-                   name="<%- params.name %>" id="<%- params.name %>">
-            <label class="form-check-label" for="<%- params.name %>">
-                <%- params.label %>
-            </label>
-        </div>
+  <div class="col-md-9 offset-md-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" <%- params.value %>
+           name="<%- params.name %>" id="<%- params.name %>">
+      <label class="form-check-label" for="<%- params.name %>">
+        <%- params.label %>
+      </label>
     </div>
+  </div>
 </div>

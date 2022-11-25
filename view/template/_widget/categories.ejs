@@ -1,16 +1,15 @@
-
 <div class="card-success card mb-4">
-    <div class="card-header">
-        <%- _t('Categories') %>
-    </div>
-    <div class="list-group list-group-flush">
-        <% for (const {item, count} of categories) { %>
-        <% const active = activeId === item.getId().toString() ? 'active' : ''; %>
-        <a href="article/category?category=<%- item.getId() %>"
-           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <%- active %>">
-            <%= item.getTitle() %>
-            <span class="bg-dark badge"><%- count %></span>
-        </a>
-        <% } %>
-    </div>
+  <div class="card-header">
+    <%- _t('Categories') %>
+  </div>
+  <div class="list-group list-group-flush">
+    <% for (const {item, count} of categories) { %>
+    <% const active = activeId === item.getId().toString() ? 'active' : ''; %>
+    <a href="article/category?category=<%- item.getId() %>"
+       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <%- active %>">
+      <%= item.getTitle() %>
+      <span class="bg-dark badge"><%- count %></span>
+    </a>
+    <% } %>
+  </div>
 </div>

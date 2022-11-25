@@ -1,24 +1,22 @@
 <%
 layout(_view.get('_layout/view'));
-
 block('title', 'Tag');
-
 block('breadcrumbs', {
-    title: 'Tags',
-    url: 'admin/tag'
+  title: 'Tags',
+  url: 'admin/tag'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
 
 <%- include(_view.get('_part/field/static'), {
-    attr: 'name'
+  attr: 'name'
 }) %>
 
 <%- include(_view.get('_part/field/list'), {
-    attr: 'articles',
-    provider: articles,
-    create: null,
-    search: null,
-    routePrefix: 'article/'
+  attr: 'articles',
+  provider: articles,
+  create: null,
+  search: null,
+  routePrefix: 'article/'
 }) %>

@@ -2,37 +2,37 @@
 
 <form method="post" class="form" autocomplete="off">
 
-    <input type="hidden" name="referrer" value="<%= _controller.getReferrer() %>">
-    <input type="hidden" name="csrf" value="<%- _controller.getCsrfToken() %>">
+  <input type="hidden" name="referrer" value="<%= _controller.getReferrer() %>">
+  <input type="hidden" name="csrf" value="<%- _controller.getCsrfToken() %>">
 
-    <div class="object-controls">
-        <button class="btn btn-success" type="submit"><%- _t('Save') %></button>
+  <div class="object-controls">
+    <button class="btn btn-success" type="submit"><%- _t('Save') %></button>
 
-        <% if (!model.isNew()) { %>
+    <% if (!model.isNew()) { %>
 
-        <a href="<%- _url('view', model) %>" class="btn btn-primary">View</a>
+    <a href="<%- _url('view', model) %>" class="btn btn-primary">View</a>
 
-        <button class="btn btn-danger action-submit" type="button"
-                data-url="<%- _url('delete', model) %>"
-                data-confirm="Delete this object?">
-            Delete
-        </button>
-        <% } %>
-    </div>
-
-    <% if (model.hasError()) { %>
-    <div class="alert alert-danger">
-        <% for (const attr of Object.keys(model.getErrors())) { %>
-        <div>
-            <b><%- _t(model.getAttrLabel(attr)) %>:</b>
-            <%- _t(model.getFirstError(attr))%>
-        </div>
-        <% } %>
-    </div>
-    <% } else if (_controller.isPostRequest()) { %>
-    <div class="alert alert-success">The object is stored</div>
+    <button class="btn btn-danger action-submit" type="button"
+        data-url="<%- _url('delete', model) %>"
+        data-confirm="Delete this object?">
+      Delete
+    </button>
     <% } %>
+  </div>
 
-    <%- body %>
+  <% if (model.hasError()) { %>
+  <div class="alert alert-danger">
+    <% for (const attr of Object.keys(model.getErrors())) { %>
+    <div>
+      <b><%- _t(model.getAttrLabel(attr)) %>:</b>
+      <%- _t(model.getFirstError(attr))%>
+    </div>
+    <% } %>
+  </div>
+  <% } else if (_controller.isPostRequest()) { %>
+  <div class="alert alert-success">The object is stored</div>
+  <% } %>
+
+  <%- body %>
 
 </form>

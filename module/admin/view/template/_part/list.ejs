@@ -1,33 +1,33 @@
 <%
 const params = {
-    routePrefix: typeof routePrefix === 'undefined' ? '' : routePrefix,
-    searchText: typeof searchText === 'string' ? searchText : ''
+  routePrefix: typeof routePrefix === 'undefined' ? '' : routePrefix,
+  searchText: typeof searchText === 'string' ? searchText : ''
 };
 %>
 <div class="list-controls">
-    <% if (typeof search === 'undefined') { %>
-    <div class="list-control-search">
-        <div class="input-group">
-            <span class="input-group-text"><%- _t('Search') %></span>
-            <input type="search" class="list-search-input form-control" value="<%= params.searchText %>">
-            <button type="button" class="list-search btn-primary btn">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
+  <% if (typeof search === 'undefined') { %>
+  <div class="list-control-search">
+    <div class="input-group">
+      <span class="input-group-text"><%- _t('Search') %></span>
+      <input type="search" class="list-search-input form-control" value="<%= params.searchText %>">
+      <button type="button" class="list-search btn-primary btn">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
-    <% } %>
+  </div>
+  <% } %>
 
-    <% if (provider.sort) { %>
-    <%- include(_view.get('_part/sort'), {sort: provider.sort}) %>
-    <% } %>
+  <% if (provider.sort) { %>
+  <%- include(_view.get('_part/sort'), {sort: provider.sort}) %>
+  <% } %>
 
-    <div class="ms-auto d-inline-block align-top">
-        <% if (typeof create === 'undefined') { %>
-        <a href="<%- _url(`${params.routePrefix}create`) %>" class="btn-success btn"><%- _t('Create') %></a>
-        <% } else if (create) { %>
-        <a href="<%- create %>" class="btn-success btn"><%- _t('Create') %></a>
-        <% } %>
-    </div>
+  <div class="ms-auto d-inline-block align-top">
+    <% if (typeof create === 'undefined') { %>
+    <a href="<%- _url(`${params.routePrefix}create`) %>" class="btn-success btn"><%- _t('Create') %></a>
+    <% } else if (create) { %>
+    <a href="<%- create %>" class="btn-success btn"><%- _t('Create') %></a>
+    <% } %>
+  </div>
 </div>
 
 <% if (provider.models.length) { %>
@@ -36,35 +36,35 @@ const params = {
 
 <% for (const model of provider.models ) { %>
 <div class="list-item clearfix">
-    <div class="list-item-controls">
-        <a href="<%- _url(`${params.routePrefix}view`, model) %>" class="btn-success btn-sm btn">
-            <span class="fas fa-eye"></span>
-        </a>
-        <a href="<%- _url(`${params.routePrefix}update`, model) %>" class="btn-primary btn-sm btn">
-            <span class="fas fa-edit"></span>
-        </a>
-        <button class="delete-object-ajax btn-danger btn-sm btn" type="button"
-                data-url="<%- _url(`${params.routePrefix}delete`, model) %>"
-                data-confirm="Delete this object?">
-            <span class="fas fa-trash"></span>
-        </button>
-    </div>
-    <% if (params.itemTemplate) { %>
-    <%- include(params.itemTemplate, {model}) %>
-    <% } else { %>
-    <%= model.getTitle() %>
-    <% } %>
+  <div class="list-item-controls">
+    <a href="<%- _url(`${params.routePrefix}view`, model) %>" class="btn-success btn-sm btn">
+      <span class="fas fa-eye"></span>
+    </a>
+    <a href="<%- _url(`${params.routePrefix}update`, model) %>" class="btn-primary btn-sm btn">
+      <span class="fas fa-edit"></span>
+    </a>
+    <button class="delete-object-ajax btn-danger btn-sm btn" type="button"
+        data-url="<%- _url(`${params.routePrefix}delete`, model) %>"
+        data-confirm="Delete this object?">
+      <span class="fas fa-trash"></span>
+    </button>
+  </div>
+  <% if (params.itemTemplate) { %>
+  <%- include(params.itemTemplate, {model}) %>
+  <% } else { %>
+  <%= model.getTitle() %>
+  <% } %>
 </div>
 <% } %>
 
 <% if (provider.pagination) { %>
 <%- include(_view.get('_part/pagination'), {
-    pager: provider.pagination
+  pager: provider.pagination
 }) %>
 <% } %>
 
 <% } else { %>
 <div class="alert alert-warning">
-    Items not found
+  Items not found
 </div>
 <% } %>

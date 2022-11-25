@@ -2,21 +2,21 @@
 layout(_view.get('_layout/content'));
 block('title', 'Статья');
 block('breadcrumbs', {
-    title: 'Статья',
-    url: 'article'
+  title: 'Статья',
+  url: 'article'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
 
 <h1 class="page-header">
-    <%- model.getTitle() %>
+  <%- model.getTitle() %>
 </h1>
 
 <div class="alert alert-info">
-    SAMPLE theme
+  SAMPLE theme
 </div>
 
 <div class="alert alert-primary">
-    RU localization template
+  RU localization template
 </div>

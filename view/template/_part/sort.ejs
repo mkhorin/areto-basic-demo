@@ -1,15 +1,15 @@
 <!-- _part/sort -->
 <div class="input-group">
-    <span class="input-group-text"><%- _t('Sort by') %></span>
-    <button type="button" class="btn-outline-secondary btn" data-bs-toggle="dropdown">
-        <% const link = sort.getLink(Object.keys(sort.getOrders())[0]) %>
-        <i class="fas fa-long-arrow-alt-<%- link.options.class === 'asc' ? 'up' : 'down' %>"></i>
-        <%- _t(link.label) %>
-    </button>
-    <div class="dropdown-menu">
-        <% for (const attr of Object.keys(sort.attrs)) { %>
-        <% const link = sort.getLink(attr); %>
-        <a class="dropdown-item" href="<%- link.url %>"><%- link.label %></a>
-        <% } %>
-    </div>
+  <span class="input-group-text"><%- _t('Sort by') %></span>
+  <button type="button" class="btn-outline-secondary btn" data-bs-toggle="dropdown">
+    <% const link = sort.getLink(Object.keys(sort.getOrders())[0]) %>
+    <i class="fas fa-long-arrow-alt-<%- link.options.class === 'asc' ? 'up' : 'down' %>"></i>
+    <%- _t(link.label) %>
+  </button>
+  <div class="dropdown-menu">
+    <% for (const attr of Object.keys(sort.attrs)) { %>
+    <% const link = sort.getLink(attr); %>
+    <a class="dropdown-item" href="<%- link.url %>"><%- link.label %></a>
+    <% } %>
+  </div>
 </div>

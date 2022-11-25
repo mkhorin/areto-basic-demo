@@ -4,55 +4,54 @@ layout(_view.get('_layout/main'));
 block('title', title);
 block('breadcrumbs', title);
 %>
-
 <div class="row">
-    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-        <h3 class="mb-4"><%- title %></h3>
+    <h3 class="mb-4"><%- title %></h3>
 
-        <form method="post" class="form">
+    <form method="post" class="form">
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'email',
-                type: 'email',
-                autocomplete: 'on',
-                iconClass: 'fas fa-at'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'email',
+        type: 'email',
+        autocomplete: 'on',
+        iconClass: 'fas fa-at'
+      }) %>
 
-            <%- include(_view.get('_part/field/auth/input'), {
-                attr: 'password',
-                type: 'password',
-                autocomplete: 'off',
-                value: '',
-                iconClass: 'fas fa-key'
-            }) %>
+      <%- include(_view.get('_part/field/auth/input'), {
+        attr: 'password',
+        type: 'password',
+        autocomplete: 'off',
+        value: '',
+        iconClass: 'fas fa-key'
+      }) %>
 
-            <% if (model.isCaptchaRequired()) { %>
-            <%- include(_view.get('_part/field/auth/captcha'), {
-                attr: 'captchaCode',
-                iconClass: 'fas fa-check',
-                url: _url('captcha')
-            }) %>
-            <% } %>
+      <% if (model.isCaptchaRequired()) { %>
+      <%- include(_view.get('_part/field/auth/captcha'), {
+        attr: 'captchaCode',
+        iconClass: 'fas fa-check',
+        url: _url('captcha')
+      }) %>
+      <% } %>
 
-            <div class="form-group row">
-                <div class="col-8">
-                    <% if (_controller.user.auth.enableAutoLogin) { %>
-                    <%- include(_view.get('_part/field/checkbox'), {attr: 'rememberMe'}) %>
-                    <% } %>
-                </div>
-                <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-flat w-100">
-                        <%- title %>
-                    </button>
-                </div>
-            </div>
-        </form>
-
-        <div class="text-center mt-4">
-            <a href="auth/sign-up">
-                Sign up new user
-            </a>
+      <div class="form-group row">
+        <div class="col-8">
+          <% if (_controller.user.auth.enableAutoLogin) { %>
+          <%- include(_view.get('_part/field/checkbox'), {attr: 'rememberMe'}) %>
+          <% } %>
         </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-flat w-100">
+            <%- title %>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="text-center mt-4">
+      <a href="auth/sign-up">
+        Sign up new user
+      </a>
     </div>
+  </div>
 </div>

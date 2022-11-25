@@ -2,21 +2,21 @@
 layout(_view.get('_layout/view'));
 block('title', 'Category');
 block('breadcrumbs', {
-    title: 'Categories',
-    url: 'admin/category'
+  title: 'Categories',
+  url: 'admin/category'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 %>
 
 <%- include(_view.get('_part/field/static'), {
-    attr: 'name'
+  attr: 'name'
 }) %>
 
 <%- include(_view.get('_part/field/list'), {
-    attr: 'articles',
-    provider: articles,
-    create: null,
-    search: null,
-    routePrefix: 'article/'
+  attr: 'articles',
+  provider: articles,
+  create: null,
+  search: null,
+  routePrefix: 'article/'
 }) %>

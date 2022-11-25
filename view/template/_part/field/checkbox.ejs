@@ -5,10 +5,10 @@ const params = {};
 <%- include('_params', {params}) %>
 
 <div class="form-group <%- params.error ? 'has-error' : '' %>">
-    <div class="form-check">
-        <input class="form-check-input" name="<%- params.name %>"
-               id="<%- params.name %>" <%- params.value ? 'checked' : '' %> type="checkbox">
-        <label class="form-check-label" for="<%- params.name %>"><%- params.label %></label>
-    </div>
-    <div class="error-block"><%- params.error %></div>
+  <div class="form-check">
+    <input class="form-check-input" name="<%- params.name %>"
+         id="<%- params.name %>" <%- params.value ? 'checked' : '' %> type="checkbox">
+    <label class="form-check-label" for="<%- params.name %>"><%- params.label %></label>
+  </div>
+  <div class="error-block"><%- params.error %></div>
 </div>

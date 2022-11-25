@@ -2,40 +2,40 @@
 layout(_view.get('_layout/view'));
 block('title', 'User');
 block('breadcrumbs', {
-    title: 'Users',
-    url: 'admin/user'
+  title: 'Users',
+  url: 'admin/user'
 },{
-    title: model.getTitle()
+  title: model.getTitle()
 });
 const stat = _view.get('_part/field/static');
 %>
 
 <%- include(stat, {
-    attr: 'status',
-    value: model.getAttrValueLabel('status')
+  attr: 'status',
+  value: model.getAttrValueLabel('status')
 }) %>
 
 <%- include(stat, {
-    attr: 'name'
+  attr: 'name'
 }) %>
 
 <%- include(stat, {
-    attr: 'email'
+  attr: 'email'
 }) %>
 
 <%- include(stat, {
-    attr: 'role',
-    value: model.getAttrValueLabel('role')
+  attr: 'role',
+  value: model.getAttrValueLabel('role')
 }) %>
 
 <%- include(stat, {
-    attr: 'updatedAt',
-    value: _format(model.get('updatedAt'), 'timestamp'),
-    escaping: false
+  attr: 'updatedAt',
+  value: _format(model.get('updatedAt'), 'timestamp'),
+  escaping: false
 }) %>
 
 <%- include(stat, {
-    attr: 'createdAt',
-    value: _format(model.get('createdAt'), 'timestamp'),
-    escaping: false
+  attr: 'createdAt',
+  value: _format(model.get('createdAt'), 'timestamp'),
+  escaping: false
 }) %>
