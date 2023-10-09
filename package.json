@@ -1,12 +1,9 @@
 {
   "name": "areto-basic-demo",
-  "version": "6.6.0",
+  "version": "6.6.1",
   "description": "Blog App built on Areto Framework",
   "author": "Maxim Khorin",
   "license": "MIT",
-  "engines": {
-    "node": ">=16.20.1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mkhorin/areto-basic-demo.git"
