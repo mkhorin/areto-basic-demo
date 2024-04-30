@@ -10,7 +10,7 @@ module.exports = class DefaultController extends Base {
 
     async actionError () {
         this.log('error', this.err);
-        const status = this.err.status;
+        const {status} = this.err;
         this.setHttpStatus(status);
         if (this.isAjax()) {
             return this.sendText(this.err, status);

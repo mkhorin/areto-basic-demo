@@ -126,7 +126,7 @@
         },
 
         initItems: function () {
-            const items = this.options.items;
+            const {items} = this.options;
             if (items instanceof  Array) {
                 for (let i = 0; i < items.length; ++i) {
                     const file = new UFile(null, this);
@@ -287,8 +287,8 @@
         },
 
         validateFile: function () {
-            const options = this.uploader.options;
-            const file = this.file;
+            const {options} = this.uploader;
+            const {file} = this;
             if (this.isMatchFile()) {
                 return options.alreadyExists;
             }
@@ -321,7 +321,7 @@
         },
 
         isMatchFile: function () {
-            const files = this.uploader.files;
+            const {files} = this.uploader;
             for (let i = 0; i < files.length; ++i) {
                 if (!files[i].removed) {
                     if (files[i] === this) {
@@ -336,7 +336,7 @@
         },
 
         validateImage: function () {
-            const options = this.uploader.options;
+            const {options} = this.uploader;
             if (options.maxHeight && options.maxHeight < this.image.height) {
                 return options.overHeight.replace(/{limit}/g, options.maxHeight);
             }
